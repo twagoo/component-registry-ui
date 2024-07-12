@@ -1,4 +1,4 @@
-package eu.clarin.cmdi.component_registry_ui;
+package eu.clarin.cmdi.componentregistry.ui;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
