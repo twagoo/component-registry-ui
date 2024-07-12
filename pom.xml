@@ -96,7 +96,6 @@
                             <groupId>eu.clarin.cmdi</groupId>
                             <artifactId>component-registry-openapi-client</artifactId>
                             <artifactVersion>1.0.0</artifactVersion>
-                            <!--<packageName>eu.clarin.cmdi.componentregistry.rest.client</packageName>-->
                             <configOptions>
                                 <!--<sourceFolder>src/gen/java/main</sourceFolder>-->
                                 <library>restclient</library>
