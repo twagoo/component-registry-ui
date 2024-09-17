@@ -1,1 +1,10 @@
 .DS_Store
+
+component-registry-client/gradle
+component-registry-client/build.gradle
+component-registry-client/build.sbt
+component-registry-client/gradle.properties
+component-registry-client/gradlew
+component-registry-client/gradlew.bat
+component-registry-client/settings.gradle
+**/target
