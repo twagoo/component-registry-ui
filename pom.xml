@@ -72,44 +72,58 @@
             <artifactId>httpclient5</artifactId>
         </dependency>
     </dependencies>
+    
+    <profiles>
+        <profile>
+            <id>generate-api</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <!-- Generates classes from on the API defintion -->
+                        <!-- See https://github.com/OpenAPITools/openapi-generator -->
+                        <groupId>org.openapitools</groupId>
+                        <artifactId>openapi-generator-maven-plugin</artifactId>
+                        <version>7.7.0</version>
+                        <executions>
+                            <execution>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <configuration>
+                                    <inputSpec>${project.basedir}/src/main/resources/swagger.json</inputSpec>
+                                    <generatorName>java</generatorName>
+                                    <groupId>eu.clarin.cmdi</groupId>
+                                    <artifactId>component-registry-openapi-client</artifactId>
+                                    <artifactVersion>1.0.0</artifactVersion>
+                                    <configOptions>
+                                        <invokerPackage>eu.clarin.cmdi.componentregistry.openapi.client</invokerPackage>
+                                        <apiPackage>eu.clarin.cmdi.componentregistry.openapi.client.api</apiPackage>
+                                        <modelPackage>eu.clarin.cmdi.componentregistry.openapi.client.model</modelPackage>
+                                        <!--<sourceFolder>src/gen/java/main</sourceFolder>-->
+                                        <!--<library>restclient</library>-->
+                                        <!--<useSpringBoot3>true</useSpringBoot3>-->
+                                        <library>okhttp-gson</library>
+                                        <oas3>false</oas3>
+                                        <useSpringController>true</useSpringController>
+                                        <!-- javax.* to jakarta.* -->
+                                        <useJakartaEe>false</useJakartaEe>
+                                        <useSpringfox>false</useSpringfox>
+                                        <!--<withXml>true</withXml>-->
+                                    </configOptions>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <!-- Generates classes from on the API defintion -->
-                <!-- See https://github.com/OpenAPITools/openapi-generator -->
-                <groupId>org.openapitools</groupId>
-                <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>7.7.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/swagger.json</inputSpec>
-                            <generatorName>java</generatorName>
-                            <groupId>eu.clarin.cmdi</groupId>
-                            <artifactId>component-registry-openapi-client</artifactId>
-                            <artifactVersion>1.0.0</artifactVersion>
-                            <configOptions>
-                                <!--<sourceFolder>src/gen/java/main</sourceFolder>-->
-                                <library>restclient</library>
-                                <oas3>false</oas3>
-                                <useSpringController>true</useSpringController>
-                                <!-- javax.* to jakarta.* -->
-                                <useSpringBoot3>true</useSpringBoot3>
-                                <useSpringfox>false</useSpringfox>
-                            </configOptions>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+    
 
 </project>

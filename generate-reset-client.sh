@@ -13,4 +13,15 @@ if ! [ -e "${CLI_TOOL}" ]; then
 	chmod u+x "${CLI_TOOL}"
 fi
 
-"${CLI_TOOL}"
+"${CLI_TOOL}" generate \
+  -i http://petstore.swagger.io/v2/swagger.json \
+  --api-package com.baeldung.petstore.client.api \
+  --model-package com.baeldung.petstore.client.model \
+  --invoker-package com.baeldung.petstore.client.invoker \
+  --group-id com.baeldung \
+  --artifact-id spring-openapi-generator-api-client \
+  --artifact-version 0.0.1-SNAPSHOT \
+  -g java \
+  -p java8=true \
+  --library resttemplate \
+  -o spring-openapi-generator-api-client
