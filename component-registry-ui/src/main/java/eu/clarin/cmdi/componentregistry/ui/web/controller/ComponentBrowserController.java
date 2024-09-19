@@ -39,7 +39,7 @@ public class ComponentBrowserController {
     @GetMapping("/")
     public String test() {
         final BaseDescription testItem = api.getTestItem();
-        return testItem.toString();
+        return  "<html><body><pre>"+testItem.toString()+"</pre></body></html>";
     }
 
 }

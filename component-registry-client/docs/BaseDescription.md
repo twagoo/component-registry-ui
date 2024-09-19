@@ -27,6 +27,7 @@
 |**_public** | **Boolean** |  |  [optional] |
 |**id** | **String** |  |  [optional] |
 |**showInEditor** | **Boolean** |  |  [optional] |
+|**isPublic** | **Boolean** |  |  [optional] |
 
 
 

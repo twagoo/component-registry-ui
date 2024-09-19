@@ -106,6 +106,8 @@ components:
           type: string
         showInEditor:
           type: boolean
+        isPublic:
+          type: boolean
       type: object
       xml:
         name: description

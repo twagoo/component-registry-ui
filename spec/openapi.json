@@ -142,6 +142,9 @@
           },
           "showInEditor": {
             "type": "boolean"
+          },
+          "isPublic": {
+            "type": "boolean"
           }
         },
         "xml": {

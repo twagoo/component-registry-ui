@@ -51,9 +51,10 @@ import io.github.threetenjaxb.core.*;
   BaseDescription.JSON_PROPERTY_RECOMMENDED,
   BaseDescription.JSON_PROPERTY_PUBLIC,
   BaseDescription.JSON_PROPERTY_ID,
-  BaseDescription.JSON_PROPERTY_SHOW_IN_EDITOR
+  BaseDescription.JSON_PROPERTY_SHOW_IN_EDITOR,
+  BaseDescription.JSON_PROPERTY_IS_PUBLIC
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-09-19T15:22:15.694373+03:00[Europe/Riga]", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-09-19T17:30:48.787053+03:00[Europe/Riga]", comments = "Generator version: 7.8.0")
 @XmlRootElement(name = "description")
 @XmlAccessorType(XmlAccessType.FIELD)
 @JacksonXmlRootElement(localName = "description")
@@ -180,6 +181,10 @@ public class BaseDescription {
   public static final String JSON_PROPERTY_SHOW_IN_EDITOR = "showInEditor";
   @XmlElement(name = "showInEditor")
   private Boolean showInEditor;
+
+  public static final String JSON_PROPERTY_IS_PUBLIC = "isPublic";
+  @XmlElement(name = "isPublic")
+  private Boolean isPublic;
 
   public BaseDescription() {
   }
@@ -724,6 +729,33 @@ public class BaseDescription {
     this.showInEditor = showInEditor;
   }
 
+  public BaseDescription isPublic(Boolean isPublic) {
+    
+    this.isPublic = isPublic;
+    return this;
+  }
+
+  /**
+   * Get isPublic
+   * @return isPublic
+   */
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_IS_PUBLIC)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "isPublic")
+
+  public Boolean getIsPublic() {
+    return isPublic;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_PUBLIC)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "isPublic")
+  public void setIsPublic(Boolean isPublic) {
+    this.isPublic = isPublic;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -752,12 +784,13 @@ public class BaseDescription {
         Objects.equals(this.recommended, baseDescription.recommended) &&
         Objects.equals(this._public, baseDescription._public) &&
         Objects.equals(this.id, baseDescription.id) &&
-        Objects.equals(this.showInEditor, baseDescription.showInEditor);
+        Objects.equals(this.showInEditor, baseDescription.showInEditor) &&
+        Objects.equals(this.isPublic, baseDescription.isPublic);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(dbId, name, description, registrationDate, creatorName, dbUserId, userId, domainName, href, groupName, status, derivedfrom, successor, commentsCount, content, deleted, recommended, _public, id, showInEditor);
+    return Objects.hash(dbId, name, description, registrationDate, creatorName, dbUserId, userId, domainName, href, groupName, status, derivedfrom, successor, commentsCount, content, deleted, recommended, _public, id, showInEditor, isPublic);
   }
 
   @Override
@@ -784,6 +817,7 @@ public class BaseDescription {
     sb.append("    _public: ").append(toIndentedString(_public)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    showInEditor: ").append(toIndentedString(showInEditor)).append("\n");
+    sb.append("    isPublic: ").append(toIndentedString(isPublic)).append("\n");
     sb.append("}");
     return sb.toString();
   }
