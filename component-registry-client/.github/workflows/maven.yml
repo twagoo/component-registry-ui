@@ -13,7 +13,7 @@ on:
 
 jobs:
   build:
-    name: Build CompReg client
+    name: Build Component Registry API
     runs-on: ubuntu-latest
     strategy:
       matrix:

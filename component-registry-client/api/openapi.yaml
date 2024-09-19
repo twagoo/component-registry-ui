@@ -1,7 +1,12 @@
 openapi: 3.0.1
 info:
-  title: CompReg client
-  version: 1.0.0
+  contact:
+    email: cmdi@clarin.eu
+    name: CLARIN ERIC
+    url: https://www.clarin.eu
+  description: Components and profiles registry for the Component Metadata Infrastructure
+  title: Component Registry API
+  version: "1.0"
 servers:
 - url: /
 paths:
