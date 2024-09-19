@@ -15,3 +15,8 @@ To (re)generate the client, follow these steps:
   * `mvn -f generator initialize`
 * Build the project in `component-registry-client`:
   * `mvn -f component-registry-client clean install`
+
+## References
+
+* [OpenAPI generator Maven plugin documentation](https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator-maven-plugin/README.md)
+* [OpenAPI java client generator documentation](https://openapi-generator.tech/docs/generators/java/)

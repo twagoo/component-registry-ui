@@ -96,19 +96,11 @@
                             <artifactId>component-registry-openapi-client</artifactId>
                             <artifactVersion>1.0.0-SNAPSHOT</artifactVersion>
                             <configOptions>
+                                <artifactDescription>Component Registry API client</artifactDescription>
                                 <invokerPackage>eu.clarin.cmdi.componentregistry.openapi.client</invokerPackage>
                                 <apiPackage>eu.clarin.cmdi.componentregistry.openapi.client.api</apiPackage>
                                 <modelPackage>eu.clarin.cmdi.componentregistry.openapi.client.model</modelPackage>
-                                <!--<sourceFolder>src/gen/java/main</sourceFolder>-->
                                 <library>restclient</library>
-                                <useSpringBoot3>true</useSpringBoot3>
-                                <!--<library>okhttp-gson</library>-->
-                                <oas3>false</oas3>
-                                <useSpringController>true</useSpringController>
-                                <!-- javax.* to jakarta.* -->
-                                <!--<useJakartaEe>false</useJakartaEe>-->
-                                <!--<useSpringfox>false</useSpringfox>-->
-                                <!--<withXml>true</withXml>-->
                             </configOptions>
                         </configuration>
                     </execution>

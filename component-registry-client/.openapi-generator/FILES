@@ -28,3 +28,5 @@ src/main/java/eu/clarin/cmdi/componentregistry/openapi/client/auth/Authenticatio
 src/main/java/eu/clarin/cmdi/componentregistry/openapi/client/auth/HttpBasicAuth.java
 src/main/java/eu/clarin/cmdi/componentregistry/openapi/client/auth/HttpBearerAuth.java
 src/main/java/eu/clarin/cmdi/componentregistry/openapi/client/model/BaseDescription.java
+src/test/java/eu/clarin/cmdi/componentregistry/openapi/client/api/DefaultApiTest.java
+src/test/java/eu/clarin/cmdi/componentregistry/openapi/client/model/BaseDescriptionTest.java
