@@ -23,7 +23,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-09-19T15:11:15.068883+03:00[Europe/Riga]", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-09-19T15:22:15.694373+03:00[Europe/Riga]", comments = "Generator version: 7.8.0")
 public class DefaultApi {
     private ApiClient apiClient;
 

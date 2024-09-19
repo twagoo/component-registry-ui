@@ -23,6 +23,10 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.time.OffsetDateTime;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.dataformat.xml.annotation.*;
+import jakarta.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.adapters.*;
+import io.github.threetenjaxb.core.*;
 
 /**
  * BaseDescription
@@ -49,46 +53,65 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   BaseDescription.JSON_PROPERTY_ID,
   BaseDescription.JSON_PROPERTY_SHOW_IN_EDITOR
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-09-19T15:11:15.068883+03:00[Europe/Riga]", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-09-19T15:22:15.694373+03:00[Europe/Riga]", comments = "Generator version: 7.8.0")
+@XmlRootElement(name = "description")
+@XmlAccessorType(XmlAccessType.FIELD)
+@JacksonXmlRootElement(localName = "description")
 public class BaseDescription {
   public static final String JSON_PROPERTY_DB_ID = "dbId";
+  @XmlElement(name = "dbId")
   private Long dbId;
 
   public static final String JSON_PROPERTY_NAME = "name";
+  @XmlElement(name = "name")
   private String name;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  @XmlElement(name = "description")
   private String description;
 
   public static final String JSON_PROPERTY_REGISTRATION_DATE = "registrationDate";
+  @XmlElement(name = "registrationDate")
+  @XmlJavaTypeAdapter(OffsetDateTimeXmlAdapter.class)
   private OffsetDateTime registrationDate;
 
   public static final String JSON_PROPERTY_CREATOR_NAME = "creatorName";
+  @XmlElement(name = "creatorName")
   private String creatorName;
 
   public static final String JSON_PROPERTY_DB_USER_ID = "dbUserId";
+  @XmlElement(name = "dbUserId")
   private Long dbUserId;
 
   public static final String JSON_PROPERTY_USER_ID = "userId";
+  @XmlElement(name = "userId")
   private String userId;
 
   public static final String JSON_PROPERTY_DOMAIN_NAME = "domainName";
+  @XmlElement(name = "domainName")
   private String domainName;
 
   public static final String JSON_PROPERTY_HREF = "href";
+  @XmlElement(name = "href", namespace = "http://www.w3.org/1999/xlink")
   private String href;
 
   public static final String JSON_PROPERTY_GROUP_NAME = "groupName";
+  @XmlElement(name = "groupName")
   private String groupName;
 
   /**
    * Gets or Sets status
    */
+  @XmlType(name="StatusEnum")
+  @XmlEnum(String.class)
   public enum StatusEnum {
+    @XmlEnumValue("development")
     DEVELOPMENT("development"),
     
+    @XmlEnumValue("production")
     PRODUCTION("production"),
     
+    @XmlEnumValue("deprecated")
     DEPRECATED("deprecated");
 
     private String value;
@@ -119,33 +142,43 @@ public class BaseDescription {
   }
 
   public static final String JSON_PROPERTY_STATUS = "status";
+  @XmlElement(name = "status")
   private StatusEnum status;
 
   public static final String JSON_PROPERTY_DERIVEDFROM = "derivedfrom";
+  @XmlElement(name = "derivedfrom")
   private String derivedfrom;
 
   public static final String JSON_PROPERTY_SUCCESSOR = "successor";
+  @XmlElement(name = "successor")
   private String successor;
 
   public static final String JSON_PROPERTY_COMMENTS_COUNT = "commentsCount";
+  @XmlElement(name = "commentsCount")
   private Integer commentsCount;
 
   public static final String JSON_PROPERTY_CONTENT = "content";
+  @XmlElement(name = "content")
   private String content;
 
   public static final String JSON_PROPERTY_DELETED = "deleted";
+  @XmlElement(name = "deleted")
   private Boolean deleted;
 
   public static final String JSON_PROPERTY_RECOMMENDED = "recommended";
+  @XmlElement(name = "recommended")
   private Boolean recommended;
 
   public static final String JSON_PROPERTY_PUBLIC = "public";
+  @XmlElement(name = "public")
   private Boolean _public;
 
   public static final String JSON_PROPERTY_ID = "id";
+  @XmlElement(name = "id")
   private String id;
 
   public static final String JSON_PROPERTY_SHOW_IN_EDITOR = "showInEditor";
+  @XmlElement(name = "showInEditor")
   private Boolean showInEditor;
 
   public BaseDescription() {
@@ -164,6 +197,7 @@ public class BaseDescription {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_DB_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "dbId")
 
   public Long getDbId() {
     return dbId;
@@ -172,6 +206,7 @@ public class BaseDescription {
 
   @JsonProperty(JSON_PROPERTY_DB_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "dbId")
   public void setDbId(Long dbId) {
     this.dbId = dbId;
   }
@@ -189,6 +224,7 @@ public class BaseDescription {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "name")
 
   public String getName() {
     return name;
@@ -197,6 +233,7 @@ public class BaseDescription {
 
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "name")
   public void setName(String name) {
     this.name = name;
   }
@@ -214,6 +251,7 @@ public class BaseDescription {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "description")
 
   public String getDescription() {
     return description;
@@ -222,6 +260,7 @@ public class BaseDescription {
 
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "description")
   public void setDescription(String description) {
     this.description = description;
   }
@@ -239,6 +278,7 @@ public class BaseDescription {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_REGISTRATION_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "registrationDate")
 
   public OffsetDateTime getRegistrationDate() {
     return registrationDate;
@@ -247,6 +287,7 @@ public class BaseDescription {
 
   @JsonProperty(JSON_PROPERTY_REGISTRATION_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "registrationDate")
   public void setRegistrationDate(OffsetDateTime registrationDate) {
     this.registrationDate = registrationDate;
   }
@@ -264,6 +305,7 @@ public class BaseDescription {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_CREATOR_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "creatorName")
 
   public String getCreatorName() {
     return creatorName;
@@ -272,6 +314,7 @@ public class BaseDescription {
 
   @JsonProperty(JSON_PROPERTY_CREATOR_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "creatorName")
   public void setCreatorName(String creatorName) {
     this.creatorName = creatorName;
   }
@@ -289,6 +332,7 @@ public class BaseDescription {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_DB_USER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "dbUserId")
 
   public Long getDbUserId() {
     return dbUserId;
@@ -297,6 +341,7 @@ public class BaseDescription {
 
   @JsonProperty(JSON_PROPERTY_DB_USER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "dbUserId")
   public void setDbUserId(Long dbUserId) {
     this.dbUserId = dbUserId;
   }
@@ -314,6 +359,7 @@ public class BaseDescription {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_USER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "userId")
 
   public String getUserId() {
     return userId;
@@ -322,6 +368,7 @@ public class BaseDescription {
 
   @JsonProperty(JSON_PROPERTY_USER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "userId")
   public void setUserId(String userId) {
     this.userId = userId;
   }
@@ -339,6 +386,7 @@ public class BaseDescription {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_DOMAIN_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "domainName")
 
   public String getDomainName() {
     return domainName;
@@ -347,6 +395,7 @@ public class BaseDescription {
 
   @JsonProperty(JSON_PROPERTY_DOMAIN_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "domainName")
   public void setDomainName(String domainName) {
     this.domainName = domainName;
   }
@@ -364,6 +413,7 @@ public class BaseDescription {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_HREF)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "href", namespace = "http://www.w3.org/1999/xlink")
 
   public String getHref() {
     return href;
@@ -372,6 +422,7 @@ public class BaseDescription {
 
   @JsonProperty(JSON_PROPERTY_HREF)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "href", namespace = "http://www.w3.org/1999/xlink")
   public void setHref(String href) {
     this.href = href;
   }
@@ -389,6 +440,7 @@ public class BaseDescription {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_GROUP_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "groupName")
 
   public String getGroupName() {
     return groupName;
@@ -397,6 +449,7 @@ public class BaseDescription {
 
   @JsonProperty(JSON_PROPERTY_GROUP_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "groupName")
   public void setGroupName(String groupName) {
     this.groupName = groupName;
   }
@@ -414,6 +467,7 @@ public class BaseDescription {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "status")
 
   public StatusEnum getStatus() {
     return status;
@@ -422,6 +476,7 @@ public class BaseDescription {
 
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "status")
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
@@ -439,6 +494,7 @@ public class BaseDescription {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_DERIVEDFROM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "derivedfrom")
 
   public String getDerivedfrom() {
     return derivedfrom;
@@ -447,6 +503,7 @@ public class BaseDescription {
 
   @JsonProperty(JSON_PROPERTY_DERIVEDFROM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "derivedfrom")
   public void setDerivedfrom(String derivedfrom) {
     this.derivedfrom = derivedfrom;
   }
@@ -464,6 +521,7 @@ public class BaseDescription {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_SUCCESSOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "successor")
 
   public String getSuccessor() {
     return successor;
@@ -472,6 +530,7 @@ public class BaseDescription {
 
   @JsonProperty(JSON_PROPERTY_SUCCESSOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "successor")
   public void setSuccessor(String successor) {
     this.successor = successor;
   }
@@ -489,6 +548,7 @@ public class BaseDescription {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_COMMENTS_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "commentsCount")
 
   public Integer getCommentsCount() {
     return commentsCount;
@@ -497,6 +557,7 @@ public class BaseDescription {
 
   @JsonProperty(JSON_PROPERTY_COMMENTS_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "commentsCount")
   public void setCommentsCount(Integer commentsCount) {
     this.commentsCount = commentsCount;
   }
@@ -514,6 +575,7 @@ public class BaseDescription {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_CONTENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "content")
 
   public String getContent() {
     return content;
@@ -522,6 +584,7 @@ public class BaseDescription {
 
   @JsonProperty(JSON_PROPERTY_CONTENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "content")
   public void setContent(String content) {
     this.content = content;
   }
@@ -539,6 +602,7 @@ public class BaseDescription {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "deleted")
 
   public Boolean getDeleted() {
     return deleted;
@@ -547,6 +611,7 @@ public class BaseDescription {
 
   @JsonProperty(JSON_PROPERTY_DELETED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "deleted")
   public void setDeleted(Boolean deleted) {
     this.deleted = deleted;
   }
@@ -564,6 +629,7 @@ public class BaseDescription {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_RECOMMENDED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "recommended")
 
   public Boolean getRecommended() {
     return recommended;
@@ -572,6 +638,7 @@ public class BaseDescription {
 
   @JsonProperty(JSON_PROPERTY_RECOMMENDED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "recommended")
   public void setRecommended(Boolean recommended) {
     this.recommended = recommended;
   }
@@ -589,6 +656,7 @@ public class BaseDescription {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_PUBLIC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "public")
 
   public Boolean getPublic() {
     return _public;
@@ -597,6 +665,7 @@ public class BaseDescription {
 
   @JsonProperty(JSON_PROPERTY_PUBLIC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "public")
   public void setPublic(Boolean _public) {
     this._public = _public;
   }
@@ -614,6 +683,7 @@ public class BaseDescription {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "id")
 
   public String getId() {
     return id;
@@ -622,6 +692,7 @@ public class BaseDescription {
 
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "id")
   public void setId(String id) {
     this.id = id;
   }
@@ -639,6 +710,7 @@ public class BaseDescription {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_SHOW_IN_EDITOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "showInEditor")
 
   public Boolean getShowInEditor() {
     return showInEditor;
@@ -647,6 +719,7 @@ public class BaseDescription {
 
   @JsonProperty(JSON_PROPERTY_SHOW_IN_EDITOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "showInEditor")
   public void setShowInEditor(Boolean showInEditor) {
     this.showInEditor = showInEditor;
   }

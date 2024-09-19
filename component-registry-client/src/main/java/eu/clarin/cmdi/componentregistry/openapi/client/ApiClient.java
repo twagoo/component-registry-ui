@@ -13,6 +13,8 @@
 
 package eu.clarin.cmdi.componentregistry.openapi.client;
 
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -25,6 +27,7 @@ import org.springframework.http.InvalidMediaTypeException;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+  import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -56,7 +59,7 @@ import eu.clarin.cmdi.componentregistry.openapi.client.auth.HttpBasicAuth;
 import eu.clarin.cmdi.componentregistry.openapi.client.auth.HttpBearerAuth;
 import eu.clarin.cmdi.componentregistry.openapi.client.auth.ApiKeyAuth;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-09-19T15:11:15.068883+03:00[Europe/Riga]", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-09-19T15:22:15.694373+03:00[Europe/Riga]", comments = "Generator version: 7.8.0")
 public class ApiClient extends JavaTimeFormatter {
     public enum CollectionFormat {
         CSV(","), TSV("\t"), SSV(" "), PIPES("|"), MULTI(null);
@@ -141,8 +144,13 @@ public class ApiClient extends JavaTimeFormatter {
     * @return RestClient
     */
     public static RestClient.Builder buildRestClientBuilder(ObjectMapper mapper) {
+        XmlMapper xmlMapper = new XmlMapper();
+        xmlMapper.configure(ToXmlGenerator.Feature.WRITE_XML_DECLARATION, true);
+          xmlMapper.registerModule(new JsonNullableModule());
+
         Consumer<List<HttpMessageConverter<?>>> messageConverters = converters -> {
             converters.add(new MappingJackson2HttpMessageConverter(mapper));
+            converters.add(new MappingJackson2XmlHttpMessageConverter(xmlMapper));
         };
 
         return RestClient.builder().messageConverters(messageConverters);

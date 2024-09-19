@@ -16,6 +16,17 @@ To (re)generate the client, follow these steps:
 * Build the project in `component-registry-client`:
   * `mvn -f component-registry-client clean install`
 
+Important note! Due to an apparent issue in the generator, the following
+dependency must be manually be upgraded to the 2.x version after generation:
+
+```xml
+        <dependency>
+            <groupId>io.github.threeten-jaxb</groupId>
+            <artifactId>threeten-jaxb-core</artifactId>
+            <version>2.2.0</version>
+        </dependency>
+```
+
 ## References
 
 * [OpenAPI generator Maven plugin documentation](https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator-maven-plugin/README.md)

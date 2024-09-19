@@ -101,6 +101,7 @@
                                 <apiPackage>eu.clarin.cmdi.componentregistry.openapi.client.api</apiPackage>
                                 <modelPackage>eu.clarin.cmdi.componentregistry.openapi.client.model</modelPackage>
                                 <library>restclient</library>
+                                <withXml>true</withXml>
                             </configOptions>
                         </configuration>
                     </execution>

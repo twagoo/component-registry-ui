@@ -4,7 +4,7 @@ Component Registry API
 
 - API version: 1.0
 
-- Build date: 2024-09-19T15:11:15.068883+03:00[Europe/Riga]
+- Build date: 2024-09-19T15:22:15.694373+03:00[Europe/Riga]
 
 - Generator version: 7.8.0
 
