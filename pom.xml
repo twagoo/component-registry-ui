@@ -12,7 +12,8 @@
     <name>Component Registry UI parent project</name>
 
     <modules>
-        <module>openapi-client-generator</module>
+<!--         <module>openapi-client-generator</module> -->
         <module>component-registry-client</module>
+        <module>component-registry-ui</module>
     </modules>
 </project>
