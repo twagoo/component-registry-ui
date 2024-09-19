@@ -1,5 +1,9 @@
 {
     "openapi": "3.0.1",
+    "info":     {
+      "title": "CompReg client",
+      "version": "1.0.0"
+    },
     "paths": {
         "/rest/registry/test": {
             "get": {

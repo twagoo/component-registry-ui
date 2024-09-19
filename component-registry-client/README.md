@@ -1,10 +1,10 @@
 # component-registry-openapi-client
 
-CLARIN Component Registry
+CompReg client
 
 - API version: 1.0.0
 
-- Build date: 2024-09-17T13:10:36.372458+03:00[Europe/Riga]
+- Build date: 2024-09-19T11:53:09.778121+03:00[Europe/Riga]
 
 - Generator version: 7.8.0
 
@@ -86,20 +86,20 @@ Please follow the [installation](#installation) instruction and execute the foll
 import eu.clarin.cmdi.componentregistry.openapi.client.*;
 import eu.clarin.cmdi.componentregistry.openapi.client.auth.*;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.*;
-import eu.clarin.cmdi.componentregistry.openapi.client.api.AuthenticationApi;
+import eu.clarin.cmdi.componentregistry.openapi.client.api.DefaultApi;
 
-public class AuthenticationApiExample {
+public class DefaultApiExample {
 
     public static void main(String[] args) {
         ApiClient defaultClient = new ApiClient();
-        defaultClient.setBasePath("https://catalog.clarin.eu/ds/ComponentRegistry/rest");
+        defaultClient.setBasePath("http://localhost");
         
-        AuthenticationApi apiInstance = new AuthenticationApi(defaultClient);
-        String redirect = "redirect_example"; // String | 
+        DefaultApi apiInstance = new DefaultApi(defaultClient);
+        String path = "path_example"; // String | 
         try {
-            apiInstance.getAuthenticationInformation(redirect);
+            apiInstance.getExternalGrammar(path);
         } catch (HttpStatusCodeException e) {
-            System.err.println("Exception when calling AuthenticationApi#getAuthenticationInformation");
+            System.err.println("Exception when calling DefaultApi#getExternalGrammar");
             System.err.println("Status code: " + e.getStatusCode().value());
             System.err.println("Reason: " + e.getResponseBodyAsString());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -112,136 +112,18 @@ public class AuthenticationApiExample {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://catalog.clarin.eu/ds/ComponentRegistry/rest*
+All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AuthenticationApi* | [**getAuthenticationInformation**](docs/AuthenticationApi.md#getAuthenticationInformation) | **GET** /authentication | Information on the current authentication state. Pass &#39;redirect&#39; query parameter to make this method redirect to the URI specified as its value.
-*AuthenticationApi* | [**triggerAuthenticationRequest**](docs/AuthenticationApi.md#triggerAuthenticationRequest) | **POST** /authentication | Triggers the service to require the client to authenticate by means of the configured authentication mechanism. Notice that this might require user interaction!
-*DefaultApi* | [**getAllowedAttributeTypes**](docs/DefaultApi.md#getAllowedAttributeTypes) | **GET** /allowedTypes | A listing of values that are allowed as element or attribute type by the CMDI schema
-*GroupsApi* | [**getGroupsTheCurrentUserIsAMemberOf**](docs/GroupsApi.md#getGroupsTheCurrentUserIsAMemberOf) | **GET** /groups/usermembership | Returns a listing of groups the current user is a member of (empty list when unauthenticated)
-*ItemsApi* | [**getBaseDescription**](docs/ItemsApi.md#getBaseDescription) | **GET** /items/{itemId} | The description (metadata) of a single component or profile item
-*ItemsApi* | [**getGroupsTheItemIsAMemberOf**](docs/ItemsApi.md#getGroupsTheItemIsAMemberOf) | **GET** /items/{itemId}/groups | Returns a listing of groups to which an item belongs
-*ItemsApi* | [**getItemLock**](docs/ItemsApi.md#getItemLock) | **GET** /items/{itemId}/lock | 
-*ItemsApi* | [**getItemRights**](docs/ItemsApi.md#getItemRights) | **GET** /items/{itemId}/rights | Returns information about the rights to an item for the current user
-*ItemsApi* | [**putItemLock**](docs/ItemsApi.md#putItemLock) | **PUT** /items/{itemId}/lock | 
-*ItemsApi* | [**removeItemLock**](docs/ItemsApi.md#removeItemLock) | **DELETE** /items/{itemId}/lock | 
-*ItemsApi* | [**transferItemOwnershipToGroup**](docs/ItemsApi.md#transferItemOwnershipToGroup) | **POST** /items/{itemId}/transferownership | Transfers an item to the specified group (either from the private space or another group)
-*RegistryApi* | [**deleteCommentFromComponent**](docs/RegistryApi.md#deleteCommentFromComponent) | **DELETE** /registry/components/{componentId}/comments/{commentId} | Deletes a comment from a component
-*RegistryApi* | [**deleteCommentFromComponent1**](docs/RegistryApi.md#deleteCommentFromComponent1) | **DELETE** /registry/{cmdVersion}/components/{componentId}/comments/{commentId} | Deletes a comment from a component
-*RegistryApi* | [**deleteCommentFromProfile**](docs/RegistryApi.md#deleteCommentFromProfile) | **DELETE** /registry/profiles/{profileId}/comments/{commentId} | Deletes a comment from a profile
-*RegistryApi* | [**deleteCommentFromProfile1**](docs/RegistryApi.md#deleteCommentFromProfile1) | **DELETE** /registry/{cmdVersion}/profiles/{profileId}/comments/{commentId} | Deletes a comment from a profile
-*RegistryApi* | [**deleteRegisteredComponent**](docs/RegistryApi.md#deleteRegisteredComponent) | **DELETE** /registry/components/{componentId} | Deletes the component with the specified ID from its registry
-*RegistryApi* | [**deleteRegisteredComponent1**](docs/RegistryApi.md#deleteRegisteredComponent1) | **DELETE** /registry/{cmdVersion}/components/{componentId} | Deletes the component with the specified ID from its registry
-*RegistryApi* | [**deleteRegisteredProfile**](docs/RegistryApi.md#deleteRegisteredProfile) | **DELETE** /registry/profiles/{profileId} | Deletes the profile with the specified ID from its registry
-*RegistryApi* | [**deleteRegisteredProfile1**](docs/RegistryApi.md#deleteRegisteredProfile1) | **DELETE** /registry/{cmdVersion}/profiles/{profileId} | Deletes the profile with the specified ID from its registry
-*RegistryApi* | [**getCommentsFromComponent**](docs/RegistryApi.md#getCommentsFromComponent) | **GET** /registry/components/{componentId}/comments | Returns a listing of all comments that have been made on the identified component
-*RegistryApi* | [**getCommentsFromComponent1**](docs/RegistryApi.md#getCommentsFromComponent1) | **GET** /registry/{cmdVersion}/components/{componentId}/comments | Returns a listing of all comments that have been made on the identified component
-*RegistryApi* | [**getCommentsFromProfile**](docs/RegistryApi.md#getCommentsFromProfile) | **GET** /registry/profiles/{profileId}/comments | Returns a listing of all comments that have been made on the identified profile
-*RegistryApi* | [**getCommentsFromProfile1**](docs/RegistryApi.md#getCommentsFromProfile1) | **GET** /registry/{cmdVersion}/profiles/{profileId}/comments | Returns a listing of all comments that have been made on the identified profile
-*RegistryApi* | [**getComponentStatus**](docs/RegistryApi.md#getComponentStatus) | **GET** /registry/components/{componentId}/status | Gets the status of a registered component
-*RegistryApi* | [**getComponentStatus1**](docs/RegistryApi.md#getComponentStatus1) | **GET** /registry/{cmdVersion}/components/{componentId}/status | Gets the status of a registered component
-*RegistryApi* | [**getComponentSuccessor**](docs/RegistryApi.md#getComponentSuccessor) | **GET** /registry/components/{componentId}/successor | Gets the successor of a registered component
-*RegistryApi* | [**getComponentSuccessor1**](docs/RegistryApi.md#getComponentSuccessor1) | **GET** /registry/{cmdVersion}/components/{componentId}/successor | Gets the successor of a registered component
-*RegistryApi* | [**getComponentUsage**](docs/RegistryApi.md#getComponentUsage) | **GET** /registry/components/usage/{componentId} | Returns a descriptions listing of components that use the identified component
-*RegistryApi* | [**getComponentUsage1**](docs/RegistryApi.md#getComponentUsage1) | **GET** /registry/{cmdVersion}/components/usage/{componentId} | Returns a descriptions listing of components that use the identified component
-*RegistryApi* | [**getProfileStatus**](docs/RegistryApi.md#getProfileStatus) | **GET** /registry/profiles/{profileId}/status | Gets the status of a registered profile
-*RegistryApi* | [**getProfileStatus1**](docs/RegistryApi.md#getProfileStatus1) | **GET** /registry/{cmdVersion}/profiles/{profileId}/status | Gets the status of a registered profile
-*RegistryApi* | [**getProfileSuccessor**](docs/RegistryApi.md#getProfileSuccessor) | **GET** /registry/profiles/{profileId}/successor | Gets the successor of a registered component
-*RegistryApi* | [**getProfileSuccessor1**](docs/RegistryApi.md#getProfileSuccessor1) | **GET** /registry/{cmdVersion}/profiles/{profileId}/successor | Gets the successor of a registered component
-*RegistryApi* | [**getRegisteredComponent**](docs/RegistryApi.md#getRegisteredComponent) | **GET** /registry/components/{componentId} | The component specification of a single component
-*RegistryApi* | [**getRegisteredComponent1**](docs/RegistryApi.md#getRegisteredComponent1) | **GET** /registry/{cmdVersion}/components/{componentId} | The component specification of a single component
-*RegistryApi* | [**getRegisteredComponentRawType**](docs/RegistryApi.md#getRegisteredComponentRawType) | **GET** /registry/components/{componentId}/{rawType} | The expanded XML or XSD represenation of the component specification of a single component (publicly accessible regardless of state!)
-*RegistryApi* | [**getRegisteredComponentRawType1**](docs/RegistryApi.md#getRegisteredComponentRawType1) | **GET** /registry/{cmdVersion}/components/{componentId}/{rawType} | The expanded XML or XSD represenation of the component specification of a single component (publicly accessible regardless of state!)
-*RegistryApi* | [**getRegisteredComponents**](docs/RegistryApi.md#getRegisteredComponents) | **GET** /registry/components | A listing of the descriptions of components in the specified registry space
-*RegistryApi* | [**getRegisteredComponents1**](docs/RegistryApi.md#getRegisteredComponents1) | **GET** /registry/{cmdVersion}/components | A listing of the descriptions of components in the specified registry space
-*RegistryApi* | [**getRegisteredProfile**](docs/RegistryApi.md#getRegisteredProfile) | **GET** /registry/profiles/{profileId} | The component specification of a single profile
-*RegistryApi* | [**getRegisteredProfile1**](docs/RegistryApi.md#getRegisteredProfile1) | **GET** /registry/{cmdVersion}/profiles/{profileId} | The component specification of a single profile
-*RegistryApi* | [**getRegisteredProfileRawType**](docs/RegistryApi.md#getRegisteredProfileRawType) | **GET** /registry/profiles/{profileId}/{targetVersion}{rawType} | The expanded XML or XSD represenation of the component specification of a single profile (publicly accessible regardless of state!)
-*RegistryApi* | [**getRegisteredProfileRawType1**](docs/RegistryApi.md#getRegisteredProfileRawType1) | **GET** /registry/{cmdVersion}/profiles/{profileId}/{targetVersion}{rawType} | The expanded XML or XSD represenation of the component specification of a single profile (publicly accessible regardless of state!)
-*RegistryApi* | [**getRegisteredProfiles**](docs/RegistryApi.md#getRegisteredProfiles) | **GET** /registry/profiles | A listing of the descriptions of profiles in the specified registry space
-*RegistryApi* | [**getRegisteredProfiles1**](docs/RegistryApi.md#getRegisteredProfiles1) | **GET** /registry/{cmdVersion}/profiles | A listing of the descriptions of profiles in the specified registry space
-*RegistryApi* | [**getRegisteredProfilesObject**](docs/RegistryApi.md#getRegisteredProfilesObject) | **GET** /registry/profilesList | A listing of the descriptions of profiles in the specified registry space
-*RegistryApi* | [**getRegisteredProfilesObject1**](docs/RegistryApi.md#getRegisteredProfilesObject1) | **GET** /registry/{cmdVersion}/profilesList | A listing of the descriptions of profiles in the specified registry space
-*RegistryApi* | [**getRssComponent**](docs/RegistryApi.md#getRssComponent) | **GET** /registry/components/rss | 
-*RegistryApi* | [**getRssComponent1**](docs/RegistryApi.md#getRssComponent1) | **GET** /registry/{cmdVersion}/components/rss | 
-*RegistryApi* | [**getRssOfCommentsFromComponent**](docs/RegistryApi.md#getRssOfCommentsFromComponent) | **GET** /registry/components/{componentId}/comments/rss | 
-*RegistryApi* | [**getRssOfCommentsFromComponent1**](docs/RegistryApi.md#getRssOfCommentsFromComponent1) | **GET** /registry/{cmdVersion}/components/{componentId}/comments/rss | 
-*RegistryApi* | [**getRssOfCommentsFromProfile**](docs/RegistryApi.md#getRssOfCommentsFromProfile) | **GET** /registry/profiles/{profileId}/comments/rss | 
-*RegistryApi* | [**getRssOfCommentsFromProfile1**](docs/RegistryApi.md#getRssOfCommentsFromProfile1) | **GET** /registry/{cmdVersion}/profiles/{profileId}/comments/rss | 
-*RegistryApi* | [**getRssProfile**](docs/RegistryApi.md#getRssProfile) | **GET** /registry/profiles/rss | 
-*RegistryApi* | [**getRssProfile1**](docs/RegistryApi.md#getRssProfile1) | **GET** /registry/{cmdVersion}/profiles/rss | 
-*RegistryApi* | [**getSpecifiedCommentFromComponent**](docs/RegistryApi.md#getSpecifiedCommentFromComponent) | **GET** /registry/components/{componentId}/comments/{commentId} | Returns a single comment on a component
-*RegistryApi* | [**getSpecifiedCommentFromComponent1**](docs/RegistryApi.md#getSpecifiedCommentFromComponent1) | **GET** /registry/{cmdVersion}/components/{componentId}/comments/{commentId} | Returns a single comment on a component
-*RegistryApi* | [**getSpecifiedCommentFromProfile**](docs/RegistryApi.md#getSpecifiedCommentFromProfile) | **GET** /registry/profiles/{profileId}/comments/{commentId} | Returns a single comment on a profile
-*RegistryApi* | [**getSpecifiedCommentFromProfile1**](docs/RegistryApi.md#getSpecifiedCommentFromProfile1) | **GET** /registry/{cmdVersion}/profiles/{profileId}/comments/{commentId} | Returns a single comment on a profile
-*RegistryApi* | [**manipulateCommentFromComponent**](docs/RegistryApi.md#manipulateCommentFromComponent) | **POST** /registry/components/{componentId}/comments/{commentId} | Allows for deletion of single component comment (workaround for Flex which does not support the DELETE method)
-*RegistryApi* | [**manipulateCommentFromComponent1**](docs/RegistryApi.md#manipulateCommentFromComponent1) | **POST** /registry/{cmdVersion}/components/{componentId}/comments/{commentId} | Allows for deletion of single component comment (workaround for Flex which does not support the DELETE method)
-*RegistryApi* | [**manipulateCommentFromProfile**](docs/RegistryApi.md#manipulateCommentFromProfile) | **POST** /registry/profiles/{profileId}/comments/{commentId} | Allows for deletion of single profile comment (workaround for Flex which does not support the DELETE method)
-*RegistryApi* | [**manipulateCommentFromProfile1**](docs/RegistryApi.md#manipulateCommentFromProfile1) | **POST** /registry/{cmdVersion}/profiles/{profileId}/comments/{commentId} | Allows for deletion of single profile comment (workaround for Flex which does not support the DELETE method)
-*RegistryApi* | [**manipulateRegisteredComponent**](docs/RegistryApi.md#manipulateRegisteredComponent) | **POST** /registry/components/{componentId} | Allows for deletion of single component (workaround for Flex which does not support the DELETE method)
-*RegistryApi* | [**manipulateRegisteredComponent1**](docs/RegistryApi.md#manipulateRegisteredComponent1) | **POST** /registry/{cmdVersion}/components/{componentId} | Allows for deletion of single component (workaround for Flex which does not support the DELETE method)
-*RegistryApi* | [**manipulateRegisteredProfile**](docs/RegistryApi.md#manipulateRegisteredProfile) | **POST** /registry/profiles/{profileId} | Allows for deletion of single profile (workaround for Flex which does not support the DELETE method)
-*RegistryApi* | [**manipulateRegisteredProfile1**](docs/RegistryApi.md#manipulateRegisteredProfile1) | **POST** /registry/{cmdVersion}/profiles/{profileId} | Allows for deletion of single profile (workaround for Flex which does not support the DELETE method)
-*RegistryApi* | [**pingSession**](docs/RegistryApi.md#pingSession) | **GET** /registry/pingSession | Keeps the session alive
-*RegistryApi* | [**pingSession1**](docs/RegistryApi.md#pingSession1) | **GET** /registry/{cmdVersion}/pingSession | Keeps the session alive
-*RegistryApi* | [**publishRegisteredComponent**](docs/RegistryApi.md#publishRegisteredComponent) | **POST** /registry/components/{componentId}/publish | Changes the state of the specified component to published
-*RegistryApi* | [**publishRegisteredComponent1**](docs/RegistryApi.md#publishRegisteredComponent1) | **POST** /registry/{cmdVersion}/components/{componentId}/publish | Changes the state of the specified component to published
-*RegistryApi* | [**publishRegisteredProfile**](docs/RegistryApi.md#publishRegisteredProfile) | **POST** /registry/profiles/{profileId}/publish | Changes the state of the specified profile to published
-*RegistryApi* | [**publishRegisteredProfile1**](docs/RegistryApi.md#publishRegisteredProfile1) | **POST** /registry/{cmdVersion}/profiles/{profileId}/publish | Changes the state of the specified profile to published
-*RegistryApi* | [**registerCommentInComponent**](docs/RegistryApi.md#registerCommentInComponent) | **POST** /registry/components/{componentId}/comments | Publishes a comment on the specified component
-*RegistryApi* | [**registerCommentInComponent1**](docs/RegistryApi.md#registerCommentInComponent1) | **POST** /registry/{cmdVersion}/components/{componentId}/comments | Publishes a comment on the specified component
-*RegistryApi* | [**registerCommentInProfile**](docs/RegistryApi.md#registerCommentInProfile) | **POST** /registry/profiles/{profileId}/comments | Publishes a comment on the specified profile
-*RegistryApi* | [**registerCommentInProfile1**](docs/RegistryApi.md#registerCommentInProfile1) | **POST** /registry/{cmdVersion}/profiles/{profileId}/comments | Publishes a comment on the specified profile
-*RegistryApi* | [**registerComponent**](docs/RegistryApi.md#registerComponent) | **POST** /registry/components | Registers a component specification (data content) with the associated metadata (form content) in the user&#39;s private space
-*RegistryApi* | [**registerComponent1**](docs/RegistryApi.md#registerComponent1) | **POST** /registry/{cmdVersion}/components | Registers a component specification (data content) with the associated metadata (form content) in the user&#39;s private space
-*RegistryApi* | [**registerProfile**](docs/RegistryApi.md#registerProfile) | **POST** /registry/profiles | Registers a profile specification (data content) with the associated metadata (form content) in the user&#39;s private space
-*RegistryApi* | [**registerProfile1**](docs/RegistryApi.md#registerProfile1) | **POST** /registry/{cmdVersion}/profiles | Registers a profile specification (data content) with the associated metadata (form content) in the user&#39;s private space
-*RegistryApi* | [**updateComponentStatus**](docs/RegistryApi.md#updateComponentStatus) | **POST** /registry/components/{componentId}/status | Updates the status of an already registered component
-*RegistryApi* | [**updateComponentStatus1**](docs/RegistryApi.md#updateComponentStatus1) | **POST** /registry/{cmdVersion}/components/{componentId}/status | Updates the status of an already registered component
-*RegistryApi* | [**updateComponentSuccessor**](docs/RegistryApi.md#updateComponentSuccessor) | **POST** /registry/components/{componentId}/successor | Sets the successor for a registered component (must have deprecated status)
-*RegistryApi* | [**updateComponentSuccessor1**](docs/RegistryApi.md#updateComponentSuccessor1) | **POST** /registry/{cmdVersion}/components/{componentId}/successor | Sets the successor for a registered component (must have deprecated status)
-*RegistryApi* | [**updateProfileStatus**](docs/RegistryApi.md#updateProfileStatus) | **POST** /registry/profiles/{profileId}/status | Updates the status of an already registered profile
-*RegistryApi* | [**updateProfileStatus1**](docs/RegistryApi.md#updateProfileStatus1) | **POST** /registry/{cmdVersion}/profiles/{profileId}/status | Updates the status of an already registered profile
-*RegistryApi* | [**updateProfileSuccessor**](docs/RegistryApi.md#updateProfileSuccessor) | **POST** /registry/profiles/{profileId}/successor | Sets the successor for a registered profile (must have deprecated status)
-*RegistryApi* | [**updateProfileSuccessor1**](docs/RegistryApi.md#updateProfileSuccessor1) | **POST** /registry/{cmdVersion}/profiles/{profileId}/successor | Sets the successor for a registered profile (must have deprecated status)
-*RegistryApi* | [**updateRegisteredComponent**](docs/RegistryApi.md#updateRegisteredComponent) | **POST** /registry/components/{componentId}/update | Updates an already registered (but unpublished) component
-*RegistryApi* | [**updateRegisteredComponent1**](docs/RegistryApi.md#updateRegisteredComponent1) | **POST** /registry/{cmdVersion}/components/{componentId}/update | Updates an already registered (but unpublished) component
-*RegistryApi* | [**updateRegisteredProfile**](docs/RegistryApi.md#updateRegisteredProfile) | **POST** /registry/profiles/{profileId}/update | Updates an already registered (but unpublished) profile
-*RegistryApi* | [**updateRegisteredProfile1**](docs/RegistryApi.md#updateRegisteredProfile1) | **POST** /registry/{cmdVersion}/profiles/{profileId}/update | Updates an already registered (but unpublished) profile
+*DefaultApi* | [**getExternalGrammar**](docs/DefaultApi.md#getExternalGrammar) | **GET** /rest/application.wadl/{path} | 
+*DefaultApi* | [**getTestItem**](docs/DefaultApi.md#getTestItem) | **GET** /rest/registry/test | 
+*DefaultApi* | [**getWadl**](docs/DefaultApi.md#getWadl) | **GET** /rest/application.wadl | 
 
 
 ## Documentation for Models
 
- - [Attribute](docs/Attribute.md)
- - [AttributeListType](docs/AttributeListType.md)
  - [BaseDescription](docs/BaseDescription.md)
- - [Category](docs/Category.md)
- - [Cloud](docs/Cloud.md)
- - [Comment](docs/Comment.md)
- - [ComponentDescription](docs/ComponentDescription.md)
- - [ComponentSpec](docs/ComponentSpec.md)
- - [ComponentType](docs/ComponentType.md)
- - [DocumentationType](docs/DocumentationType.md)
- - [ElementType](docs/ElementType.md)
- - [Enclosure](docs/Enclosure.md)
- - [EnumerationType](docs/EnumerationType.md)
- - [Group](docs/Group.md)
- - [Guid](docs/Guid.md)
- - [Header](docs/Header.md)
- - [Image](docs/Image.md)
- - [ItemRights](docs/ItemRights.md)
- - [ItemType](docs/ItemType.md)
- - [ProfileDescription](docs/ProfileDescription.md)
- - [ProfileDescriptionsObject](docs/ProfileDescriptionsObject.md)
- - [Rss](docs/Rss.md)
- - [RssChannel](docs/RssChannel.md)
- - [RssItem](docs/RssItem.md)
- - [SkipDaysList](docs/SkipDaysList.md)
- - [SkipHoursList](docs/SkipHoursList.md)
- - [TextInput](docs/TextInput.md)
- - [ValueSchemeType](docs/ValueSchemeType.md)
- - [VocabularyType](docs/VocabularyType.md)
 
 
 <a id="documentation-for-authorization"></a>

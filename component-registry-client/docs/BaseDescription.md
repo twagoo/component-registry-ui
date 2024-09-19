@@ -26,9 +26,7 @@
 |**recommended** | **Boolean** |  |  [optional] |
 |**_public** | **Boolean** |  |  [optional] |
 |**id** | **String** |  |  [optional] |
-|**type** | **String** |  |  [optional] |
 |**showInEditor** | **Boolean** |  |  [optional] |
-|**profile** | **Boolean** |  |  [optional] |
 
 
 
@@ -36,9 +34,9 @@
 
 | Name | Value |
 |---- | -----|
-| DEVELOPMENT | &quot;DEVELOPMENT&quot; |
-| PRODUCTION | &quot;PRODUCTION&quot; |
-| DEPRECATED | &quot;DEPRECATED&quot; |
+| DEVELOPMENT | &quot;development&quot; |
+| PRODUCTION | &quot;production&quot; |
+| DEPRECATED | &quot;deprecated&quot; |
 
 
 

@@ -1,18 +1,20 @@
 # DefaultApi
 
-All URIs are relative to *https://catalog.clarin.eu/ds/ComponentRegistry/rest*
+All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**getAllowedAttributeTypes**](DefaultApi.md#getAllowedAttributeTypes) | **GET** /allowedTypes | A listing of values that are allowed as element or attribute type by the CMDI schema |
+| [**getExternalGrammar**](DefaultApi.md#getExternalGrammar) | **GET** /rest/application.wadl/{path} |  |
+| [**getTestItem**](DefaultApi.md#getTestItem) | **GET** /rest/registry/test |  |
+| [**getWadl**](DefaultApi.md#getWadl) | **GET** /rest/application.wadl |  |
 
 
 
-## getAllowedAttributeTypes
+## getExternalGrammar
 
-> Object getAllowedAttributeTypes()
+> getExternalGrammar(path)
 
-A listing of values that are allowed as element or attribute type by the CMDI schema
+
 
 ### Example
 
@@ -27,14 +29,77 @@ import eu.clarin.cmdi.componentregistry.openapi.client.api.DefaultApi;
 public class Example {
     public static void main(String[] args) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://catalog.clarin.eu/ds/ComponentRegistry/rest");
+        defaultClient.setBasePath("http://localhost");
+
+        DefaultApi apiInstance = new DefaultApi(defaultClient);
+        String path = "path_example"; // String | 
+        try {
+            apiInstance.getExternalGrammar(path);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#getExternalGrammar");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **path** | **String**|  | |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/xml
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **0** | default response |  -  |
+
+
+## getTestItem
+
+> BaseDescription getTestItem()
+
+
+
+### Example
+
+```java
+// Import classes:
+import eu.clarin.cmdi.componentregistry.openapi.client.ApiClient;
+import eu.clarin.cmdi.componentregistry.openapi.client.ApiException;
+import eu.clarin.cmdi.componentregistry.openapi.client.Configuration;
+import eu.clarin.cmdi.componentregistry.openapi.client.models.*;
+import eu.clarin.cmdi.componentregistry.openapi.client.api.DefaultApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost");
 
         DefaultApi apiInstance = new DefaultApi(defaultClient);
         try {
-            Object result = apiInstance.getAllowedAttributeTypes();
+            BaseDescription result = apiInstance.getTestItem();
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling DefaultApi#getAllowedAttributeTypes");
+            System.err.println("Exception when calling DefaultApi#getTestItem");
             System.err.println("Status code: " + e.getCode());
             System.err.println("Reason: " + e.getResponseBody());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -50,7 +115,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**Object**
+[**BaseDescription**](BaseDescription.md)
 
 ### Authorization
 
@@ -59,11 +124,70 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: text/xml, application/xml, application/json
+- **Accept**: application/xml
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | successful operation |  -  |
+| **0** | default response |  -  |
+
+
+## getWadl
+
+> getWadl()
+
+
+
+### Example
+
+```java
+// Import classes:
+import eu.clarin.cmdi.componentregistry.openapi.client.ApiClient;
+import eu.clarin.cmdi.componentregistry.openapi.client.ApiException;
+import eu.clarin.cmdi.componentregistry.openapi.client.Configuration;
+import eu.clarin.cmdi.componentregistry.openapi.client.models.*;
+import eu.clarin.cmdi.componentregistry.openapi.client.api.DefaultApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost");
+
+        DefaultApi apiInstance = new DefaultApi(defaultClient);
+        try {
+            apiInstance.getWadl();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#getWadl");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/vnd.sun.wadl+xml, application/xml
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **0** | default response |  -  |
 
