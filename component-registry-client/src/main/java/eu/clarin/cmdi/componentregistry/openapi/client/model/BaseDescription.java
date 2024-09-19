@@ -49,7 +49,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
   BaseDescription.JSON_PROPERTY_ID,
   BaseDescription.JSON_PROPERTY_SHOW_IN_EDITOR
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-09-19T12:17:33.780994+03:00[Europe/Riga]", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-09-19T13:49:40.074827+03:00[Europe/Riga]", comments = "Generator version: 7.8.0")
 public class BaseDescription {
   public static final String JSON_PROPERTY_DB_ID = "dbId";
   private Long dbId;
