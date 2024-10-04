@@ -39,8 +39,8 @@ public class ApiClientConfiguration {
         final DefaultApi api = new DefaultApi();
 
         log.info("Applying configuration to API client");
-        //TODO: apply configuration properties
         api.getApiClient().setBasePath(clientConfig.getBasePath());
+        //TODO: apply addutional (optional) configuration properties – username, password, user agent...
         return api;
     }
 

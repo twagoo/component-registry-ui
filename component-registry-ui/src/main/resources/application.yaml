@@ -1,0 +1,10 @@
+spring:
+    application:
+        name: component-registry-ui
+
+server:
+    port: 8081
+
+#api:
+#    client:
+#        basePath: http://localhost:8080
