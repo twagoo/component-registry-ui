@@ -23,7 +23,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-09-19T17:30:48.787053+03:00[Europe/Riga]", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-04T11:40:41.044607+03:00[Europe/Riga]", comments = "Generator version: 7.8.0")
 public class DefaultApi {
     private ApiClient apiClient;
 
@@ -119,6 +119,70 @@ public class DefaultApi {
      * 
      * 
      * <p><b>0</b> - default response
+     * @return List&lt;BaseDescription&gt;
+     * @throws RestClientResponseException if an error occurs while attempting to invoke the API
+     */
+    private ResponseSpec getItemsRequestCreation() throws RestClientResponseException {
+        Object postBody = null;
+        // create path and map variables
+        final Map<String, Object> pathParams = new HashMap<>();
+
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, String> cookieParams = new LinkedMultiValueMap<>();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<>();
+
+        final String[] localVarAccepts = { 
+            "application/json", "application/xml"
+        };
+        final List<MediaType> localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        final String[] localVarContentTypes = { };
+        final MediaType localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+        String[] localVarAuthNames = new String[] {  };
+
+        ParameterizedTypeReference<List<BaseDescription>> localVarReturnType = new ParameterizedTypeReference<>() {};
+        return apiClient.invokeAPI("/rest/registry/items", HttpMethod.GET, pathParams, queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    }
+
+    /**
+     * 
+     * 
+     * <p><b>0</b> - default response
+     * @return List&lt;BaseDescription&gt;
+     * @throws RestClientResponseException if an error occurs while attempting to invoke the API
+     */
+    public List<BaseDescription> getItems() throws RestClientResponseException {
+        ParameterizedTypeReference<List<BaseDescription>> localVarReturnType = new ParameterizedTypeReference<>() {};
+        return getItemsRequestCreation().body(localVarReturnType);
+    }
+
+    /**
+     * 
+     * 
+     * <p><b>0</b> - default response
+     * @return ResponseEntity&lt;List&lt;BaseDescription&gt;&gt;
+     * @throws RestClientResponseException if an error occurs while attempting to invoke the API
+     */
+    public ResponseEntity<List<BaseDescription>> getItemsWithHttpInfo() throws RestClientResponseException {
+        ParameterizedTypeReference<List<BaseDescription>> localVarReturnType = new ParameterizedTypeReference<>() {};
+        return getItemsRequestCreation().toEntity(localVarReturnType);
+    }
+
+    /**
+     * 
+     * 
+     * <p><b>0</b> - default response
+     * @return ResponseSpec
+     * @throws RestClientResponseException if an error occurs while attempting to invoke the API
+     */
+    public ResponseSpec getItemsWithResponseSpec() throws RestClientResponseException {
+        return getItemsRequestCreation();
+    }
+    /**
+     * 
+     * 
+     * <p><b>0</b> - default response
      * @return BaseDescription
      * @throws RestClientResponseException if an error occurs while attempting to invoke the API
      */
@@ -133,7 +197,7 @@ public class DefaultApi {
         final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<>();
 
         final String[] localVarAccepts = { 
-            "application/xml"
+            "application/json", "application/xml"
         };
         final List<MediaType> localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         final String[] localVarContentTypes = { };
