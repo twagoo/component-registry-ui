@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--
+Copyright (C) 2024 CLARIN ERIC
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+    <title>CLARIN Component Registry</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <h1>Items</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tr th:each="description : ${items}">
+            <td><span th:text="${description.id}"> Id </span></td>
+            <td><span th:text="${description.name}"> Name </span></td>
+            <td><span th:text="${description.description}"> Description </span></td>
+        </tr>
+    </table>
+</body>
+</html>

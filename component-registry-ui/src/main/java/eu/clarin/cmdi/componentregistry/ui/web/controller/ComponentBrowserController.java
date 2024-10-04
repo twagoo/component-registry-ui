@@ -18,15 +18,17 @@ package eu.clarin.cmdi.componentregistry.ui.web.controller;
 
 import eu.clarin.cmdi.componentregistry.openapi.client.api.DefaultApi;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.BaseDescription;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
  * @author twagoo
  */
-@RestController
+@Controller
 public class ComponentBrowserController {
 
     private final DefaultApi api;
@@ -36,10 +38,11 @@ public class ComponentBrowserController {
         this.api = api;
     }
 
-    @GetMapping("/")
-    public String test() {
-        final BaseDescription testItem = api.getTestItem();
-        return  "<html><body><pre>"+testItem.toString()+"</pre></body></html>";
+    @GetMapping(path = "/")
+    public String items(Model model) {
+        final List<BaseDescription> items = api.getItems();
+        model.addAttribute("items", items);
+        return "browser/items";
     }
 
 }
