@@ -23,7 +23,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-04T11:40:41.044607+03:00[Europe/Riga]", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-11T18:59:51.827527+03:00[Europe/Riga]", comments = "Generator version: 7.8.0")
 public class DefaultApi {
     private ApiClient apiClient;
 
@@ -119,10 +119,12 @@ public class DefaultApi {
      * 
      * 
      * <p><b>0</b> - default response
+     * @param sortBy The sortBy parameter
+     * @param sortDirection The sortDirection parameter
      * @return List&lt;BaseDescription&gt;
      * @throws RestClientResponseException if an error occurs while attempting to invoke the API
      */
-    private ResponseSpec getItemsRequestCreation() throws RestClientResponseException {
+    private ResponseSpec getItemsRequestCreation(String sortBy, String sortDirection) throws RestClientResponseException {
         Object postBody = null;
         // create path and map variables
         final Map<String, Object> pathParams = new HashMap<>();
@@ -132,6 +134,9 @@ public class DefaultApi {
         final MultiValueMap<String, String> cookieParams = new LinkedMultiValueMap<>();
         final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<>();
 
+        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "sortBy", sortBy));
+        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "sortDirection", sortDirection));
+        
         final String[] localVarAccepts = { 
             "application/json", "application/xml"
         };
@@ -149,35 +154,41 @@ public class DefaultApi {
      * 
      * 
      * <p><b>0</b> - default response
+     * @param sortBy The sortBy parameter
+     * @param sortDirection The sortDirection parameter
      * @return List&lt;BaseDescription&gt;
      * @throws RestClientResponseException if an error occurs while attempting to invoke the API
      */
-    public List<BaseDescription> getItems() throws RestClientResponseException {
+    public List<BaseDescription> getItems(String sortBy, String sortDirection) throws RestClientResponseException {
         ParameterizedTypeReference<List<BaseDescription>> localVarReturnType = new ParameterizedTypeReference<>() {};
-        return getItemsRequestCreation().body(localVarReturnType);
+        return getItemsRequestCreation(sortBy, sortDirection).body(localVarReturnType);
     }
 
     /**
      * 
      * 
      * <p><b>0</b> - default response
+     * @param sortBy The sortBy parameter
+     * @param sortDirection The sortDirection parameter
      * @return ResponseEntity&lt;List&lt;BaseDescription&gt;&gt;
      * @throws RestClientResponseException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<BaseDescription>> getItemsWithHttpInfo() throws RestClientResponseException {
+    public ResponseEntity<List<BaseDescription>> getItemsWithHttpInfo(String sortBy, String sortDirection) throws RestClientResponseException {
         ParameterizedTypeReference<List<BaseDescription>> localVarReturnType = new ParameterizedTypeReference<>() {};
-        return getItemsRequestCreation().toEntity(localVarReturnType);
+        return getItemsRequestCreation(sortBy, sortDirection).toEntity(localVarReturnType);
     }
 
     /**
      * 
      * 
      * <p><b>0</b> - default response
+     * @param sortBy The sortBy parameter
+     * @param sortDirection The sortDirection parameter
      * @return ResponseSpec
      * @throws RestClientResponseException if an error occurs while attempting to invoke the API
      */
-    public ResponseSpec getItemsWithResponseSpec() throws RestClientResponseException {
-        return getItemsRequestCreation();
+    public ResponseSpec getItemsWithResponseSpec(String sortBy, String sortDirection) throws RestClientResponseException {
+        return getItemsRequestCreation(sortBy, sortDirection);
     }
     /**
      * 

@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -39,8 +40,8 @@ public class ComponentBrowserController {
     }
 
     @GetMapping(path = "/")
-    public String items(Model model) {
-        final List<BaseDescription> items = api.getItems();
+    public String items(Model model, @RequestParam(defaultValue = "name") String sortBy, @RequestParam(defaultValue = "ASC") String sortDirection) {
+        final List<BaseDescription> items = api.getItems(sortBy, sortDirection);
         model.addAttribute("items", items);
         return "browser/items";
     }

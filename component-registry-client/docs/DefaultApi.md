@@ -76,7 +76,7 @@ No authorization required
 
 ## getItems
 
-> List&lt;BaseDescription&gt; getItems()
+> List&lt;BaseDescription&gt; getItems(sortBy, sortDirection)
 
 
 
@@ -96,8 +96,10 @@ public class Example {
         defaultClient.setBasePath("http://localhost");
 
         DefaultApi apiInstance = new DefaultApi(defaultClient);
+        String sortBy = "name"; // String | 
+        String sortDirection = "ASC"; // String | 
         try {
-            List<BaseDescription> result = apiInstance.getItems();
+            List<BaseDescription> result = apiInstance.getItems(sortBy, sortDirection);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#getItems");
@@ -112,7 +114,11 @@ public class Example {
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **sortBy** | **String**|  | [optional] [default to name] |
+| **sortDirection** | **String**|  | [optional] [default to ASC] [enum: ASC, DESC] |
 
 ### Return type
 

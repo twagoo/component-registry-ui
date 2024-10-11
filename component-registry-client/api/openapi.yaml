@@ -13,6 +13,26 @@ paths:
   /rest/registry/items:
     get:
       operationId: getItems
+      parameters:
+      - explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          default: name
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: sortDirection
+        required: false
+        schema:
+          default: ASC
+          enum:
+          - ASC
+          - DESC
+          type: string
+        style: form
       responses:
         default:
           content:
