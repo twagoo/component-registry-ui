@@ -16,25 +16,49 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
-<head> 
-    <title>CLARIN Component Registry</title> 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-    <h1>Items</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tr th:each="description : ${items}">
-            <td><span th:text="${description.id}"> Id </span></td>
-            <td><span th:text="${description.name}"> Name </span></td>
-            <td><span th:text="${description.description}"> Description </span></td>
-        </tr>
-    </table>
-</body>
+    <head> 
+        <title>CLARIN Component Registry</title> 
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" rel="stylesheet" />
+        <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}" defer></script>
+        <script th:src="@{/webjars/htmx.org/2.0.2/dist/htmx.min.js}" defer></script>
+    </head>
+    <body>
+        <header class="my-2">
+            <div class="container">
+                <h1>Items</h1>
+            </div>
+        </header>
+        <main class="my-2">
+            <div class="container">
+                <table id="itemsTable" class="table">
+                    <thead>
+                        <tr hx-target="#itemsTable" 
+                            hx-swap="outerHTML"
+                            hx-select="#itemsTable">
+                            <th>Id
+                                <a hx-get="?sortBy=id" href="#">[s]</a>
+                            </th>
+                            <th>Name 
+                                <a hx-get="?sortBy=name" href="#">[s]</a>
+                            </th>
+                            <th>Description
+                                <a hx-get="?sortBy=description" href="#">[s]</a>  
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="items-table-body">
+                        <tr th:each="description : ${items}">
+                            <td><span th:text="${description.id}"> Id </span></td>
+                            <td><span th:text="${description.name}"> Name </span></td>
+                            <td><span th:text="${description.description}"> Description </span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div> <!-- container -->
+        </main>
+
+    </body>
 </html>
