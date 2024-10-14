@@ -43,6 +43,8 @@ public class ComponentBrowserController {
     public String items(Model model, @RequestParam(defaultValue = "name") String sortBy, @RequestParam(defaultValue = "ASC") String sortDirection) {
         final List<BaseDescription> items = api.getItems(sortBy, sortDirection);
         model.addAttribute("items", items);
+        model.addAttribute("sortedBy", sortBy);
+        model.addAttribute("sortedDirection", sortDirection);
         return "browser/items";
     }
 

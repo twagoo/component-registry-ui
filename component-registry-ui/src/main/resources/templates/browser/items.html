@@ -32,19 +32,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         </header>
         <main class="my-2">
             <div class="container">
-                <table id="itemsTable" class="table">
-                    <thead>
-                        <tr hx-target="#itemsTable" 
-                            hx-swap="outerHTML"
-                            hx-select="#itemsTable">
+                <table id="items-table" class="table">
+                    <thead id="items-table-head">
+                        <tr hx-boost="true"
+                            hx-target="#items-table-body" 
+                            hx-swap="outerHTML show:none"
+                            hx-select="#items-table-body"
+                            hx-select-oob="#items-table-head">
                             <th>Id
-                                <a hx-get="?sortBy=id" href="#">[s]</a>
+                                <a th:unless="${sortedBy == 'id'}" href="?sortBy=id">[s]</a>
                             </th>
                             <th>Name 
-                                <a hx-get="?sortBy=name" href="#">[s]</a>
+                                <a th:unless="${sortedBy == 'name'}" href="?sortBy=name">[s]</a>
                             </th>
                             <th>Description
-                                <a hx-get="?sortBy=description" href="#">[s]</a>  
+                                <a th:unless="${sortedBy == 'description'}" href="?sortBy=description">[s]</a>  
                             </th>
                         </tr>
                     </thead>
