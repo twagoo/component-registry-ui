@@ -27,34 +27,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <body>
         <header class="my-2">
             <div class="container">
-                <h1>Items</h1>
+                <h1 th:text="#{browser.table.title}">{title}</h1>
             </div>
         </header>
         <main class="my-2">
             <div class="container">
                 <table id="items-table" class="table">
+                    <!-- Table header with sorting options -->
                     <thead id="items-table-head">
                         <tr hx-boost="true"
-                            hx-target="#items-table-body" 
+                            hx-target="#items-table" 
                             hx-swap="outerHTML show:none"
-                            hx-select="#items-table-body"
-                            hx-select-oob="#items-table-head">
-                            <th>Id
-                                <a th:unless="${sortedBy == 'id'}" href="?sortBy=id">[s]</a>
-                            </th>
-                            <th>Name 
-                                <a th:unless="${sortedBy == 'name'}" href="?sortBy=name">[s]</a>
-                            </th>
-                            <th>Description
-                                <a th:unless="${sortedBy == 'description'}" href="?sortBy=description">[s]</a>  
+                            hx-select="#items-table">
+                            <th th:each="field: ${fields}">
+                                <span th:text="#{|item.field.${field}|}"></span>
+                                <a th:unless="${sortedBy == field && sortedDirection == 'ASC'}" th:href="${'?sortDirection=ASC&amp;sortBy='+field}">⬇</a>
+                                <a th:unless="${sortedBy == field && sortedDirection == 'DESC'}" th:href="${'?sortDirection=DESC&amp;sortBy='+field}">⬆</a>
                             </th>
                         </tr>
                     </thead>
+                    <!-- Data -->
                     <tbody id="items-table-body">
                         <tr th:each="description : ${items}">
-                            <td><span th:text="${description.id}"> Id </span></td>
-                            <td><span th:text="${description.name}"> Name </span></td>
-                            <td><span th:text="${description.description}"> Description </span></td>
+                            <td th:each="field: ${fields}">
+                                <span th:text="${description[field]}">value</span>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

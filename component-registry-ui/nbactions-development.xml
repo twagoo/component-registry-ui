@@ -19,6 +19,9 @@
                 <skipTests>true</skipTests>
                 <exec.workingdir>--spring.config.location=classpath:/application.yaml,optional:classpath:/dev-config/application-dev.yaml</exec.workingdir>
             </properties>
+            <activatedProfiles>
+                <activatedProfile>development</activatedProfile>
+            </activatedProfiles>
         </action>
         <action>
             <actionName>rebuild</actionName>
@@ -32,6 +35,9 @@
             <properties>
                 <skipTests>true</skipTests>
             </properties>
+            <activatedProfiles>
+                <activatedProfile>development</activatedProfile>
+            </activatedProfiles>
         </action>
         <action>
             <actionName>run</actionName>

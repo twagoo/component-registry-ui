@@ -18,6 +18,8 @@ package eu.clarin.cmdi.componentregistry.ui.web.controller;
 
 import eu.clarin.cmdi.componentregistry.openapi.client.api.DefaultApi;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.BaseDescription;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,21 +33,22 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class ComponentBrowserController {
-
+    
     private final DefaultApi api;
-
+    
     @Autowired
     public ComponentBrowserController(DefaultApi api) {
         this.api = api;
     }
-
+    
     @GetMapping(path = "/")
     public String items(Model model, @RequestParam(defaultValue = "name") String sortBy, @RequestParam(defaultValue = "ASC") String sortDirection) {
         final List<BaseDescription> items = api.getItems(sortBy, sortDirection);
         model.addAttribute("items", items);
         model.addAttribute("sortedBy", sortBy);
         model.addAttribute("sortedDirection", sortDirection);
+        model.addAttribute("fields", Arrays.asList("id", "name", "description"));
         return "browser/items";
     }
-
+    
 }
