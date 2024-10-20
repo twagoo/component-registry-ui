@@ -25,34 +25,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <script th:src="@{/webjars/htmx.org/2.0.2/dist/htmx.min.js}" defer></script>
     </head>
     <body>
-        <header class="my-2">
-            <div class="container">
-                <div class="d-flex flex-row mb-2">
-                    <div  class="p-2">
-                        <h1 th:text="#{browser.table.title}">{title}</h1>
-                    </div>
-                    <!-- Loading indicator for table updates -->
-                    <div class="p-2 htmx-indicator" id="table-load-indicator" >
-                        <div class="spinner-border" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
         <main class="my-2">
             <div class="container">
                 <table id="items-table" class="table">
                     <!-- Table header with sorting options -->
-                    <thead id="items-table-head" hx-indicator="#table-load-indicator">
+                    <thead id="items-table-head">
                         <tr hx-boost="true"
                             hx-target="#items-table" 
                             hx-swap="outerHTML show:none"
                             hx-select="#items-table">
                             <th th:each="field: ${fields}">
                                 <span th:text="#{|item.field.${field}|}"></span>
-                                <a th:unless="${sortedBy == field && sortedDirection == 'ASC'}" th:href="${'?sortDirection=ASC&amp;sortBy='+field}">⬇</a>
-                                <a th:unless="${sortedBy == field && sortedDirection == 'DESC'}" th:href="${'?sortDirection=DESC&amp;sortBy='+field}">⬆</a>
+                                <a th:unless="${sortedBy == field && sortedDirection == 'ASC'}" 
+                                   th:href="${'/items?sortDirection=ASC&amp;sortBy='+field}"
+                                   th:hx-push-url="${'/?sortDirection=ASC&amp;sortBy='+field}"
+                                   >⬇</a>
+                                <a th:unless="${sortedBy == field && sortedDirection == 'DESC'}" 
+                                   th:href="${'/items?sortDirection=DESC&amp;sortBy='+field}"
+                                   th:hx-push-url="${'/?sortDirection=DESC&amp;sortBy='+field}"
+                                   >⬆</a>
                             </th>
                         </tr>
                     </thead>
