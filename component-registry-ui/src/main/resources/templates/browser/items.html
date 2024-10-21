@@ -43,7 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     <a th:if="${sortedDirection == 'DESC'}" 
                                        th:hx-vals='|{"sortBy": "", "sortDirection": ""}|'
                                        href="/items"
-                                       th:hx-push-url="${'/?sortDirection=ASC&amp;sortBy='+field}">
+                                       th:hx-push-url="${'/'}">
                                         <span th:text="#{|item.field.${field}|}"></span>
                                         <i class="fa-solid fa-arrow-up-z-a"></i>
                                     </a>                             
