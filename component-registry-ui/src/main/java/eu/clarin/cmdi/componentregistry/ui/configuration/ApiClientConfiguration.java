@@ -20,12 +20,8 @@ import eu.clarin.cmdi.componentregistry.openapi.client.ApiClient;
 import eu.clarin.cmdi.componentregistry.openapi.client.api.DefaultApi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.thymeleaf.spring6.SpringTemplateEngine;
-import org.thymeleaf.templateresolver.ITemplateResolver;
 
 /**
  *
@@ -51,24 +47,6 @@ public class ApiClientConfiguration {
     @Bean
     public ApiClient apiClient() {
         return api().getApiClient();
-    }
-
-    @Bean
-    public MessageSource messageSource() {
-        final ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasenames("classpath:messages/common", "classpath:messages/browser");
-        messageSource.setUseCodeAsDefaultMessage(true);
-        messageSource.setDefaultEncoding("UTF-8");
-        messageSource.setCacheSeconds(10);
-        return messageSource;
-    }
-
-    @Bean
-    public SpringTemplateEngine templateEnginge(MessageSource messageSource, ITemplateResolver templateResolver) {
-        final SpringTemplateEngine engine = new SpringTemplateEngine();
-        engine.setTemplateResolver(templateResolver);
-        engine.setMessageSource(messageSource);
-        return engine;
     }
 
 }
