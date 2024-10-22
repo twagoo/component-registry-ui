@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         </header>
         <main class="my-2">
 
-            <div class="container">
+            <div id="items-container" class="container">
                 <div class="d-flex flex-row mb-2">
                     <div  class="p-2">
                         <h2 th:text="#{browser.table.title}"></h2>
@@ -44,9 +44,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                 <div hx-trigger="load"
                      th:hx-get="|/items?sortBy=${sortedBy}&sortDirection=${sortedDirection}|"
-                     hx-select="#items-table"
+                     hx-select="#items-table-wrapper"
                      hx-swap="innerHTML"
-                     hx-indicator="#table-load-indicator">
+                     hx-indicator="#items-container">
                     Items
                 </div>
             </div>

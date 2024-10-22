@@ -22,8 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <body>
         <main class="my-2">
             <div class="container">
-                <div id="items-table" class="table-responsive">
-                    <table class="table table-sm table-striped table-hover">
+                <div id="items-table-wrapper" class="table-responsive">
+                    <table id="items-table" class="loading table table-sm table-striped table-hover">
                         <!-- Table header with sorting options -->
                         <thead class="table-light" id="items-table-head">
                             <tr hx-boost="true"
@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                 hx-select="#items-table">
                                 <th th:each="field: ${fields}"
                                     th:hx-vals='|{"sortBy": "${field}", "sortDirection": "${sortedDirection}"}|'
-                                    th:class="|column-${field}|"
+                                    th:class="|column-field_${field}|"
                                     >
                                     <span th:if="${sortedBy == field}">                                
                                         <a th:if="${sortedDirection == 'ASC'}" 
@@ -63,7 +63,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <!-- Data -->
                         <tbody id="items-table-body">
                             <tr th:each="description : ${items}">
-                                <td th:each="field: ${fields}" th:class="|column-${field}|">
+                                <td th:each="field: ${fields}" 
+                                    th:class="|column-field_${field}|">
                                     <span th:switch="${field}">
                                         <a th:case="name" 
                                            th:text="${description[field]}" 

@@ -1,0 +1,29 @@
+/* HTMX updating */
+
+.htmx-request #items-table tbody {
+    opacity: .2;
+}
+
+.htmx-swapping #items-table tbody {
+    opacity: .4;
+}
+
+/* Item table column specific styling */
+
+.column-field_name, .column-field_description, .column-field_groupName, .column-field_domainName, .column-field_creator, .column-field_registrationDate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.column-field_name {
+    max-width: 10em;
+}
+
+.column-field_groupName, .column-field_domainName,  .column-field_creator, .column-field_registrationDate {
+    max-width: 10em;
+}
+
+.column-field_description {
+    max-width: 15em;
+}
