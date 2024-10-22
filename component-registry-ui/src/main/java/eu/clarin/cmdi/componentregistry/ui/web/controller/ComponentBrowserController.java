@@ -19,7 +19,6 @@ package eu.clarin.cmdi.componentregistry.ui.web.controller;
 import eu.clarin.cmdi.componentregistry.openapi.client.api.DefaultApi;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.BaseDescription;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,17 +41,23 @@ public class ComponentBrowserController {
     public static final String SORT_DIRECTION_QUERY_PARAM = "sortDirection";
     public static final String SORT_DIRECTION_DEFAULT = "ASC";
 
+    private static final List<String> ITEM_TABLE_FIELDS = Arrays.asList(
+            "name",
+            "groupName",
+            "domainName",
+            "creatorName",
+            "description",
+            "registrationDate");
+
     @Autowired
     public ComponentBrowserController(DefaultApi api) {
         this.api = api;
     }
 
-    private void setModelAttributes(String sortBy, String sortDirection, Model model) throws RestClientResponseException {
-        final List<BaseDescription> items = api.getItems(sortBy, sortDirection);
-        model.addAttribute("items", items);
+    private void setCommonModelAttributes(String sortBy, String sortDirection, Model model) throws RestClientResponseException {
+        model.addAttribute("fields", ITEM_TABLE_FIELDS);
         model.addAttribute("sortedBy", sortBy);
         model.addAttribute("sortedDirection", sortDirection);
-        model.addAttribute("fields", Arrays.asList("id", "name", "description"));
     }
 
     @GetMapping(path = "/")
@@ -61,7 +66,7 @@ public class ComponentBrowserController {
                     defaultValue = SORT_BY_DEFAULT) String sortBy,
             @RequestParam(name = SORT_DIRECTION_QUERY_PARAM,
                     defaultValue = SORT_DIRECTION_DEFAULT) String sortDirection) {
-        setModelAttributes(sortBy, sortDirection, model);
+        setCommonModelAttributes(sortBy, sortDirection, model);
         return "browser/browser";
     }
 
@@ -71,7 +76,11 @@ public class ComponentBrowserController {
                     defaultValue = SORT_BY_DEFAULT) String sortBy,
             @RequestParam(name = SORT_DIRECTION_QUERY_PARAM,
                     defaultValue = SORT_DIRECTION_DEFAULT) String sortDirection) {
-        setModelAttributes(sortBy, sortDirection, model);
+        final List<BaseDescription> items = api.getItems(sortBy, sortDirection);
+
+        setCommonModelAttributes(sortBy, sortDirection, model);
+        model.addAttribute("items", items);
+
         return "browser/items";
     }
 

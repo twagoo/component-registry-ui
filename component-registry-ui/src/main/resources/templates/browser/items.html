@@ -22,52 +22,60 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <body>
         <main class="my-2">
             <div class="container">
-                <table id="items-table" class="table">
-                    <!-- Table header with sorting options -->
-                    <thead id="items-table-head">
-                        <tr hx-boost="true"
-                            hx-target="#items-table" 
-                            hx-swap="outerHTML show:none"
-                            hx-select="#items-table">
-                            <th th:each="field: ${fields}"
-                                th:hx-vals='|{"sortBy": "${field}", "sortDirection": "${sortedDirection}"}|'
-                                >
-                                <span th:if="${sortedBy == field}">                                
-                                    <a th:if="${sortedDirection == 'ASC'}" 
-                                       hx-vals='{"sortDirection": "DESC"}'
-                                       href="/items"
-                                       th:hx-push-url="${'/?sortDirection=DESC&amp;sortBy='+field}">
-                                        <span th:text="#{|item.field.${field}|}"></span>
-                                        <i class="fa-solid fa-arrow-down-a-z"></i>
-                                    </a>
-                                    <a th:if="${sortedDirection == 'DESC'}" 
-                                       th:hx-vals='|{"sortBy": "", "sortDirection": ""}|'
-                                       href="/items"
-                                       th:hx-push-url="${'/'}">
-                                        <span th:text="#{|item.field.${field}|}"></span>
-                                        <i class="fa-solid fa-arrow-up-z-a"></i>
-                                    </a>                             
-                                </span>
-                                
-                                <span th:if="${sortedBy != field}">   
-                                    <a hx-vals='{"sortDirection": "ASC"}'
-                                       href="/items"
-                                       th:hx-push-url="${'/?sortDirection=ASC&amp;sortBy='+field}"
-                                       ><span th:text="#{|item.field.${field}|}"></span></a>
-                                </span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <!-- Data -->
-                    <tbody id="items-table-body">
-                        <tr th:each="description : ${items}">
-                            <td th:each="field: ${fields}">
-                                <span th:text="${description[field]}">value</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div id="items-table" class="table-responsive">
+                    <table class="table table-sm table-striped table-hover">
+                        <!-- Table header with sorting options -->
+                        <thead class="table-light" id="items-table-head">
+                            <tr hx-boost="true"
+                                hx-target="#items-table" 
+                                hx-swap="outerHTML show:none"
+                                hx-select="#items-table">
+                                <th th:each="field: ${fields}"
+                                    th:hx-vals='|{"sortBy": "${field}", "sortDirection": "${sortedDirection}"}|'
+                                    th:class="|column-${field}|"
+                                    >
+                                    <span th:if="${sortedBy == field}">                                
+                                        <a th:if="${sortedDirection == 'ASC'}" 
+                                           hx-vals='{"sortDirection": "DESC"}'
+                                           th:href="@{/items}"
+                                           th:hx-push-url="${'/?sortDirection=DESC&amp;sortBy='+field}">
+                                            <span th:text="#{|item.field.${field}|}"></span>
+                                            <i class="fa-solid fa-arrow-down-a-z"></i>
+                                        </a>
+                                        <a th:if="${sortedDirection == 'DESC'}" 
+                                           th:hx-vals='|{"sortBy": "", "sortDirection": ""}|'
+                                           th:href="@{/items}"
+                                           th:hx-push-url="${'/'}">
+                                            <span th:text="#{|item.field.${field}|}"></span>
+                                            <i class="fa-solid fa-arrow-up-z-a"></i>
+                                        </a>                             
+                                    </span>
 
+                                    <span th:if="${sortedBy != field}">   
+                                        <a hx-vals='{"sortDirection": "ASC"}'
+                                           th:href="@{/items}"
+                                           th:hx-push-url="${'/?sortDirection=ASC&amp;sortBy='+field}"
+                                           ><span th:text="#{|item.field.${field}|}"></span></a>
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <!-- Data -->
+                        <tbody id="items-table-body">
+                            <tr th:each="description : ${items}">
+                                <td th:each="field: ${fields}" th:class="|column-${field}|">
+                                    <span th:switch="${field}">
+                                        <a th:case="name" 
+                                           th:text="${description[field]}" 
+                                           th:href="@{|/item/${description.id}|}|">link</a>
+                                        <span th:case="*" 
+                                              th:text="${description[field]}">value</span>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div> <!-- container -->
         </main>
 
