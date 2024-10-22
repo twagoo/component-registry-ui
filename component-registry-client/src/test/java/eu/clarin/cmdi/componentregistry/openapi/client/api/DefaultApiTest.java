@@ -51,8 +51,23 @@ public class DefaultApiTest {
      * 
      */
     @Test
-    public void getTestItemTest()  {
-        BaseDescription response = api.getTestItem();
+    public void getItemTest()  {
+        String componentId = null;
+        BaseDescription response = api.getItem(componentId);
+
+        // TODO: test validations
+    }
+    
+    /**
+     * 
+     *
+     * 
+     */
+    @Test
+    public void getItemsTest()  {
+        String sortBy = null;
+        String sortDirection = null;
+        List<BaseDescription> response = api.getItems(sortBy, sortDirection);
 
         // TODO: test validations
     }

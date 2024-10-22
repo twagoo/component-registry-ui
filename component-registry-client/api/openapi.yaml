@@ -10,6 +10,30 @@ info:
 servers:
 - url: /
 paths:
+  /rest/registry/item:
+    get:
+      operationId: getItem
+      parameters:
+      - explode: true
+        in: query
+        name: componentId
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseDescription'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/BaseDescription'
+          description: default response
+      x-accepts:
+      - application/json
+      - application/xml
   /rest/registry/items:
     get:
       operationId: getItems
@@ -46,22 +70,6 @@ paths:
                 items:
                   $ref: '#/components/schemas/BaseDescription'
                 type: array
-          description: default response
-      x-accepts:
-      - application/json
-      - application/xml
-  /rest/registry/test:
-    get:
-      operationId: getTestItem
-      responses:
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BaseDescription'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/BaseDescription'
           description: default response
       x-accepts:
       - application/json

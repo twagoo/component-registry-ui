@@ -4,7 +4,7 @@ Component Registry API
 
 - API version: 1.0
 
-- Build date: 2024-10-11T18:59:51.827527+03:00[Europe/Riga]
+- Build date: 2024-10-22T17:52:30.543733+02:00[Europe/Amsterdam]
 
 - Generator version: 7.8.0
 
@@ -118,8 +118,8 @@ All URIs are relative to *http://localhost*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**getExternalGrammar**](docs/DefaultApi.md#getExternalGrammar) | **GET** /rest/application.wadl/{path} | 
+*DefaultApi* | [**getItem**](docs/DefaultApi.md#getItem) | **GET** /rest/registry/item | 
 *DefaultApi* | [**getItems**](docs/DefaultApi.md#getItems) | **GET** /rest/registry/items | 
-*DefaultApi* | [**getTestItem**](docs/DefaultApi.md#getTestItem) | **GET** /rest/registry/test | 
 *DefaultApi* | [**getWadl**](docs/DefaultApi.md#getWadl) | **GET** /rest/application.wadl | 
 
 

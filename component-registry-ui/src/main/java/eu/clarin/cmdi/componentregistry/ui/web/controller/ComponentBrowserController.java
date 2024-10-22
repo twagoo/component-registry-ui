@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestClientResponseException;
 
@@ -82,6 +83,23 @@ public class ComponentBrowserController {
         model.addAttribute("items", items);
 
         return "browser/items";
+    }
+
+    @GetMapping(path = "/item/{id}")
+    public String itemDescription(Model model,
+            @PathVariable String id) {
+        //get item description from API
+        final BaseDescription item = api.getItem(id);
+        
+        model.addAttribute("item", item);
+        return "browser/item";
+    }
+
+    @GetMapping(path = "/item/{id}/specification")
+    public String itemSpecification(Model model,
+            @PathVariable String id) {
+        //TODO: get item specification from API
+        return "browser/item";
     }
 
 }

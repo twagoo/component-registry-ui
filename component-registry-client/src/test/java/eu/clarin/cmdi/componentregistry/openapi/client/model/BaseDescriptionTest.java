@@ -197,4 +197,12 @@ class BaseDescriptionTest {
         // TODO: test showInEditor
     }
 
+    /**
+     * Test the property 'isPublic'
+     */
+    @Test
+    void isPublicTest() {
+        // TODO: test isPublic
+    }
+
 }
