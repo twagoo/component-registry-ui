@@ -4,7 +4,7 @@ Component Registry API
 
 - API version: 1.0
 
-- Build date: 2024-10-22T17:52:30.543733+02:00[Europe/Amsterdam]
+- Build date: 2024-10-24T11:08:44.298260+02:00[Europe/Amsterdam]
 
 - Generator version: 7.8.0
 
@@ -118,14 +118,26 @@ All URIs are relative to *http://localhost*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**getExternalGrammar**](docs/DefaultApi.md#getExternalGrammar) | **GET** /rest/application.wadl/{path} | 
-*DefaultApi* | [**getItem**](docs/DefaultApi.md#getItem) | **GET** /rest/registry/item | 
+*DefaultApi* | [**getItem**](docs/DefaultApi.md#getItem) | **GET** /rest/registry/items/{componentId} | 
+*DefaultApi* | [**getItemSpec**](docs/DefaultApi.md#getItemSpec) | **GET** /rest/registry/items/{componentId}/spec | 
 *DefaultApi* | [**getItems**](docs/DefaultApi.md#getItems) | **GET** /rest/registry/items | 
 *DefaultApi* | [**getWadl**](docs/DefaultApi.md#getWadl) | **GET** /rest/application.wadl | 
 
 
 ## Documentation for Models
 
+ - [Attribute](docs/Attribute.md)
+ - [AttributeListType](docs/AttributeListType.md)
  - [BaseDescription](docs/BaseDescription.md)
+ - [ComponentSpec](docs/ComponentSpec.md)
+ - [ComponentType](docs/ComponentType.md)
+ - [DocumentationType](docs/DocumentationType.md)
+ - [ElementType](docs/ElementType.md)
+ - [EnumerationType](docs/EnumerationType.md)
+ - [Header](docs/Header.md)
+ - [ItemType](docs/ItemType.md)
+ - [ValueSchemeType](docs/ValueSchemeType.md)
+ - [VocabularyType](docs/VocabularyType.md)
 
 
 <a id="documentation-for-authorization"></a>

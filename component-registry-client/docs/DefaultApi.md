@@ -5,7 +5,8 @@ All URIs are relative to *http://localhost*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**getExternalGrammar**](DefaultApi.md#getExternalGrammar) | **GET** /rest/application.wadl/{path} |  |
-| [**getItem**](DefaultApi.md#getItem) | **GET** /rest/registry/item |  |
+| [**getItem**](DefaultApi.md#getItem) | **GET** /rest/registry/items/{componentId} |  |
+| [**getItemSpec**](DefaultApi.md#getItemSpec) | **GET** /rest/registry/items/{componentId}/spec |  |
 | [**getItems**](DefaultApi.md#getItems) | **GET** /rest/registry/items |  |
 | [**getWadl**](DefaultApi.md#getWadl) | **GET** /rest/application.wadl |  |
 
@@ -116,11 +117,75 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **componentId** | **String**|  | [optional] |
+| **componentId** | **String**|  | |
 
 ### Return type
 
 [**BaseDescription**](BaseDescription.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/xml
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **0** | default response |  -  |
+
+
+## getItemSpec
+
+> ComponentSpec getItemSpec(componentId)
+
+
+
+### Example
+
+```java
+// Import classes:
+import eu.clarin.cmdi.componentregistry.openapi.client.ApiClient;
+import eu.clarin.cmdi.componentregistry.openapi.client.ApiException;
+import eu.clarin.cmdi.componentregistry.openapi.client.Configuration;
+import eu.clarin.cmdi.componentregistry.openapi.client.models.*;
+import eu.clarin.cmdi.componentregistry.openapi.client.api.DefaultApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("http://localhost");
+
+        DefaultApi apiInstance = new DefaultApi(defaultClient);
+        String componentId = "componentId_example"; // String | 
+        try {
+            ComponentSpec result = apiInstance.getItemSpec(componentId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#getItemSpec");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **componentId** | **String**|  | |
+
+### Return type
+
+[**ComponentSpec**](ComponentSpec.md)
 
 ### Authorization
 

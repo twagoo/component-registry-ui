@@ -3,6 +3,7 @@ package eu.clarin.cmdi.componentregistry.openapi.client.api;
 import eu.clarin.cmdi.componentregistry.openapi.client.ApiClient;
 
 import eu.clarin.cmdi.componentregistry.openapi.client.model.BaseDescription;
+import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +24,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-22T17:52:30.543733+02:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-24T11:08:44.298260+02:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
 public class DefaultApi {
     private ApiClient apiClient;
 
@@ -125,16 +126,20 @@ public class DefaultApi {
      */
     private ResponseSpec getItemRequestCreation(String componentId) throws RestClientResponseException {
         Object postBody = null;
+        // verify the required parameter 'componentId' is set
+        if (componentId == null) {
+            throw new RestClientResponseException("Missing the required parameter 'componentId' when calling getItem", HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), null, null, null);
+        }
         // create path and map variables
         final Map<String, Object> pathParams = new HashMap<>();
+
+        pathParams.put("componentId", componentId);
 
         final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
         final HttpHeaders headerParams = new HttpHeaders();
         final MultiValueMap<String, String> cookieParams = new LinkedMultiValueMap<>();
         final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<>();
 
-        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "componentId", componentId));
-        
         final String[] localVarAccepts = { 
             "application/json", "application/xml"
         };
@@ -145,7 +150,7 @@ public class DefaultApi {
         String[] localVarAuthNames = new String[] {  };
 
         ParameterizedTypeReference<BaseDescription> localVarReturnType = new ParameterizedTypeReference<>() {};
-        return apiClient.invokeAPI("/rest/registry/item", HttpMethod.GET, pathParams, queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+        return apiClient.invokeAPI("/rest/registry/items/{componentId}", HttpMethod.GET, pathParams, queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
     }
 
     /**
@@ -184,6 +189,80 @@ public class DefaultApi {
      */
     public ResponseSpec getItemWithResponseSpec(String componentId) throws RestClientResponseException {
         return getItemRequestCreation(componentId);
+    }
+    /**
+     * 
+     * 
+     * <p><b>0</b> - default response
+     * @param componentId The componentId parameter
+     * @return ComponentSpec
+     * @throws RestClientResponseException if an error occurs while attempting to invoke the API
+     */
+    private ResponseSpec getItemSpecRequestCreation(String componentId) throws RestClientResponseException {
+        Object postBody = null;
+        // verify the required parameter 'componentId' is set
+        if (componentId == null) {
+            throw new RestClientResponseException("Missing the required parameter 'componentId' when calling getItemSpec", HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), null, null, null);
+        }
+        // create path and map variables
+        final Map<String, Object> pathParams = new HashMap<>();
+
+        pathParams.put("componentId", componentId);
+
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, String> cookieParams = new LinkedMultiValueMap<>();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<>();
+
+        final String[] localVarAccepts = { 
+            "application/json", "application/xml"
+        };
+        final List<MediaType> localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+        final String[] localVarContentTypes = { };
+        final MediaType localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+        String[] localVarAuthNames = new String[] {  };
+
+        ParameterizedTypeReference<ComponentSpec> localVarReturnType = new ParameterizedTypeReference<>() {};
+        return apiClient.invokeAPI("/rest/registry/items/{componentId}/spec", HttpMethod.GET, pathParams, queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+    }
+
+    /**
+     * 
+     * 
+     * <p><b>0</b> - default response
+     * @param componentId The componentId parameter
+     * @return ComponentSpec
+     * @throws RestClientResponseException if an error occurs while attempting to invoke the API
+     */
+    public ComponentSpec getItemSpec(String componentId) throws RestClientResponseException {
+        ParameterizedTypeReference<ComponentSpec> localVarReturnType = new ParameterizedTypeReference<>() {};
+        return getItemSpecRequestCreation(componentId).body(localVarReturnType);
+    }
+
+    /**
+     * 
+     * 
+     * <p><b>0</b> - default response
+     * @param componentId The componentId parameter
+     * @return ResponseEntity&lt;ComponentSpec&gt;
+     * @throws RestClientResponseException if an error occurs while attempting to invoke the API
+     */
+    public ResponseEntity<ComponentSpec> getItemSpecWithHttpInfo(String componentId) throws RestClientResponseException {
+        ParameterizedTypeReference<ComponentSpec> localVarReturnType = new ParameterizedTypeReference<>() {};
+        return getItemSpecRequestCreation(componentId).toEntity(localVarReturnType);
+    }
+
+    /**
+     * 
+     * 
+     * <p><b>0</b> - default response
+     * @param componentId The componentId parameter
+     * @return ResponseSpec
+     * @throws RestClientResponseException if an error occurs while attempting to invoke the API
+     */
+    public ResponseSpec getItemSpecWithResponseSpec(String componentId) throws RestClientResponseException {
+        return getItemSpecRequestCreation(componentId);
     }
     /**
      * 
