@@ -4,7 +4,7 @@ Component Registry API
 
 - API version: 1.0
 
-- Build date: 2024-10-24T11:08:44.298260+02:00[Europe/Amsterdam]
+- Build date: 2024-10-24T16:54:28.781907+02:00[Europe/Amsterdam]
 
 - Generator version: 7.8.0
 
@@ -87,20 +87,21 @@ Please follow the [installation](#installation) instruction and execute the foll
 import eu.clarin.cmdi.componentregistry.openapi.client.*;
 import eu.clarin.cmdi.componentregistry.openapi.client.auth.*;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.*;
-import eu.clarin.cmdi.componentregistry.openapi.client.api.DefaultApi;
+import eu.clarin.cmdi.componentregistry.openapi.client.api.ComponentRegistryControllerApi;
 
-public class DefaultApiExample {
+public class ComponentRegistryControllerApiExample {
 
     public static void main(String[] args) {
         ApiClient defaultClient = new ApiClient();
-        defaultClient.setBasePath("http://localhost");
+        defaultClient.setBasePath("http://localhost:8080/rest");
         
-        DefaultApi apiInstance = new DefaultApi(defaultClient);
-        String path = "path_example"; // String | 
+        ComponentRegistryControllerApi apiInstance = new ComponentRegistryControllerApi(defaultClient);
+        String componentId = "componentId_example"; // String | 
         try {
-            apiInstance.getExternalGrammar(path);
+            BaseDescription result = apiInstance.getItem(componentId);
+            System.out.println(result);
         } catch (HttpStatusCodeException e) {
-            System.err.println("Exception when calling DefaultApi#getExternalGrammar");
+            System.err.println("Exception when calling ComponentRegistryControllerApi#getItem");
             System.err.println("Status code: " + e.getStatusCode().value());
             System.err.println("Reason: " + e.getResponseBodyAsString());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -113,15 +114,13 @@ public class DefaultApiExample {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost:8080/rest*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**getExternalGrammar**](docs/DefaultApi.md#getExternalGrammar) | **GET** /rest/application.wadl/{path} | 
-*DefaultApi* | [**getItem**](docs/DefaultApi.md#getItem) | **GET** /rest/registry/items/{componentId} | 
-*DefaultApi* | [**getItemSpec**](docs/DefaultApi.md#getItemSpec) | **GET** /rest/registry/items/{componentId}/spec | 
-*DefaultApi* | [**getItems**](docs/DefaultApi.md#getItems) | **GET** /rest/registry/items | 
-*DefaultApi* | [**getWadl**](docs/DefaultApi.md#getWadl) | **GET** /rest/application.wadl | 
+*ComponentRegistryControllerApi* | [**getItem**](docs/ComponentRegistryControllerApi.md#getItem) | **GET** /registry/items/{componentId} | 
+*ComponentRegistryControllerApi* | [**getItemSpec**](docs/ComponentRegistryControllerApi.md#getItemSpec) | **GET** /registry/items/{componentId}/spec | 
+*ComponentRegistryControllerApi* | [**getItems**](docs/ComponentRegistryControllerApi.md#getItems) | **GET** /registry/items | 
 
 
 ## Documentation for Models

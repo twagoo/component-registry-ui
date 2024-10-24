@@ -18,6 +18,7 @@ package eu.clarin.cmdi.componentregistry.ui.web.controller;
 
 import eu.clarin.cmdi.componentregistry.openapi.client.api.DefaultApi;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.BaseDescription;
+import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
 import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,7 +91,7 @@ public class ComponentBrowserController {
             @PathVariable String id) {
         //get item description from API
         final BaseDescription item = api.getItem(id);
-        
+
         model.addAttribute("item", item);
         return "browser/item";
     }
@@ -98,8 +99,9 @@ public class ComponentBrowserController {
     @GetMapping(path = "/item/{id}/specification")
     public String itemSpecification(Model model,
             @PathVariable String id) {
-        //TODO: get item specification from API
-        return "browser/item";
+        ComponentSpec itemSpec = api.getItemSpec(id);
+        model.addAttribute("spec", itemSpec);
+        return "browser/itemSpec";
     }
 
 }

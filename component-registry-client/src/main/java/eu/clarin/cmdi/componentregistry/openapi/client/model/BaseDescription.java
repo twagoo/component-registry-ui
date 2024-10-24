@@ -54,7 +54,7 @@ import io.github.threetenjaxb.core.*;
   BaseDescription.JSON_PROPERTY_SHOW_IN_EDITOR,
   BaseDescription.JSON_PROPERTY_IS_PUBLIC
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-24T11:08:44.298260+02:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-24T16:54:28.781907+02:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
 @XmlRootElement(name = "description")
 @XmlAccessorType(XmlAccessType.FIELD)
 @JacksonXmlRootElement(localName = "description")

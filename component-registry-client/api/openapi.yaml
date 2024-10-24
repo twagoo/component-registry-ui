@@ -8,57 +8,10 @@ info:
   title: Component Registry API
   version: "1.0"
 servers:
-- url: /
+- description: Generated server url
+  url: http://localhost:8080/rest
 paths:
-  /rest/registry/items/{componentId}:
-    get:
-      operationId: getItem
-      parameters:
-      - explode: false
-        in: path
-        name: componentId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BaseDescription'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/BaseDescription'
-          description: default response
-      x-accepts:
-      - application/json
-      - application/xml
-  /rest/registry/items/{componentId}/spec:
-    get:
-      operationId: getItemSpec
-      parameters:
-      - explode: false
-        in: path
-        name: componentId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ComponentSpec'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/ComponentSpec'
-          description: default response
-      x-accepts:
-      - application/json
-      - application/xml
-  /rest/registry/items:
+  /registry/items:
     get:
       operationId: getItems
       parameters:
@@ -82,52 +35,62 @@ paths:
           type: string
         style: form
       responses:
-        default:
+        "200":
           content:
-            application/json:
+            '*/*':
               schema:
                 items:
                   $ref: '#/components/schemas/BaseDescription'
                 type: array
-            application/xml:
-              schema:
-                items:
-                  $ref: '#/components/schemas/BaseDescription'
-                type: array
-          description: default response
+          description: OK
+      tags:
+      - component-registry-controller
       x-accepts:
-      - application/json
-      - application/xml
-  /rest/application.wadl/{path}:
+      - '*/*'
+  /registry/items/{componentId}:
     get:
-      operationId: getExternalGrammar
+      operationId: getItem
       parameters:
       - explode: false
         in: path
-        name: path
+        name: componentId
         required: true
         schema:
           type: string
         style: simple
       responses:
-        default:
+        "200":
           content:
-            application/xml: {}
-          description: default response
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/BaseDescription'
+          description: OK
+      tags:
+      - component-registry-controller
       x-accepts:
-      - application/xml
-  /rest/application.wadl:
+      - '*/*'
+  /registry/items/{componentId}/spec:
     get:
-      operationId: getWadl
+      operationId: getItemSpec
+      parameters:
+      - explode: false
+        in: path
+        name: componentId
+        required: true
+        schema:
+          type: string
+        style: simple
       responses:
-        default:
+        "200":
           content:
-            application/vnd.sun.wadl+xml: {}
-            application/xml: {}
-          description: default response
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ComponentSpec'
+          description: OK
+      tags:
+      - component-registry-controller
       x-accepts:
-      - application/vnd.sun.wadl+xml
-      - application/xml
+      - '*/*'
 components:
   schemas:
     BaseDescription:

@@ -59,7 +59,7 @@ import eu.clarin.cmdi.componentregistry.openapi.client.auth.HttpBasicAuth;
 import eu.clarin.cmdi.componentregistry.openapi.client.auth.HttpBearerAuth;
 import eu.clarin.cmdi.componentregistry.openapi.client.auth.ApiKeyAuth;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-24T11:08:44.298260+02:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-24T16:54:28.781907+02:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
 public class ApiClient extends JavaTimeFormatter {
     public enum CollectionFormat {
         CSV(","), TSV("\t"), SSV(" "), PIPES("|"), MULTI(null);
@@ -77,7 +77,7 @@ public class ApiClient extends JavaTimeFormatter {
     private final HttpHeaders defaultHeaders = new HttpHeaders();
     private final MultiValueMap<String, String> defaultCookies = new LinkedMultiValueMap<>();
 
-    private String basePath = "http://localhost";
+    private String basePath = "http://localhost:8080/rest";
 
     private final RestClient restClient;
     private final DateFormat dateFormat;

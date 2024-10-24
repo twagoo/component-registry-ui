@@ -8,9 +8,9 @@ build.sbt
 docs/Attribute.md
 docs/AttributeListType.md
 docs/BaseDescription.md
+docs/ComponentRegistryControllerApi.md
 docs/ComponentSpec.md
 docs/ComponentType.md
-docs/DefaultApi.md
 docs/DocumentationType.md
 docs/ElementType.md
 docs/EnumerationType.md
@@ -33,7 +33,7 @@ src/main/java/eu/clarin/cmdi/componentregistry/openapi/client/RFC3339DateFormat.
 src/main/java/eu/clarin/cmdi/componentregistry/openapi/client/ServerConfiguration.java
 src/main/java/eu/clarin/cmdi/componentregistry/openapi/client/ServerVariable.java
 src/main/java/eu/clarin/cmdi/componentregistry/openapi/client/StringUtil.java
-src/main/java/eu/clarin/cmdi/componentregistry/openapi/client/api/DefaultApi.java
+src/main/java/eu/clarin/cmdi/componentregistry/openapi/client/api/ComponentRegistryControllerApi.java
 src/main/java/eu/clarin/cmdi/componentregistry/openapi/client/auth/ApiKeyAuth.java
 src/main/java/eu/clarin/cmdi/componentregistry/openapi/client/auth/Authentication.java
 src/main/java/eu/clarin/cmdi/componentregistry/openapi/client/auth/HttpBasicAuth.java
