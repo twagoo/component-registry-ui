@@ -21,8 +21,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     </head>
     <body>
         <main class="my-2">
-            <div class="container">
-                <pre th:text="${spec}"></pre>
+            <div class="container h-100">
+                <div class="h-25 overflow-auto">
+                    <div class="container border-bottom">
+                        <h3 class="border-bottom" th:text="${item.name}">name</h3>
+                        <div class="row">
+                            <div class="col-md order-lg-last">
+                                <div><strong>Identifier:</strong> <span th:text="${item.id}"></span></div>
+                                <div><strong>Creator:</strong> <span th:text="${item.creatorName}"></span></div>
+                                <div><strong>Registered:</strong> <span th:text="${item.registrationDate}"></span></div>
+                            </div>
+                            <div class="col-md-8 order-lg-first">
+                                <p th:text="${item.description}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="h-75 overflow-y-auto">
+                    <div class="container overflow-x-hidden"
+                         hx-trigger="load"
+                         th:hx-get="|./${item.id}/specification|"
+                         h  x-select="#item-spec"></div>
+                </div>
             </div> <!-- container -->
         </main>
 
