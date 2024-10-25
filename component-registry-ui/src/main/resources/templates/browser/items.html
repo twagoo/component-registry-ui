@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     </head>
     <body>
         <main class="my-2">
-            <div class="container">
+            <div class="container overflow-y-auto">
                 <div id="items-table-wrapper" class="table-responsive">
                     <table id="items-table" class="loading table table-sm table-striped table-hover">
                         <!-- Table header with sorting options -->
@@ -61,14 +61,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             </tr>
                         </thead>
                         <!-- Data -->
-                        <tbody id="items-table-body">
+                        <tbody id="items-table-body"
+                               hx-boost="true"
+                               hx-select="#item-info"
+                               hx-target="#item-viewer-content"
+                               >
                             <tr th:each="description : ${items}">
                                 <td th:each="field: ${fields}" 
                                     th:class="|column-field_${field}|">
                                     <span th:switch="${field}">
                                         <a th:case="name" 
                                            th:text="${description[field]}" 
-                                           th:href="@{|/item/${description.id}|}|">link</a>
+                                           th:href="@{|/item/${description.id}|}|"
+                                           hx-on:click="new bootstrap.Offcanvas('#item-view').show()"
+                                           >link</a>
                                         <span th:case="*" 
                                               th:text="${description[field]}">value</span>
                                     </span>

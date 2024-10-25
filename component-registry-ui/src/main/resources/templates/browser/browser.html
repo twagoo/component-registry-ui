@@ -28,26 +28,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         </header>
         <main class="my-2">
 
-            <div id="items-container" class="container">
-                <div class="d-flex flex-row mb-2">
-                    <div  class="p-2">
-                        <h2 th:text="#{browser.table.title}"></h2>
-                    </div>
+            <div id="items-container">
+                <div id="item-view" class="offcanvas offcanvas-end w-50" tabindex="-1" data-bs-theme="dark">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasLabel">Item</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>  
+                    <div id="item-viewer-content" class="offcanvas-body">
 
-                    <!-- Loading indicator for table updates -->
-                    <div class="p-2 htmx-indicator" id="table-load-indicator" >
-                        <div class="spinner-border" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>
                     </div>
                 </div>
 
-                <div hx-trigger="load"
-                     th:hx-get="|/items?sortBy=${sortedBy}&sortDirection=${sortedDirection}|"
-                     hx-select="#items-table-wrapper"
-                     hx-swap="innerHTML"
-                     hx-indicator="#items-container">
-                    Items
+                <div class="container">
+                    <div class="d-flex flex-row mb-2">
+                        <div  class="p-2">
+                            <h2 th:text="#{browser.table.title}"></h2>
+                        </div>
+
+                        <!-- Loading indicator for table updates -->
+                        <div class="p-2 htmx-indicator" id="table-load-indicator" >
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div hx-trigger="load"
+                         th:hx-get="|/items?sortBy=${sortedBy}&sortDirection=${sortedDirection}|"
+                         hx-select="#items-table-wrapper"
+                         hx-swap="innerHTML"
+                         hx-indicator="#items-container">
+                        Items
+                    </div>
                 </div>
             </div>
         </main>
