@@ -35,50 +35,60 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
     <div class="container">
-        <h1>Component Registry</h1>
-        <div class="d-flex">
-            <div class="ps-2 pt-2 w-25">
-                <div class="d-flex flex-column">
-                    <div class="mb-2 pb-2 pe-2 border-bottom">
-                        <div class="dropdown w-100">
-                            <a class="btn btn-secondary dropdown-toggle  w-100" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Public
-                            </a>
+        <div class="d-flex flex-column vh-100">
+            <h1 class="py-2">Component Registry</h1>
+            <div class="d-flex flex-fill">
+                <div class="ps-2 pt-2">
+                    <div class="d-flex flex-column">
+                        <div class="mb-2 pb-2 pe-2 border-bottom">
+                            <div class="dropdown w-100">
+                                <a class="btn btn-secondary dropdown-toggle  w-100" href="#" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Public
+                                </a>
 
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item disabled" href="#">Private</a></li>
-                                <li><a class="dropdown-item disabled" href="#">My team</a></li>
-                                <li><a class="dropdown-item disabled" href="#">Another team</a></li>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item disabled" href="#">Private</a></li>
+                                    <li><a class="dropdown-item disabled" href="#">My team</a></li>
+                                    <li><a class="dropdown-item disabled" href="#">Another team</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div>
+                            <ul class="nav nav-pills flex-column mb-auto">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link active" aria-current="page">
+                                        Profiles
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="nav-link link-body-emphasis">
+                                        Components
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </div>
-                    <div>
-                        <ul class="nav nav-pills flex-column mb-auto">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link active" aria-current="page">
-                                    Profiles
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link link-body-emphasis">
-                                    Components
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
-            </div>
-            <div class="p-2 w-75 border rounded">
-                <div class="d-flex justify-content-between">
-                    <div class="p-2">
-                        <h2>Profiles</h2>
-                    </div>
-                    <div class="p-2">
-                        <a class="btn btn-primary" href="#">
-                            <i class="fa-solid fa-square-plus"></i>
-                            New
-                        </a>
+                <div class="p-2 flex-fill border rounded">
+                    <div class="d-flex flex-column h-100">
+                        <div class="d-flex justify-content-between">
+                            <div class="p-2">
+                                <h2>Profiles</h2>
+                            </div>
+                            <div class="p-2">
+                                <a class="btn btn-primary" href="#">
+                                    <i class="fa-solid fa-square-plus"></i>
+                                    New
+                                </a>
+                            </div>
+                        </div>
+                        <div class="p-2">
+                            filters
+                        </div>
+                        <div class="p-2 flex-fill border">
+                            table
+                        </div>
                     </div>
                 </div>
             </div>
