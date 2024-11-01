@@ -21,11 +21,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     </head>
     <body>
         <main class="my-2">
-            <div class="container overflow-y-auto">
+            <div class="container">
                 <div id="items-table-wrapper" class="table-responsive">
-                    <table id="items-table" class="loading table table-sm table-striped table-hover">
+                        <table id="items-table" class="table table-hover table-borderless table-striped mh-100">
                         <!-- Table header with sorting options -->
-                        <thead class="table-light" id="items-table-head">
+                        <thead id="items-table-head" class="table-light border rounded">
                             <tr hx-boost="true"
                                 hx-target="#items-table" 
                                 hx-swap="outerHTML show:none"
