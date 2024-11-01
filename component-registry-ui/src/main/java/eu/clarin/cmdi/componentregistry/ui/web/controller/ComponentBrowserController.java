@@ -48,7 +48,7 @@ public class ComponentBrowserController {
             "groupName",
             "domainName",
             "creatorName",
-            "description",
+//            "description",
             "registrationDate");
 
     @Autowired
