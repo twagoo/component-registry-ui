@@ -29,10 +29,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 <h1 class="py-2 overflow-hidden" style="max-height: 10%;">
                     <span th:text="#{browser.page.title}">{title}</span>
                 </h1>
-                <div class="d-flex" style="min-height: 90%; max-height: 90%;">
+                <main id="browser-main" class="d-flex" style="min-height: 90%; max-height: 90%;">
                     <div class="ps-2 pt-2 me-auto">
                         <!-- Sidebar -->
-                        <div class="d-flex flex-column h-100">
+                        <div id="browser-sidebar" class="d-flex flex-column h-100">
                             <div class="mb-2 pb-2 border-bottom">
                                 <div class="dropdown">
                                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button"
@@ -48,14 +48,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                 </div>
                             </div>
                             <div>
-                                <ul class="nav nav-pills flex-column mb-auto">
+                                <ul class="nav nav-pills flex-column mb-auto"
+                                    hx-boost="true"
+                                    hx-target="#browser-main"
+                                    hx-select="#browser-main"
+                                    hx-swap="outerHTML"
+                                    hx-indicator="#items-container">
                                     <li class="nav-item">
-                                        <a href="#" class="nav-link active" aria-current="page">
+                                        <a href="/?type=profile" 
+                                           class="nav-link" 
+                                           th:classappend="${type == 'profile' ? 'active' : ''}"
+                                           aria-current="page">
                                             Profiles
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#" class="nav-link link-body-emphasis">
+                                        <a href="/?type=component" 
+                                           class="nav-link"
+                                           th:classappend="${type == 'component' ? 'active' : ''}"
+                                           >
                                             Components
                                         </a>
                                     </li>
@@ -86,8 +97,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                         <div class="d-flex flex-column h-100">
                             <div class="d-flex justify-content-between">
-                                <div class="p-2">
-                                    <h2>Profiles</h2>
+                                <div class="p-2" 
+                                     th:switch="${type}">
+                                    <h2 th:case='profile' th:text="#{types.profile.plural}">PROFILES</h2>
+                                    <h2 th:case='component' th:text="#{types.component.plural}">COMPONENTS</h2>
+                                    <h2 th:case='*'>???</h2>
                                 </div>
                                 <div class="p-2">
                                     <a class="btn btn-primary" href="#">
@@ -146,17 +160,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             </div>
                             <div class="p-2 flex-grow-1 overflow-y-auto">
                                 <div hx-trigger="load"
-                                     th:hx-get="|/items?sortBy=${sortedBy}&sortDirection=${sortedDirection}|"
+                                     th:hx-get="|/items?type=${type}&sortBy=${sortedBy}&sortDirection=${sortedDirection}|"
                                      hx-select="#items-table-wrapper"
                                      hx-swap="innerHTML"
                                      hx-indicator="#items-container">
-                                    Items
                                 </div>
                             </div>
 
                         </div>
                     </div> <!-- END table "panel" -->
-                </div>
+                </main>
             </div>
         </div>
         </div>

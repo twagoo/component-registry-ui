@@ -42,13 +42,14 @@ public class ComponentBrowserController {
     public static final String SORT_BY_DEFAULT = "name";
     public static final String SORT_DIRECTION_QUERY_PARAM = "sortDirection";
     public static final String SORT_DIRECTION_DEFAULT = "ASC";
+    public static final String ITEM_TYPE_DEFAULT = "profile";
 
     private static final List<String> ITEM_TABLE_FIELDS = Arrays.asList(
             "name",
             "groupName",
             "domainName",
             "creatorName",
-//            "description",
+            //            "description",
             "registrationDate");
 
     @Autowired
@@ -56,8 +57,9 @@ public class ComponentBrowserController {
         this.api = api;
     }
 
-    private void setCommonModelAttributes(String sortBy, String sortDirection, Model model) throws RestClientResponseException {
+    private void setCommonModelAttributes(String sortBy, String sortDirection, String type, Model model) throws RestClientResponseException {
         model.addAttribute("fields", ITEM_TABLE_FIELDS);
+        model.addAttribute("type", type);
         model.addAttribute("sortedBy", sortBy);
         model.addAttribute("sortedDirection", sortDirection);
     }
@@ -67,8 +69,9 @@ public class ComponentBrowserController {
             @RequestParam(name = SORT_BY_QUERY_PARAM,
                     defaultValue = SORT_BY_DEFAULT) String sortBy,
             @RequestParam(name = SORT_DIRECTION_QUERY_PARAM,
-                    defaultValue = SORT_DIRECTION_DEFAULT) String sortDirection) {
-        setCommonModelAttributes(sortBy, sortDirection, model);
+                    defaultValue = SORT_DIRECTION_DEFAULT) String sortDirection,
+            @RequestParam(name = "type", defaultValue = ITEM_TYPE_DEFAULT) String type) {
+        setCommonModelAttributes(sortBy, sortDirection, type, model);
         return "browser/browser";
     }
 
@@ -77,10 +80,12 @@ public class ComponentBrowserController {
             @RequestParam(name = SORT_BY_QUERY_PARAM,
                     defaultValue = SORT_BY_DEFAULT) String sortBy,
             @RequestParam(name = SORT_DIRECTION_QUERY_PARAM,
-                    defaultValue = SORT_DIRECTION_DEFAULT) String sortDirection) {
+                    defaultValue = SORT_DIRECTION_DEFAULT) String sortDirection,
+            @RequestParam(name = "type", defaultValue = ITEM_TYPE_DEFAULT) String type
+    ) {
         final List<BaseDescription> items = api.getItems(sortBy, sortDirection);
 
-        setCommonModelAttributes(sortBy, sortDirection, model);
+        setCommonModelAttributes(sortBy, sortDirection, type, model);
         model.addAttribute("items", items);
 
         return "browser/items";
