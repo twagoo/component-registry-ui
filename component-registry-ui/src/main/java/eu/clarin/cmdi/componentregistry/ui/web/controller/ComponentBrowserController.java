@@ -20,7 +20,9 @@ import eu.clarin.cmdi.componentregistry.openapi.client.api.DefaultApi;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.BaseDescription;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,7 +44,10 @@ public class ComponentBrowserController {
     public static final String SORT_BY_DEFAULT = "name";
     public static final String SORT_DIRECTION_QUERY_PARAM = "sortDirection";
     public static final String SORT_DIRECTION_DEFAULT = "ASC";
-    public static final String ITEM_TYPE_DEFAULT = "profile";
+    public static final String ITEM_TYPE_COMPONENT = "component";
+    public static final String ITEM_TYPE_PROFILE = "profile";
+    public static final String ITEM_TYPE_QUERY_PARAM = "type";
+    public static final String ITEM_TYPE_DEFAULT = ITEM_TYPE_PROFILE;
 
     private static final List<String> ITEM_TABLE_FIELDS = Arrays.asList(
             "name",
@@ -57,38 +62,41 @@ public class ComponentBrowserController {
         this.api = api;
     }
 
-    private void setCommonModelAttributes(String sortBy, String sortDirection, String type, Model model) throws RestClientResponseException {
-        model.addAttribute("fields", ITEM_TABLE_FIELDS);
-        model.addAttribute("type", type);
-        model.addAttribute("sortedBy", sortBy);
-        model.addAttribute("sortedDirection", sortDirection);
-    }
-
     @GetMapping(path = "/")
-    public String browser(Model model,
-            @RequestParam(name = SORT_BY_QUERY_PARAM,
-                    defaultValue = SORT_BY_DEFAULT) String sortBy,
-            @RequestParam(name = SORT_DIRECTION_QUERY_PARAM,
-                    defaultValue = SORT_DIRECTION_DEFAULT) String sortDirection,
-            @RequestParam(name = "type", defaultValue = ITEM_TYPE_DEFAULT) String type) {
-        setCommonModelAttributes(sortBy, sortDirection, type, model);
+    public String browser(@RequestParam Map<String, String> params, Model model) {
+        setCommonModelAttributes(params, model);
         return "browser/browser";
     }
 
     @GetMapping(path = "/items")
-    public String items(Model model,
-            @RequestParam(name = SORT_BY_QUERY_PARAM,
-                    defaultValue = SORT_BY_DEFAULT) String sortBy,
-            @RequestParam(name = SORT_DIRECTION_QUERY_PARAM,
-                    defaultValue = SORT_DIRECTION_DEFAULT) String sortDirection,
-            @RequestParam(name = "type", defaultValue = ITEM_TYPE_DEFAULT) String type
-    ) {
-        final List<BaseDescription> items = api.getItems(sortBy, sortDirection);
+    public String items(@RequestParam Map<String, String> params, Model model) {
+        List<BaseDescription> items = getItems(params);
 
-        setCommonModelAttributes(sortBy, sortDirection, type, model);
+        setCommonModelAttributes(params, model);
         model.addAttribute("items", items);
 
         return "browser/items";
+    }
+
+    private void setCommonModelAttributes(Map<String, String> params, Model model) throws RestClientResponseException {
+        model.addAttribute("fields", ITEM_TABLE_FIELDS);
+        model.addAttribute("type", params.getOrDefault(ITEM_TYPE_QUERY_PARAM, ITEM_TYPE_DEFAULT));
+        model.addAttribute("sortedBy", params.getOrDefault(SORT_BY_QUERY_PARAM, SORT_BY_DEFAULT));
+        model.addAttribute("sortedDirection", params.getOrDefault(SORT_DIRECTION_QUERY_PARAM, SORT_DIRECTION_DEFAULT));
+    }
+
+    private List<BaseDescription> getItems(Map<String, String> params) throws RestClientResponseException {
+        final String type = params.getOrDefault(ITEM_TYPE_QUERY_PARAM, ITEM_TYPE_DEFAULT);
+        final String sortBy = params.getOrDefault(SORT_BY_QUERY_PARAM, SORT_BY_DEFAULT);
+        final String sortDirection = params.getOrDefault(SORT_DIRECTION_QUERY_PARAM, SORT_DIRECTION_DEFAULT);
+        return switch (type) {
+            case ITEM_TYPE_COMPONENT ->
+                api.getItems(sortBy, sortDirection);
+            case ITEM_TYPE_PROFILE ->
+                api.getItems(sortBy, sortDirection);
+            default ->
+                Collections.emptyList();
+        };
     }
 
     @GetMapping(path = "/item/{id}")
@@ -104,7 +112,9 @@ public class ComponentBrowserController {
     @GetMapping(path = "/item/{id}/specification")
     public String itemSpecification(Model model,
             @PathVariable String id) {
-        ComponentSpec itemSpec = api.getItemSpec(id);
+        //get item spec from API
+        final ComponentSpec itemSpec = api.getItemSpec(id);
+
         model.addAttribute("spec", itemSpec);
         return "browser/itemSpec";
     }

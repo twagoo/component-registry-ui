@@ -58,7 +58,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                         <a href="/?type=profile" 
                                            class="nav-link" 
                                            th:classappend="${type == 'profile' ? 'active' : ''}"
-                                           aria-current="page">
+                                           th:aria-selected="${type == 'profile'}">
                                             Profiles
                                         </a>
                                     </li>
@@ -66,7 +66,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                         <a href="/?type=component" 
                                            class="nav-link"
                                            th:classappend="${type == 'component' ? 'active' : ''}"
-                                           >
+                                           th:aria-selected="${type == 'component'}">
                                             Components
                                         </a>
                                     </li>
