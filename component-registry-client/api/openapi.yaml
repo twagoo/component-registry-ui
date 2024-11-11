@@ -11,10 +11,23 @@ servers:
 - description: Generated server url
   url: http://localhost:8080/rest
 paths:
-  /registry/items:
+  /registry/profiles:
     get:
-      operationId: getItems
+      operationId: getProfiles
       parameters:
+      - explode: true
+        in: query
+        name: status
+        required: true
+        schema:
+          items:
+            enum:
+            - development
+            - production
+            - deprecated
+            type: string
+          type: array
+        style: form
       - explode: true
         in: query
         name: sortBy
@@ -37,16 +50,109 @@ paths:
       responses:
         "200":
           content:
-            '*/*':
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ProfilesList'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfilesList'
+          description: OK
+      tags:
+      - registry-controller
+      x-accepts:
+      - application/json
+      - application/xml
+  /registry/profiles/{componentId}/description:
+    get:
+      operationId: getProfileItem
+      parameters:
+      - explode: false
+        in: path
+        name: componentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ProfileDescription'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileDescription'
+          description: OK
+      tags:
+      - registry-controller
+      x-accepts:
+      - application/json
+      - application/xml
+  /registry/items:
+    get:
+      operationId: getItems
+      parameters:
+      - explode: true
+        in: query
+        name: type
+        required: false
+        schema:
+          enum:
+          - COMPONENT
+          - PROFILE
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: status
+        required: false
+        schema:
+          items:
+            enum:
+            - development
+            - production
+            - deprecated
+            type: string
+          type: array
+        style: form
+      - explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          default: name
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: sortDirection
+        required: false
+        schema:
+          default: ASC
+          enum:
+          - ASC
+          - DESC
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/xml:
+              schema:
+                items:
+                  $ref: '#/components/schemas/BaseDescription'
+                type: array
+            application/json:
               schema:
                 items:
                   $ref: '#/components/schemas/BaseDescription'
                 type: array
           description: OK
       tags:
-      - component-registry-controller
+      - items-controller
       x-accepts:
-      - '*/*'
+      - application/json
+      - application/xml
   /registry/items/{componentId}:
     get:
       operationId: getItem
@@ -61,14 +167,18 @@ paths:
       responses:
         "200":
           content:
-            '*/*':
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/BaseDescription'
+            application/json:
               schema:
                 $ref: '#/components/schemas/BaseDescription'
           description: OK
       tags:
-      - component-registry-controller
+      - items-controller
       x-accepts:
-      - '*/*'
+      - application/json
+      - application/xml
   /registry/items/{componentId}/spec:
     get:
       operationId: getItemSpec
@@ -83,31 +193,108 @@ paths:
       responses:
         "200":
           content:
-            '*/*':
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ComponentSpec'
+            application/json:
               schema:
                 $ref: '#/components/schemas/ComponentSpec'
           description: OK
       tags:
-      - component-registry-controller
+      - items-controller
       x-accepts:
-      - '*/*'
+      - application/json
+      - application/xml
+  /registry/components:
+    get:
+      operationId: getComponents
+      parameters:
+      - explode: true
+        in: query
+        name: status
+        required: true
+        schema:
+          items:
+            enum:
+            - development
+            - production
+            - deprecated
+            type: string
+          type: array
+        style: form
+      - explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          default: name
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: sortDirection
+        required: false
+        schema:
+          default: ASC
+          enum:
+          - ASC
+          - DESC
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ComponentsList'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComponentsList'
+          description: OK
+      tags:
+      - registry-controller
+      x-accepts:
+      - application/json
+      - application/xml
+  /registry/components/{componentId}/description:
+    get:
+      operationId: getComponentItem
+      parameters:
+      - explode: false
+        in: path
+        name: componentId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ComponentDescription'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComponentDescription'
+          description: OK
+      tags:
+      - registry-controller
+      x-accepts:
+      - application/json
+      - application/xml
 components:
   schemas:
-    BaseDescription:
+    ProfileDescription:
       example:
         successor: successor
         creatorName: creatorName
         description: description
         derivedfrom: derivedfrom
-        dbUserId: 6
         userId: userId
-        content: content
         recommended: true
         groupName: groupName
-        deleted: true
         public: true
-        commentsCount: 1
-        dbId: 0
+        commentsCount: 0
         domainName: domainName
         name: name
         registrationDate: 2000-01-23T04:56:07.000+00:00
@@ -117,9 +304,6 @@ components:
         showInEditor: true
         status: development
       properties:
-        dbId:
-          format: int64
-          type: integer
         name:
           type: string
         description:
@@ -129,9 +313,6 @@ components:
           type: string
         creatorName:
           type: string
-        dbUserId:
-          format: int64
-          type: integer
         userId:
           type: string
         domainName:
@@ -155,18 +336,122 @@ components:
         commentsCount:
           format: int32
           type: integer
-        content:
-          type: string
-        deleted:
-          type: boolean
         recommended:
+          type: boolean
+        showInEditor:
           type: boolean
         public:
           type: boolean
         id:
           type: string
+        isPublic:
+          type: boolean
+      type: object
+      xml:
+        name: profileDescription
+    ProfilesList:
+      example:
+        components:
+        - successor: successor
+          creatorName: creatorName
+          description: description
+          derivedfrom: derivedfrom
+          userId: userId
+          recommended: true
+          groupName: groupName
+          public: true
+          commentsCount: 0
+          domainName: domainName
+          name: name
+          registrationDate: 2000-01-23T04:56:07.000+00:00
+          isPublic: true
+          href: href
+          id: id
+          showInEditor: true
+          status: development
+        - successor: successor
+          creatorName: creatorName
+          description: description
+          derivedfrom: derivedfrom
+          userId: userId
+          recommended: true
+          groupName: groupName
+          public: true
+          commentsCount: 0
+          domainName: domainName
+          name: name
+          registrationDate: 2000-01-23T04:56:07.000+00:00
+          isPublic: true
+          href: href
+          id: id
+          showInEditor: true
+          status: development
+      properties:
+        components:
+          items:
+            $ref: '#/components/schemas/ProfileDescription'
+          type: array
+      type: object
+    BaseDescription:
+      example:
+        successor: successor
+        creatorName: creatorName
+        description: description
+        derivedfrom: derivedfrom
+        userId: userId
+        recommended: true
+        groupName: groupName
+        public: true
+        commentsCount: 0
+        domainName: domainName
+        name: name
+        registrationDate: 2000-01-23T04:56:07.000+00:00
+        isPublic: true
+        href: href
+        id: id
+        showInEditor: true
+        status: development
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        registrationDate:
+          format: date-time
+          type: string
+        creatorName:
+          type: string
+        userId:
+          type: string
+        domainName:
+          type: string
+        href:
+          type: string
+          xml:
+            namespace: http://www.w3.org/1999/xlink
+        groupName:
+          type: string
+        status:
+          enum:
+          - development
+          - production
+          - deprecated
+          type: string
+        derivedfrom:
+          type: string
+        successor:
+          type: string
+        commentsCount:
+          format: int32
+          type: integer
+        recommended:
+          type: boolean
+        public:
+          type: boolean
         showInEditor:
           type: boolean
+        id:
+          type: string
         isPublic:
           type: boolean
       type: object
@@ -1374,5 +1659,113 @@ components:
           xml:
             attribute: true
             name: ValueLanguage
+      type: object
+    ComponentDescription:
+      example:
+        successor: successor
+        creatorName: creatorName
+        description: description
+        derivedfrom: derivedfrom
+        userId: userId
+        recommended: true
+        groupName: groupName
+        public: true
+        commentsCount: 0
+        domainName: domainName
+        name: name
+        registrationDate: 2000-01-23T04:56:07.000+00:00
+        isPublic: true
+        href: href
+        id: id
+        showInEditor: true
+        status: development
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        registrationDate:
+          format: date-time
+          type: string
+        creatorName:
+          type: string
+        userId:
+          type: string
+        domainName:
+          type: string
+        href:
+          type: string
+          xml:
+            namespace: http://www.w3.org/1999/xlink
+        groupName:
+          type: string
+        status:
+          enum:
+          - development
+          - production
+          - deprecated
+          type: string
+        derivedfrom:
+          type: string
+        successor:
+          type: string
+        commentsCount:
+          format: int32
+          type: integer
+        recommended:
+          type: boolean
+        public:
+          type: boolean
+        showInEditor:
+          type: boolean
+        id:
+          type: string
+        isPublic:
+          type: boolean
+      type: object
+      xml:
+        name: componentDescription
+    ComponentsList:
+      example:
+        components:
+        - successor: successor
+          creatorName: creatorName
+          description: description
+          derivedfrom: derivedfrom
+          userId: userId
+          recommended: true
+          groupName: groupName
+          public: true
+          commentsCount: 0
+          domainName: domainName
+          name: name
+          registrationDate: 2000-01-23T04:56:07.000+00:00
+          isPublic: true
+          href: href
+          id: id
+          showInEditor: true
+          status: development
+        - successor: successor
+          creatorName: creatorName
+          description: description
+          derivedfrom: derivedfrom
+          userId: userId
+          recommended: true
+          groupName: groupName
+          public: true
+          commentsCount: 0
+          domainName: domainName
+          name: name
+          registrationDate: 2000-01-23T04:56:07.000+00:00
+          isPublic: true
+          href: href
+          id: id
+          showInEditor: true
+          status: development
+      properties:
+        components:
+          items:
+            $ref: '#/components/schemas/ComponentDescription'
+          type: array
       type: object
 

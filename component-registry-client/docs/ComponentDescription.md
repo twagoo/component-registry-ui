@@ -1,6 +1,6 @@
 
 
-# BaseDescription
+# ComponentDescription
 
 
 ## Properties

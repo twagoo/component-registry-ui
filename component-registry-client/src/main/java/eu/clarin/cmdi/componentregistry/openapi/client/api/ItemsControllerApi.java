@@ -24,16 +24,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-10-24T11:08:44.298260+02:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
-public class DefaultApi {
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-11T16:46:14.632985+01:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
+public class ItemsControllerApi {
     private ApiClient apiClient;
 
-    public DefaultApi() {
+    public ItemsControllerApi() {
         this(new ApiClient());
     }
 
     @Autowired
-    public DefaultApi(ApiClient apiClient) {
+    public ItemsControllerApi(ApiClient apiClient) {
         this.apiClient = apiClient;
     }
 
@@ -48,78 +48,7 @@ public class DefaultApi {
     /**
      * 
      * 
-     * <p><b>0</b> - default response
-     * @param path The path parameter
-     * @throws RestClientResponseException if an error occurs while attempting to invoke the API
-     */
-    private ResponseSpec getExternalGrammarRequestCreation(String path) throws RestClientResponseException {
-        Object postBody = null;
-        // verify the required parameter 'path' is set
-        if (path == null) {
-            throw new RestClientResponseException("Missing the required parameter 'path' when calling getExternalGrammar", HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), null, null, null);
-        }
-        // create path and map variables
-        final Map<String, Object> pathParams = new HashMap<>();
-
-        pathParams.put("path", path);
-
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, String> cookieParams = new LinkedMultiValueMap<>();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<>();
-
-        final String[] localVarAccepts = { 
-            "application/xml"
-        };
-        final List<MediaType> localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-        final String[] localVarContentTypes = { };
-        final MediaType localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-        String[] localVarAuthNames = new String[] {  };
-
-        ParameterizedTypeReference<Void> localVarReturnType = new ParameterizedTypeReference<>() {};
-        return apiClient.invokeAPI("/rest/application.wadl/{path}", HttpMethod.GET, pathParams, queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-    }
-
-    /**
-     * 
-     * 
-     * <p><b>0</b> - default response
-     * @param path The path parameter
-     * @throws RestClientResponseException if an error occurs while attempting to invoke the API
-     */
-    public void getExternalGrammar(String path) throws RestClientResponseException {
-        ParameterizedTypeReference<Void> localVarReturnType = new ParameterizedTypeReference<>() {};
-        getExternalGrammarRequestCreation(path).body(localVarReturnType);
-    }
-
-    /**
-     * 
-     * 
-     * <p><b>0</b> - default response
-     * @param path The path parameter
-     * @throws RestClientResponseException if an error occurs while attempting to invoke the API
-     */
-    public ResponseEntity<Void> getExternalGrammarWithHttpInfo(String path) throws RestClientResponseException {
-        ParameterizedTypeReference<Void> localVarReturnType = new ParameterizedTypeReference<>() {};
-        return getExternalGrammarRequestCreation(path).toEntity(localVarReturnType);
-    }
-
-    /**
-     * 
-     * 
-     * <p><b>0</b> - default response
-     * @param path The path parameter
-     * @return ResponseSpec
-     * @throws RestClientResponseException if an error occurs while attempting to invoke the API
-     */
-    public ResponseSpec getExternalGrammarWithResponseSpec(String path) throws RestClientResponseException {
-        return getExternalGrammarRequestCreation(path);
-    }
-    /**
-     * 
-     * 
-     * <p><b>0</b> - default response
+     * <p><b>200</b> - OK
      * @param componentId The componentId parameter
      * @return BaseDescription
      * @throws RestClientResponseException if an error occurs while attempting to invoke the API
@@ -141,7 +70,7 @@ public class DefaultApi {
         final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<>();
 
         final String[] localVarAccepts = { 
-            "application/json", "application/xml"
+            "application/xml", "application/json"
         };
         final List<MediaType> localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         final String[] localVarContentTypes = { };
@@ -150,13 +79,13 @@ public class DefaultApi {
         String[] localVarAuthNames = new String[] {  };
 
         ParameterizedTypeReference<BaseDescription> localVarReturnType = new ParameterizedTypeReference<>() {};
-        return apiClient.invokeAPI("/rest/registry/items/{componentId}", HttpMethod.GET, pathParams, queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+        return apiClient.invokeAPI("/registry/items/{componentId}", HttpMethod.GET, pathParams, queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
     }
 
     /**
      * 
      * 
-     * <p><b>0</b> - default response
+     * <p><b>200</b> - OK
      * @param componentId The componentId parameter
      * @return BaseDescription
      * @throws RestClientResponseException if an error occurs while attempting to invoke the API
@@ -169,7 +98,7 @@ public class DefaultApi {
     /**
      * 
      * 
-     * <p><b>0</b> - default response
+     * <p><b>200</b> - OK
      * @param componentId The componentId parameter
      * @return ResponseEntity&lt;BaseDescription&gt;
      * @throws RestClientResponseException if an error occurs while attempting to invoke the API
@@ -182,7 +111,7 @@ public class DefaultApi {
     /**
      * 
      * 
-     * <p><b>0</b> - default response
+     * <p><b>200</b> - OK
      * @param componentId The componentId parameter
      * @return ResponseSpec
      * @throws RestClientResponseException if an error occurs while attempting to invoke the API
@@ -193,7 +122,7 @@ public class DefaultApi {
     /**
      * 
      * 
-     * <p><b>0</b> - default response
+     * <p><b>200</b> - OK
      * @param componentId The componentId parameter
      * @return ComponentSpec
      * @throws RestClientResponseException if an error occurs while attempting to invoke the API
@@ -215,7 +144,7 @@ public class DefaultApi {
         final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<>();
 
         final String[] localVarAccepts = { 
-            "application/json", "application/xml"
+            "application/xml", "application/json"
         };
         final List<MediaType> localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         final String[] localVarContentTypes = { };
@@ -224,13 +153,13 @@ public class DefaultApi {
         String[] localVarAuthNames = new String[] {  };
 
         ParameterizedTypeReference<ComponentSpec> localVarReturnType = new ParameterizedTypeReference<>() {};
-        return apiClient.invokeAPI("/rest/registry/items/{componentId}/spec", HttpMethod.GET, pathParams, queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+        return apiClient.invokeAPI("/registry/items/{componentId}/spec", HttpMethod.GET, pathParams, queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
     }
 
     /**
      * 
      * 
-     * <p><b>0</b> - default response
+     * <p><b>200</b> - OK
      * @param componentId The componentId parameter
      * @return ComponentSpec
      * @throws RestClientResponseException if an error occurs while attempting to invoke the API
@@ -243,7 +172,7 @@ public class DefaultApi {
     /**
      * 
      * 
-     * <p><b>0</b> - default response
+     * <p><b>200</b> - OK
      * @param componentId The componentId parameter
      * @return ResponseEntity&lt;ComponentSpec&gt;
      * @throws RestClientResponseException if an error occurs while attempting to invoke the API
@@ -256,7 +185,7 @@ public class DefaultApi {
     /**
      * 
      * 
-     * <p><b>0</b> - default response
+     * <p><b>200</b> - OK
      * @param componentId The componentId parameter
      * @return ResponseSpec
      * @throws RestClientResponseException if an error occurs while attempting to invoke the API
@@ -267,13 +196,15 @@ public class DefaultApi {
     /**
      * 
      * 
-     * <p><b>0</b> - default response
+     * <p><b>200</b> - OK
+     * @param type The type parameter
+     * @param status The status parameter
      * @param sortBy The sortBy parameter
      * @param sortDirection The sortDirection parameter
      * @return List&lt;BaseDescription&gt;
      * @throws RestClientResponseException if an error occurs while attempting to invoke the API
      */
-    private ResponseSpec getItemsRequestCreation(String sortBy, String sortDirection) throws RestClientResponseException {
+    private ResponseSpec getItemsRequestCreation(String type, List<String> status, String sortBy, String sortDirection) throws RestClientResponseException {
         Object postBody = null;
         // create path and map variables
         final Map<String, Object> pathParams = new HashMap<>();
@@ -283,11 +214,13 @@ public class DefaultApi {
         final MultiValueMap<String, String> cookieParams = new LinkedMultiValueMap<>();
         final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<>();
 
+        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "type", type));
+        queryParams.putAll(apiClient.parameterToMultiValueMap(ApiClient.CollectionFormat.valueOf("multi".toUpperCase(Locale.ROOT)), "status", status));
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "sortBy", sortBy));
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "sortDirection", sortDirection));
         
         final String[] localVarAccepts = { 
-            "application/json", "application/xml"
+            "application/xml", "application/json"
         };
         final List<MediaType> localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         final String[] localVarContentTypes = { };
@@ -296,108 +229,53 @@ public class DefaultApi {
         String[] localVarAuthNames = new String[] {  };
 
         ParameterizedTypeReference<List<BaseDescription>> localVarReturnType = new ParameterizedTypeReference<>() {};
-        return apiClient.invokeAPI("/rest/registry/items", HttpMethod.GET, pathParams, queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
+        return apiClient.invokeAPI("/registry/items", HttpMethod.GET, pathParams, queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
     }
 
     /**
      * 
      * 
-     * <p><b>0</b> - default response
+     * <p><b>200</b> - OK
+     * @param type The type parameter
+     * @param status The status parameter
      * @param sortBy The sortBy parameter
      * @param sortDirection The sortDirection parameter
      * @return List&lt;BaseDescription&gt;
      * @throws RestClientResponseException if an error occurs while attempting to invoke the API
      */
-    public List<BaseDescription> getItems(String sortBy, String sortDirection) throws RestClientResponseException {
+    public List<BaseDescription> getItems(String type, List<String> status, String sortBy, String sortDirection) throws RestClientResponseException {
         ParameterizedTypeReference<List<BaseDescription>> localVarReturnType = new ParameterizedTypeReference<>() {};
-        return getItemsRequestCreation(sortBy, sortDirection).body(localVarReturnType);
+        return getItemsRequestCreation(type, status, sortBy, sortDirection).body(localVarReturnType);
     }
 
     /**
      * 
      * 
-     * <p><b>0</b> - default response
+     * <p><b>200</b> - OK
+     * @param type The type parameter
+     * @param status The status parameter
      * @param sortBy The sortBy parameter
      * @param sortDirection The sortDirection parameter
      * @return ResponseEntity&lt;List&lt;BaseDescription&gt;&gt;
      * @throws RestClientResponseException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<List<BaseDescription>> getItemsWithHttpInfo(String sortBy, String sortDirection) throws RestClientResponseException {
+    public ResponseEntity<List<BaseDescription>> getItemsWithHttpInfo(String type, List<String> status, String sortBy, String sortDirection) throws RestClientResponseException {
         ParameterizedTypeReference<List<BaseDescription>> localVarReturnType = new ParameterizedTypeReference<>() {};
-        return getItemsRequestCreation(sortBy, sortDirection).toEntity(localVarReturnType);
+        return getItemsRequestCreation(type, status, sortBy, sortDirection).toEntity(localVarReturnType);
     }
 
     /**
      * 
      * 
-     * <p><b>0</b> - default response
+     * <p><b>200</b> - OK
+     * @param type The type parameter
+     * @param status The status parameter
      * @param sortBy The sortBy parameter
      * @param sortDirection The sortDirection parameter
      * @return ResponseSpec
      * @throws RestClientResponseException if an error occurs while attempting to invoke the API
      */
-    public ResponseSpec getItemsWithResponseSpec(String sortBy, String sortDirection) throws RestClientResponseException {
-        return getItemsRequestCreation(sortBy, sortDirection);
-    }
-    /**
-     * 
-     * 
-     * <p><b>0</b> - default response
-     * @throws RestClientResponseException if an error occurs while attempting to invoke the API
-     */
-    private ResponseSpec getWadlRequestCreation() throws RestClientResponseException {
-        Object postBody = null;
-        // create path and map variables
-        final Map<String, Object> pathParams = new HashMap<>();
-
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, String> cookieParams = new LinkedMultiValueMap<>();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<>();
-
-        final String[] localVarAccepts = { 
-            "application/vnd.sun.wadl+xml", "application/xml"
-        };
-        final List<MediaType> localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
-        final String[] localVarContentTypes = { };
-        final MediaType localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
-
-        String[] localVarAuthNames = new String[] {  };
-
-        ParameterizedTypeReference<Void> localVarReturnType = new ParameterizedTypeReference<>() {};
-        return apiClient.invokeAPI("/rest/application.wadl", HttpMethod.GET, pathParams, queryParams, postBody, headerParams, cookieParams, formParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
-    }
-
-    /**
-     * 
-     * 
-     * <p><b>0</b> - default response
-     * @throws RestClientResponseException if an error occurs while attempting to invoke the API
-     */
-    public void getWadl() throws RestClientResponseException {
-        ParameterizedTypeReference<Void> localVarReturnType = new ParameterizedTypeReference<>() {};
-        getWadlRequestCreation().body(localVarReturnType);
-    }
-
-    /**
-     * 
-     * 
-     * <p><b>0</b> - default response
-     * @throws RestClientResponseException if an error occurs while attempting to invoke the API
-     */
-    public ResponseEntity<Void> getWadlWithHttpInfo() throws RestClientResponseException {
-        ParameterizedTypeReference<Void> localVarReturnType = new ParameterizedTypeReference<>() {};
-        return getWadlRequestCreation().toEntity(localVarReturnType);
-    }
-
-    /**
-     * 
-     * 
-     * <p><b>0</b> - default response
-     * @return ResponseSpec
-     * @throws RestClientResponseException if an error occurs while attempting to invoke the API
-     */
-    public ResponseSpec getWadlWithResponseSpec() throws RestClientResponseException {
-        return getWadlRequestCreation();
+    public ResponseSpec getItemsWithResponseSpec(String type, List<String> status, String sortBy, String sortDirection) throws RestClientResponseException {
+        return getItemsRequestCreation(type, status, sortBy, sortDirection);
     }
 }

@@ -29,32 +29,32 @@ import jakarta.xml.bind.annotation.adapters.*;
 import io.github.threetenjaxb.core.*;
 
 /**
- * BaseDescription
+ * ProfileDescription
  */
 @JsonPropertyOrder({
-  BaseDescription.JSON_PROPERTY_NAME,
-  BaseDescription.JSON_PROPERTY_DESCRIPTION,
-  BaseDescription.JSON_PROPERTY_REGISTRATION_DATE,
-  BaseDescription.JSON_PROPERTY_CREATOR_NAME,
-  BaseDescription.JSON_PROPERTY_USER_ID,
-  BaseDescription.JSON_PROPERTY_DOMAIN_NAME,
-  BaseDescription.JSON_PROPERTY_HREF,
-  BaseDescription.JSON_PROPERTY_GROUP_NAME,
-  BaseDescription.JSON_PROPERTY_STATUS,
-  BaseDescription.JSON_PROPERTY_DERIVEDFROM,
-  BaseDescription.JSON_PROPERTY_SUCCESSOR,
-  BaseDescription.JSON_PROPERTY_COMMENTS_COUNT,
-  BaseDescription.JSON_PROPERTY_RECOMMENDED,
-  BaseDescription.JSON_PROPERTY_PUBLIC,
-  BaseDescription.JSON_PROPERTY_SHOW_IN_EDITOR,
-  BaseDescription.JSON_PROPERTY_ID,
-  BaseDescription.JSON_PROPERTY_IS_PUBLIC
+  ProfileDescription.JSON_PROPERTY_NAME,
+  ProfileDescription.JSON_PROPERTY_DESCRIPTION,
+  ProfileDescription.JSON_PROPERTY_REGISTRATION_DATE,
+  ProfileDescription.JSON_PROPERTY_CREATOR_NAME,
+  ProfileDescription.JSON_PROPERTY_USER_ID,
+  ProfileDescription.JSON_PROPERTY_DOMAIN_NAME,
+  ProfileDescription.JSON_PROPERTY_HREF,
+  ProfileDescription.JSON_PROPERTY_GROUP_NAME,
+  ProfileDescription.JSON_PROPERTY_STATUS,
+  ProfileDescription.JSON_PROPERTY_DERIVEDFROM,
+  ProfileDescription.JSON_PROPERTY_SUCCESSOR,
+  ProfileDescription.JSON_PROPERTY_COMMENTS_COUNT,
+  ProfileDescription.JSON_PROPERTY_RECOMMENDED,
+  ProfileDescription.JSON_PROPERTY_SHOW_IN_EDITOR,
+  ProfileDescription.JSON_PROPERTY_PUBLIC,
+  ProfileDescription.JSON_PROPERTY_ID,
+  ProfileDescription.JSON_PROPERTY_IS_PUBLIC
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-11T16:46:14.632985+01:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
-@XmlRootElement(name = "description")
+@XmlRootElement(name = "profileDescription")
 @XmlAccessorType(XmlAccessType.FIELD)
-@JacksonXmlRootElement(localName = "description")
-public class BaseDescription {
+@JacksonXmlRootElement(localName = "profileDescription")
+public class ProfileDescription {
   public static final String JSON_PROPERTY_NAME = "name";
   @XmlElement(name = "name")
   private String name;
@@ -150,13 +150,13 @@ public class BaseDescription {
   @XmlElement(name = "recommended")
   private Boolean recommended;
 
-  public static final String JSON_PROPERTY_PUBLIC = "public";
-  @XmlElement(name = "public")
-  private Boolean _public;
-
   public static final String JSON_PROPERTY_SHOW_IN_EDITOR = "showInEditor";
   @XmlElement(name = "showInEditor")
   private Boolean showInEditor;
+
+  public static final String JSON_PROPERTY_PUBLIC = "public";
+  @XmlElement(name = "public")
+  private Boolean _public;
 
   public static final String JSON_PROPERTY_ID = "id";
   @XmlElement(name = "id")
@@ -166,10 +166,10 @@ public class BaseDescription {
   @XmlElement(name = "isPublic")
   private Boolean isPublic;
 
-  public BaseDescription() {
+  public ProfileDescription() {
   }
 
-  public BaseDescription name(String name) {
+  public ProfileDescription name(String name) {
     
     this.name = name;
     return this;
@@ -196,7 +196,7 @@ public class BaseDescription {
     this.name = name;
   }
 
-  public BaseDescription description(String description) {
+  public ProfileDescription description(String description) {
     
     this.description = description;
     return this;
@@ -223,7 +223,7 @@ public class BaseDescription {
     this.description = description;
   }
 
-  public BaseDescription registrationDate(OffsetDateTime registrationDate) {
+  public ProfileDescription registrationDate(OffsetDateTime registrationDate) {
     
     this.registrationDate = registrationDate;
     return this;
@@ -250,7 +250,7 @@ public class BaseDescription {
     this.registrationDate = registrationDate;
   }
 
-  public BaseDescription creatorName(String creatorName) {
+  public ProfileDescription creatorName(String creatorName) {
     
     this.creatorName = creatorName;
     return this;
@@ -277,7 +277,7 @@ public class BaseDescription {
     this.creatorName = creatorName;
   }
 
-  public BaseDescription userId(String userId) {
+  public ProfileDescription userId(String userId) {
     
     this.userId = userId;
     return this;
@@ -304,7 +304,7 @@ public class BaseDescription {
     this.userId = userId;
   }
 
-  public BaseDescription domainName(String domainName) {
+  public ProfileDescription domainName(String domainName) {
     
     this.domainName = domainName;
     return this;
@@ -331,7 +331,7 @@ public class BaseDescription {
     this.domainName = domainName;
   }
 
-  public BaseDescription href(String href) {
+  public ProfileDescription href(String href) {
     
     this.href = href;
     return this;
@@ -358,7 +358,7 @@ public class BaseDescription {
     this.href = href;
   }
 
-  public BaseDescription groupName(String groupName) {
+  public ProfileDescription groupName(String groupName) {
     
     this.groupName = groupName;
     return this;
@@ -385,7 +385,7 @@ public class BaseDescription {
     this.groupName = groupName;
   }
 
-  public BaseDescription status(StatusEnum status) {
+  public ProfileDescription status(StatusEnum status) {
     
     this.status = status;
     return this;
@@ -412,7 +412,7 @@ public class BaseDescription {
     this.status = status;
   }
 
-  public BaseDescription derivedfrom(String derivedfrom) {
+  public ProfileDescription derivedfrom(String derivedfrom) {
     
     this.derivedfrom = derivedfrom;
     return this;
@@ -439,7 +439,7 @@ public class BaseDescription {
     this.derivedfrom = derivedfrom;
   }
 
-  public BaseDescription successor(String successor) {
+  public ProfileDescription successor(String successor) {
     
     this.successor = successor;
     return this;
@@ -466,7 +466,7 @@ public class BaseDescription {
     this.successor = successor;
   }
 
-  public BaseDescription commentsCount(Integer commentsCount) {
+  public ProfileDescription commentsCount(Integer commentsCount) {
     
     this.commentsCount = commentsCount;
     return this;
@@ -493,7 +493,7 @@ public class BaseDescription {
     this.commentsCount = commentsCount;
   }
 
-  public BaseDescription recommended(Boolean recommended) {
+  public ProfileDescription recommended(Boolean recommended) {
     
     this.recommended = recommended;
     return this;
@@ -520,34 +520,7 @@ public class BaseDescription {
     this.recommended = recommended;
   }
 
-  public BaseDescription _public(Boolean _public) {
-    
-    this._public = _public;
-    return this;
-  }
-
-  /**
-   * Get _public
-   * @return _public
-   */
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PUBLIC)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  @JacksonXmlProperty(localName = "public")
-
-  public Boolean getPublic() {
-    return _public;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PUBLIC)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  @JacksonXmlProperty(localName = "public")
-  public void setPublic(Boolean _public) {
-    this._public = _public;
-  }
-
-  public BaseDescription showInEditor(Boolean showInEditor) {
+  public ProfileDescription showInEditor(Boolean showInEditor) {
     
     this.showInEditor = showInEditor;
     return this;
@@ -574,7 +547,34 @@ public class BaseDescription {
     this.showInEditor = showInEditor;
   }
 
-  public BaseDescription id(String id) {
+  public ProfileDescription _public(Boolean _public) {
+    
+    this._public = _public;
+    return this;
+  }
+
+  /**
+   * Get _public
+   * @return _public
+   */
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PUBLIC)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "public")
+
+  public Boolean getPublic() {
+    return _public;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PUBLIC)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  @JacksonXmlProperty(localName = "public")
+  public void setPublic(Boolean _public) {
+    this._public = _public;
+  }
+
+  public ProfileDescription id(String id) {
     
     this.id = id;
     return this;
@@ -601,7 +601,7 @@ public class BaseDescription {
     this.id = id;
   }
 
-  public BaseDescription isPublic(Boolean isPublic) {
+  public ProfileDescription isPublic(Boolean isPublic) {
     
     this.isPublic = isPublic;
     return this;
@@ -636,35 +636,35 @@ public class BaseDescription {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    BaseDescription baseDescription = (BaseDescription) o;
-    return Objects.equals(this.name, baseDescription.name) &&
-        Objects.equals(this.description, baseDescription.description) &&
-        Objects.equals(this.registrationDate, baseDescription.registrationDate) &&
-        Objects.equals(this.creatorName, baseDescription.creatorName) &&
-        Objects.equals(this.userId, baseDescription.userId) &&
-        Objects.equals(this.domainName, baseDescription.domainName) &&
-        Objects.equals(this.href, baseDescription.href) &&
-        Objects.equals(this.groupName, baseDescription.groupName) &&
-        Objects.equals(this.status, baseDescription.status) &&
-        Objects.equals(this.derivedfrom, baseDescription.derivedfrom) &&
-        Objects.equals(this.successor, baseDescription.successor) &&
-        Objects.equals(this.commentsCount, baseDescription.commentsCount) &&
-        Objects.equals(this.recommended, baseDescription.recommended) &&
-        Objects.equals(this._public, baseDescription._public) &&
-        Objects.equals(this.showInEditor, baseDescription.showInEditor) &&
-        Objects.equals(this.id, baseDescription.id) &&
-        Objects.equals(this.isPublic, baseDescription.isPublic);
+    ProfileDescription profileDescription = (ProfileDescription) o;
+    return Objects.equals(this.name, profileDescription.name) &&
+        Objects.equals(this.description, profileDescription.description) &&
+        Objects.equals(this.registrationDate, profileDescription.registrationDate) &&
+        Objects.equals(this.creatorName, profileDescription.creatorName) &&
+        Objects.equals(this.userId, profileDescription.userId) &&
+        Objects.equals(this.domainName, profileDescription.domainName) &&
+        Objects.equals(this.href, profileDescription.href) &&
+        Objects.equals(this.groupName, profileDescription.groupName) &&
+        Objects.equals(this.status, profileDescription.status) &&
+        Objects.equals(this.derivedfrom, profileDescription.derivedfrom) &&
+        Objects.equals(this.successor, profileDescription.successor) &&
+        Objects.equals(this.commentsCount, profileDescription.commentsCount) &&
+        Objects.equals(this.recommended, profileDescription.recommended) &&
+        Objects.equals(this.showInEditor, profileDescription.showInEditor) &&
+        Objects.equals(this._public, profileDescription._public) &&
+        Objects.equals(this.id, profileDescription.id) &&
+        Objects.equals(this.isPublic, profileDescription.isPublic);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, description, registrationDate, creatorName, userId, domainName, href, groupName, status, derivedfrom, successor, commentsCount, recommended, _public, showInEditor, id, isPublic);
+    return Objects.hash(name, description, registrationDate, creatorName, userId, domainName, href, groupName, status, derivedfrom, successor, commentsCount, recommended, showInEditor, _public, id, isPublic);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class BaseDescription {\n");
+    sb.append("class ProfileDescription {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    registrationDate: ").append(toIndentedString(registrationDate)).append("\n");
@@ -678,8 +678,8 @@ public class BaseDescription {
     sb.append("    successor: ").append(toIndentedString(successor)).append("\n");
     sb.append("    commentsCount: ").append(toIndentedString(commentsCount)).append("\n");
     sb.append("    recommended: ").append(toIndentedString(recommended)).append("\n");
-    sb.append("    _public: ").append(toIndentedString(_public)).append("\n");
     sb.append("    showInEditor: ").append(toIndentedString(showInEditor)).append("\n");
+    sb.append("    _public: ").append(toIndentedString(_public)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    isPublic: ").append(toIndentedString(isPublic)).append("\n");
     sb.append("}");

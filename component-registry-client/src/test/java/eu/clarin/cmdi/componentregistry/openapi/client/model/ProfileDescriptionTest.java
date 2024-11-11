@@ -24,17 +24,17 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
- * Model tests for BaseDescription
+ * Model tests for ProfileDescription
  */
-class BaseDescriptionTest {
-    private final BaseDescription model = new BaseDescription();
+class ProfileDescriptionTest {
+    private final ProfileDescription model = new ProfileDescription();
 
     /**
-     * Model tests for BaseDescription
+     * Model tests for ProfileDescription
      */
     @Test
-    void testBaseDescription() {
-        // TODO: test BaseDescription
+    void testProfileDescription() {
+        // TODO: test ProfileDescription
     }
 
     /**
@@ -142,19 +142,19 @@ class BaseDescriptionTest {
     }
 
     /**
-     * Test the property '_public'
-     */
-    @Test
-    void _publicTest() {
-        // TODO: test _public
-    }
-
-    /**
      * Test the property 'showInEditor'
      */
     @Test
     void showInEditorTest() {
         // TODO: test showInEditor
+    }
+
+    /**
+     * Test the property '_public'
+     */
+    @Test
+    void _publicTest() {
+        // TODO: test _public
     }
 
     /**

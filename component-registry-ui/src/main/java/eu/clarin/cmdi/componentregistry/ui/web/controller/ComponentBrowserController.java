@@ -16,7 +16,7 @@
  */
 package eu.clarin.cmdi.componentregistry.ui.web.controller;
 
-import eu.clarin.cmdi.componentregistry.openapi.client.api.DefaultApi;
+import eu.clarin.cmdi.componentregistry.openapi.client.api.ItemsControllerApi;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.BaseDescription;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
 import java.util.Arrays;
@@ -38,7 +38,7 @@ import org.springframework.web.client.RestClientResponseException;
 @Controller
 public class ComponentBrowserController {
 
-    private final DefaultApi api;
+    private final ItemsControllerApi api;
 
     public static final String SORT_BY_QUERY_PARAM = "sortBy";
     public static final String SORT_BY_DEFAULT = "name";
@@ -58,7 +58,7 @@ public class ComponentBrowserController {
             "registrationDate");
 
     @Autowired
-    public ComponentBrowserController(DefaultApi api) {
+    public ComponentBrowserController(ItemsControllerApi api) {
         this.api = api;
     }
 
@@ -91,9 +91,9 @@ public class ComponentBrowserController {
         final String sortDirection = params.getOrDefault(SORT_DIRECTION_QUERY_PARAM, SORT_DIRECTION_DEFAULT);
         return switch (type) {
             case ITEM_TYPE_COMPONENT ->
-                api.getItems(sortBy, sortDirection);
+                api.getItems("component", null, sortBy, sortDirection);
             case ITEM_TYPE_PROFILE ->
-                api.getItems(sortBy, sortDirection);
+                api.getItems("profile", null, sortBy, sortDirection);
             default ->
                 Collections.emptyList();
         };
@@ -113,7 +113,8 @@ public class ComponentBrowserController {
     public String itemSpecification(Model model,
             @PathVariable String id) {
         //get item spec from API
-        final ComponentSpec itemSpec = api.getItemSpec(id);
+        final ComponentSpec itemSpec = 
+                api.getItemSpec(id);
 
         model.addAttribute("spec", itemSpec);
         return "browser/itemSpec";

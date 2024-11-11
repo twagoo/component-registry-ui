@@ -29,32 +29,32 @@ import jakarta.xml.bind.annotation.adapters.*;
 import io.github.threetenjaxb.core.*;
 
 /**
- * BaseDescription
+ * ComponentDescription
  */
 @JsonPropertyOrder({
-  BaseDescription.JSON_PROPERTY_NAME,
-  BaseDescription.JSON_PROPERTY_DESCRIPTION,
-  BaseDescription.JSON_PROPERTY_REGISTRATION_DATE,
-  BaseDescription.JSON_PROPERTY_CREATOR_NAME,
-  BaseDescription.JSON_PROPERTY_USER_ID,
-  BaseDescription.JSON_PROPERTY_DOMAIN_NAME,
-  BaseDescription.JSON_PROPERTY_HREF,
-  BaseDescription.JSON_PROPERTY_GROUP_NAME,
-  BaseDescription.JSON_PROPERTY_STATUS,
-  BaseDescription.JSON_PROPERTY_DERIVEDFROM,
-  BaseDescription.JSON_PROPERTY_SUCCESSOR,
-  BaseDescription.JSON_PROPERTY_COMMENTS_COUNT,
-  BaseDescription.JSON_PROPERTY_RECOMMENDED,
-  BaseDescription.JSON_PROPERTY_PUBLIC,
-  BaseDescription.JSON_PROPERTY_SHOW_IN_EDITOR,
-  BaseDescription.JSON_PROPERTY_ID,
-  BaseDescription.JSON_PROPERTY_IS_PUBLIC
+  ComponentDescription.JSON_PROPERTY_NAME,
+  ComponentDescription.JSON_PROPERTY_DESCRIPTION,
+  ComponentDescription.JSON_PROPERTY_REGISTRATION_DATE,
+  ComponentDescription.JSON_PROPERTY_CREATOR_NAME,
+  ComponentDescription.JSON_PROPERTY_USER_ID,
+  ComponentDescription.JSON_PROPERTY_DOMAIN_NAME,
+  ComponentDescription.JSON_PROPERTY_HREF,
+  ComponentDescription.JSON_PROPERTY_GROUP_NAME,
+  ComponentDescription.JSON_PROPERTY_STATUS,
+  ComponentDescription.JSON_PROPERTY_DERIVEDFROM,
+  ComponentDescription.JSON_PROPERTY_SUCCESSOR,
+  ComponentDescription.JSON_PROPERTY_COMMENTS_COUNT,
+  ComponentDescription.JSON_PROPERTY_RECOMMENDED,
+  ComponentDescription.JSON_PROPERTY_PUBLIC,
+  ComponentDescription.JSON_PROPERTY_SHOW_IN_EDITOR,
+  ComponentDescription.JSON_PROPERTY_ID,
+  ComponentDescription.JSON_PROPERTY_IS_PUBLIC
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-11T16:46:14.632985+01:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
-@XmlRootElement(name = "description")
+@XmlRootElement(name = "componentDescription")
 @XmlAccessorType(XmlAccessType.FIELD)
-@JacksonXmlRootElement(localName = "description")
-public class BaseDescription {
+@JacksonXmlRootElement(localName = "componentDescription")
+public class ComponentDescription {
   public static final String JSON_PROPERTY_NAME = "name";
   @XmlElement(name = "name")
   private String name;
@@ -166,10 +166,10 @@ public class BaseDescription {
   @XmlElement(name = "isPublic")
   private Boolean isPublic;
 
-  public BaseDescription() {
+  public ComponentDescription() {
   }
 
-  public BaseDescription name(String name) {
+  public ComponentDescription name(String name) {
     
     this.name = name;
     return this;
@@ -196,7 +196,7 @@ public class BaseDescription {
     this.name = name;
   }
 
-  public BaseDescription description(String description) {
+  public ComponentDescription description(String description) {
     
     this.description = description;
     return this;
@@ -223,7 +223,7 @@ public class BaseDescription {
     this.description = description;
   }
 
-  public BaseDescription registrationDate(OffsetDateTime registrationDate) {
+  public ComponentDescription registrationDate(OffsetDateTime registrationDate) {
     
     this.registrationDate = registrationDate;
     return this;
@@ -250,7 +250,7 @@ public class BaseDescription {
     this.registrationDate = registrationDate;
   }
 
-  public BaseDescription creatorName(String creatorName) {
+  public ComponentDescription creatorName(String creatorName) {
     
     this.creatorName = creatorName;
     return this;
@@ -277,7 +277,7 @@ public class BaseDescription {
     this.creatorName = creatorName;
   }
 
-  public BaseDescription userId(String userId) {
+  public ComponentDescription userId(String userId) {
     
     this.userId = userId;
     return this;
@@ -304,7 +304,7 @@ public class BaseDescription {
     this.userId = userId;
   }
 
-  public BaseDescription domainName(String domainName) {
+  public ComponentDescription domainName(String domainName) {
     
     this.domainName = domainName;
     return this;
@@ -331,7 +331,7 @@ public class BaseDescription {
     this.domainName = domainName;
   }
 
-  public BaseDescription href(String href) {
+  public ComponentDescription href(String href) {
     
     this.href = href;
     return this;
@@ -358,7 +358,7 @@ public class BaseDescription {
     this.href = href;
   }
 
-  public BaseDescription groupName(String groupName) {
+  public ComponentDescription groupName(String groupName) {
     
     this.groupName = groupName;
     return this;
@@ -385,7 +385,7 @@ public class BaseDescription {
     this.groupName = groupName;
   }
 
-  public BaseDescription status(StatusEnum status) {
+  public ComponentDescription status(StatusEnum status) {
     
     this.status = status;
     return this;
@@ -412,7 +412,7 @@ public class BaseDescription {
     this.status = status;
   }
 
-  public BaseDescription derivedfrom(String derivedfrom) {
+  public ComponentDescription derivedfrom(String derivedfrom) {
     
     this.derivedfrom = derivedfrom;
     return this;
@@ -439,7 +439,7 @@ public class BaseDescription {
     this.derivedfrom = derivedfrom;
   }
 
-  public BaseDescription successor(String successor) {
+  public ComponentDescription successor(String successor) {
     
     this.successor = successor;
     return this;
@@ -466,7 +466,7 @@ public class BaseDescription {
     this.successor = successor;
   }
 
-  public BaseDescription commentsCount(Integer commentsCount) {
+  public ComponentDescription commentsCount(Integer commentsCount) {
     
     this.commentsCount = commentsCount;
     return this;
@@ -493,7 +493,7 @@ public class BaseDescription {
     this.commentsCount = commentsCount;
   }
 
-  public BaseDescription recommended(Boolean recommended) {
+  public ComponentDescription recommended(Boolean recommended) {
     
     this.recommended = recommended;
     return this;
@@ -520,7 +520,7 @@ public class BaseDescription {
     this.recommended = recommended;
   }
 
-  public BaseDescription _public(Boolean _public) {
+  public ComponentDescription _public(Boolean _public) {
     
     this._public = _public;
     return this;
@@ -547,7 +547,7 @@ public class BaseDescription {
     this._public = _public;
   }
 
-  public BaseDescription showInEditor(Boolean showInEditor) {
+  public ComponentDescription showInEditor(Boolean showInEditor) {
     
     this.showInEditor = showInEditor;
     return this;
@@ -574,7 +574,7 @@ public class BaseDescription {
     this.showInEditor = showInEditor;
   }
 
-  public BaseDescription id(String id) {
+  public ComponentDescription id(String id) {
     
     this.id = id;
     return this;
@@ -601,7 +601,7 @@ public class BaseDescription {
     this.id = id;
   }
 
-  public BaseDescription isPublic(Boolean isPublic) {
+  public ComponentDescription isPublic(Boolean isPublic) {
     
     this.isPublic = isPublic;
     return this;
@@ -636,24 +636,24 @@ public class BaseDescription {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    BaseDescription baseDescription = (BaseDescription) o;
-    return Objects.equals(this.name, baseDescription.name) &&
-        Objects.equals(this.description, baseDescription.description) &&
-        Objects.equals(this.registrationDate, baseDescription.registrationDate) &&
-        Objects.equals(this.creatorName, baseDescription.creatorName) &&
-        Objects.equals(this.userId, baseDescription.userId) &&
-        Objects.equals(this.domainName, baseDescription.domainName) &&
-        Objects.equals(this.href, baseDescription.href) &&
-        Objects.equals(this.groupName, baseDescription.groupName) &&
-        Objects.equals(this.status, baseDescription.status) &&
-        Objects.equals(this.derivedfrom, baseDescription.derivedfrom) &&
-        Objects.equals(this.successor, baseDescription.successor) &&
-        Objects.equals(this.commentsCount, baseDescription.commentsCount) &&
-        Objects.equals(this.recommended, baseDescription.recommended) &&
-        Objects.equals(this._public, baseDescription._public) &&
-        Objects.equals(this.showInEditor, baseDescription.showInEditor) &&
-        Objects.equals(this.id, baseDescription.id) &&
-        Objects.equals(this.isPublic, baseDescription.isPublic);
+    ComponentDescription componentDescription = (ComponentDescription) o;
+    return Objects.equals(this.name, componentDescription.name) &&
+        Objects.equals(this.description, componentDescription.description) &&
+        Objects.equals(this.registrationDate, componentDescription.registrationDate) &&
+        Objects.equals(this.creatorName, componentDescription.creatorName) &&
+        Objects.equals(this.userId, componentDescription.userId) &&
+        Objects.equals(this.domainName, componentDescription.domainName) &&
+        Objects.equals(this.href, componentDescription.href) &&
+        Objects.equals(this.groupName, componentDescription.groupName) &&
+        Objects.equals(this.status, componentDescription.status) &&
+        Objects.equals(this.derivedfrom, componentDescription.derivedfrom) &&
+        Objects.equals(this.successor, componentDescription.successor) &&
+        Objects.equals(this.commentsCount, componentDescription.commentsCount) &&
+        Objects.equals(this.recommended, componentDescription.recommended) &&
+        Objects.equals(this._public, componentDescription._public) &&
+        Objects.equals(this.showInEditor, componentDescription.showInEditor) &&
+        Objects.equals(this.id, componentDescription.id) &&
+        Objects.equals(this.isPublic, componentDescription.isPublic);
   }
 
   @Override
@@ -664,7 +664,7 @@ public class BaseDescription {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class BaseDescription {\n");
+    sb.append("class ComponentDescription {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    registrationDate: ").append(toIndentedString(registrationDate)).append("\n");

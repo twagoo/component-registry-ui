@@ -17,7 +17,7 @@
 package eu.clarin.cmdi.componentregistry.ui.configuration;
 
 import eu.clarin.cmdi.componentregistry.openapi.client.ApiClient;
-import eu.clarin.cmdi.componentregistry.openapi.client.api.DefaultApi;
+import eu.clarin.cmdi.componentregistry.openapi.client.api.ItemsControllerApi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -35,8 +35,8 @@ public class ApiClientConfiguration {
     ApiClientConfigurationProperties clientConfig;
 
     @Bean
-    public DefaultApi api() {
-        final DefaultApi api = new DefaultApi();
+    public ItemsControllerApi itemsApi() {
+        final ItemsControllerApi api = new ItemsControllerApi();
 
         log.info("Applying configuration to API client");
         api.getApiClient().setBasePath(clientConfig.getBasePath());
@@ -46,7 +46,7 @@ public class ApiClientConfiguration {
 
     @Bean
     public ApiClient apiClient() {
-        return api().getApiClient();
+        return itemsApi().getApiClient();
     }
 
 }

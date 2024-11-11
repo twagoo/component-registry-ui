@@ -17,7 +17,7 @@
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
                 <skipTests>true</skipTests>
-                <exec.workingdir>--spring.config.location=classpath:/application.yaml,optional:classpath:/dev-config/application-dev.yaml</exec.workingdir>
+                <exec.workingdir></exec.workingdir>
             </properties>
             <activatedProfiles>
                 <activatedProfile>development</activatedProfile>
@@ -54,7 +54,7 @@
                 <exec.appArgs>--spring.config.location=classpath:/application.yaml,optional:classpath:/dev-config/application-dev.yaml</exec.appArgs>
                 <exec.mainClass>eu.clarin.cmdi.componentregistry.ui.ComponentRegistryUiApplication</exec.mainClass>
                 <exec.executable>java</exec.executable>
-                <exec.workingdir>--spring.config.location=classpath:/application.yaml,optional:classpath:/dev-config/application-dev.yaml</exec.workingdir>
+                <exec.workingdir></exec.workingdir>
             </properties>
         </action>
         <action>
@@ -71,7 +71,7 @@
                 <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
                 <exec.mainClass>eu.clarin.cmdi.componentregistry.ui.ComponentRegistryUiApplication</exec.mainClass>
                 <exec.executable>java</exec.executable>
-                <exec.workingdir>--spring.config.location=classpath:/application.yaml,optional:classpath:/dev-config/application-dev.yaml</exec.workingdir>
+                <exec.workingdir></exec.workingdir>
                 <exec.appArgs>--spring.config.location=classpath:/application.yaml,optional:classpath:/dev-config/application-dev.yaml</exec.appArgs>
             </properties>
         </action>

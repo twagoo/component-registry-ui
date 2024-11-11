@@ -4,7 +4,7 @@ Component Registry API
 
 - API version: 1.0
 
-- Build date: 2024-10-24T16:54:28.781907+02:00[Europe/Amsterdam]
+- Build date: 2024-11-11T16:46:14.632985+01:00[Europe/Amsterdam]
 
 - Generator version: 7.8.0
 
@@ -87,21 +87,21 @@ Please follow the [installation](#installation) instruction and execute the foll
 import eu.clarin.cmdi.componentregistry.openapi.client.*;
 import eu.clarin.cmdi.componentregistry.openapi.client.auth.*;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.*;
-import eu.clarin.cmdi.componentregistry.openapi.client.api.ComponentRegistryControllerApi;
+import eu.clarin.cmdi.componentregistry.openapi.client.api.ItemsControllerApi;
 
-public class ComponentRegistryControllerApiExample {
+public class ItemsControllerApiExample {
 
     public static void main(String[] args) {
         ApiClient defaultClient = new ApiClient();
         defaultClient.setBasePath("http://localhost:8080/rest");
         
-        ComponentRegistryControllerApi apiInstance = new ComponentRegistryControllerApi(defaultClient);
+        ItemsControllerApi apiInstance = new ItemsControllerApi(defaultClient);
         String componentId = "componentId_example"; // String | 
         try {
             BaseDescription result = apiInstance.getItem(componentId);
             System.out.println(result);
         } catch (HttpStatusCodeException e) {
-            System.err.println("Exception when calling ComponentRegistryControllerApi#getItem");
+            System.err.println("Exception when calling ItemsControllerApi#getItem");
             System.err.println("Status code: " + e.getStatusCode().value());
             System.err.println("Reason: " + e.getResponseBodyAsString());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -118,9 +118,13 @@ All URIs are relative to *http://localhost:8080/rest*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ComponentRegistryControllerApi* | [**getItem**](docs/ComponentRegistryControllerApi.md#getItem) | **GET** /registry/items/{componentId} | 
-*ComponentRegistryControllerApi* | [**getItemSpec**](docs/ComponentRegistryControllerApi.md#getItemSpec) | **GET** /registry/items/{componentId}/spec | 
-*ComponentRegistryControllerApi* | [**getItems**](docs/ComponentRegistryControllerApi.md#getItems) | **GET** /registry/items | 
+*ItemsControllerApi* | [**getItem**](docs/ItemsControllerApi.md#getItem) | **GET** /registry/items/{componentId} | 
+*ItemsControllerApi* | [**getItemSpec**](docs/ItemsControllerApi.md#getItemSpec) | **GET** /registry/items/{componentId}/spec | 
+*ItemsControllerApi* | [**getItems**](docs/ItemsControllerApi.md#getItems) | **GET** /registry/items | 
+*RegistryControllerApi* | [**getComponentItem**](docs/RegistryControllerApi.md#getComponentItem) | **GET** /registry/components/{componentId}/description | 
+*RegistryControllerApi* | [**getComponents**](docs/RegistryControllerApi.md#getComponents) | **GET** /registry/components | 
+*RegistryControllerApi* | [**getProfileItem**](docs/RegistryControllerApi.md#getProfileItem) | **GET** /registry/profiles/{componentId}/description | 
+*RegistryControllerApi* | [**getProfiles**](docs/RegistryControllerApi.md#getProfiles) | **GET** /registry/profiles | 
 
 
 ## Documentation for Models
@@ -128,13 +132,17 @@ Class | Method | HTTP request | Description
  - [Attribute](docs/Attribute.md)
  - [AttributeListType](docs/AttributeListType.md)
  - [BaseDescription](docs/BaseDescription.md)
+ - [ComponentDescription](docs/ComponentDescription.md)
  - [ComponentSpec](docs/ComponentSpec.md)
  - [ComponentType](docs/ComponentType.md)
+ - [ComponentsList](docs/ComponentsList.md)
  - [DocumentationType](docs/DocumentationType.md)
  - [ElementType](docs/ElementType.md)
  - [EnumerationType](docs/EnumerationType.md)
  - [Header](docs/Header.md)
  - [ItemType](docs/ItemType.md)
+ - [ProfileDescription](docs/ProfileDescription.md)
+ - [ProfilesList](docs/ProfilesList.md)
  - [ValueSchemeType](docs/ValueSchemeType.md)
  - [VocabularyType](docs/VocabularyType.md)
 

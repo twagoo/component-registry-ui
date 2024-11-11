@@ -24,17 +24,17 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
- * Model tests for BaseDescription
+ * Model tests for ComponentDescription
  */
-class BaseDescriptionTest {
-    private final BaseDescription model = new BaseDescription();
+class ComponentDescriptionTest {
+    private final ComponentDescription model = new ComponentDescription();
 
     /**
-     * Model tests for BaseDescription
+     * Model tests for ComponentDescription
      */
     @Test
-    void testBaseDescription() {
-        // TODO: test BaseDescription
+    void testComponentDescription() {
+        // TODO: test ComponentDescription
     }
 
     /**

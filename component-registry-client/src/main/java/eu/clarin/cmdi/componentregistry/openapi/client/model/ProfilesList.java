@@ -20,6 +20,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import eu.clarin.cmdi.componentregistry.openapi.client.model.ProfileDescription;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.dataformat.xml.annotation.*;
@@ -28,80 +32,58 @@ import jakarta.xml.bind.annotation.adapters.*;
 import io.github.threetenjaxb.core.*;
 
 /**
- * DocumentationType
+ * ProfilesList
  */
 @JsonPropertyOrder({
-  DocumentationType.JSON_PROPERTY_VALUE,
-  DocumentationType.JSON_PROPERTY_LANG
+  ProfilesList.JSON_PROPERTY_COMPONENTS
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-11T16:46:14.632985+01:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
-@XmlRootElement(name = "DocumentationType")
+@XmlRootElement(name = "ProfilesList")
 @XmlAccessorType(XmlAccessType.FIELD)
-@JacksonXmlRootElement(localName = "DocumentationType")
-public class DocumentationType {
-  public static final String JSON_PROPERTY_VALUE = "value";
-  @XmlElement(name = "value")
-  private String value;
+@JacksonXmlRootElement(localName = "ProfilesList")
+public class ProfilesList {
+  public static final String JSON_PROPERTY_COMPONENTS = "components";
+  @XmlElement(name = "profileDescription")
+  private List<ProfileDescription> components = new ArrayList<>();
 
-  public static final String JSON_PROPERTY_LANG = "lang";
-  @XmlAttribute(name = "lang", namespace = "http://www.w3.org/XML/1998/namespace")
-  private String lang;
-
-  public DocumentationType() {
+  public ProfilesList() {
   }
 
-  public DocumentationType value(String value) {
+  public ProfilesList components(List<ProfileDescription> components) {
     
-    this.value = value;
+    this.components = components;
+    return this;
+  }
+
+  public ProfilesList addComponentsItem(ProfileDescription componentsItem) {
+    if (this.components == null) {
+      this.components = new ArrayList<>();
+    }
+    this.components.add(componentsItem);
     return this;
   }
 
   /**
-   * Get value
-   * @return value
+   * Get components
+   * @return components
    */
   @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonProperty(JSON_PROPERTY_COMPONENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  @JacksonXmlProperty(localName = "value")
+  @JacksonXmlProperty(localName = "profileDescription")
+  @JacksonXmlElementWrapper(useWrapping = false)
 
-  public String getValue() {
-    return value;
+  public List<ProfileDescription> getComponents() {
+    return components;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VALUE)
+  @JsonProperty(JSON_PROPERTY_COMPONENTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  @JacksonXmlProperty(localName = "value")
-  public void setValue(String value) {
-    this.value = value;
-  }
-
-  public DocumentationType lang(String lang) {
-    
-    this.lang = lang;
-    return this;
-  }
-
-  /**
-   * Get lang
-   * @return lang
-   */
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_LANG)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  @JacksonXmlProperty(localName = "lang", isAttribute = true, namespace = "http://www.w3.org/XML/1998/namespace")
-
-  public String getLang() {
-    return lang;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_LANG)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  @JacksonXmlProperty(localName = "lang", isAttribute = true, namespace = "http://www.w3.org/XML/1998/namespace")
-  public void setLang(String lang) {
-    this.lang = lang;
+  @JacksonXmlProperty(localName = "profileDescription")
+  @JacksonXmlElementWrapper(useWrapping = false)
+  public void setComponents(List<ProfileDescription> components) {
+    this.components = components;
   }
 
   @Override
@@ -112,22 +94,20 @@ public class DocumentationType {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    DocumentationType documentationType = (DocumentationType) o;
-    return Objects.equals(this.value, documentationType.value) &&
-        Objects.equals(this.lang, documentationType.lang);
+    ProfilesList profilesList = (ProfilesList) o;
+    return Objects.equals(this.components, profilesList.components);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(value, lang);
+    return Objects.hash(components);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class DocumentationType {\n");
-    sb.append("    value: ").append(toIndentedString(value)).append("\n");
-    sb.append("    lang: ").append(toIndentedString(lang)).append("\n");
+    sb.append("class ProfilesList {\n");
+    sb.append("    components: ").append(toIndentedString(components)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -1,6 +1,6 @@
 
 
-# BaseDescription
+# ProfileDescription
 
 
 ## Properties
@@ -20,8 +20,8 @@
 |**successor** | **String** |  |  [optional] |
 |**commentsCount** | **Integer** |  |  [optional] |
 |**recommended** | **Boolean** |  |  [optional] |
-|**_public** | **Boolean** |  |  [optional] |
 |**showInEditor** | **Boolean** |  |  [optional] |
+|**_public** | **Boolean** |  |  [optional] |
 |**id** | **String** |  |  [optional] |
 |**isPublic** | **Boolean** |  |  [optional] |
 
