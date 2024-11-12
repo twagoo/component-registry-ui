@@ -51,7 +51,7 @@ import io.github.threetenjaxb.core.*;
   ComponentType.JSON_PROPERTY_BASE,
   ComponentType.JSON_PROPERTY_OTHER_ATTRIBUTES
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-11T16:46:14.632985+01:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-12T14:24:29.119439+01:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
 @XmlRootElement(name = "ComponentType")
 @XmlAccessorType(XmlAccessType.FIELD)
 @JacksonXmlRootElement(localName = "ComponentType")

@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -114,7 +115,7 @@ public class ComponentBrowserController {
             @PathVariable String id) {
         //get item spec from API
         final ComponentSpec itemSpec = 
-                api.getItemSpec(id);
+                api.getItemSpec(id, MediaType.APPLICATION_JSON_VALUE);
 
         model.addAttribute("spec", itemSpec);
         return "browser/itemSpec";

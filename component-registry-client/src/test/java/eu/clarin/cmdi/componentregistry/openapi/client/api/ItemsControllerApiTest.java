@@ -47,14 +47,15 @@ public class ItemsControllerApiTest {
     }
     
     /**
-     * 
+     * Get the specification for the profile or component
      *
      * 
      */
     @Test
     public void getItemSpecTest()  {
         String componentId = null;
-        ComponentSpec response = api.getItemSpec(componentId);
+        String accept = null;
+        ComponentSpec response = api.getItemSpec(componentId, accept);
 
         // TODO: test validations
     }

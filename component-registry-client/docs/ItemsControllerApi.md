@@ -5,7 +5,7 @@ All URIs are relative to *http://localhost:8080/rest*
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**getItem**](ItemsControllerApi.md#getItem) | **GET** /registry/items/{componentId} |  |
-| [**getItemSpec**](ItemsControllerApi.md#getItemSpec) | **GET** /registry/items/{componentId}/spec |  |
+| [**getItemSpec**](ItemsControllerApi.md#getItemSpec) | **GET** /registry/items/{componentId}/spec | Get the specification for the profile or component |
 | [**getItems**](ItemsControllerApi.md#getItems) | **GET** /registry/items |  |
 
 
@@ -76,9 +76,9 @@ No authorization required
 
 ## getItemSpec
 
-> ComponentSpec getItemSpec(componentId)
+> ComponentSpec getItemSpec(componentId, accept)
 
-
+Get the specification for the profile or component
 
 ### Example
 
@@ -97,8 +97,9 @@ public class Example {
 
         ItemsControllerApi apiInstance = new ItemsControllerApi(defaultClient);
         String componentId = "componentId_example"; // String | 
+        String accept = "accept_example"; // String | 
         try {
-            ComponentSpec result = apiInstance.getItemSpec(componentId);
+            ComponentSpec result = apiInstance.getItemSpec(componentId, accept);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ItemsControllerApi#getItemSpec");
@@ -117,6 +118,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **componentId** | **String**|  | |
+| **accept** | **String**|  | [optional] |
 
 ### Return type
 
@@ -135,6 +137,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
+| **404** | Item not found |  -  |
 | **200** | OK |  -  |
 
 

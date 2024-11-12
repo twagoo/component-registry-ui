@@ -24,7 +24,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-11T16:46:14.632985+01:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-12T14:24:29.119439+01:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
 public class ItemsControllerApi {
     private ApiClient apiClient;
 
@@ -120,14 +120,16 @@ public class ItemsControllerApi {
         return getItemRequestCreation(componentId);
     }
     /**
+     * Get the specification for the profile or component
      * 
-     * 
+     * <p><b>404</b> - Item not found
      * <p><b>200</b> - OK
      * @param componentId The componentId parameter
+     * @param accept The accept parameter
      * @return ComponentSpec
      * @throws RestClientResponseException if an error occurs while attempting to invoke the API
      */
-    private ResponseSpec getItemSpecRequestCreation(String componentId) throws RestClientResponseException {
+    private ResponseSpec getItemSpecRequestCreation(String componentId, String accept) throws RestClientResponseException {
         Object postBody = null;
         // verify the required parameter 'componentId' is set
         if (componentId == null) {
@@ -143,6 +145,9 @@ public class ItemsControllerApi {
         final MultiValueMap<String, String> cookieParams = new LinkedMultiValueMap<>();
         final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<>();
 
+
+        if (accept != null)
+        headerParams.add("Accept", apiClient.parameterToString(accept));
         final String[] localVarAccepts = { 
             "application/xml", "application/json"
         };
@@ -157,41 +162,47 @@ public class ItemsControllerApi {
     }
 
     /**
+     * Get the specification for the profile or component
      * 
-     * 
+     * <p><b>404</b> - Item not found
      * <p><b>200</b> - OK
      * @param componentId The componentId parameter
+     * @param accept The accept parameter
      * @return ComponentSpec
      * @throws RestClientResponseException if an error occurs while attempting to invoke the API
      */
-    public ComponentSpec getItemSpec(String componentId) throws RestClientResponseException {
+    public ComponentSpec getItemSpec(String componentId, String accept) throws RestClientResponseException {
         ParameterizedTypeReference<ComponentSpec> localVarReturnType = new ParameterizedTypeReference<>() {};
-        return getItemSpecRequestCreation(componentId).body(localVarReturnType);
+        return getItemSpecRequestCreation(componentId, accept).body(localVarReturnType);
     }
 
     /**
+     * Get the specification for the profile or component
      * 
-     * 
+     * <p><b>404</b> - Item not found
      * <p><b>200</b> - OK
      * @param componentId The componentId parameter
+     * @param accept The accept parameter
      * @return ResponseEntity&lt;ComponentSpec&gt;
      * @throws RestClientResponseException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<ComponentSpec> getItemSpecWithHttpInfo(String componentId) throws RestClientResponseException {
+    public ResponseEntity<ComponentSpec> getItemSpecWithHttpInfo(String componentId, String accept) throws RestClientResponseException {
         ParameterizedTypeReference<ComponentSpec> localVarReturnType = new ParameterizedTypeReference<>() {};
-        return getItemSpecRequestCreation(componentId).toEntity(localVarReturnType);
+        return getItemSpecRequestCreation(componentId, accept).toEntity(localVarReturnType);
     }
 
     /**
+     * Get the specification for the profile or component
      * 
-     * 
+     * <p><b>404</b> - Item not found
      * <p><b>200</b> - OK
      * @param componentId The componentId parameter
+     * @param accept The accept parameter
      * @return ResponseSpec
      * @throws RestClientResponseException if an error occurs while attempting to invoke the API
      */
-    public ResponseSpec getItemSpecWithResponseSpec(String componentId) throws RestClientResponseException {
-        return getItemSpecRequestCreation(componentId);
+    public ResponseSpec getItemSpecWithResponseSpec(String componentId, String accept) throws RestClientResponseException {
+        return getItemSpecRequestCreation(componentId, accept);
     }
     /**
      * 

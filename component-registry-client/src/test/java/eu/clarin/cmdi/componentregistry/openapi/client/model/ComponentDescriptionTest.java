@@ -150,19 +150,19 @@ class ComponentDescriptionTest {
     }
 
     /**
-     * Test the property 'showInEditor'
-     */
-    @Test
-    void showInEditorTest() {
-        // TODO: test showInEditor
-    }
-
-    /**
      * Test the property 'id'
      */
     @Test
     void idTest() {
         // TODO: test id
+    }
+
+    /**
+     * Test the property 'showInEditor'
+     */
+    @Test
+    void showInEditorTest() {
+        // TODO: test showInEditor
     }
 
     /**

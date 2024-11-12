@@ -4,7 +4,7 @@ Component Registry API
 
 - API version: 1.0
 
-- Build date: 2024-11-11T16:46:14.632985+01:00[Europe/Amsterdam]
+- Build date: 2024-11-12T14:24:29.119439+01:00[Europe/Amsterdam]
 
 - Generator version: 7.8.0
 
@@ -119,7 +119,7 @@ All URIs are relative to *http://localhost:8080/rest*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *ItemsControllerApi* | [**getItem**](docs/ItemsControllerApi.md#getItem) | **GET** /registry/items/{componentId} | 
-*ItemsControllerApi* | [**getItemSpec**](docs/ItemsControllerApi.md#getItemSpec) | **GET** /registry/items/{componentId}/spec | 
+*ItemsControllerApi* | [**getItemSpec**](docs/ItemsControllerApi.md#getItemSpec) | **GET** /registry/items/{componentId}/spec | Get the specification for the profile or component
 *ItemsControllerApi* | [**getItems**](docs/ItemsControllerApi.md#getItems) | **GET** /registry/items | 
 *RegistryControllerApi* | [**getComponentItem**](docs/RegistryControllerApi.md#getComponentItem) | **GET** /registry/components/{componentId}/description | 
 *RegistryControllerApi* | [**getComponents**](docs/RegistryControllerApi.md#getComponents) | **GET** /registry/components | 

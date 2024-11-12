@@ -190,7 +190,23 @@ paths:
         schema:
           type: string
         style: simple
+      - explode: false
+        in: header
+        name: Accept
+        required: false
+        schema:
+          type: string
+        style: simple
       responses:
+        "404":
+          content:
+            application/xml:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+          description: Item not found
         "200":
           content:
             application/xml:
@@ -200,6 +216,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ComponentSpec'
           description: OK
+      summary: Get the specification for the profile or component
       tags:
       - items-controller
       x-accepts:
@@ -448,10 +465,10 @@ components:
           type: boolean
         public:
           type: boolean
-        showInEditor:
-          type: boolean
         id:
           type: string
+        showInEditor:
+          type: boolean
         isPublic:
           type: boolean
       type: object
@@ -951,9 +968,9 @@ components:
           type: boolean
           xml:
             attribute: true
-        cmdversion:
-          type: string
         cmdoriginalVersion:
+          type: string
+        cmdversion:
           type: string
       required:
       - component
@@ -1716,10 +1733,10 @@ components:
           type: boolean
         public:
           type: boolean
-        showInEditor:
-          type: boolean
         id:
           type: string
+        showInEditor:
+          type: boolean
         isPublic:
           type: boolean
       type: object
