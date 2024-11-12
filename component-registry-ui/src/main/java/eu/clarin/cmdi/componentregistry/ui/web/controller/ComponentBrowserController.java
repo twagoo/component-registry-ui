@@ -16,17 +16,19 @@
  */
 package eu.clarin.cmdi.componentregistry.ui.web.controller;
 
+import com.google.common.collect.ImmutableList;
 import eu.clarin.cmdi.componentregistry.openapi.client.api.ItemsControllerApi;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.BaseDescription;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,10 +47,15 @@ public class ComponentBrowserController {
     public static final String SORT_BY_DEFAULT = "name";
     public static final String SORT_DIRECTION_QUERY_PARAM = "sortDirection";
     public static final String SORT_DIRECTION_DEFAULT = "ASC";
+
     public static final String ITEM_TYPE_COMPONENT = "component";
     public static final String ITEM_TYPE_PROFILE = "profile";
     public static final String ITEM_TYPE_QUERY_PARAM = "type";
     public static final String ITEM_TYPE_DEFAULT = ITEM_TYPE_PROFILE;
+
+    public static final String ITEM_STATUS_PRODUCTION = "production";
+    public static final String ITEM_STATUS_QUERY_PARAM = "status";
+    public static final List<String> ITEM_STATUS_DEFAULT = ImmutableList.of(ITEM_STATUS_PRODUCTION);
 
     private static final List<String> ITEM_TABLE_FIELDS = Arrays.asList(
             "name",
@@ -64,13 +71,13 @@ public class ComponentBrowserController {
     }
 
     @GetMapping(path = "/")
-    public String browser(@RequestParam Map<String, String> params, Model model) {
+    public String browser(@RequestParam MultiValueMap<String, String> params, Model model) {
         setCommonModelAttributes(params, model);
         return "browser/browser";
     }
 
     @GetMapping(path = "/items")
-    public String items(@RequestParam Map<String, String> params, Model model) {
+    public String items(@RequestParam MultiValueMap<String, String> params, Model model) {
         List<BaseDescription> items = getItems(params);
 
         setCommonModelAttributes(params, model);
@@ -79,25 +86,31 @@ public class ComponentBrowserController {
         return "browser/items";
     }
 
-    private void setCommonModelAttributes(Map<String, String> params, Model model) throws RestClientResponseException {
+    private void setCommonModelAttributes(MultiValueMap<String, String> params, Model model) throws RestClientResponseException {
         model.addAttribute("fields", ITEM_TABLE_FIELDS);
-        model.addAttribute("type", params.getOrDefault(ITEM_TYPE_QUERY_PARAM, ITEM_TYPE_DEFAULT));
-        model.addAttribute("sortedBy", params.getOrDefault(SORT_BY_QUERY_PARAM, SORT_BY_DEFAULT));
-        model.addAttribute("sortedDirection", params.getOrDefault(SORT_DIRECTION_QUERY_PARAM, SORT_DIRECTION_DEFAULT));
+        model.addAttribute("type", getFirstOrDefault(params, ITEM_TYPE_QUERY_PARAM, ITEM_TYPE_DEFAULT));
+        model.addAttribute("status", params.getOrDefault(ITEM_STATUS_QUERY_PARAM, ITEM_STATUS_DEFAULT));
+        model.addAttribute("sortedBy", getFirstOrDefault(params, SORT_BY_QUERY_PARAM, SORT_BY_DEFAULT));
+        model.addAttribute("sortedDirection", getFirstOrDefault(params, SORT_DIRECTION_QUERY_PARAM, SORT_DIRECTION_DEFAULT));
     }
 
-    private List<BaseDescription> getItems(Map<String, String> params) throws RestClientResponseException {
-        final String type = params.getOrDefault(ITEM_TYPE_QUERY_PARAM, ITEM_TYPE_DEFAULT);
-        final String sortBy = params.getOrDefault(SORT_BY_QUERY_PARAM, SORT_BY_DEFAULT);
-        final String sortDirection = params.getOrDefault(SORT_DIRECTION_QUERY_PARAM, SORT_DIRECTION_DEFAULT);
+    private List<BaseDescription> getItems(MultiValueMap<String, String> params) throws RestClientResponseException {
+        final String type = getFirstOrDefault(params, ITEM_TYPE_QUERY_PARAM, ITEM_TYPE_DEFAULT);
+        final List<String> status = params.getOrDefault(ITEM_STATUS_QUERY_PARAM, ITEM_STATUS_DEFAULT);
+        final String sortBy = getFirstOrDefault(params, SORT_BY_QUERY_PARAM, SORT_BY_DEFAULT);
+        final String sortDirection = getFirstOrDefault(params, SORT_DIRECTION_QUERY_PARAM, SORT_DIRECTION_DEFAULT);
         return switch (type) {
             case ITEM_TYPE_COMPONENT ->
-                api.getItems("component", null, sortBy, sortDirection);
+                api.getItems("component", status, sortBy, sortDirection);
             case ITEM_TYPE_PROFILE ->
-                api.getItems("profile", null, sortBy, sortDirection);
+                api.getItems("profile", status, sortBy, sortDirection);
             default ->
                 Collections.emptyList();
         };
+    }
+
+    private <T> T getFirstOrDefault(MultiValueMap<String, T> map, String key, T defaultValue) {
+        return Optional.ofNullable(map.getFirst(key)).orElse(defaultValue);
     }
 
     @GetMapping(path = "/item/{id}")
@@ -114,8 +127,8 @@ public class ComponentBrowserController {
     public String itemSpecification(Model model,
             @PathVariable String id) {
         //get item spec from API
-        final ComponentSpec itemSpec = 
-                api.getItemSpec(id, MediaType.APPLICATION_JSON_VALUE);
+        final ComponentSpec itemSpec
+                = api.getItemSpec(id, MediaType.APPLICATION_JSON_VALUE);
 
         model.addAttribute("spec", itemSpec);
         return "browser/itemSpec";

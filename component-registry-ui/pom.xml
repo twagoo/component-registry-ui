@@ -56,6 +56,14 @@
             <version>${project.version}</version>
         </dependency>
         
+        <!-- General -->
+        
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>33.3.1-jre</version>
+        </dependency>
+        
         <!-- Web -->
         
         <dependency>
