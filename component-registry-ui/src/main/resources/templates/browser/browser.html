@@ -151,6 +151,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                                                 <ul class="dropdown-menu"
                                                     th:with="allStatuses=${ {'development', 'production', 'deprecated'} }"
+                                                    hx-boost="true"
                                                     hx-target="#items-container"
                                                     hx-swap="outerHTML"
                                                     hx-indicator="#items-container">
@@ -158,8 +159,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                                         <a class="dropdown-item"
                                                            th:classappend="${#lists.size(status) == 3 ? 'active' : ''}"
                                                            th:text="#{status.all}"
-                                                           th:hx-get="@{/itemsContainer(type=${type}, status=${allStatuses}, sortBy=${sortedBy}, sortDirection=${sortedDirection})}"
-                                                           href="#">
+                                                           th:href="@{/itemsContainer(type=${type}, status=${allStatuses}, sortBy=${sortedBy}, sortDirection=${sortedDirection})}">
                                                             (All)
                                                         </a>
                                                     </li>
@@ -168,8 +168,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                                         <a class="dropdown-item"
                                                            th:classappend="${(#lists.size(status) == 1 && status[0] == statusOption) ? 'active' : ''}"
                                                            th:text="#{|status.${statusOption}|}"                                                           
-                                                           th:hx-get="@{/itemsContainer(type=${type}, status=${statusOption}, sortBy=${sortedBy}, sortDirection=${sortedDirection})}"
-                                                           href="#">
+                                                           th:href="@{/itemsContainer(type=${type}, status=${statusOption}, sortBy=${sortedBy}, sortDirection=${sortedDirection})}">
                                                             {status}
                                                         </a>
                                                     </li>

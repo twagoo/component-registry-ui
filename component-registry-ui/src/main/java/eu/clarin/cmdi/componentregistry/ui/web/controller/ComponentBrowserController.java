@@ -36,6 +36,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestClientResponseException;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 /**
  *
@@ -142,7 +144,7 @@ public class ComponentBrowserController {
      * @return
      */
     @GetMapping(path = "/main")
-    public String main(@RequestParam MultiValueMap<String, String> params, @RequestHeader Map<String, String> headers, Model model) {
+    public ModelAndView main(@RequestParam MultiValueMap<String, String> params, @RequestHeader Map<String, String> headers, Model model) {
         return partialResponse(headers, params, model, "browser/browser :: browserMain");
     }
 
@@ -155,7 +157,7 @@ public class ComponentBrowserController {
      * @return
      */
     @GetMapping(path = "/itemsContainer")
-    public String itemsContainer(@RequestParam MultiValueMap<String, String> params, @RequestHeader Map<String, String> headers, Model model) {
+    public ModelAndView itemsContainer(@RequestParam MultiValueMap<String, String> params, @RequestHeader Map<String, String> headers, Model model) {
         return partialResponse(headers, params, model, "browser/browser :: itemsContainer");
     }
 
@@ -169,12 +171,13 @@ public class ComponentBrowserController {
      * @return
      * @throws RestClientResponseException
      */
-    private String partialResponse(Map<String, String> headers, MultiValueMap<String, String> params, Model model, final String fragment) throws RestClientResponseException {
+    private ModelAndView partialResponse(Map<String, String> headers, MultiValueMap<String, String> params, Model model, final String fragment) throws RestClientResponseException {
         if (isHtmxRequest(headers)) {
             setCommonModelAttributes(params, model);
-            return fragment;
+            return new ModelAndView(fragment, model.asMap());
         } else {
-            return browser(params, model);
+            // not an HTMX request 
+            return new ModelAndView("redirect:/", params);
         }
     }
 
