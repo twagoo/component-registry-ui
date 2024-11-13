@@ -62,18 +62,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         </thead>
                         <!-- Data -->
                         <tbody id="items-table-body"
-                               hx-boost="true"
                                hx-select="#item-info"
-                               hx-target="#item-viewer-content"
-                               >
-                            <tr th:each="description : ${items}">
+                               hx-target="#item-viewer-content">
+                            <tr th:each="description : ${items}"
+                                th:x-data="|{itemId: '${description['id']}'}|"
+                                :class="{ 'table-active': (selectedItem == itemId) }"
+                                @click="selectedItem = itemId">
                                 <td th:each="field: ${fields}" 
                                     th:class="|column-field_${field}|">
                                     <span th:switch="${field}">
                                         <span th:case="name">
                                             <a class="item-info" 
-                                               th:href="@{|/item/${description.id}|}|"
-                                               hx-on:click="new bootstrap.Offcanvas('#item-view').show()">
+                                               th:hx-get="@{|/item/${description.id}|}|"
+                                               @click="new bootstrap.Offcanvas('#item-view').show()">
                                                 <i class="fa-solid fa-circle-info"></i></a>
                                             <span th:text="${description[field]}">link</span>
                                         </span>

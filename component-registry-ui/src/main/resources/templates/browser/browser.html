@@ -35,7 +35,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 <h1 class="py-2 overflow-hidden" style="max-height: 10%;">
                     <span th:text="#{browser.page.title}">{title}</span>
                 </h1>
-                <main th:fragment="browserMain" id="browser-main" class="d-flex" style="min-height: 90%; max-height: 90%;">
+                <main th:fragment="browserMain" id="browser-main" class="d-flex" style="min-height: 90%; max-height: 90%;"
+                      x-data="{ selectedItem: '' }">
                     <div class="ps-2 pt-2 me-auto">
                         <!-- Sidebar -->
                         <div id="browser-sidebar" class="d-flex flex-column h-100">
