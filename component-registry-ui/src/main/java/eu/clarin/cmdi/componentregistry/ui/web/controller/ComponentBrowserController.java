@@ -20,9 +20,11 @@ import com.google.common.collect.ImmutableList;
 import eu.clarin.cmdi.componentregistry.openapi.client.api.ItemsControllerApi;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.BaseDescription;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
+import static eu.clarin.cmdi.componentregistry.ui.HtmxUtils.isHtmxRequest;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -31,6 +33,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestClientResponseException;
 
@@ -76,12 +79,6 @@ public class ComponentBrowserController {
         return "browser/browser";
     }
 
-    @GetMapping(path = "/itemsContainer")
-    public String itemsContainer(@RequestParam MultiValueMap<String, String> params, Model model) {
-        setCommonModelAttributes(params, model);
-        return "browser/browser :: itemsContainer";
-    }
-
     @GetMapping(path = "/items")
     public String items(@RequestParam MultiValueMap<String, String> params, Model model) {
         List<BaseDescription> items = getItems(params);
@@ -115,10 +112,6 @@ public class ComponentBrowserController {
         };
     }
 
-    private <T> T getFirstOrDefault(MultiValueMap<String, T> map, String key, T defaultValue) {
-        return Optional.ofNullable(map.getFirst(key)).orElse(defaultValue);
-    }
-
     @GetMapping(path = "/item/{id}")
     public String itemDescription(Model model,
             @PathVariable String id) {
@@ -138,6 +131,55 @@ public class ComponentBrowserController {
 
         model.addAttribute("spec", itemSpec);
         return "browser/itemSpec";
+    }
+
+    /**
+     * Partial response: main content
+     *
+     * @param params
+     * @param headers
+     * @param model
+     * @return
+     */
+    @GetMapping(path = "/main")
+    public String main(@RequestParam MultiValueMap<String, String> params, @RequestHeader Map<String, String> headers, Model model) {
+        return partialResponse(headers, params, model, "browser/browser :: browserMain");
+    }
+
+    /**
+     * Partial response: items container (filter + table)
+     *
+     * @param params
+     * @param headers
+     * @param model
+     * @return
+     */
+    @GetMapping(path = "/itemsContainer")
+    public String itemsContainer(@RequestParam MultiValueMap<String, String> params, @RequestHeader Map<String, String> headers, Model model) {
+        return partialResponse(headers, params, model, "browser/browser :: itemsContainer");
+    }
+
+    /**
+     * Prepares a partial response IFF the request was an HTMX request
+     *
+     * @param headers
+     * @param params
+     * @param model
+     * @param fragment
+     * @return
+     * @throws RestClientResponseException
+     */
+    private String partialResponse(Map<String, String> headers, MultiValueMap<String, String> params, Model model, final String fragment) throws RestClientResponseException {
+        if (isHtmxRequest(headers)) {
+            setCommonModelAttributes(params, model);
+            return fragment;
+        } else {
+            return browser(params, model);
+        }
+    }
+
+    private <T> T getFirstOrDefault(MultiValueMap<String, T> map, String key, T defaultValue) {
+        return Optional.ofNullable(map.getFirst(key)).orElse(defaultValue);
     }
 
 }
