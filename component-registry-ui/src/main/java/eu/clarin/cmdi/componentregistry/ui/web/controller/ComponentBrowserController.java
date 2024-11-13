@@ -76,6 +76,12 @@ public class ComponentBrowserController {
         return "browser/browser";
     }
 
+    @GetMapping(path = "/itemsContainer")
+    public String itemsContainer(@RequestParam MultiValueMap<String, String> params, Model model) {
+        setCommonModelAttributes(params, model);
+        return "browser/browser :: itemsContainer";
+    }
+
     @GetMapping(path = "/items")
     public String items(@RequestParam MultiValueMap<String, String> params, Model model) {
         List<BaseDescription> items = getItems(params);

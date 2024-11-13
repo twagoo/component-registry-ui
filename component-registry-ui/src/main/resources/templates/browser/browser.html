@@ -89,7 +89,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </div>
 
                     <!-- Table "panel" -->
-                    <div id="items-container" class="p-2 h-100 flex-fill ms-auto border rounded">
+                    <div id="items-container" th:fragment="itemsContainer" class="p-2 h-100 flex-fill ms-auto border rounded">
                         <div id="item-view" class="offcanvas offcanvas-end w-50" tabindex="-1" data-bs-theme="dark">
                             <div class="offcanvas-header">
                                 <h5 class="offcanvas-title" id="offcanvasLabel">Item</h5>
@@ -120,7 +120,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                 <form>
                                     <div class="d-flex flex-wrap">
                                         <div class="px-2 pb-1">
-                                            <input type="search" class="form-control" id="table-filter"
+                                            <input type="search" class="form-control"
                                                    placeholder="Filter items">
                                         </div>
                                         <div class="px-2 pb-1">
@@ -143,22 +143,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                         </div>
                                         <div class="px-2 pb-1">
                                             <div class="dropdown">
-                                                <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button"
-                                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                                <a class="btn btn-primary dropdown-toggle" href="#" role="button"
+                                                   data-bs-toggle="dropdown" aria-expanded="false"
+                                                   th:text="#{|status.${#lists.size(status) == 1 ? status[0] : 'all'}|}"
+                                                   >
                                                     Status
                                                 </a>
 
                                                 <ul class="dropdown-menu"
                                                     th:with="allStatuses=${ {'development', 'production', 'deprecated'} }"
-                                                    hx-target="#items-table-wrapper"
-                                                    hx-select="#items-table-wrapper"
-                                                    hx-swap="innerHTML"
+                                                    hx-target="#items-container"
+                                                    hx-swap="outerHTML"
                                                     hx-indicator="#items-container">
                                                     <li>
                                                         <a class="dropdown-item"
                                                            th:classappend="${#lists.size(status) == 3 ? 'active' : ''}"
                                                            th:text="#{status.all}"
-                                                           th:hx-get="@{/items(type=${type}, status=${allStatuses}, sortBy=${sortedBy}, sortDirection=${sortedDirection})}"
+                                                           th:hx-get="@{/itemsContainer(type=${type}, status=${allStatuses}, sortBy=${sortedBy}, sortDirection=${sortedDirection})}"
                                                            href="#">
                                                             (All)
                                                         </a>
@@ -168,7 +169,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                                         <a class="dropdown-item"
                                                            th:classappend="${(#lists.size(status) == 1 && status[0] == statusOption) ? 'active' : ''}"
                                                            th:text="#{|status.${statusOption}|}"                                                           
-                                                           th:hx-get="@{/items(type=${type}, status=${statusOption}, sortBy=${sortedBy}, sortDirection=${sortedDirection})}"
+                                                           th:hx-get="@{/itemsContainer(type=${type}, status=${statusOption}, sortBy=${sortedBy}, sortDirection=${sortedDirection})}"
                                                            href="#">
                                                             {status}
                                                         </a>
