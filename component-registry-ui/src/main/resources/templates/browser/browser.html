@@ -35,180 +35,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 <h1 class="py-2 overflow-hidden" style="max-height: 10%;">
                     <span th:text="#{browser.page.title}">{title}</span>
                 </h1>
-                <main th:fragment="browserMain" id="browser-main" class="d-flex" style="min-height: 90%; max-height: 90%;"
+                <main th:fragment="browserMain" 
+                      id="browser-main" 
+                      class="d-flex" 
+                      style="min-height: 90%; max-height: 90%;"
                       x-data="{ selectedItem: '' }">
                     <div class="ps-2 pt-2 me-auto">
                         <!-- Sidebar -->
-                        <div id="browser-sidebar" class="d-flex flex-column h-100">
-                            <div class="mb-2 pb-2 border-bottom">
-                                <div class="dropdown">
-                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button"
-                                       data-bs-toggle="dropdown" aria-expanded="false">
-                                        Public
-                                    </a>
-
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item disabled" href="#">Private</a></li>
-                                        <li><a class="dropdown-item disabled" href="#">My team</a></li>
-                                        <li><a class="dropdown-item disabled" href="#">Another team</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div>
-                                <ul class="nav nav-pills flex-column mb-auto"
-                                    hx-boost="true"
-                                    hx-target="#browser-main"
-                                    hx-swap="outerHTML"
-                                    hx-indicator="#items-container">
-                                    <li class="nav-item">
-                                        <a href="/main?type=profile" 
-                                           class="nav-link" 
-                                           th:classappend="${type == 'profile' ? 'active' : ''}"
-                                           th:aria-selected="${type == 'profile'}">
-                                            Profiles
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/main?type=component" 
-                                           class="nav-link"
-                                           th:classappend="${type == 'component' ? 'active' : ''}"
-                                           th:aria-selected="${type == 'component'}">
-                                            Components
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="mt-auto py-2">
-                                <a href="#" class="btn btn-secondary">
-                                    <i class="fa-solid fa-right-to-bracket"></i>
-                                    Log in
-                                </a>
-                            </div>
-                        </div> <!-- END sidebar-->
-
+                        <div th:replace="~{browser/browserSidebar :: browserSidebar}">
+                            {sidebar}
+                        </div>
                     </div>
 
                     <!-- Table "panel" -->
-                    <div id="items-container" th:fragment="itemsContainer" class="p-2 h-100 flex-fill ms-auto border rounded">
-                        <div id="item-view" class="offcanvas offcanvas-end w-50" tabindex="-1" data-bs-theme="dark">
-                            <div class="offcanvas-header">
-                                <h5 class="offcanvas-title" id="offcanvasLabel">Item</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                            </div>  
-                            <div id="item-viewer-content" class="offcanvas-body">
-
-                            </div>
-                        </div>
-
-
-                        <div class="d-flex flex-column h-100">
-                            <div class="d-flex">
-                                <div class="p-2">
-                                    <div th:switch="${type}">
-                                        <h2 th:case='profile' th:text="#{types.profile.plural}">PROFILES</h2>
-                                        <h2 th:case='component' th:text="#{types.component.plural}">COMPONENTS</h2>
-                                        <h2 th:case='*'>???</h2>
-                                    </div>
-                                </div>
-                                <div class="p-2 htmx-indicator" id="table-load-indicator" >
-                                    <div class="spinner-border" role="status">
-                                        <span class="visually-hidden">Loading...</span>
-                                    </div>
-                                </div>
-                                <div class="p-2 ms-auto">
-                                    <a class="btn btn-primary" href="#">
-                                        <i class="fa-solid fa-square-plus"></i>
-                                        New
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="pb-1">
-                                <form>
-                                    <div class="d-flex flex-wrap">
-                                        <div class="px-2 pb-1">
-                                            <input type="search" class="form-control"
-                                                   placeholder="Filter items">
-                                        </div>
-                                        <div class="px-2 pb-1">
-                                            <button class="btn btn-outline-secondary" title="Show only recommended"><i
-                                                    class="fa-regular fa-star"></i></button>
-                                        </div>
-                                        <div class="px-2 pb-1">
-                                            <div class="dropdown">
-                                                <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button"
-                                                   data-bs-toggle="dropdown" aria-expanded="false">
-                                                    Group(s)
-                                                </a>
-
-                                                <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" href="#">(All)</a></li>
-                                                    <li><a class="dropdown-item" href="#">Recommended</a></li>
-                                                    <li><a class="dropdown-item" href="#">..</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="px-2 pb-1">
-                                            <div class="dropdown">
-                                                <a class="btn btn-primary dropdown-toggle" href="#" role="button"
-                                                   data-bs-toggle="dropdown" aria-expanded="false"
-                                                   th:text="#{|status.${#lists.size(status) == 1 ? status[0] : 'all'}|}"
-                                                   >
-                                                    Status
-                                                </a>
-
-                                                <ul class="dropdown-menu"
-                                                    th:with="allStatuses=${ {'development', 'production', 'deprecated'} }"
-                                                    hx-boost="true"
-                                                    hx-target="#items-container"
-                                                    hx-swap="outerHTML"
-                                                    hx-indicator="#items-container">
-                                                    <li>
-                                                        <a class="dropdown-item"
-                                                           th:classappend="${#lists.size(status) == 3 ? 'active' : ''}"
-                                                           th:text="#{status.all}"
-                                                           th:href="@{/itemsContainer(type=${type}, status=${allStatuses}, sortBy=${sortedBy}, sortDirection=${sortedDirection})}">
-                                                            (All)
-                                                        </a>
-                                                    </li>
-
-                                                    <li th:each="statusOption : ${allStatuses}">
-                                                        <a class="dropdown-item"
-                                                           th:classappend="${(#lists.size(status) == 1 && status[0] == statusOption) ? 'active' : ''}"
-                                                           th:text="#{|status.${statusOption}|}"                                                           
-                                                           th:href="@{/itemsContainer(type=${type}, status=${statusOption}, sortBy=${sortedBy}, sortDirection=${sortedDirection})}">
-                                                            {status}
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div id="seleted-item-actions" th:fragment="selectedItemActions" class="pe-2 ms-auto">
-                                            <a href="#" class="btn btn-primary disabled">
-                                                <i class="fa-solid fa-pen"></i>
-                                                Edit
-                                            </a>
-                                            <a href="#" class="btn btn-danger disabled">
-                                                <i class="fa-solid fa-pen"></i>
-                                                Delete
-                                            </a>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="p-2 flex-grow-1 overflow-y-auto">
-                                <div hx-trigger="load"
-                                     th:hx-get="@{/items(type=${type},status=${status}, sortBy=${sortedBy}, sortDirection=${sortedDirection})}"
-                                     hx-select="#items-table-wrapper"
-                                     hx-swap="innerHTML"
-                                     hx-indicator="#items-container">
-                                </div>
-                            </div>
-
-                        </div>
+                    <div th:replace="~{browser/browserItemsContainer :: itemsContainer}"
+                         class="ms-auto border rounded">
+                        {items container}
                     </div> <!-- END table "panel" -->
                 </main>
             </div>
-        </div>
         </div>
     </body>
 </html>

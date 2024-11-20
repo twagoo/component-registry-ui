@@ -37,7 +37,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 /**
  *
@@ -88,7 +87,7 @@ public class ComponentBrowserController {
         setCommonModelAttributes(params, model);
         model.addAttribute("items", items);
 
-        return "browser/items";
+        return "browser/items/table";
     }
 
     private void setCommonModelAttributes(MultiValueMap<String, String> params, Model model) throws RestClientResponseException {
@@ -158,7 +157,7 @@ public class ComponentBrowserController {
      */
     @GetMapping(path = "/itemsContainer")
     public ModelAndView itemsContainer(@RequestParam MultiValueMap<String, String> params, @RequestHeader Map<String, String> headers, Model model) {
-        return partialResponse(headers, params, model, "browser/browser :: itemsContainer");
+        return partialResponse(headers, params, model, "browser/browserItemsContainer :: itemsContainer");
     }
 
     /**

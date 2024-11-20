@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!--
+Copyright (C) 2024 CLARIN ERIC
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>browser</title> 
+    </head>
+
+    <body>
+        <div class="container-fluid px-xl-2 px-xxl-5 vh-100">
+            <div class="d-flex flex-column h-100">
+                <main>
+                    <!-- Sidebar -->
+                    <div th:fragment="browserSidebar"
+                         id="browser-sidebar" 
+                         class="d-flex flex-column h-100">
+                        <div class="mb-2 pb-2 border-bottom">
+                            <div class="dropdown">
+                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    Public
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item disabled" href="#">Private</a></li>
+                                    <li><a class="dropdown-item disabled" href="#">My team</a></li>
+                                    <li><a class="dropdown-item disabled" href="#">Another team</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div>
+                            <ul class="nav nav-pills flex-column mb-auto"
+                                hx-boost="true"
+                                hx-target="#browser-main"
+                                hx-swap="outerHTML"
+                                hx-indicator="#items-container">
+                                <li class="nav-item">
+                                    <a href="/main?type=profile" 
+                                       class="nav-link" 
+                                       th:classappend="${type == 'profile' ? 'active' : ''}"
+                                       th:aria-selected="${type == 'profile'}">
+                                        Profiles
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/main?type=component" 
+                                       class="nav-link"
+                                       th:classappend="${type == 'component' ? 'active' : ''}"
+                                       th:aria-selected="${type == 'component'}">
+                                        Components
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-auto py-2">
+                            <a href="#" class="btn btn-secondary">
+                                <i class="fa-solid fa-right-to-bracket"></i>
+                                Log in
+                            </a>
+                        </div>
+                    </div> <!-- END sidebar-->
+                </main>
+            </div>
+        </div>
+    </body>
+</html>

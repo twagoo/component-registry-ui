@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--
+Copyright (C) 2024 CLARIN ERIC
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>item</title> 
+    </head>
+    <body>
+        <table>
+            <!-- Table header with sorting options -->
+            <thead th:fragment="itemsTableHead"  id="items-table-head" class="table-light border rounded">
+                <tr hx-boost="true"
+                    hx-target="#items-table" 
+                    hx-swap="outerHTML show:none"
+                    hx-select="#items-table">
+                    <th th:each="field: ${fields}"
+                        th:hx-vals='|{"sortBy": "${field}", "sortDirection": "${sortedDirection}"}|'
+                        th:class="|column-field_${field}|"
+                        >
+                        <span th:if="${sortedBy == field}">                                
+                            <a th:if="${sortedDirection == 'ASC'}" 
+                               hx-vals='{"sortDirection": "DESC"}'
+                               th:href="@{/items}"
+                               th:hx-push-url="${'/?sortDirection=DESC&amp;sortBy='+field}">
+                                <span th:text="#{|item.field.${field}|}"></span>
+                                <i class="fa-solid fa-arrow-down-a-z"></i>
+                            </a>
+                            <a th:if="${sortedDirection == 'DESC'}" 
+                               th:hx-vals='|{"sortBy": "", "sortDirection": ""}|'
+                               th:href="@{/items}"
+                               th:hx-push-url="${'/'}">
+                                <span th:text="#{|item.field.${field}|}"></span>
+                                <i class="fa-solid fa-arrow-up-z-a"></i>
+                            </a>                             
+                        </span>
+
+                        <span th:if="${sortedBy != field}">   
+                            <a hx-vals='{"sortDirection": "ASC"}'
+                               th:href="@{/items}"
+                               th:hx-push-url="${'/?sortDirection=ASC&amp;sortBy='+field}"
+                               ><span th:text="#{|item.field.${field}|}"></span></a>
+                        </span>
+                    </th>
+                </tr>
+            </thead> 
+            <!-- Data -->
+            <tbody></tbody>
+        </table>
+
+    </body>
+</html>
