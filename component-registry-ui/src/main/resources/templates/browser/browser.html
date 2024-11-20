@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                       class="d-flex" 
                       style="min-height: 90%; max-height: 90%;"
                       x-data="{ selectedItem: '' }">
-                    <div class="ps-2 pt-2 me-auto">
+                    <div class="ps-2 pt-2 me-auto h-100">
                         <!-- Sidebar -->
                         <div th:replace="~{browser/browserSidebar :: browserSidebar}">
                             {sidebar}
@@ -48,10 +48,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </div>
 
                     <!-- Table "panel" -->
-                    <div th:replace="~{browser/browserItemsContainer :: itemsContainer}"
-                         class="ms-auto border rounded">
-                        {items container}
-                    </div> <!-- END table "panel" -->
+                    <div class="flex-fill ms-auto border rounded h-100">
+                        <div th:replace="~{browser/browserItemsContainer :: itemsContainer}">
+                            {items container}
+                        </div> <!-- END table "panel" -->
+                    </div>
                 </main>
             </div>
         </div>
