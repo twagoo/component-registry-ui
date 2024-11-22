@@ -26,19 +26,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </thead>
             <!-- Data -->
             <tbody th:fragment="itemsTableBody" 
-                   id="items-table-body"
-                   hx-select="#item-info"
-                   hx-target="#item-viewer-content">
+                   id="items-table-body">
+
                 <tr th:each="description : ${items}"
                     th:x-data="|{itemId: '${description['id']}'}|"
                     :class="{ 'table-active': (selectedItem == itemId) }"
-                    @click="selectedItem = itemId">
+                    @click="selectedItem = itemId"
+                    th:hx-get="@{/itemActions(item=${description['id']})}"
+                    hx-target="#selected-item-actions"
+                    hx-select="#selected-item-actions"
+                    hx-swap="outerHTML">
+
                     <td th:each="field: ${fields}" 
                         th:class="|column-field_${field}|">
                         <span th:switch="${field}">
                             <span th:case="name">
                                 <a class="item-info" 
                                    th:hx-get="@{|/item/${description.id}|}|"
+                                   hx-select="#item-info"
+                                   hx-target="#item-viewer-content"
                                    @click="new bootstrap.Offcanvas('#item-view').show()">
                                     <i class="fa-solid fa-circle-info"></i></a>
                                 <span th:text="${description[field]}">link</span>
@@ -47,7 +53,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                   th:text="${description[field]}">value</span>
                         </span>
                     </td>
+
                 </tr>
+
             </tbody>
         </table>
 

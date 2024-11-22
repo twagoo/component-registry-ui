@@ -60,6 +60,9 @@ public class ComponentBrowserController {
     public static final String ITEM_STATUS_PRODUCTION = "production";
     public static final String ITEM_STATUS_QUERY_PARAM = "status";
     public static final List<String> ITEM_STATUS_DEFAULT = ImmutableList.of(ITEM_STATUS_PRODUCTION);
+    
+    public static final String SELECTED_ITEM_QUERY_PARAM = "item";
+    
 
     private static final List<String> ITEM_TABLE_FIELDS = Arrays.asList(
             "name",
@@ -92,6 +95,7 @@ public class ComponentBrowserController {
 
     private void setCommonModelAttributes(MultiValueMap<String, String> params, Model model) throws RestClientResponseException {
         model.addAttribute("fields", ITEM_TABLE_FIELDS);
+        model.addAttribute("selectedItems", params.get(SELECTED_ITEM_QUERY_PARAM));
         model.addAttribute("type", getFirstOrDefault(params, ITEM_TYPE_QUERY_PARAM, ITEM_TYPE_DEFAULT));
         model.addAttribute("status", params.getOrDefault(ITEM_STATUS_QUERY_PARAM, ITEM_STATUS_DEFAULT));
         model.addAttribute("sortedBy", getFirstOrDefault(params, SORT_BY_QUERY_PARAM, SORT_BY_DEFAULT));
@@ -144,7 +148,7 @@ public class ComponentBrowserController {
      */
     @GetMapping(path = "/main")
     public ModelAndView main(@RequestParam MultiValueMap<String, String> params, @RequestHeader Map<String, String> headers, Model model) {
-        return partialResponse(headers, params, model, "browser/browser :: browserMain");
+        return partialResponse(headers, params, model, "browser/browser :: #browser-main");
     }
 
     /**
@@ -157,7 +161,20 @@ public class ComponentBrowserController {
      */
     @GetMapping(path = "/itemsContainer")
     public ModelAndView itemsContainer(@RequestParam MultiValueMap<String, String> params, @RequestHeader Map<String, String> headers, Model model) {
-        return partialResponse(headers, params, model, "browser/browserItemsContainer :: itemsContainer");
+        return partialResponse(headers, params, model, "browser/browserItemsContainer :: #items-container");
+    }
+    
+        /**
+     * Partial response: items container (filter + table)
+     *
+     * @param params
+     * @param headers
+     * @param model
+     * @return
+     */
+    @GetMapping(path = "/itemActions")
+    public ModelAndView itemActions(@RequestParam MultiValueMap<String, String> params, @RequestHeader Map<String, String> headers, Model model) {
+        return partialResponse(headers, params, model, "browser/browserItemsOptions :: #selected-item-actions");
     }
 
     /**

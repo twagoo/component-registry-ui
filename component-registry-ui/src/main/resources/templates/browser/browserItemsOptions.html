@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!--
+Copyright (C) 2024 CLARIN ERIC
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Items options</title> 
+    </head>
+
+    <body>
+        <main>
+            <form th:fragment="browserItemsOptions">
+                <div class="d-flex flex-wrap">
+                    <th:block th:fragment="browserItemsFilter">
+                        <div class="px-2 pb-1">
+                            <input type="search" class="form-control"
+                                   placeholder="Filter items" />
+                        </div>
+                        <div class="px-2 pb-1">
+                            <button class="btn btn-outline-secondary" title="Show only recommended"><i
+                                    class="fa-regular fa-star"></i></button>
+                        </div>
+                        <div class="px-2 pb-1">
+                            <div class="dropdown">
+                                <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    Group(s)
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">(All)</a></li>
+                                    <li><a class="dropdown-item" href="#">Recommended</a></li>
+                                    <li><a class="dropdown-item" href="#">..</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="px-2 pb-1">
+                            <div class="dropdown">
+                                <a class="btn btn-primary dropdown-toggle" href="#" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false"
+                                   th:text="#{|status.${#lists.size(status) == 1 ? status[0] : 'all'}|}"
+                                   >
+                                    Status
+                                </a>
+
+                                <ul class="dropdown-menu"
+                                    th:with="allStatuses=${ {'development', 'production', 'deprecated'} }"
+                                    hx-boost="true"
+                                    hx-target="#items-container"
+                                    hx-swap="outerHTML"
+                                    hx-indicator="#items-container">
+                                    <li>
+                                        <a class="dropdown-item"
+                                           th:classappend="${#lists.size(status) == 3 ? 'active' : ''}"
+                                           th:text="#{status.all}"
+                                           th:href="@{/itemsContainer(type=${type}, status=${allStatuses}, sortBy=${sortedBy}, sortDirection=${sortedDirection})}">
+                                            (All)
+                                        </a>
+                                    </li>
+
+                                    <li th:each="statusOption : ${allStatuses}">
+                                        <a class="dropdown-item"
+                                           th:classappend="${(#lists.size(status) == 1 && status[0] == statusOption) ? 'active' : ''}"
+                                           th:text="#{|status.${statusOption}|}"                                                           
+                                           th:href="@{/itemsContainer(type=${type}, status=${statusOption}, sortBy=${sortedBy}, sortDirection=${sortedDirection})}">
+                                            {status}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </th:block>
+                    <div id="selected-item-actions" class="pe-2 ms-auto"
+                         th:with="
+                            selectedItemCount=${selectedItems == null ? 0 : #lists.size(selectedItems)},
+                            singleSelectedItem=${selectedItemCount == 1 ? selectedItems[0] : null}">
+                        <a class="btn btn-primary"
+                           th:classappend="${(singleSelectedItem == null) ? 'disabled' : ''}"
+                           th:href="@{/items/{componentId}/editor(componentId=${singleSelectedItem})}">
+                            <i class="fa-solid fa-pen"></i>
+                            Edit
+                        </a>
+                        <a href="#" 
+                           class="btn btn-danger"
+                           th:classappend="${selectedItemCount <= 0 ? 'disabled' : ''}"
+                           th:hx-delete="@{/items/{componentId}(componentId=${singleSelectedItem})}"
+                           hx-confirm="Are you sure you wish to delete the selected item?">
+                            <i class="fa-solid fa-pen"></i>
+                            Delete
+                        </a>
+                    </div>
+                </div>
+            </form>
+
+        </main>
+    </body>
+</html>

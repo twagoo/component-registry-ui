@@ -35,21 +35,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 <h1 class="py-2 overflow-hidden" style="max-height: 10%;">
                     <span th:text="#{browser.page.title}">{title}</span>
                 </h1>
-                <main th:fragment="browserMain" 
-                      id="browser-main" 
+                <main id="browser-main" 
                       class="d-flex" 
                       style="min-height: 90%; max-height: 90%;"
                       x-data="{ selectedItem: '' }">
                     <div class="ps-2 pt-2 me-auto h-100">
                         <!-- Sidebar -->
-                        <div th:replace="~{browser/browserSidebar :: browserSidebar}">
+                        <div th:replace="~{browser/browserSidebar :: #browser-sidebar}">
                             {sidebar}
                         </div>
                     </div>
 
                     <!-- Table "panel" -->
                     <div class="flex-fill ms-auto border rounded h-100">
-                        <div th:replace="~{browser/browserItemsContainer :: itemsContainer}">
+                        <div th:replace="~{browser/browserItemsContainer :: #items-container}">
                             {items container}
                         </div> <!-- END table "panel" -->
                     </div>
