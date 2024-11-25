@@ -29,14 +29,14 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
  */
 @Configuration
 public class TemplateConfiguration {
-    
 
     @Bean
     public MessageSource messageSource() {
         final ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasenames(
-                "classpath:messages/common", 
-                "classpath:messages/browser");
+                "classpath:messages/common",
+                "classpath:messages/browser",
+                "classpath:messages/editor");
         messageSource.setUseCodeAsDefaultMessage(true);
         messageSource.setDefaultEncoding("UTF-8");
         messageSource.setCacheSeconds(10);
