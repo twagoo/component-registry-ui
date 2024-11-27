@@ -89,7 +89,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             singleSelectedItem=${selectedItemCount == 1 ? selectedItems[0] : null}">
                         <a class="btn btn-primary"
                            th:classappend="${(singleSelectedItem == null) ? 'disabled' : ''}"
-                           th:href="@{/items/{componentId}/editor(componentId=${singleSelectedItem})}">
+                           th:href="@{/editor/{componentId}(componentId=${singleSelectedItem})}">
                             <i class="fa-solid fa-pen"></i>
                             Edit
                         </a>

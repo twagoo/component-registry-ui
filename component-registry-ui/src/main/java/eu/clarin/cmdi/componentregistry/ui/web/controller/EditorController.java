@@ -17,10 +17,16 @@
 package eu.clarin.cmdi.componentregistry.ui.web.controller;
 
 import eu.clarin.cmdi.componentregistry.openapi.client.api.ItemsControllerApi;
+import eu.clarin.cmdi.componentregistry.openapi.client.model.BaseDescription;
+import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.ErrorResponseException;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -28,17 +34,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author twagoo
  */
 @Controller
-@RequestMapping(value = "/items")
-public class ItemsController {
-
+@RequestMapping(value = "/editor")
+public class EditorController {
+    
     private final ItemsControllerApi api;
-        @Autowired
-    public ItemsController(ItemsControllerApi api) {
+    
+    @Autowired
+    public EditorController(ItemsControllerApi api) {
         this.api = api;
     }
-
-    @GetMapping(path = "/id/editor")
-    public String browser(Model model) {
-        return "items/editor/editor";
+    
+    @GetMapping(path = "/{itemId}")
+    public String browser(@PathVariable String itemId, Model model) throws ErrorResponseException {
+        final BaseDescription description = api.getItem(itemId);
+        if (description == null) {
+            throw new ErrorResponseException(HttpStatus.NOT_FOUND);
+        } else {
+            final ComponentSpec spec = api.getItemSpec(itemId, MediaType.APPLICATION_JSON_VALUE);
+            
+            model.addAttribute("description", description);
+            model.addAttribute("spec", spec);
+            
+            return "items/editor/editor";
+        }
     }
 }

@@ -35,7 +35,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -60,9 +59,8 @@ public class ComponentBrowserController {
     public static final String ITEM_STATUS_PRODUCTION = "production";
     public static final String ITEM_STATUS_QUERY_PARAM = "status";
     public static final List<String> ITEM_STATUS_DEFAULT = ImmutableList.of(ITEM_STATUS_PRODUCTION);
-    
+
     public static final String SELECTED_ITEM_QUERY_PARAM = "item";
-    
 
     private static final List<String> ITEM_TABLE_FIELDS = Arrays.asList(
             "name",
@@ -93,7 +91,7 @@ public class ComponentBrowserController {
         return "browser/items/table";
     }
 
-    private void setCommonModelAttributes(MultiValueMap<String, String> params, Model model) throws RestClientResponseException {
+    private void setCommonModelAttributes(MultiValueMap<String, String> params, Model model) {
         model.addAttribute("fields", ITEM_TABLE_FIELDS);
         model.addAttribute("selectedItems", params.get(SELECTED_ITEM_QUERY_PARAM));
         model.addAttribute("type", getFirstOrDefault(params, ITEM_TYPE_QUERY_PARAM, ITEM_TYPE_DEFAULT));
@@ -102,7 +100,7 @@ public class ComponentBrowserController {
         model.addAttribute("sortedDirection", getFirstOrDefault(params, SORT_DIRECTION_QUERY_PARAM, SORT_DIRECTION_DEFAULT));
     }
 
-    private List<BaseDescription> getItems(MultiValueMap<String, String> params) throws RestClientResponseException {
+    private List<BaseDescription> getItems(MultiValueMap<String, String> params) {
         final String type = getFirstOrDefault(params, ITEM_TYPE_QUERY_PARAM, ITEM_TYPE_DEFAULT);
         final List<String> status = params.getOrDefault(ITEM_STATUS_QUERY_PARAM, ITEM_STATUS_DEFAULT);
         final String sortBy = getFirstOrDefault(params, SORT_BY_QUERY_PARAM, SORT_BY_DEFAULT);
@@ -163,8 +161,8 @@ public class ComponentBrowserController {
     public ModelAndView itemsContainer(@RequestParam MultiValueMap<String, String> params, @RequestHeader Map<String, String> headers, Model model) {
         return partialResponse(headers, params, model, "browser/browserItemsContainer :: #items-container");
     }
-    
-        /**
+
+    /**
      * Partial response: items container (filter + table)
      *
      * @param params
@@ -187,7 +185,7 @@ public class ComponentBrowserController {
      * @return
      * @throws RestClientResponseException
      */
-    private ModelAndView partialResponse(Map<String, String> headers, MultiValueMap<String, String> params, Model model, final String fragment) throws RestClientResponseException {
+    private ModelAndView partialResponse(Map<String, String> headers, MultiValueMap<String, String> params, Model model, final String fragment) {
         if (isHtmxRequest(headers)) {
             setCommonModelAttributes(params, model);
             return new ModelAndView(fragment, model.asMap());
