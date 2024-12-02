@@ -26,6 +26,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.ErrorResponseException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +34,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -66,9 +68,8 @@ public class EditorController {
     }
 
     @PostMapping(path = "/{itemId}/spec")
-    public String submitSpec(@PathVariable String itemId, @RequestBody MultiValueMap<String, String> formData, Model model) {
+    public String submitSpec(@PathVariable String itemId, ComponentSpec formData, BindingResult bindingResult, Model model) {        
         log.info("Item: {}, Incoming data: {}", itemId, formData);
-        
         
         // https://stackoverflow.com/questions/30280131/thymeleaf-spring-nested-backing-object-is-not-binding-the-values-on-form-submit
         return browser(itemId, model);
