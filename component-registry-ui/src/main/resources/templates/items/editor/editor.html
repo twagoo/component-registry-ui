@@ -35,46 +35,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 <h1 class="py-2 overflow-hidden" style="max-height: 10%;">
                     [[#{editor.page.title}]]
                 </h1>
-                <main id="editor-main"
-                      style="min-height: 90%; max-height: 90%;">
-
+                <main id="editor-main" style="min-height: 90%; max-height: 90%;">
                     <div class="container">
-
                         <div class="row">
-
                             <div class="col-8">
 
-                                <section class="p-2">
-                                    <h1>Item description</h1>
-                                    <form th:object="${description}" class="w-50">
-                                        <div class="mb-3">
-                                            <label for="item-name" class="form-label"
-                                                   th:text="#{editor.form.item.name}"></label>
-                                            <input id="item-name" 
-                                                   class="form-control"
-                                                   th:value="*{name}" />
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="item-description" class="form-label"
-                                                   th:text="#{editor.form.item.description}"></label>
-                                            <textarea id="item-description"
-                                                      class="form-control"
-                                                      th:text="*{description}"></textarea>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                <section class="p-2 w-50">
+                                    <h2>Item description</h2>
+                                    <form th:replace="~{items/editor/itemDescriptionForm :: #item-description-form}">
+                                        {item description form}
                                     </form>
                                 </section>
 
-
-                                <section class="p-2">
-                                    <h1>Specification</h1>
+                                <section class="p-2 w-50">
+                                    <h2>Specification</h2>
+                                    <form th:replace="~{items/editor/specForm :: #spec-form}">
+                                        {specification form}
+                                    </form>
                                 </section>
+
                             </div>
+
                             <div class="col-4 p-2">
                                 <pre class="border m-2 p-1 text-bg-secondary" style="" th:text="${description}"></pre>
                                 <pre class="border m-2 p-1 text-bg-secondary" style="" th:text="${spec}"></pre>
                             </div>
-
 
                         </div>
                     </div>

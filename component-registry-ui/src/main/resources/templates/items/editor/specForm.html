@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+Copyright (C) 2024 CLARIN ERIC
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+    <head th:replace="~{fragments/base :: head}">
+        <title>Editor</title>
+    </head>
+
+    <body>
+        <main>
+
+            <div class="container">
+
+                <h2>Specification</h2>
+
+                <form id="spec-form" 
+                      th:object="${spec}"
+                      th:action="@{/editor/{componentId}/spec(componentId=${description.id})}"
+                      method="post">
+                    <fieldset th:each="component: ${spec.component}">
+                        <th:block th:object="${component}">
+                            <div class="mb-3">
+                                <label for="spec-name" class="form-label"
+                                       th:text="Name"></label>
+                                <input id="spec-name" 
+                                       class="form-control"
+                                       th:field="${spec.component.name}" />
+                            </div>
+                        </th:block>
+                    </fieldset>
+                    <button type="submit" 
+                            class="btn btn-primary">Submit</button>
+                </form>
+
+
+            </div>
+        </main>
+    </body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--
+Copyright (C) 2024 CLARIN ERIC
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+    <head th:replace="~{fragments/base :: head}">
+        <title>Editor</title>
+    </head>
+
+    <body>
+        <main>
+
+            <div class="container">
+
+                <h2>Specification</h2>
+
+                <form id="item-description-form" 
+                      th:object="${description}">
+                    <div class="mb-3">
+                        <label for="item-name" class="form-label"
+                               th:text="#{editor.form.item.name}"></label>
+                        <input id="item-name" 
+                               class="form-control"
+                               th:value="*{name}" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="item-description" class="form-label"
+                               th:text="#{editor.form.item.description}"></label>
+                        <textarea id="item-description"
+                                  class="form-control"
+                                  th:text="*{description}"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+
+
+            </div>
+        </main>
+    </body>
+</html>
