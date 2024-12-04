@@ -28,26 +28,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <h4><a data-bs-toggle="collapse" th:href="|#${fieldsDivId}|">Component: [[*{name}]]</a></h4>
 
                     <div class="collapse" th:id="${fieldsDivId}">
-                        <div class="card card-body m-2">
-                            <fieldset class="p-1" th:each="field : ${ {'name', 'conceptLink'} }">
-                                <div th:with="path=|${basePath}.${field}|">
-                                    <label th:for="${path}" class="form-label">
-                                        [[${field}]]
-                                    </label>
-                                    <input class="form-control"
-                                           th:id="${path}"
-                                           th:name="${path}"
-                                           th:value="${component[field]}" />
-                                </div>
-                            </fieldset>
-                        </div>
-
-                        <div class="ms-2" 
-                             th:each="childComponent, iterStat : *{component}"
-                             th:with="path = |${basePath}.component[${iterStat.index}]|">
-                            <div th:replace="~{items/editor/componentFormBlock :: componentBlock(${childComponent}, ${path})}">
+                        <th:block th:fragment="componentBlockContent(component, basePath)">
+                            <div class="card card-body m-2">
+                                <fieldset class="p-1" th:each="field : ${ {'name', 'conceptLink'} }">
+                                    <div th:with="path=|${basePath}.${field}|">
+                                        <label th:for="${path}" class="form-label">
+                                            [[${field}]]
+                                        </label>
+                                        <input class="form-control"
+                                               th:id="${path}"
+                                               th:name="${path}"
+                                               th:value="${component[field]}" />
+                                    </div>
+                                </fieldset>
                             </div>
-                        </div>
+
+                            <!-- Child components -->
+                            <div class="ms-2" 
+                                 th:each="childComponent, iterStat : ${component.component}">
+                                <div th:replace="~{items/editor/componentFormBlock :: componentBlock(
+                                     component = ${childComponent}, 
+                                     basePath = |${basePath}.component[${iterStat.index}]|)}">
+                                </div>
+                            </div>
+                        </th:block>
                     </div>
                 </div>
             </div>

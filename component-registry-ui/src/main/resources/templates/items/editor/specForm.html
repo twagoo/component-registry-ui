@@ -29,30 +29,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <form th:action="@{/editor/{componentId}/spec(componentId=${description.id})}"
                           method="post">
 
-                        <div class="card card-body"
-                             th:each="component : ${spec.component}"
-                             th:with="basePath=component">
-                            <fieldset class="p-1" th:each="field : ${ {'name', 'conceptLink'} }">
-                                <div th:with="path=|${basePath}.${field}|">
-                                    <label th:for="${path}" class="form-label">
-                                        [[${field}]]
-                                    </label>
-                                    <input 
-                                        class="form-control"
-                                        th:name="${path}"
-                                        th:value="${component[field]}" />
-                                </div>
-                            </fieldset>
+                        <!-- No form for header (?) -->
 
-                            <div class="ms-2" 
-                                 th:each="childComponent, iterStat : *{component}"
-                                 th:with="path = |${basePath}.component[${iterStat.index}]|">
-                                <div th:replace="~{items/editor/componentFormBlock :: componentBlock(${childComponent}, ${path})}">
-                                </div>
-                            </div>
+                        <!-- Root component is rendered as a regular component 
+                        (recursively, with child components and elements), but
+                        without the header and other preamble -->
+
+                        <div th:replace="~{items/editor/componentFormBlock :: componentBlockContent(
+                             component = ${spec.component},
+                             basePath = 'component')}">
+                            [root component]
                         </div>
-                        <button type="submit" 
-                                class="btn btn-primary">Submit</button>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
             </div>
