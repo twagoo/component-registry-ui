@@ -22,10 +22,8 @@ import com.google.common.collect.Lists;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentType;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ElementType;
-import java.util.Collections;
 import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
-import org.assertj.core.api.InstanceOfAssertFactories;
 import static org.assertj.core.api.InstanceOfAssertFactories.LIST;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,6 +46,7 @@ public class ComponentSpecTransformationServiceTest {
     public void setUp() {
         spec = new ComponentSpec();
         spec.setComponent(new ComponentType());
+        spec.getComponent().setName("root");
 
         spec.getComponent().setComponent(Lists.newArrayList(
                 new ComponentType(), new ComponentType(), new ComponentType()
@@ -70,8 +69,8 @@ public class ComponentSpecTransformationServiceTest {
     @Test
     public void testDeletePathNoChange() throws Exception {
         ComponentSpecTransformationService instance = new ComponentSpecTransformationService(objectMapper);
-        // request deletion with empty set of paths
-        ComponentSpec result = instance.deletePath(spec, Collections.emptyList());
+        // request deletion with no path set
+        ComponentSpec result = instance.deletePath(spec, null);
 
         //content assertions
         assertThat(result).isInstanceOf(ComponentSpec.class).hasFieldOrProperty("component");
@@ -105,10 +104,8 @@ public class ComponentSpecTransformationServiceTest {
     @Test
     public void testDeletePath() throws Exception {
         ComponentSpecTransformationService instance = new ComponentSpecTransformationService(objectMapper);
-        ComponentSpec result = instance.deletePath(spec, Lists.newArrayList(
-                "component.component[0]",
-                "component.component[1].element[1]"
-        ));
+        ComponentSpec intermediate = instance.deletePath(spec, "component.component[1].element[1]");
+        ComponentSpec result = instance.deletePath(intermediate, "component.component[0]");
 
         //components directly below root component
         assertThat(result.getComponent().getComponent())
@@ -116,10 +113,10 @@ public class ComponentSpecTransformationServiceTest {
                 .extracting("name")
                 .containsAll(ImmutableList.of("two", "three"));
 
-        //elements of component[1]
+        //elements of component "two"
         assertThat(result)
                 .extracting("component.component")
-                .asInstanceOf(LIST).element(1)
+                .asInstanceOf(LIST).element(0) // because of deletion of "one", "two" is now at [0]
                 .extracting("element").asInstanceOf(LIST)
                 .hasSize(2)
                 .extracting("name")

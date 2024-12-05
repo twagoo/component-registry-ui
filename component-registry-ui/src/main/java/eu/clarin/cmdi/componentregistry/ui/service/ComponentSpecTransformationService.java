@@ -17,10 +17,11 @@
 package eu.clarin.cmdi.componentregistry.ui.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.Predicate;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
-import java.util.Collection;
 
 /**
  *
@@ -34,13 +35,17 @@ public class ComponentSpecTransformationService {
         this.objectMapper = objectMapper;
     }
 
-    public ComponentSpec deletePath(ComponentSpec spec, Collection<String> paths) throws IllegalArgumentException, JsonProcessingException {
-        final JsonNode json = objectMapper.valueToTree(spec);
-        paths.forEach(path -> {
-            final JsonNode atPath = json.findPath(path);
-            //TODO: remove node at path
-        });
-        return objectMapper.treeToValue(json, ComponentSpec.class);
+    public ComponentSpec deletePath(ComponentSpec spec, String path) throws IllegalArgumentException, JsonProcessingException {
+        final String json = objectMapper.writeValueAsString(spec);
+        final DocumentContext doc = JsonPath.parse(json);
+
+        if (path != null) {
+            // remove node at path
+            doc.delete("$." + path, new Predicate[]{});
+        }
+
+        //convert doc back to object
+        return objectMapper.readValue(doc.jsonString(), ComponentSpec.class);
     }
 
 }
