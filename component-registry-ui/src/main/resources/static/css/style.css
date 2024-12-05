@@ -1,3 +1,9 @@
+/***
+*
+* BROWSER
+*
+*/
+
 /* HTMX updating */
 
 .htmx-request #items-table tbody {
@@ -42,4 +48,20 @@
 
 .items-table tr.table-active {
     font-weight: bold;
+}
+
+/***
+*
+* EDITOR
+*
+*/
+
+div.cmd-element .h4 * {
+    
+    color: olive;
+}
+
+div.cmd-component .h4 * {
+    
+    color: salmon;
 }
