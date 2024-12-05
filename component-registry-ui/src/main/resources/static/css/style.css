@@ -56,12 +56,22 @@
 *
 */
 
-div.cmd-element .h4 * {
-    
+div.cmd-element > .editor-section-header .h4 {
     color: olive;
+    cursor: pointer;
+    text-decoration: underline;
 }
 
-div.cmd-component .h4 * {
-    
+div.cmd-component > .editor-section-header .h4 {
     color: salmon;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.editor-section-header {
+    padding: .2em;    
+}
+
+.editor-section-header:hover {
+    background: #eee;
 }

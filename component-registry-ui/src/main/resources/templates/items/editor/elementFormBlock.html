@@ -25,7 +25,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <div th:fragment="elementBlock(element, basePath)">
                 <div th:object="${element}" class="cmd-element border-start p-2"
                      th:with="fieldsDivId=|${basePath}_fields|">
-                    <div class="h4"><a data-bs-toggle="collapse" th:href="|#${fieldsDivId}|">Element: [[*{name}]]</a></div>
+
+                    <div class="editor-section-header container">
+                        <div class="row">
+                            <div class="col-xl-9 h4"
+                                 data-bs-toggle="collapse" 
+                                 th:href="|#${fieldsDivId}|">
+                                Element: [[*{name}]]
+                            </div>
+
+                            <div class="col-xl-3 text-xl-end">
+                                <div th:replace="~{items/editor/editorComponents :: blockEditControls}">
+                                    [delete, move]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="collapse" th:id="${fieldsDivId}">
                         <div class="card card-body m-2">
