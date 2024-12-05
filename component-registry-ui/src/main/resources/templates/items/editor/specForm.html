@@ -25,8 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             <div class="container">
 
-                <div  id="spec-form">
-                    <form th:action="@{/editor/{componentId}/spec(componentId=${description.id})}"
+                <div th:fragment="spec-form(componentId)" id="spec-form">
+                    <form th:action="@{/editor/{componentId}/spec(componentId=${componentId})}"
                           method="post">
 
                         <!-- No form for header (?) -->
@@ -35,10 +35,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         (recursively, with child components and elements), but
                         without the header and other preamble -->
 
-                        <div th:replace="~{items/editor/componentFormBlock :: componentBlockContent(
-                             component = ${spec.component},
-                             basePath = 'component')}">
-                            [root component]
+                        <input type="hidden" name="header.id" th:value="${componentId}" />
+
+                        <div id="root-component-fields">
+                            <div th:replace="~{items/editor/componentFormBlock :: componentBlockContent(
+                                 component = ${spec.component},
+                                 basePath = 'component',
+                                 fieldsDivId = 'root-component-fields')}">
+                                [root component]
+                            </div>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Submit</button>

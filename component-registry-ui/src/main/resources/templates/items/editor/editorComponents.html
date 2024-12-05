@@ -23,8 +23,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <body>
         <main>
 
-            <div th:fragment="blockEditControls">
-                <a href="#" class="btn btn-outline-danger" title="Delete"><i class="fa-solid fa-trash"></i><span class="visually-hidden">Delete</span></a>
+            <div th:fragment="blockEditControls(path, parentId)">
+                <a href="#" class="btn btn-outline-danger" title="Delete"
+                   th:hx-post="@{/editor/transform(operation='delete',path=${path})}"
+                   th:hx-target="|#${parentId}|"
+                   th:hx-select="|#${parentId}|">
+                    <i class="fa-solid fa-trash"></i>
+                    <span class="visually-hidden">Delete</span>
+                </a>
                 <a href="#" class="btn btn-outline-primary" title="Move up"><i class="fa-solid fa-arrow-up"></i><span class="visually-hidden">Move up</span></a>
                 <a href="#" class="btn btn-outline-primary" title="Move down"><i class="fa-solid fa-arrow-down"></i><span class="visually-hidden">Move down</span></a>
             </div>

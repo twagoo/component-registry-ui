@@ -22,40 +22,44 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <body>
         <main>
-            <div th:fragment="elementBlock(element, basePath)">
+            <div th:fragment="elementBlock(element, basePath, parentId)">
                 <div th:object="${element}" class="cmd-element border-start p-2"
-                     th:with="fieldsDivId=|${basePath}_fields|">
+                    th:with="fieldsDivId=|${#strings.replace(#strings.replace(#strings.replace(basePath,'[','---'),']','---'),'.','---')}_fields|">
 
                     <div class="editor-section-header container">
                         <div class="row">
                             <div class="col-xl-9 h4"
                                  data-bs-toggle="collapse" 
-                                 th:href="|#${fieldsDivId}|">
+                                 th:href="|#${fieldsDivId}_outer|">
                                 Element: [[*{name}]]
                             </div>
 
                             <div class="col-xl-3 text-xl-end">
-                                <div th:replace="~{items/editor/editorComponents :: blockEditControls}">
+                                <div th:replace="~{items/editor/editorComponents 
+                                     :: blockEditControls(path = ${basePath}, parentId = ${parentId})}">
                                     [delete, move]
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="collapse" th:id="${fieldsDivId}">
-                        <div class="card card-body m-2">
-                            <fieldset class="p-1" th:each="field : ${ {'name', 'conceptLink'} }">
-                                <div th:with="path=|${basePath}.${field}|">
-                                    <label th:for="${path}" class="form-label">
-                                        [[${field}]]
-                                    </label>
-                                    <input class="form-control"
-                                           th:id="${path}"
-                                           th:name="${path}"
-                                           th:value="${element[field]}" />
-                                </div>
-                            </fieldset>
+                    <div class="collapse" th:id="|${fieldsDivId}_outer|">
+                        <div  th:id="${fieldsDivId}">
+                            <div class="card card-body m-2">
+                                <fieldset class="p-1" th:each="field : ${ {'name', 'conceptLink'} }">
+                                    <div th:with="path=|${basePath}.${field}|">
+                                        <label th:for="${path}" class="form-label">
+                                            [[${field}]]
+                                        </label>
+                                        <input class="form-control"
+                                               th:id="${path}"
+                                               th:name="${path}"
+                                               th:value="${element[field]}" />
+                                    </div>
+                                </fieldset>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>

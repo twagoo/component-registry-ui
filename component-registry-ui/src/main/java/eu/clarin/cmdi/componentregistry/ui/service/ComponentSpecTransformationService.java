@@ -22,11 +22,13 @@ import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.Predicate;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author twagoo
  */
+@Service
 public class ComponentSpecTransformationService {
 
     private final ObjectMapper objectMapper;
@@ -35,7 +37,7 @@ public class ComponentSpecTransformationService {
         this.objectMapper = objectMapper;
     }
 
-    public ComponentSpec deletePath(ComponentSpec spec, String path) throws IllegalArgumentException, JsonProcessingException {
+    public ComponentSpec deletePath(ComponentSpec spec, String path) throws JsonProcessingException {
         final String json = objectMapper.writeValueAsString(spec);
         final DocumentContext doc = JsonPath.parse(json);
 

@@ -16,23 +16,22 @@
  */
 package eu.clarin.cmdi.componentregistry.ui.web.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.clarin.cmdi.componentregistry.openapi.client.api.ItemsControllerApi;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.BaseDescription;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
+import eu.clarin.cmdi.componentregistry.ui.service.ComponentSpecTransformationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.ErrorResponseException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -47,13 +46,16 @@ public class EditorController {
 
     private final ItemsControllerApi api;
 
+    private final ComponentSpecTransformationService specTransformationService;
+
     @Autowired
-    public EditorController(ItemsControllerApi api) {
+    public EditorController(ItemsControllerApi api, ComponentSpecTransformationService specTransformationService) {
         this.api = api;
+        this.specTransformationService = specTransformationService;
     }
 
     @GetMapping(path = "/{itemId}")
-    public String browser(@PathVariable String itemId, Model model) throws ErrorResponseException {
+    public String editor(@PathVariable String itemId, Model model) throws ErrorResponseException {
         final BaseDescription description = api.getItem(itemId);
         if (description == null) {
             throw new ErrorResponseException(HttpStatus.NOT_FOUND);
@@ -68,10 +70,29 @@ public class EditorController {
     }
 
     @PostMapping(path = "/{itemId}/spec")
-    public String submitSpec(@PathVariable String itemId, ComponentSpec formData, BindingResult bindingResult, Model model) {        
+    public String submitSpec(@PathVariable String itemId, ComponentSpec formData, BindingResult bindingResult, Model model) {
         log.info("Item: {}, Incoming data: {}", itemId, formData);
-        
+
         // https://stackoverflow.com/questions/30280131/thymeleaf-spring-nested-backing-object-is-not-binding-the-values-on-form-submit
-        return browser(itemId, model);
+        return editor(itemId, model);
+    }
+
+    @PostMapping(path = "/transform")
+    public String performOperation(ComponentSpec spec,
+            @RequestParam String operation,
+            @RequestParam String path,
+            Model model) throws JsonProcessingException {
+        switch (operation.toLowerCase()) {
+            case "delete" -> {
+                final ComponentSpec transformed = specTransformationService.deletePath(spec, path);
+                model.addAttribute("componentId", spec.getHeader().getId());
+                model.addAttribute("spec", transformed);
+            }
+            default -> {
+                //unsupported operation
+                //TODO: respond with error
+            }
+        }
+        return "items/editor/specForm";
     }
 }

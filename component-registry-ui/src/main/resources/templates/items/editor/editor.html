@@ -49,7 +49,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                                 <section class="p-2">
                                     <h2>Specification</h2>
-                                    <div th:replace="~{items/editor/specForm :: #spec-form}">
+                                    <div th:replace="~{items/editor/specForm :: spec-form(componentId = ${description.id})}">
                                         {specification form}
                                     </div>
                                 </section>

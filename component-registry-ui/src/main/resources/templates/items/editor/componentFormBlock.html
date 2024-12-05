@@ -22,20 +22,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <body>
         <main>
-            <div th:fragment="componentBlock(component, basePath)">
+            <div th:fragment="componentBlock(component, basePath, parentId)">
                 <div th:object="${component}" class="cmd-component border-start p-2"
-                     th:with="fieldsDivId=|${basePath}_fields|">
+                     th:with="fieldsDivId=|${#strings.replace(#strings.replace(#strings.replace(basePath,'[','---'),']','---'),'.','---')}_fields|">
 
                     <div class="editor-section-header container">
                         <div class="row">
                             <div class="col-xl-9 h4"
                                  data-bs-toggle="collapse"
-                                 th:href="|#${fieldsDivId}|">
+                                 th:href="|#${fieldsDivId}_outer|">
                                 Component: [[*{name}]]
                             </div>
 
                             <div class="col-xl-3 text-xl-end">
-                                <div th:replace="~{items/editor/editorComponents :: blockEditControls}">
+                                <div th:replace="~{items/editor/editorComponents 
+                                     :: blockEditControls(path = ${basePath}, parentId = ${parentId})}">
                                     [delete, move]
                                 </div>
                             </div>
@@ -43,37 +44,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </div>
 
 
-                    <div class="collapse" th:id="${fieldsDivId}">
-                        <th:block th:fragment="componentBlockContent(component, basePath)">
-                            <div class="card card-body m-2">
-                                <fieldset class="p-1" th:each="field : ${ {'name', 'conceptLink'} }">
-                                    <div th:with="path=|${basePath}.${field}|">
-                                        <label th:for="${path}" class="form-label">
-                                            [[${field}]]
-                                        </label>
-                                        <input class="form-control"
-                                               th:id="${path}"
-                                               th:name="${path}"
-                                               th:value="${component[field]}" />
-                                    </div>
-                                </fieldset>
-                            </div>
-
-                            <!-- Elements -->
-                            <div class="ms-2" 
-                                 th:each="element, iterStat : ${component.element}">
-                                <div th:replace="~{items/editor/elementFormBlock :: elementBlock(
-                                     element = ${element}, 
-                                     basePath = |${basePath}.element[${iterStat.index}]|)}">
+                    <div class="collapse" th:id="|${fieldsDivId}_outer|">
+                        <th:block th:fragment="componentBlockContent(component, basePath, fieldsDivId)">
+                            <div th:id="${fieldsDivId}">
+                                <div class="card card-body m-2">
+                                    <fieldset class="p-1" th:each="field : ${ {'name', 'conceptLink'} }">
+                                        <div th:with="path=|${basePath}.${field}|">
+                                            <label th:for="${path}" class="form-label">
+                                                [[${field}]]
+                                            </label>
+                                            <input class="form-control"
+                                                   th:id="${path}"
+                                                   th:name="${path}"
+                                                   th:value="${component[field]}" />
+                                        </div>
+                                    </fieldset>
                                 </div>
-                            </div>
 
-                            <!-- Child components -->
-                            <div class="ms-2" 
-                                 th:each="childComponent, iterStat : ${component.component}">
-                                <div th:replace="~{items/editor/componentFormBlock :: componentBlock(
-                                     component = ${childComponent}, 
-                                     basePath = |${basePath}.component[${iterStat.index}]|)}">
+                                <!-- Elements -->
+                                <div class="ms-2" 
+                                     th:each="element, iterStat : ${component.element}">
+                                    <div th:replace="~{items/editor/elementFormBlock :: elementBlock(
+                                         element = ${element}, 
+                                         basePath = |${basePath}.element[${iterStat.index}]|,
+                                         parentId = ${fieldsDivId})}">
+                                    </div>
+                                </div>
+
+                                <!-- Child components -->
+                                <div class="ms-2" 
+                                     th:each="childComponent, iterStat : ${component.component}">
+                                    <div th:replace="~{items/editor/componentFormBlock :: componentBlock(
+                                         component = ${childComponent}, 
+                                         basePath = |${basePath}.component[${iterStat.index}]|,
+                                         parentId = ${fieldsDivId})}">
+                                    </div>
                                 </div>
                             </div>
                         </th:block>
