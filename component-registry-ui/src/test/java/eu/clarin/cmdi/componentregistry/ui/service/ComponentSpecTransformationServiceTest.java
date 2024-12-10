@@ -19,12 +19,14 @@ package eu.clarin.cmdi.componentregistry.ui.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.jayway.jsonpath.PathNotFoundException;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentType;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ElementType;
 import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.InstanceOfAssertFactories.LIST;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,12 +40,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class ComponentSpecTransformationServiceTest {
 
     private ComponentSpec spec;
+    private ComponentSpecTransformationService instance;
 
     @Autowired
     private ObjectMapper objectMapper;
 
     @BeforeEach
     public void setUp() {
+
+        instance = new ComponentSpecTransformationService(objectMapper);
+
         spec = new ComponentSpec();
         spec.setComponent(new ComponentType());
         spec.getComponent().setName("root");
@@ -68,7 +74,6 @@ public class ComponentSpecTransformationServiceTest {
      */
     @Test
     public void testDeletePathNoChange() throws Exception {
-        ComponentSpecTransformationService instance = new ComponentSpecTransformationService(objectMapper);
         // request deletion with no path set
         ComponentSpec result = instance.deletePath(spec, null);
 
@@ -103,7 +108,6 @@ public class ComponentSpecTransformationServiceTest {
      */
     @Test
     public void testDeletePath() throws Exception {
-        ComponentSpecTransformationService instance = new ComponentSpecTransformationService(objectMapper);
         ComponentSpec intermediate = instance.deletePath(spec, "component.component[1].element[1]");
         ComponentSpec result = instance.deletePath(intermediate, "component.component[0]");
 
@@ -111,6 +115,7 @@ public class ComponentSpecTransformationServiceTest {
         assertThat(result.getComponent().getComponent())
                 .hasSize(2)
                 .extracting("name")
+                .as("Components 'two' and 'three' should remain after removal of 'one'")
                 .containsAll(ImmutableList.of("two", "three"));
 
         //elements of component "two"
@@ -120,7 +125,75 @@ public class ComponentSpecTransformationServiceTest {
                 .extracting("element").asInstanceOf(LIST)
                 .hasSize(2)
                 .extracting("name")
+                .as("Elements 'one' and 'three' should remain after removal of 'two'")
                 .containsAll(ImmutableList.of("one", "three"));
+    }
+
+    @Test
+    public void testAddChildComponent() throws Exception {
+        //adding a new empty child component to an existing component
+        final ComponentSpec result1 = instance.addChildComponent(spec, "component.component[0]");
+
+        assertThat(result1).isNotNull();
+        assertThat(result1)
+                .extracting("component.component").asInstanceOf(LIST)
+                .element(0)
+                //there should be a new child component
+                .extracting("component").asInstanceOf(LIST)
+                .as("A new component should have been added as a child")
+                .hasExactlyElementsOfTypes(ComponentType.class);
+
+        result1.getComponent().getComponent().get(0).getComponent().get(0).setName("first");
+
+        //add another component
+        final ComponentSpec result2 = instance.addChildComponent(result1, "component.component[0]");
+        assertThat(result2)
+                .extracting("component.component").asInstanceOf(LIST)
+                .element(0)
+                //there should be a new child component
+                .extracting("component").asInstanceOf(LIST)
+                .satisfiesExactly(
+                        child1 -> {
+                            assertThat(child1)
+                                    .as("Existing component with name")
+                                    .hasFieldOrPropertyWithValue("name", "first");
+                        },
+                        child2 -> {
+                            assertThat(child2)
+                                    .extracting("name")
+                                    .as("New component without name")
+                                    .isNull();
+                        }
+                );
+    }
+
+    /**
+     * Operations that should fail
+     */
+    @Test
+    public void testAddChildIllegally() {
+        //Add to element
+        {
+            ComponentSpecTransformationException exception = assertThrows(
+                    ComponentSpecTransformationException.class,
+                    () -> {
+                        instance.addChildComponent(spec, "component.component[1].element[0]");
+                    },
+                    "Trying to add a component to an element should throw");
+            assertThat(exception)
+                    .as("message should explain issue")
+                    .hasMessageContaining("path does not resolve to a component");
+        }
+        //Add to non-existent
+        {
+            PathNotFoundException exception = assertThrows(
+                    PathNotFoundException.class,
+                    () -> {
+                        instance.addChildComponent(spec, "component.component[5]");
+                    },
+                    "Trying to add a component to a path that does not exist should throw");
+            assertThat(exception).isNotNull();
+        }
     }
 
 }

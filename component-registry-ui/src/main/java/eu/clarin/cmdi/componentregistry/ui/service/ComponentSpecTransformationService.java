@@ -22,6 +22,7 @@ import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.Predicate;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
+import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentType;
 import org.springframework.stereotype.Service;
 
 /**
@@ -48,6 +49,21 @@ public class ComponentSpecTransformationService {
 
         //convert doc back to object
         return objectMapper.readValue(doc.jsonString(), ComponentSpec.class);
+    }
+
+    public ComponentSpec addChildComponent(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
+        final String json = objectMapper.writeValueAsString(spec);
+        final DocumentContext doc = JsonPath.parse(json);
+
+        final ComponentType parent = doc.read("$." + path, ComponentType.class);
+        if (parent == null) {
+            throw new ComponentSpecTransformationException(String.format("Cannot add a component to spec at [%s]: path does not resolve to a component", path));
+        } else {
+            parent.addComponentItem(new ComponentType());
+            doc.set("$." + path, parent);
+
+            return objectMapper.readValue(doc.jsonString(), ComponentSpec.class);
+        }
     }
 
 }
