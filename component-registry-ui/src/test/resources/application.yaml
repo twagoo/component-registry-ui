@@ -1,0 +1,5 @@
+logging:
+    level:
+      root: info
+#      com.fasterxml.jackson: debug
+#      com.jayway.jsonpath: debug

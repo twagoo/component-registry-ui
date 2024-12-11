@@ -44,11 +44,12 @@ public class ComponentSpecTransformationServiceTest {
 
     @Autowired
     private ObjectMapper objectMapper;
+    @Autowired
+    private com.jayway.jsonpath.Configuration jsonPathConfiguration;
 
     @BeforeEach
     public void setUp() {
-
-        instance = new ComponentSpecTransformationService(objectMapper);
+        instance = new ComponentSpecTransformationService(objectMapper, jsonPathConfiguration);
 
         spec = new ComponentSpec();
         spec.setComponent(new ComponentType());
@@ -171,7 +172,7 @@ public class ComponentSpecTransformationServiceTest {
      * Operations that should fail
      */
     @Test
-    public void testAddChildIllegally() {
+    public void testAddChildComponentIllegally() {
         //Add to element
         {
             ComponentSpecTransformationException exception = assertThrows(
@@ -182,17 +183,97 @@ public class ComponentSpecTransformationServiceTest {
                     "Trying to add a component to an element should throw");
             assertThat(exception)
                     .as("message should explain issue")
-                    .hasMessageContaining("path does not resolve to a component");
+                    .hasMessageContaining("Could not add item");
         }
         //Add to non-existent
         {
-            PathNotFoundException exception = assertThrows(
-                    PathNotFoundException.class,
+            ComponentSpecTransformationException exception = assertThrows(
+                    ComponentSpecTransformationException.class,
                     () -> {
                         instance.addChildComponent(spec, "component.component[5]");
                     },
                     "Trying to add a component to a path that does not exist should throw");
-            assertThat(exception).isNotNull();
+            assertThat(exception)
+                    .as("message should explain issue")
+                    .hasMessageContaining("Could not add item");
+        }
+    }
+
+    @Test
+    public void testAddChildElement() throws Exception {
+        {
+            //adding a new empty child component to an existing component
+            final ComponentSpec result1 = instance.addChildElement(spec, "component.component[0]");
+
+            assertThat(result1).isNotNull();
+            assertThat(result1)
+                    .extracting("component.component").asInstanceOf(LIST)
+                    .element(0)
+                    //there should be a new child component
+                    .extracting("element").asInstanceOf(LIST)
+                    .as("A new element should have been added as a child")
+                    .hasExactlyElementsOfTypes(ElementType.class);
+
+            result1.getComponent().getComponent().get(0).getElement().get(0).setName("first");
+
+            //add another element
+            final ComponentSpec result2 = instance.addChildElement(result1, "component.component[0]");
+            assertThat(result2)
+                    .extracting("component.component").asInstanceOf(LIST)
+                    .element(0)
+                    //there should be a new child component
+                    .extracting("element").asInstanceOf(LIST)
+                    .satisfiesExactly(
+                            child1 -> {
+                                assertThat(child1)
+                                        .as("Existing element with name")
+                                        .hasFieldOrPropertyWithValue("name", "first");
+                            },
+                            child2 -> {
+                                assertThat(child2)
+                                        .extracting("name")
+                                        .as("New element without name")
+                                        .isNull();
+                            }
+                    );
+        }
+
+        {
+            //adding a new empty child element to a component with existing child elements
+            final ComponentSpec result = instance.addChildElement(spec, "component.component[1]");
+            assertThat(result).isNotNull();
+        }
+
+    }
+
+    /**
+     * Operations that should fail
+     */
+    @Test
+    public void testAddChildElementIllegally() {
+        //Add to element
+        {
+            ComponentSpecTransformationException exception = assertThrows(
+                    ComponentSpecTransformationException.class,
+                    () -> {
+                        instance.addChildElement(spec, "component.component[1].element[0]");
+                    },
+                    "Trying to add an element to an element should throw");
+            assertThat(exception)
+                    .as("message should explain issue")
+                    .hasMessageContaining("Could not add item");
+        }
+        //Add to non-existent
+        {
+            ComponentSpecTransformationException exception = assertThrows(
+                    ComponentSpecTransformationException.class,
+                    () -> {
+                        instance.addChildElement(spec, "component.component[5]");
+                    },
+                    "Trying to add an element to a path that does not exist should throw");
+            assertThat(exception)
+                    .as("message should explain issue")
+                    .hasMessageContaining("Could not add item");
         }
     }
 
