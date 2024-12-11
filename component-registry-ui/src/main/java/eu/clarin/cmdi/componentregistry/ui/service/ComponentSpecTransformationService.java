@@ -23,10 +23,14 @@ import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.JsonPathException;
 import com.jayway.jsonpath.Predicate;
+import com.jayway.jsonpath.TypeRef;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentType;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ElementType;
+import java.util.List;
 import java.util.function.Consumer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -69,7 +73,7 @@ public class ComponentSpecTransformationService {
         );
     }
 
-    public ComponentSpec addChildItemToComponent(ComponentSpec spec, String path, Consumer<ComponentType> addLogic) throws JsonProcessingException, ComponentSpecTransformationException {
+    private ComponentSpec addChildItemToComponent(ComponentSpec spec, String path, Consumer<ComponentType> addLogic) throws JsonProcessingException, ComponentSpecTransformationException {
         final DocumentContext doc = readSpecAsJson(spec);
         try {
             final ComponentType parent = doc.read("$." + path, ComponentType.class);
@@ -84,6 +88,37 @@ public class ComponentSpecTransformationService {
             log.warn("Failed to add item at path: " + path, ex);
         }
         throw new ComponentSpecTransformationException(String.format("Could not add item to to spec at [%s]", path));
+    }
+
+    public ComponentSpec insertComponentBefore(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
+        final DocumentContext doc = readSpecAsJson(spec);
+
+        //extract index
+        final Pattern arrayPattern = Pattern.compile("(.*)\\[(\\d)\\]$");
+        final Matcher matcher = arrayPattern.matcher(path);
+        if (matcher.matches()) {
+            try {
+                final String arrayPath = matcher.group(1);
+                final String indexString = matcher.group(2);
+                if (arrayPath != null && indexString != null) {
+                    final int index = Integer.parseInt(indexString);
+                    //get containing list
+                    final List containerArray = doc.read(arrayPath, new TypeRef<List<ComponentType>>() {
+                    });
+                    //insert item
+                    containerArray.add(index, new ComponentType());
+                    //replace in context
+                    doc.set(arrayPath, containerArray);
+                    return objectMapper.readValue(doc.jsonString(), ComponentSpec.class);
+                }
+            } catch (JsonProcessingException | JsonPathException | IndexOutOfBoundsException ex) {
+                log.warn("Failed to add item at path: " + path, ex);
+            } catch (NumberFormatException ex) {
+                log.error("Not a valid index in path:" + path);
+            }
+        }
+        throw new ComponentSpecTransformationException(String.format("Could not insert an item before %s: not an item in an array", path));
+
     }
 
     private DocumentContext readSpecAsJson(ComponentSpec spec) throws JsonProcessingException {

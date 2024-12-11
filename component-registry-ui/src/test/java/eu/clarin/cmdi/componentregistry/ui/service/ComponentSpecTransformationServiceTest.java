@@ -131,6 +131,96 @@ public class ComponentSpecTransformationServiceTest {
     }
 
     @Test
+    public void testInsertComponentBefore() throws Exception {
+        //insert in front
+        {
+            final ComponentSpec result = instance.insertComponentBefore(spec, "component.component[0]");
+            assertThat(result).isNotNull();
+            assertThat(result).extracting("component.component").asInstanceOf(LIST)
+                    .extracting("name")
+                    .as("New component should be placed in first position")
+                    .containsExactly(null, "one", "two", "three");
+        }
+        //insert in between
+        {
+            final ComponentSpec result = instance.insertComponentBefore(spec, "component.component[2]");
+            assertThat(result).isNotNull();
+            assertThat(result).extracting("component.component").asInstanceOf(LIST)
+                    .extracting("name")
+                    .as("New component should be placed in third position")
+                    .containsExactly("one", "two", null, "three");
+        }
+        //add to end! ("insert before array[arrayLength]")
+        {
+            final ComponentSpec result = instance.insertComponentBefore(spec, "component.component[3]");
+            assertThat(result).isNotNull();
+            assertThat(result).extracting("component.component").asInstanceOf(LIST)
+                    .extracting("name")
+                    .as("New component should have been appended to the end of the list")
+                    .containsExactly("one", "two", "three", null);
+        }
+    }
+
+    /**
+     * Insert before operations that should fail
+     */
+    @Test
+    public void testInsertComponentBeforeIllegally() throws Exception {
+        //Insert before element
+        {
+            ComponentSpecTransformationException exception = assertThrows(
+                    ComponentSpecTransformationException.class,
+                    () -> {
+                        instance.insertComponentBefore(spec, "component.component[1].element[0]");
+                    },
+                    "Trying to add a component to an element should throw");
+            assertThat(exception)
+                    .as("message should explain issue")
+                    .hasMessageContaining("Could not insert an item before");
+        }
+
+        //Insert out of bounds
+        {
+            ComponentSpecTransformationException exception = assertThrows(
+                    ComponentSpecTransformationException.class,
+                    () -> {
+                        instance.insertComponentBefore(spec, "component.component[4]");
+                    },
+                    "Trying to add a component to an element should throw");
+            assertThat(exception)
+                    .as("message should explain issue")
+                    .hasMessageContaining("Could not insert an item before");
+        }
+        
+        //Illegal index
+        {
+            ComponentSpecTransformationException exception = assertThrows(
+                    ComponentSpecTransformationException.class,
+                    () -> {
+                        instance.insertComponentBefore(spec, "component.component[x]");
+                    },
+                    "Trying to add a component to an element should throw");
+            assertThat(exception)
+                    .as("message should explain issue")
+                    .hasMessageContaining("Could not insert an item before");
+        }
+        
+        //Path does not exist
+        {
+            ComponentSpecTransformationException exception = assertThrows(
+                    ComponentSpecTransformationException.class,
+                    () -> {
+                        instance.insertComponentBefore(spec, "component.component[4].component[0]");
+                    },
+                    "Trying to add a component to an element should throw");
+            assertThat(exception)
+                    .as("message should explain issue")
+                    .hasMessageContaining("Could not insert an item before");
+        }
+
+    }
+
+    @Test
     public void testAddChildComponent() throws Exception {
         //adding a new empty child component to an existing component
         final ComponentSpec result1 = instance.addChildComponent(spec, "component.component[0]");
@@ -223,19 +313,8 @@ public class ComponentSpecTransformationServiceTest {
                     .element(0)
                     //there should be a new child component
                     .extracting("element").asInstanceOf(LIST)
-                    .satisfiesExactly(
-                            child1 -> {
-                                assertThat(child1)
-                                        .as("Existing element with name")
-                                        .hasFieldOrPropertyWithValue("name", "first");
-                            },
-                            child2 -> {
-                                assertThat(child2)
-                                        .extracting("name")
-                                        .as("New element without name")
-                                        .isNull();
-                            }
-                    );
+                    .extracting("name")
+                    .containsExactly("first", null);
         }
 
         {
