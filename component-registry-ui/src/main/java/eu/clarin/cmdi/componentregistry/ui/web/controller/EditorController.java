@@ -20,6 +20,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.clarin.cmdi.componentregistry.openapi.client.api.ItemsControllerApi;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.BaseDescription;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
+import eu.clarin.cmdi.componentregistry.ui.service.ComponentSpecTransformationException;
 import eu.clarin.cmdi.componentregistry.ui.service.ComponentSpecTransformationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,18 +82,36 @@ public class EditorController {
     public String performOperation(ComponentSpec spec,
             @RequestParam String operation,
             @RequestParam String path,
-            Model model) throws JsonProcessingException {
+            Model model) throws JsonProcessingException, ComponentSpecTransformationException {
+        final ComponentSpec transformedSpec = transform(operation, spec, path);
+        
+        model.addAttribute("componentId", spec.getHeader().getId());
+        model.addAttribute("spec", transformedSpec);
+
+        return "items/editor/specForm";
+    }
+
+    private ComponentSpec transform(String operation, ComponentSpec spec, String path) throws ComponentSpecTransformationException, JsonProcessingException {
         switch (operation.toLowerCase()) {
             case "delete" -> {
-                final ComponentSpec transformed = specTransformationService.deletePath(spec, path);
-                model.addAttribute("componentId", spec.getHeader().getId());
-                model.addAttribute("spec", transformed);
+                return specTransformationService.deletePath(spec, path);
+            }
+            case "movecomponentup" -> {
+                return specTransformationService.moveComponentUp(spec, path);
+            }
+            case "movecomponentdown" -> {
+                return specTransformationService.moveComponentDown(spec, path);
+            }
+            case "moveelementup" -> {
+                return specTransformationService.moveElementUp(spec, path);
+            }
+            case "moveelementdown" -> {
+                return specTransformationService.moveElementDown(spec, path);
             }
             default -> {
                 //unsupported operation
-                //TODO: respond with error
+                throw new ComponentSpecTransformationException("Unsupported operation: " + operation);
             }
         }
-        return "items/editor/specForm";
     }
 }

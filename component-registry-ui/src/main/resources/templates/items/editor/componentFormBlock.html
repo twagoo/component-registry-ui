@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <body>
         <main>
-            <div th:fragment="componentBlock(component, basePath, parentId)">
+            <div th:fragment="componentBlock(component, basePath, parentId, iterStat)">
                 <div th:object="${component}" class="cmd-component border-start p-2"
                      th:with="fieldsDivId=|${#strings.replace(#strings.replace(#strings.replace(basePath,'[','---'),']','---'),'.','---')}_fields|">
 
@@ -37,9 +37,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             <div class="col-xl-3 text-xl-end">
                                 <div th:replace="~{items/editor/editorComponents 
                                      :: blockEditControls(
+                                        type = 'Component',
                                         path = ${basePath}, 
                                         parentId = ${parentId},
-                                        itemName = |component '${component.name}'|)}">
+                                        itemName = |component '${component.name}'|,
+                                        canMoveUp = ${iterStat.index &gt; 0},
+                                        canMoveDown = ${iterStat.index &lt; iterStat.size - 1})}">
                                     [delete, move]
                                 </div>
                             </div>
@@ -70,7 +73,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     <div th:replace="~{items/editor/elementFormBlock :: elementBlock(
                                          element = ${element}, 
                                          basePath = |${basePath}.element[${iterStat.index}]|,
-                                         parentId = ${fieldsDivId})}">
+                                         parentId = ${fieldsDivId},
+                                         iterStat = ${iterStat})}">
                                     </div>
                                 </div>
 
@@ -80,7 +84,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     <div th:replace="~{items/editor/componentFormBlock :: componentBlock(
                                          component = ${childComponent}, 
                                          basePath = |${basePath}.component[${iterStat.index}]|,
-                                         parentId = ${fieldsDivId})}">
+                                         parentId = ${fieldsDivId},
+                                         iterStat = ${iterStat})}">
                                     </div>
                                 </div>
                             </div>
