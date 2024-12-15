@@ -451,4 +451,211 @@ public class ComponentSpecTransformationServiceTest {
         }
     }
 
+    @Test
+    public void testMoveComponent() throws Exception {
+        //move up
+        {
+            final ComponentSpec result = instance.moveComponentUp(spec, "component.component[1]");
+            assertThat(result).isNotNull();
+            assertThat(result).extracting("component.component").asInstanceOf(LIST)
+                    .extracting("name")
+                    .as("Component 'two' should be moved to first position")
+                    .containsExactly("two", "one", "three");
+        }
+        //move down
+        {
+            final ComponentSpec result = instance.moveComponentDown(spec, "component.component[1]");
+            assertThat(result).isNotNull();
+            assertThat(result).extracting("component.component").asInstanceOf(LIST)
+                    .extracting("name")
+                    .as("Component 'two' should be moved to first position")
+                    .containsExactly("one", "three", "two");
+        }
+    }    @Test
+    public void testMoveComponentIllegally() throws Exception {
+        //Move before element
+        {
+            ComponentSpecTransformationException exception = assertThrows(
+                    ComponentSpecTransformationException.class,
+                    () -> {
+                        instance.moveComponentUp(spec, "component.component[1].element[1]");
+                    },
+                    "Trying to add a component to an element should throw");
+            assertThat(exception)
+                    .as("message should explain issue")
+                    .hasMessageContaining("Could not move an item");
+        }
+
+        //Move item outside array bounds
+        {
+            ComponentSpecTransformationException exception = assertThrows(
+                    ComponentSpecTransformationException.class,
+                    () -> {
+                        instance.moveComponentUp(spec, "component.component[4]");
+                    },
+                    "Trying to add a component to an element should throw");
+            assertThat(exception)
+                    .as("message should explain issue")
+                    .hasMessageContaining("Target index out of bound");
+        }
+        
+        //Move down out of bounds
+        {
+            ComponentSpecTransformationException exception = assertThrows(
+                    ComponentSpecTransformationException.class,
+                    () -> {
+                        instance.moveComponentDown(spec, "component.component[2]");
+                    },
+                    "Trying to add a component to an element should throw");
+            assertThat(exception)
+                    .as("message should explain issue")
+                    .hasMessageContaining("Target index out of bound");
+        }
+        
+        //Move up out of bounds
+        {
+            ComponentSpecTransformationException exception = assertThrows(
+                    ComponentSpecTransformationException.class,
+                    () -> {
+                        instance.moveComponentUp(spec, "component.component[0]");
+                    },
+                    "Trying to add a component to an element should throw");
+            assertThat(exception)
+                    .as("message should explain issue")
+                    .hasMessageContaining("Cannot move to index < 0");
+        }
+
+        //Illegal index
+        {
+            ComponentSpecTransformationException exception = assertThrows(
+                    ComponentSpecTransformationException.class,
+                    () -> {
+                        instance.moveComponentUp(spec, "component.component[x]");
+                    },
+                    "Trying to add a component to an element should throw");
+            assertThat(exception)
+                    .as("message should explain issue")
+                    .hasMessageContaining("Could not move an item");
+        }
+
+        //Path does not exist
+        {
+            ComponentSpecTransformationException exception = assertThrows(
+                    ComponentSpecTransformationException.class,
+                    () -> {
+                        instance.moveComponentUp(spec, "component.component[4].component[1]");
+                    },
+                    "Trying to add a component to an element should throw");
+            assertThat(exception)
+                    .as("message should explain issue")
+                    .hasMessageContaining("Could not move an item");
+        }
+    }
+
+    @Test
+    public void testMoveElement() throws Exception {
+        //move up
+        {
+            final ComponentSpec result = instance.moveElementUp(spec, "component.component[1].element[2]");
+            assertThat(result).isNotNull();
+            assertThat(result).extracting("component.component").asInstanceOf(LIST)
+                    .element(1)
+                    .extracting("element").asInstanceOf(LIST)
+                    .extracting("name")
+                    .as("Component 'three' should be moved to second position")
+                    .containsExactly("one", "three", "two");
+        }
+        //move down
+        {
+            final ComponentSpec result = instance.moveElementDown(spec, "component.component[1].element[0]");
+            assertThat(result).isNotNull();
+            assertThat(result).extracting("component.component").asInstanceOf(LIST)
+                    .element(1)
+                    .extracting("element").asInstanceOf(LIST)
+                    .extracting("name")
+                    .as("Component 'one' should be moved to second position")
+                    .containsExactly("two", "one", "three");
+        }
+    }
+
+    @Test
+    public void testMoveElementIllegally() throws Exception {
+        //Move before component
+        {
+            ComponentSpecTransformationException exception = assertThrows(
+                    ComponentSpecTransformationException.class,
+                    () -> {
+                        instance.moveElementUp(spec, "component.component[1]");
+                    },
+                    "Trying to add a component to an element should throw");
+            assertThat(exception)
+                    .as("message should explain issue")
+                    .hasMessageContaining("Could not move an item");
+        }
+
+        //Move item outside array bounds
+        {
+            ComponentSpecTransformationException exception = assertThrows(
+                    ComponentSpecTransformationException.class,
+                    () -> {
+                        instance.moveElementUp(spec, "component.component[1].element[4]");
+                    },
+                    "Trying to add a component to an element should throw");
+            assertThat(exception)
+                    .as("message should explain issue")
+                    .hasMessageContaining("Target index out of bound");
+        }
+        
+        //Move down out of bounds
+        {
+            ComponentSpecTransformationException exception = assertThrows(
+                    ComponentSpecTransformationException.class,
+                    () -> {
+                        instance.moveElementDown(spec, "component.component[1].element[2]");
+                    },
+                    "Trying to add a component to an element should throw");
+            assertThat(exception)
+                    .as("message should explain issue")
+                    .hasMessageContaining("Target index out of bound");
+        }
+        
+        //Move up out of bounds
+        {
+            ComponentSpecTransformationException exception = assertThrows(
+                    ComponentSpecTransformationException.class,
+                    () -> {
+                        instance.moveElementUp(spec, "component.component[1].element[0]");
+                    },
+                    "Trying to add a component to an element should throw");
+            assertThat(exception)
+                    .as("message should explain issue")
+                    .hasMessageContaining("Cannot move to index < 0");
+        }
+
+        //Illegal index
+        {
+            ComponentSpecTransformationException exception = assertThrows(
+                    ComponentSpecTransformationException.class,
+                    () -> {
+                        instance.moveElementUp(spec, "component.component[1].element[x]");
+                    },
+                    "Trying to add a component to an element should throw");
+            assertThat(exception)
+                    .as("message should explain issue")
+                    .hasMessageContaining("Could not move an item");
+        }
+
+        //Path does not exist
+        {
+            ComponentSpecTransformationException exception = assertThrows(
+                    ComponentSpecTransformationException.class,
+                    () -> {
+                        instance.moveElementUp(spec, "component.component[4].element[1]");
+                    },
+                    "Trying to add a component to an element should throw");
+            assertThat(exception)
+                    .as("message should explain issue")
+                    .hasMessageContaining("Could not move an item");
+        }
+    }
 }

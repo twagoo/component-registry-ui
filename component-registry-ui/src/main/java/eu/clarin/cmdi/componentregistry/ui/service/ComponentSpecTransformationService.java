@@ -101,7 +101,7 @@ public class ComponentSpecTransformationService {
         });
     }
 
-    public <T> ComponentSpec insertItemBefore(ComponentSpec spec, String path, Supplier<T> constructor, TypeRef<List<T>> typeRef) throws JsonProcessingException, ComponentSpecTransformationException {
+    private <T> ComponentSpec insertItemBefore(ComponentSpec spec, String path, Supplier<T> constructor, TypeRef<List<T>> typeRef) throws JsonProcessingException, ComponentSpecTransformationException {
         final DocumentContext doc = readSpecAsJson(spec);
 
         //extract index
@@ -114,7 +114,7 @@ public class ComponentSpecTransformationService {
                 if (arrayPath != null && indexString != null) {
                     final int index = Integer.parseInt(indexString);
                     //get containing list
-                    final List containerArray = doc.read(arrayPath, typeRef);
+                    final List<T> containerArray = doc.read(arrayPath, typeRef);
                     //insert item
                     containerArray.add(index, constructor.get());
                     //replace in context
@@ -124,10 +124,73 @@ public class ComponentSpecTransformationService {
             } catch (JsonProcessingException | JsonPathException | IndexOutOfBoundsException ex) {
                 log.warn("Failed to add item at path: " + path, ex);
             } catch (NumberFormatException ex) {
-                log.error("Not a valid index in path:" + path);
+                log.warn("Not a valid index in path:" + path);
             }
         }
         throw new ComponentSpecTransformationException(String.format("Could not insert an item before %s", path));
+
+    }
+
+    public ComponentSpec moveComponentUp(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
+        return moveItem(spec, path, -1, new TypeRef<List<ComponentType>>() {
+        });
+    }
+
+    public ComponentSpec moveComponentDown(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
+        return moveItem(spec, path, +1, new TypeRef<List<ComponentType>>() {
+        });
+    }
+
+    public ComponentSpec moveElementUp(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
+        return moveItem(spec, path, -1, new TypeRef<List<ElementType>>() {
+        });
+    }
+
+    public ComponentSpec moveElementDown(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
+        return moveItem(spec, path, +1, new TypeRef<List<ElementType>>() {
+        });
+    }
+
+    private <T> ComponentSpec moveItem(ComponentSpec spec, String path, int shift, TypeRef<List<T>> typeRef) throws JsonProcessingException, ComponentSpecTransformationException {
+        final DocumentContext doc = readSpecAsJson(spec);
+
+        //extract index
+        final Pattern arrayPattern = Pattern.compile("(.*)\\[(\\d)\\]$");
+        final Matcher matcher = arrayPattern.matcher(path);
+        if (matcher.matches()) {
+            try {
+                final String arrayPath = matcher.group(1);
+                final String indexString = matcher.group(2);
+                if (arrayPath != null && indexString != null) {
+                    final int index = Integer.parseInt(indexString);
+                    final int targetIndex = index + shift;
+
+                    if (targetIndex < 0) {
+                        throw new ComponentSpecTransformationException("Cannot move to index < 0: " + targetIndex);
+                    }
+
+                    //get containing list
+                    final List<T> containerArray = doc.read(arrayPath, typeRef);
+
+                    if (targetIndex >= containerArray.size()) {
+                        throw new ComponentSpecTransformationException("Target index out of bound: " + targetIndex);
+                    }
+
+                    // swap objects at index and targetIndex
+                    final T replaced = containerArray.set(index, containerArray.get(targetIndex));
+                    containerArray.set(targetIndex, replaced);
+
+                    //replace in context
+                    doc.set(arrayPath, containerArray);
+                    return objectMapper.readValue(doc.jsonString(), ComponentSpec.class);
+                }
+            } catch (JsonProcessingException | JsonPathException | IndexOutOfBoundsException ex) {
+                log.warn("Failed to move item at path: " + path, ex);
+            } catch (NumberFormatException ex) {
+                log.warn("Not a valid index in path:" + path);
+            }
+        }
+        throw new ComponentSpecTransformationException(String.format("Could not move an item at %s", path));
 
     }
 
