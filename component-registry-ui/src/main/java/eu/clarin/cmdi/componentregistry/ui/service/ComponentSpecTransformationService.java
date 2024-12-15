@@ -29,6 +29,7 @@ import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentType;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ElementType;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
@@ -91,6 +92,16 @@ public class ComponentSpecTransformationService {
     }
 
     public ComponentSpec insertComponentBefore(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
+        return insertItemBefore(spec, path, () -> new ComponentType(), new TypeRef<List<ComponentType>>() {
+        });
+    }
+
+    public ComponentSpec insertElementBefore(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
+        return insertItemBefore(spec, path, () -> new ElementType(), new TypeRef<List<ElementType>>() {
+        });
+    }
+
+    public <T> ComponentSpec insertItemBefore(ComponentSpec spec, String path, Supplier<T> constructor, TypeRef<List<T>> typeRef) throws JsonProcessingException, ComponentSpecTransformationException {
         final DocumentContext doc = readSpecAsJson(spec);
 
         //extract index
@@ -103,10 +114,9 @@ public class ComponentSpecTransformationService {
                 if (arrayPath != null && indexString != null) {
                     final int index = Integer.parseInt(indexString);
                     //get containing list
-                    final List containerArray = doc.read(arrayPath, new TypeRef<List<ComponentType>>() {
-                    });
+                    final List containerArray = doc.read(arrayPath, typeRef);
                     //insert item
-                    containerArray.add(index, new ComponentType());
+                    containerArray.add(index, constructor.get());
                     //replace in context
                     doc.set(arrayPath, containerArray);
                     return objectMapper.readValue(doc.jsonString(), ComponentSpec.class);
@@ -117,7 +127,7 @@ public class ComponentSpecTransformationService {
                 log.error("Not a valid index in path:" + path);
             }
         }
-        throw new ComponentSpecTransformationException(String.format("Could not insert an item before %s: not an item in an array", path));
+        throw new ComponentSpecTransformationException(String.format("Could not insert an item before %s", path));
 
     }
 
