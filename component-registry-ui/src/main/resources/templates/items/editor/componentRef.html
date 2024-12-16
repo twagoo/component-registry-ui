@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--
+Copyright (C) 2024 CLARIN ERIC
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Editor</title>
+    </head>
+
+    <body>
+        <main>
+            <div th:fragment="componentRef(component, basePath, parentId, iterStat)">
+                <div th:object="${component}" class="cmd-component border-start p-2">
+
+                    <div class="editor-section-header container">
+                        <div class="row">
+                            <div class="col-xl-9 h4">
+                                Component reference: [[*{componentRef}]]
+                            </div>
+
+                            <div class="col-xl-3 text-xl-end">
+                                <div th:replace="~{items/editor/editorComponents 
+                                     :: blockEditControls(
+                                     type = 'Component',
+                                     path = ${basePath}, 
+                                     parentId = ${parentId},
+                                     itemName = |component '${component.name}'|,
+                                     canMoveUp = ${iterStat.index &gt; 0},
+                                     canMoveDown = ${iterStat.index &lt; iterStat.size - 1})}">
+                                    [delete, move]
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <th:block th:each="field : ${ {'name', 'componentRef'} }"
+                              th:with="path=|${basePath}.${field}|">
+                        <input type="hidden" 
+                               th:name="${path}"
+                               th:value="${component[field]}"/> 
+                    </th:block>
+                    
+                    <!-- TODO: load and render referenced component -->
+
+                </div>
+            </div>
+        </main>
+    </body>
+</html>

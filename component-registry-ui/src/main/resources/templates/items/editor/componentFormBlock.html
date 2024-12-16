@@ -37,12 +37,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             <div class="col-xl-3 text-xl-end">
                                 <div th:replace="~{items/editor/editorComponents 
                                      :: blockEditControls(
-                                        type = 'Component',
-                                        path = ${basePath}, 
-                                        parentId = ${parentId},
-                                        itemName = |component '${component.name}'|,
-                                        canMoveUp = ${iterStat.index &gt; 0},
-                                        canMoveDown = ${iterStat.index &lt; iterStat.size - 1})}">
+                                     type = 'Component',
+                                     path = ${basePath}, 
+                                     parentId = ${parentId},
+                                     itemName = |component '${component.name}'|,
+                                     canMoveUp = ${iterStat.index &gt; 0},
+                                     canMoveDown = ${iterStat.index &lt; iterStat.size - 1})}">
                                     [delete, move]
                                 </div>
                             </div>
@@ -68,24 +68,58 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                 </div>
 
                                 <!-- Elements -->
-                                <div class="ms-2" 
-                                     th:each="element, iterStat : ${component.element}">
-                                    <div th:replace="~{items/editor/elementFormBlock :: elementBlock(
-                                         element = ${element}, 
-                                         basePath = |${basePath}.element[${iterStat.index}]|,
-                                         parentId = ${fieldsDivId},
-                                         iterStat = ${iterStat})}">
+                                <div class="p-2 m-2 border rounded">
+                                    <span class="h3">Elements</span>
+                                    <div class="p-2" th:if="${#lists.size(component.element) == 0}">
+                                        No elements
+                                    </div>
+
+                                    <div class="ms-2" 
+                                         th:each="element, iterStat : ${component.element}">
+                                        <div th:replace="~{items/editor/elementFormBlock :: elementBlock(
+                                             element = ${element}, 
+                                             basePath = |${basePath}.element[${iterStat.index}]|,
+                                             parentId = ${fieldsDivId},
+                                             iterStat = ${iterStat})}">
+                                        </div>
+                                    </div>
+
+                                    <div class="p-2">
+                                        <a href="#" class="btn btn-primary">Add an element</a>
                                     </div>
                                 </div>
 
-                                <!-- Child components -->
-                                <div class="ms-2" 
-                                     th:each="childComponent, iterStat : ${component.component}">
-                                    <div th:replace="~{items/editor/componentFormBlock :: componentBlock(
-                                         component = ${childComponent}, 
-                                         basePath = |${basePath}.component[${iterStat.index}]|,
-                                         parentId = ${fieldsDivId},
-                                         iterStat = ${iterStat})}">
+                                <div class="p-2 m-2 border rounded">
+                                    <span class="h3">Components</span>
+                                    <div class="p-2" th:if="${#lists.size(component.component) == 0}">
+                                        No components
+                                    </div>
+
+
+                                    <!-- Child components -->
+                                    <div class="ms-2" 
+                                         th:each="childComponent, iterStat : ${component.component}"
+                                         th:with="isRef = ${!#strings.isEmpty(childComponent.componentRef)}">
+                                        <th:block th:if="${!isRef}">
+                                            <div th:replace="~{items/editor/componentFormBlock :: componentBlock(
+                                                 component = ${childComponent}, 
+                                                 basePath = |${basePath}.component[${iterStat.index}]|,
+                                                 parentId = ${fieldsDivId},
+                                                 iterStat = ${iterStat})}">
+                                            </div>
+                                        </th:block>
+                                        <th:block th:if="${isRef}">
+                                            <div  th:replace="~{items/editor/componentRef :: componentRef(
+                                                  component = ${childComponent}, 
+                                                  basePath = |${basePath}.component[${iterStat.index}]|,
+                                                  parentId = ${fieldsDivId},
+                                                  iterStat = ${iterStat})}">
+                                            </div>
+                                        </th:block>
+                                    </div>
+
+                                    <div class="p-2">
+                                        <a href="#" class="btn btn-primary">Add a component</a>
                                     </div>
                                 </div>
                             </div>
