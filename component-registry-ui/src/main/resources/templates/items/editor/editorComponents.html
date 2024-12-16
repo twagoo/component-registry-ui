@@ -25,6 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             <div th:fragment="blockEditControls(path, parentId, itemName, type, canMoveUp, canMoveDown)"
                  th:with="TransformationActions=${T(eu.clarin.cmdi.componentregistry.ui.service.TransformationActions)}">
+
+                <!--/* Delete button */-->
                 <a href="#" class="btn btn-outline-danger" title="Delete"
                    th:hx-post="@{/editor/transform(
                    operation=${TransformationActions.DELETE},
@@ -36,6 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <span class="visually-hidden">Delete</span>
                 </a>
 
+                <!--/* "Move up" button */-->
                 <a href="#" class="btn btn-outline-primary" title="Move up"
                    th:classAppend="${canMoveUp ? '' : 'disabled opacity-25'  }"
                    th:hx-post="@{/editor/transform(
@@ -47,6 +50,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <span class="visually-hidden">Move up</span>
                 </a>
 
+                <!--/* "Move down" button */-->
                 <a href="#" class="btn btn-outline-primary" title="Move down"
                    th:classAppend="${canMoveDown ? '' : 'disabled opacity-25'  }"
                    th:hx-post="@{/editor/transform(

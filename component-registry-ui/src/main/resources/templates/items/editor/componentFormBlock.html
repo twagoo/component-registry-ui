@@ -22,6 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <body>
         <main>
+
+            <!--/* The "component block" with actions and (de)collapse header */-->
             <div th:fragment="componentBlock(component, basePath, parentId, iterStat)">
                 <div th:object="${component}" class="cmd-component border-start p-2"
                      th:with="fieldsDivId=|${#strings.replace(#strings.replace(#strings.replace(basePath,'[','---'),']','---'),'.','---')}_fields|">
@@ -49,11 +51,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         </div>
                     </div>
 
-
+                    <!--/* The "component content block" */-->
                     <div class="collapse" th:id="|${fieldsDivId}_outer|">
                         <th:block th:fragment="componentBlockContent(component, basePath, fieldsDivId)">
                             <div th:id="${fieldsDivId}">
+                                <!--/* The form part */-->
                                 <div class="card card-body m-2">
+                                    <!--/* Component property fields */-->
                                     <fieldset class="p-1" th:each="field : ${ {'name', 'conceptLink'} }">
                                         <div th:with="path=|${basePath}.${field}|">
                                             <label th:for="${path}" class="form-label">
@@ -67,7 +71,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     </fieldset>
                                 </div>
 
-                                <!-- Elements -->
+                                <!--/* The children part: Elements */-->
                                 <div class="p-2 m-2 border rounded">
                                     <span class="h3">Elements</span>
                                     <div class="p-2" th:if="${#lists.size(component.element) == 0}">
@@ -89,18 +93,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     </div>
                                 </div>
 
+                                <!--/* The children part: Components */-->
                                 <div class="p-2 m-2 border rounded">
                                     <span class="h3">Components</span>
                                     <div class="p-2" th:if="${#lists.size(component.component) == 0}">
                                         No components
                                     </div>
 
-
-                                    <!-- Child components -->
                                     <div class="ms-2" 
                                          th:each="childComponent, iterStat : ${component.component}"
-                                         th:with="isRef = ${!#strings.isEmpty(childComponent.componentRef)}">
-                                        <th:block th:if="${!isRef}">
+                                         th:with="isInline= ${#strings.isEmpty(childComponent.componentRef)}">
+
+                                        <!--/* Inline components */-->
+                                        <th:block th:if="${isInline}">
                                             <div th:replace="~{items/editor/componentFormBlock :: componentBlock(
                                                  component = ${childComponent}, 
                                                  basePath = |${basePath}.component[${iterStat.index}]|,
@@ -108,7 +113,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                                  iterStat = ${iterStat})}">
                                             </div>
                                         </th:block>
-                                        <th:block th:if="${isRef}">
+
+                                        <!--/* Referenced components */-->
+                                        <th:block th:if="${!isInline}">
                                             <div  th:replace="~{items/editor/componentRef :: componentRef(
                                                   component = ${childComponent}, 
                                                   basePath = |${basePath}.component[${iterStat.index}]|,

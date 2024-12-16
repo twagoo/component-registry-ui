@@ -52,6 +52,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <div class="collapse" th:id="|${fieldsDivId}_outer|">
                         <div  th:id="${fieldsDivId}">
                             <div class="card card-body m-2">
+                                <!--/* Element property fields */-->
                                 <fieldset class="p-1" th:each="field : ${ {'name', 'conceptLink'} }">
                                     <div th:with="path=|${basePath}.${field}|">
                                         <label th:for="${path}" class="form-label">
