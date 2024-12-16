@@ -22,6 +22,7 @@ import eu.clarin.cmdi.componentregistry.openapi.client.model.BaseDescription;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
 import eu.clarin.cmdi.componentregistry.ui.service.ComponentSpecTransformationException;
 import eu.clarin.cmdi.componentregistry.ui.service.ComponentSpecTransformationService;
+import static eu.clarin.cmdi.componentregistry.ui.service.TransformationActions.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -92,20 +93,20 @@ public class EditorController {
     }
 
     private ComponentSpec transform(String operation, ComponentSpec spec, String path) throws ComponentSpecTransformationException, JsonProcessingException {
-        switch (operation.toLowerCase()) {
-            case "delete" -> {
+        switch (operation) {
+            case DELETE -> {
                 return specTransformationService.deletePath(spec, path);
             }
-            case "movecomponentup" -> {
+            case MOVE_COMPONENT_UP -> {
                 return specTransformationService.moveComponentUp(spec, path);
             }
-            case "movecomponentdown" -> {
+            case MOVE_COMPONENT_DOWN -> {
                 return specTransformationService.moveComponentDown(spec, path);
             }
-            case "moveelementup" -> {
+            case MOVE_ELEMENT_UP -> {
                 return specTransformationService.moveElementUp(spec, path);
             }
-            case "moveelementdown" -> {
+            case MOVE_ELEMENT_DOWN -> {
                 return specTransformationService.moveElementDown(spec, path);
             }
             default -> {

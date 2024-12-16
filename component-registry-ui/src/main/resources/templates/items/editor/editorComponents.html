@@ -23,9 +23,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <body>
         <main>
 
-            <div th:fragment="blockEditControls(path, parentId, itemName, type, canMoveUp, canMoveDown)">
+            <div th:fragment="blockEditControls(path, parentId, itemName, type, canMoveUp, canMoveDown)"
+                 th:with="TransformationActions=${T(eu.clarin.cmdi.componentregistry.ui.service.TransformationActions)}">
                 <a href="#" class="btn btn-outline-danger" title="Delete"
-                   th:hx-post="@{/editor/transform(operation='delete',path=${path})}"
+                   th:hx-post="@{/editor/transform(
+                   operation=${TransformationActions.DELETE},
+                   path=${path})}"
                    th:hx-target="|#${parentId}|"
                    th:hx-select="|#${parentId}|"
                    th:hx-confirm="|Delete ${itemName}?|">
@@ -35,7 +38,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                 <a href="#" class="btn btn-outline-primary" title="Move up"
                    th:classAppend="${canMoveUp ? '' : 'disabled opacity-25'  }"
-                   th:hx-post="@{/editor/transform(operation=|move${type}Up|,path=${path})}"
+                   th:hx-post="@{/editor/transform(
+                   operation=${TransformationActions.moveUpActionFor(type)},
+                   path=${path})}"
                    th:hx-target="|#${parentId}|"
                    th:hx-select="|#${parentId}|">
                     <i class="fa-solid fa-arrow-up"></i>
@@ -44,7 +49,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                 <a href="#" class="btn btn-outline-primary" title="Move down"
                    th:classAppend="${canMoveDown ? '' : 'disabled opacity-25'  }"
-                   th:hx-post="@{/editor/transform(operation=|move${type}Down|,path=${path})}"
+                   th:hx-post="@{/editor/transform(
+                   operation=${TransformationActions.moveDownActionFor(type)},
+                   path=${path})}"
                    th:hx-target="|#${parentId}|"
                    th:hx-select="|#${parentId}|">
                     <i class="fa-solid fa-arrow-down"></i>
