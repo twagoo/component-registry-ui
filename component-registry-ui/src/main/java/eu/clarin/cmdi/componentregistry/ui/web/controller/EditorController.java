@@ -85,7 +85,7 @@ public class EditorController {
             @RequestParam String path,
             Model model) throws JsonProcessingException, ComponentSpecTransformationException {
         final ComponentSpec transformedSpec = transform(operation, spec, path);
-        
+
         model.addAttribute("componentId", spec.getHeader().getId());
         model.addAttribute("spec", transformedSpec);
 
@@ -93,26 +93,25 @@ public class EditorController {
     }
 
     private ComponentSpec transform(String operation, ComponentSpec spec, String path) throws ComponentSpecTransformationException, JsonProcessingException {
-        switch (operation) {
-            case DELETE -> {
-                return specTransformationService.deletePath(spec, path);
-            }
-            case MOVE_COMPONENT_UP -> {
-                return specTransformationService.moveComponentUp(spec, path);
-            }
-            case MOVE_COMPONENT_DOWN -> {
-                return specTransformationService.moveComponentDown(spec, path);
-            }
-            case MOVE_ELEMENT_UP -> {
-                return specTransformationService.moveElementUp(spec, path);
-            }
-            case MOVE_ELEMENT_DOWN -> {
-                return specTransformationService.moveElementDown(spec, path);
-            }
+        return switch (operation) {
+            case DELETE ->
+                specTransformationService.deletePath(spec, path);
+            case MOVE_COMPONENT_UP ->
+                specTransformationService.moveComponentUp(spec, path);
+            case MOVE_COMPONENT_DOWN ->
+                specTransformationService.moveComponentDown(spec, path);
+            case MOVE_ELEMENT_UP ->
+                specTransformationService.moveElementUp(spec, path);
+            case MOVE_ELEMENT_DOWN ->
+                specTransformationService.moveElementDown(spec, path);
+            case ADD_CHILD_COMPONENT ->
+                specTransformationService.addChildComponent(spec, path);
+            case ADD_CHILD_ELEMENT ->
+                specTransformationService.addChildElement(spec, path);
             default -> {
                 //unsupported operation
                 throw new ComponentSpecTransformationException("Unsupported operation: " + operation);
             }
-        }
+        };
     }
 }

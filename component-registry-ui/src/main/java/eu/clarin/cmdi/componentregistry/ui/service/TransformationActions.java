@@ -27,6 +27,8 @@ public class TransformationActions {
     public static final String MOVE_ELEMENT_UP = "moveElementUp";
     public static final String MOVE_COMPONENT_DOWN = "moveComponentDown";
     public static final String MOVE_COMPONENT_UP = "moveComponentUp";
+    public static final String ADD_CHILD_ELEMENT = "addChildElement";
+    public static final String ADD_CHILD_COMPONENT = "addChildComponent";
 
     public static final String TYPE_COMPONENT = "component";
     public static final String TYPE_ELEMENT = "element";
@@ -37,8 +39,9 @@ public class TransformationActions {
                 MOVE_COMPONENT_UP;
             case TYPE_ELEMENT ->
                 MOVE_ELEMENT_UP;
-            default ->
-                null;
+            default -> {
+                throw new IllegalArgumentException("Unsupported type: " + type);
+            }
         };
     }
 
@@ -48,8 +51,9 @@ public class TransformationActions {
                 MOVE_COMPONENT_DOWN;
             case TYPE_ELEMENT ->
                 MOVE_ELEMENT_DOWN;
-            default ->
-                null;
+            default -> {
+                throw new IllegalArgumentException("Unsupported type: " + type);
+            }
         };
     }
 }

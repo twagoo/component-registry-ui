@@ -53,7 +53,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                     <!--/* The "component content block" */-->
                     <div class="collapse" th:id="|${fieldsDivId}_outer|">
-                        <th:block th:fragment="componentBlockContent(component, basePath, fieldsDivId)">
+                        <th:block th:fragment="componentBlockContent(component, basePath, fieldsDivId)"
+                                  th:with="TransformationActions=${T(eu.clarin.cmdi.componentregistry.ui.service.TransformationActions)}">
                             <div th:id="${fieldsDivId}">
                                 <!--/* The form part */-->
                                 <div class="card card-body m-2">
@@ -89,7 +90,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     </div>
 
                                     <div class="p-2">
-                                        <a href="#" class="btn btn-primary">Add an element</a>
+                                        <div th:replace="~{/items/editor/editorComponents 
+                                             :: addChildElementButton(path = ${path}, parentId=${fieldsDivId})}">
+                                            <!--/* Add element button */-->
+                                        </div>
                                     </div>
                                 </div>
 
@@ -126,8 +130,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     </div>
 
                                     <div class="p-2">
-                                        <a href="#" class="btn btn-primary">Add a component</a>
+                                        <div th:replace="~{/items/editor/editorComponents 
+                                             :: addChildComponentButton(path = ${path}, parentId=${fieldsDivId})}">
+                                            <!--/* Add component button */-->
+                                        </div>
                                     </div>
+
                                 </div>
                             </div>
                         </th:block>

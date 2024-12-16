@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <body>
         <main>
-
+            <!--/* Common action buttons (delete, move) for components, elements, attributes */-->
             <div th:fragment="blockEditControls(path, parentId, itemName, type, canMoveUp, canMoveDown)"
                  th:with="TransformationActions=${T(eu.clarin.cmdi.componentregistry.ui.service.TransformationActions)}">
 
@@ -62,6 +62,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <span class="visually-hidden">Move down</span>
                 </a>
             </div>
+
+            <!--/* Add component button */-->
+            <div th:fragment="addChildComponentButton(path, parentId)">
+                <a href="#" class="btn btn-primary" title="Add a component"
+                   th:hx-post="@{/editor/transform(
+                   operation=${TransformationActions.ADD_CHILD_COMPONENT},
+                   path=${basePath})}"
+                   th:hx-target="|#${parentId}|"
+                   th:hx-select="|#${parentId}|">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Add a component</span>
+                </a>
+            </div>
+
+            <!--/* Add element button */-->
+            <div th:fragment="addChildElementButton(path, parentId)">
+                <a href="#" class="btn btn-primary" title="Add an element"
+                   th:hx-post="@{/editor/transform(
+                   operation=${TransformationActions.ADD_CHILD_ELEMENT},
+                   path=${basePath})}"
+                   th:hx-target="|#${fieldsDivId}|"
+                   th:hx-select="|#${fieldsDivId}|">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Add an element</span>
+                </a>    
+            </div>
+
+
 
         </main>
     </body>
