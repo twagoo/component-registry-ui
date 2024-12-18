@@ -75,4 +75,11 @@
                 <exec.appArgs>--spring.config.location=classpath:/application.yaml,optional:classpath:/dev-config/application-dev.yaml</exec.appArgs>
             </properties>
         </action>
+        <action>
+            <actionName>CUSTOM-Build static resources</actionName>
+            <displayName>Build static resources</displayName>
+            <goals>
+                <goal>generate-resources</goal>
+            </goals>
+        </action>
     </actions>

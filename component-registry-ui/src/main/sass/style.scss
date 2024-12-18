@@ -6,50 +6,61 @@
 
 /* HTMX updating */
 
-.htmx-request #items-table tbody {
-    opacity: .2;
+#items-table tbody {
+    .htmx-request  & {
+        opacity: .2;
+    }
+    .htmx-swapping & {
+        opacity: .4;
+    }
 }
 
-.htmx-swapping #items-table tbody {
-    opacity: .4;
-}
+
 
 /* Item table column specific styling */
 
-.column-field_name, .column-field_description, .column-field_groupName, .column-field_domainName, .column-field_creator, .column-field_registrationDate {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
+.items-table {
 
-.column-field_name {
-    max-width: 10em;
-}
+    .column-field {
+        &_name, &_description, &_groupName, &_domainName,
+        &_creator, &_registrationDate {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
 
-.column-field_groupName, .column-field_domainName,  .column-field_creator, .column-field_registrationDate {
-    max-width: 10em;
-}
+        &_name, &_groupName, &_domainName,
+        &_creator, &_registrationDate {
+            max-width: 10em;
+        }
 
-.column-field_description {
-    max-width: 15em;
-}
+        &_description {
+            max-width: 15em;
+        }
+    }
 
-.items-table a.item-info {
-    opacity: .1;
-}
+    tr {
+        a.item-info {
+            opacity: .1;
+        }
 
-.items-table tr:hover a.item-info {
-    opacity: 1;
-}
+        &:hover {
+            cursor: pointer;
 
-.items-table tr:hover {
-    cursor: pointer;
-}
+            a.item-info {
+                opacity: 1;
+            }
+        }
 
-.items-table tr.table-active {
-    font-weight: bold;
-    background-color: var(--bs-info);
-    color: var(--bs-info-text-emphasis);
+        &.table-active {
+            &, & td {
+                font-weight: bold;
+                background-color: var(--bs-info);
+                color: var(--bs-info-text-emphasis);
+            }
+        }
+    }
+
 }
 
 /***
@@ -58,33 +69,37 @@
 *
 */
 
-div.cmd-element > .editor-section-header .h4 {
-    color: olive;
-    cursor: pointer;
-    text-decoration: underline;
-}
+#spec-form {
 
-div.cmd-component > .editor-section-header .h4 {
-    color: salmon;
-    cursor: pointer;
-    text-decoration: underline;
-}
+    div.cmd-element, div.cmd-component {
+        border: 2px solid transparent;
+        border-left: 2px solid var(--bs-gray-200);
 
-.editor-section-header {
-    padding: .2em;
-}
+        &:hover {
+            background: var(--bs-gray-100);
+            border: 2px dotted var(--bs-gray-800);
+            padding-left: 0px;
 
-.editor-section-header:hover {
-    background: var(--bs-gray-300);
-}
+            > .editor-section-header {
+                background: var(--bs-gray-300);
+            }
+        }
 
-.cmd-element, .cmd-component {
-    border: 2px solid transparent;
-    border-left: 2px solid var(--bs-gray-200);
-}
+        > .editor-section-header {
+            padding: .2em;
 
-.cmd-element:hover, .cmd-component:hover {
-    background: var(--bs-gray-100);
-    border: 2px dotted var(--bs-gray-800);
-    padding-left: 0px;
+            .h4 {
+                cursor: pointer;
+                text-decoration: underline;
+            }
+        }
+    }
+
+    div.cmd-element > .editor-section-header .h4 {
+        color: olive;
+    }
+
+    div.cmd-component > .editor-section-header .h4 {
+        color: salmon;
+    }
 }
