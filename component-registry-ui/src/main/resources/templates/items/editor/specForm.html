@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                 <div th:fragment="spec-form(componentId)" id="spec-form">
                     <form th:action="@{/editor/{componentId}/spec(componentId=${componentId})}"
+                          th:with="rootComponentId=${componentId}"
                           method="post">
 
                         <!-- No form for header (?) -->

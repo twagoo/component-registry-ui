@@ -17,13 +17,13 @@
 package eu.clarin.cmdi.componentregistry.ui.web.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.common.collect.ImmutableMap;
 import eu.clarin.cmdi.componentregistry.openapi.client.api.ItemsControllerApi;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.BaseDescription;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
 import eu.clarin.cmdi.componentregistry.ui.service.ComponentSpecTransformationException;
 import eu.clarin.cmdi.componentregistry.ui.service.ComponentSpecTransformationService;
 import static eu.clarin.cmdi.componentregistry.ui.service.TransformationActions.*;
-import java.util.function.BiFunction;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -91,6 +92,20 @@ public class EditorController {
         model.addAttribute("spec", transformedSpec);
 
         return "items/editor/specForm";
+    }
+
+    /**
+     * GET is supported for /transform for the cases in which the /transform URL is pushed into history
+     * @param itemId
+     * @return 
+     */
+    @GetMapping(path = "/transform")
+    public ModelAndView getOperationResult(@RequestParam(required = false) String itemId) {
+        if (itemId == null) {
+            return new ModelAndView("redirect:/editor");
+        } else {
+            return new ModelAndView("redirect:/editor/{itemId}", ImmutableMap.of("itemId", itemId));
+        }
     }
 
     private ComponentSpec transform(String operation, ComponentSpec spec, String path) throws ComponentSpecTransformationException, JsonProcessingException {

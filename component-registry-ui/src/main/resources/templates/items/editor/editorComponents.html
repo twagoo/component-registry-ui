@@ -30,10 +30,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 <a href="#" class="btn btn-outline-danger" title="Delete"
                    th:hx-post="@{/editor/transform(
                    operation=${TransformationActions.DELETE},
-                   path=${path})}"
+                   path=${path},
+                   itemId=${rootComponentId}, uniqId=${#strings.randomAlphanumeric(6)})}"
                    th:hx-target="|#${parentId}|"
                    th:hx-select="|#${parentId}|"
-                   th:hx-confirm="|Delete ${itemName}?|">
+                   th:hx-push-url="true">
                     <i class="fa-solid fa-trash"></i>
                     <span class="visually-hidden">Delete</span>
                 </a>
@@ -43,9 +44,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                    th:classAppend="${canMoveUp ? '' : 'disabled opacity-25'  }"
                    th:hx-post="@{/editor/transform(
                    operation=${TransformationActions.moveUpActionFor(type)},
-                   path=${path})}"
+                   path=${path},
+                   itemId=${rootComponentId}, uniqId=${#strings.randomAlphanumeric(6)})}"
                    th:hx-target="|#${parentId}|"
-                   th:hx-select="|#${parentId}|">
+                   th:hx-select="|#${parentId}|"
+                   hx-push-url="true">
                     <i class="fa-solid fa-arrow-up"></i>
                     <span class="visually-hidden">Move up</span>
                 </a>
@@ -55,9 +58,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                    th:classAppend="${canMoveDown ? '' : 'disabled opacity-25'  }"
                    th:hx-post="@{/editor/transform(
                    operation=${TransformationActions.moveDownActionFor(type)},
-                   path=${path})}"
+                   path=${path},
+                   itemId=${rootComponentId}, uniqId=${#strings.randomAlphanumeric(6)})}"
                    th:hx-target="|#${parentId}|"
-                   th:hx-select="|#${parentId}|">
+                   th:hx-select="|#${parentId}|"
+                   hx-push-url="true">
                     <i class="fa-solid fa-arrow-down"></i>
                     <span class="visually-hidden">Move down</span>
                 </a>
@@ -68,9 +73,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 <a href="#" class="btn btn-primary" title="Add a component"
                    th:hx-post="@{/editor/transform(
                    operation=${TransformationActions.ADD_CHILD_COMPONENT},
-                   path=${basePath})}"
+                   path=${basePath},
+                   itemId=${rootComponentId}, uniqId=${#strings.randomAlphanumeric(6)})}"
                    th:hx-target="|#${parentId}|"
-                   th:hx-select="|#${parentId}|">
+                   th:hx-select="|#${parentId}|"
+                   hx-push-url="true">
                     <i class="fa-solid fa-plus"></i>
                     <span>Add a component</span>
                 </a>
@@ -81,9 +88,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 <a href="#" class="btn btn-primary" title="Add an element"
                    th:hx-post="@{/editor/transform(
                    operation=${TransformationActions.ADD_CHILD_ELEMENT},
-                   path=${basePath})}"
+                   path=${basePath},
+                   itemId=${rootComponentId}, uniqId=${#strings.randomAlphanumeric(6)})}"
                    th:hx-target="|#${fieldsDivId}|"
-                   th:hx-select="|#${fieldsDivId}|">
+                   th:hx-select="|#${fieldsDivId}|"
+                   hx-push-url="true">
                     <i class="fa-solid fa-plus"></i>
                     <span>Add an element</span>
                 </a>    
