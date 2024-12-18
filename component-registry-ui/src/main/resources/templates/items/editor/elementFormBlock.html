@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <body>
         <main>
             <div th:fragment="elementBlock(element, basePath, parentId, iterStat)">
-                <div th:object="${element}" class="cmd-element border-start p-2"
+                <div th:object="${element}" class="cmd-element p-2"
                     th:with="fieldsDivId=|${#strings.replace(#strings.replace(#strings.replace(basePath,'[','---'),']','---'),'.','---')}_fields|">
 
                     <div class="editor-section-header container">

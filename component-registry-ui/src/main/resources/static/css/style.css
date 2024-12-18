@@ -48,6 +48,8 @@
 
 .items-table tr.table-active {
     font-weight: bold;
+    background-color: var(--bs-info);
+    color: var(--bs-info-text-emphasis);
 }
 
 /***
@@ -69,9 +71,20 @@ div.cmd-component > .editor-section-header .h4 {
 }
 
 .editor-section-header {
-    padding: .2em;    
+    padding: .2em;
 }
 
 .editor-section-header:hover {
-    background: #eee;
+    background: var(--bs-gray-300);
+}
+
+.cmd-element, .cmd-component {
+    border: 2px solid transparent;
+    border-left: 2px solid var(--bs-gray-200);
+}
+
+.cmd-element:hover, .cmd-component:hover {
+    background: var(--bs-gray-100);
+    border: 2px dotted var(--bs-gray-800);
+    padding-left: 0px;
 }

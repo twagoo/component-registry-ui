@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             <!--/* The "component block" with actions and (de)collapse header */-->
             <div th:fragment="componentBlock(component, basePath, parentId, iterStat)">
-                <div th:object="${component}" class="cmd-component border-start p-2"
+                <div th:object="${component}" class="cmd-component p-2"
                      th:with="fieldsDivId=|${#strings.replace(#strings.replace(#strings.replace(basePath,'[','---'),']','---'),'.','---')}_fields|">
 
                     <div class="editor-section-header container">

@@ -23,6 +23,7 @@ import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
 import eu.clarin.cmdi.componentregistry.ui.service.ComponentSpecTransformationException;
 import eu.clarin.cmdi.componentregistry.ui.service.ComponentSpecTransformationService;
 import static eu.clarin.cmdi.componentregistry.ui.service.TransformationActions.*;
+import java.util.function.BiFunction;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -108,6 +109,10 @@ public class EditorController {
                 specTransformationService.addChildComponent(spec, path);
             case ADD_CHILD_ELEMENT ->
                 specTransformationService.addChildElement(spec, path);
+            case INSERT_COMPONENT ->
+                specTransformationService.insertComponentBefore(spec, path);
+            case INSERT_ELEMENT ->
+                specTransformationService.insertElementBefore(spec, path);
             default -> {
                 //unsupported operation
                 throw new ComponentSpecTransformationException("Unsupported operation: " + operation);
