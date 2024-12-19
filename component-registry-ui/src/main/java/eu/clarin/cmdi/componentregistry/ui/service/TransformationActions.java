@@ -16,6 +16,9 @@
  */
 package eu.clarin.cmdi.componentregistry.ui.service;
 
+import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
+import java.util.function.BiFunction;
+
 /**
  *
  * @author twagoo
@@ -39,7 +42,7 @@ public class TransformationActions {
     public static final String TYPE_ATTRIBUTE = "attribute";
     public static final String TYPE_ELEMENT = "element";
     public static final String TYPE_COMPONENT = "component";
-
+    
     public static String addAttributeActionFor(String type) {
         return switch (type.toLowerCase()) {
             case TYPE_COMPONENT ->

@@ -108,6 +108,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 </a>    
             </div>
 
+            <!-- Child attribute section for elements and components -->
+            
+            <div th:fragment="childAttributes(attributeList, basePath, parentId, parentType)"
+                      th:with="hasAttributes=${attributeList != null 
+                      &amp;&amp; attributeList.attribute !=null
+                      &amp;&amp; !#lists.isEmpty(attributeList.attribute)}">
+                <span class="h3 visually-hidden">Attributes</span>
+                <div class="p-2 visually-hidden" th:if="${!hasAttributes}">
+                    No attributes
+                </div>
+
+                <th:block th:if="${hasAttributes}">
+                    <div class="ms-2"
+                         th:each="attribute, iterStat : ${attributeList.attribute}">
+                        <!--/* Attribute form block */-->
+                        <div th:replace="~{items/editor/attributeFormBlock :: attributeBlock(
+                             attribute = ${attribute}, 
+                             basePath = |${basePath}.attributeList.attribute[${iterStat.index}]|,
+                             parentId = ${fieldsDivId},
+                             iterStat = ${iterStat})}">
+                        </div>
+                    </div>
+                </th:block>
+
+                <div class="px-2">
+                    <!--/* Add attribute button */-->
+                    <div th:replace="~{/items/editor/editorComponents 
+                         :: addChildAttributeButton(
+                         type = ${parentType},
+                         path = ${basePath}, 
+                         parentId=${fieldsDivId})}">
+                    </div>
+                </div>
+            </div>
+
         </main>
     </body>
 </html>

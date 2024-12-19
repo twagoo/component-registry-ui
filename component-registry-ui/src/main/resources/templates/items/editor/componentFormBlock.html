@@ -61,50 +61,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                 <div class="card card-body m-2">
                                     <!--/* Component property fields */-->
                                     <fieldset class="p-1" th:each="field : ${ {'name', 'conceptLink'} }">
-                                        <div th:with="path=|${basePath}.${field}|">
-                                            <label th:for="${path}" class="form-label">
+                                        <div th:with="fieldPath=|${basePath}.${field}|">
+                                            <label th:for="${fieldPath}" class="form-label">
                                                 [[${field}]]
                                             </label>
                                             <input class="form-control"
-                                                   th:id="${path}"
-                                                   th:name="${path}"
+                                                   th:id="${fieldPath}"
+                                                   th:name="${fieldPath}"
                                                    th:value="${component[field]}" />
                                         </div>
                                     </fieldset>
                                 </div>
 
                                 <!--/* Children: Attributes */-->
-                                <div class="p-2"
-                                     th:with="hasAttributes=${component.attributeList != null 
-                                     &amp;&amp; component.attributeList.attribute !=null
-                                     &amp;&amp; !#lists.isEmpty(component.attributeList.attribute)}">
-                                    <span class="h3 visually-hidden">Attributes</span>
-                                    <div class="p-2 visually-hidden" th:if="${!hasAttributes}">
-                                        No elements
-                                    </div>
-
-                                    <th:block th:if="${hasAttributes}">
-                                        <div class="ms-2"
-                                             th:each="attribute, iterStat : ${component.attributeList.attribute}">
-                                            <!--/* Attribute form block */-->
-                                            <div th:replace="~{items/editor/attributeFormBlock :: attributeBlock(
-                                                 attribute = ${attribute}, 
-                                                 basePath = |${basePath}.attributeList.attribute[${iterStat.index}]|,
-                                                 parentId = ${fieldsDivId},
-                                                 iterStat = ${iterStat})}">
-                                            </div>
-                                        </div>
-                                    </th:block>
-
-                                    <div class="px-2">
-                                        <div th:replace="~{/items/editor/editorComponents 
-                                             :: addChildAttributeButton(
-                                             type = 'Component',
-                                             path = ${path}, 
-                                             parentId=${fieldsDivId})}">
-                                            <!--/* Add element button */-->
-                                        </div>
-                                    </div>
+                                <div class="p-2">
+                                    <div th:replace="~{items/editor/editorComponents :: childAttributes(
+                                         attributeList = ${component.attributeList},
+                                         basePath = ${basePath}, 
+                                         parentId = ${fieldsDivId}, 
+                                         parentType = 'Component')}"></div>
                                 </div>
 
                                 <!--/* Children: Elements */-->
@@ -126,9 +101,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     </div>
 
                                     <div class="px-2">
+                                        <!--/* Add element button */-->
                                         <div th:replace="~{/items/editor/editorComponents 
                                              :: addChildElementButton(path = ${path}, parentId=${fieldsDivId})}">
-                                            <!--/* Add element button */-->
                                         </div>
                                     </div>
                                 </div>
@@ -167,10 +142,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     </div>
 
                                     <div class="px-2">
+                                        <!--/* Add component button */-->
                                         <div th:replace="~{/items/editor/editorComponents 
-                                             :: addChildComponentButton(path = ${path}, parentId=${fieldsDivId})}">
-                                            <!--/* Add component button */-->
-                                        </div>
+                                             :: addChildComponentButton(path = ${basePath}, parentId=${fieldsDivId})}"></div>
                                     </div>
 
                                 </div>

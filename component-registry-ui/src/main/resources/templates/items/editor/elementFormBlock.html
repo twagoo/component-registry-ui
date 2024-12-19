@@ -55,19 +55,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             <div class="card card-body m-2">
                                 <!--/* Element property fields */-->
                                 <fieldset class="p-1" th:each="field : ${ {'name', 'conceptLink'} }">
-                                    <div th:with="path=|${basePath}.${field}|">
-                                        <label th:for="${path}" class="form-label">
+                                    <div th:with="fieldPath=|${basePath}.${field}|">
+                                        <label th:for="${fieldPath}" class="form-label">
                                             [[${field}]]
                                         </label>
                                         <input class="form-control"
-                                               th:id="${path}"
-                                               th:name="${path}"
+                                               th:id="${fieldPath}"
+                                               th:name="${fieldPath}"
                                                th:value="${element[field]}" />
                                     </div>
                                 </fieldset>
                             </div>
+                            
+                                <!--/* Child attributes */-->
+                                <div class="p-2">
+                                    <div th:replace="~{items/editor/editorComponents :: childAttributes(
+                                         attributeList = ${element.attributeList},
+                                         basePath = ${basePath}, 
+                                         parentId = ${fieldsDivId}, 
+                                         parentType = 'Element')}"></div>
+                                </div>
+                            
                         </div>
-
                     </div>
                 </div>
             </div>
