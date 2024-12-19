@@ -124,6 +124,10 @@ public class EditorController {
                 specTransformationService.addChildComponent(spec, path);
             case ADD_CHILD_ELEMENT ->
                 specTransformationService.addChildElement(spec, path);
+            case ADD_CHILD_ATTRIBUTE_TO_COMPONENT ->
+                specTransformationService.addChildAttributeToComponent(spec, path);
+            case ADD_CHILD_ATTRIBUTE_TO_ELEMENT ->
+                specTransformationService.addChildAttributeToElement(spec, path);
             case INSERT_COMPONENT ->
                 specTransformationService.insertComponentBefore(spec, path);
             case INSERT_ELEMENT ->

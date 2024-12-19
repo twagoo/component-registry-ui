@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title>Editor</title>
+        <title>Component form</title>
     </head>
 
     <body>
@@ -37,6 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             </div>
 
                             <div class="col-xl-3 text-xl-end">
+                                <!--/* Delete - Move up - Move down */-->
                                 <div th:replace="~{items/editor/editorComponents 
                                      :: blockEditControls(
                                      type = 'Component',
@@ -72,7 +73,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     </fieldset>
                                 </div>
 
-                                <!--/* The children part: Elements */-->
+                                <!--/* Children: Attributes */-->
+                                <div class="p-2"
+                                     th:with="hasAttributes=${component.attributeList != null 
+                                     &amp;&amp; component.attributeList.attribute !=null
+                                     &amp;&amp; !#lists.isEmpty(component.attributeList.attribute)}">
+                                    <span class="h3 visually-hidden">Attributes</span>
+                                    <div class="p-2 visually-hidden" th:if="${!hasAttributes}">
+                                        No elements
+                                    </div>
+
+                                    <th:block th:if="${hasAttributes}">
+                                        <div class="ms-2"
+                                             th:each="attribute, iterStat : ${component.attributeList.attribute}">
+                                            <!--/* Attribute form block */-->
+                                            <div th:replace="~{items/editor/attributeFormBlock :: attributeBlock(
+                                                 attribute = ${attribute}, 
+                                                 basePath = |${basePath}.attributeList.attribute[${iterStat.index}]|,
+                                                 parentId = ${fieldsDivId},
+                                                 iterStat = ${iterStat})}">
+                                            </div>
+                                        </div>
+                                    </th:block>
+
+                                    <div class="px-2">
+                                        <div th:replace="~{/items/editor/editorComponents 
+                                             :: addChildAttributeButton(
+                                             type = 'Component',
+                                             path = ${path}, 
+                                             parentId=${fieldsDivId})}">
+                                            <!--/* Add element button */-->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--/* Children: Elements */-->
                                 <div class="p-2">
                                     <span class="h3 visually-hidden">Elements</span>
                                     <div class="p-2 visually-hidden" th:if="${#lists.size(component.element) == 0}">
@@ -81,6 +116,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                                     <div class="ms-2" 
                                          th:each="element, iterStat : ${component.element}">
+                                        <!--/* Element form block */-->
                                         <div th:replace="~{items/editor/elementFormBlock :: elementBlock(
                                              element = ${element}, 
                                              basePath = |${basePath}.element[${iterStat.index}]|,
@@ -97,7 +133,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     </div>
                                 </div>
 
-                                <!--/* The children part: Components */-->
+                                <!--/* Children: Components */-->
                                 <div class="p-2">
                                     <span class="h3 visually-hidden">Components</span>
                                     <div class="p-2 visually-hidden" th:if="${#lists.size(component.component) == 0}">
@@ -110,6 +146,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                                         <!--/* Inline components */-->
                                         <th:block th:if="${isInline}">
+                                            <!--/* Component form block */-->
                                             <div th:replace="~{items/editor/componentFormBlock :: componentBlock(
                                                  component = ${childComponent}, 
                                                  basePath = |${basePath}.component[${iterStat.index}]|,

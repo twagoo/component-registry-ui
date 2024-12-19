@@ -71,7 +71,7 @@
 
 #spec-form {
 
-    div.cmd-element, div.cmd-component {
+    div.cmd-element, div.cmd-component, div.cmd-attribute {
         border: 2px solid transparent;
         border-left: 2px solid var(--bs-gray-200);
 
@@ -93,6 +93,10 @@
                 text-decoration: underline;
             }
         }
+    }
+
+    div.cmd-attribute > .editor-section-header .h4 {
+        color: peru;
     }
 
     div.cmd-element > .editor-section-header .h4 {

@@ -27,6 +27,8 @@ public class TransformationActions {
     public static final String MOVE_ELEMENT_UP = "moveElementUp";
     public static final String MOVE_COMPONENT_DOWN = "moveComponentDown";
     public static final String MOVE_COMPONENT_UP = "moveComponentUp";
+    public static final String ADD_CHILD_ATTRIBUTE_TO_COMPONENT = "componentAddChildAttribute";
+    public static final String ADD_CHILD_ATTRIBUTE_TO_ELEMENT = "elementAddChildAttribute";
     public static final String ADD_CHILD_ELEMENT = "addChildElement";
     public static final String ADD_CHILD_COMPONENT = "addChildComponent";
     public static final String INSERT_COMPONENT = "insertComponent";
@@ -34,6 +36,18 @@ public class TransformationActions {
 
     public static final String TYPE_COMPONENT = "component";
     public static final String TYPE_ELEMENT = "element";
+
+    public static String addAttributeActionFor(String type) {
+        return switch (type.toLowerCase()) {
+            case TYPE_COMPONENT ->
+                ADD_CHILD_ATTRIBUTE_TO_COMPONENT;
+            case TYPE_ELEMENT ->
+                ADD_CHILD_ATTRIBUTE_TO_ELEMENT;
+            default -> {
+                throw new IllegalArgumentException("Unsupported type: " + type);
+            }
+        };
+    }
 
     public static String moveUpActionFor(String type) {
         return switch (type.toLowerCase()) {

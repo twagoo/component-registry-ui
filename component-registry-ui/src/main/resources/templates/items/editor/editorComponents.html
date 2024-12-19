@@ -93,6 +93,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 </a>    
             </div>
 
+            <!--/* Add element button */-->
+            <div th:fragment="addChildAttributeButton(path, parentId, type)">
+                <a href="#" class="btn btn-link btn-sm" title="Add an attribute"
+                   th:hx-post="@{/editor/transform(
+                   operation=${TransformationActions.addAttributeActionFor(type)},
+                   path=${basePath},
+                   itemId=${rootComponentId}, uniqId=${#strings.randomAlphanumeric(6)})}"
+                   th:hx-target="|#${fieldsDivId}|"
+                   th:hx-select="|#${fieldsDivId}|"
+                   hx-push-url="true">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Add an attribute</span>
+                </a>    
+            </div>
+
         </main>
     </body>
 </html>

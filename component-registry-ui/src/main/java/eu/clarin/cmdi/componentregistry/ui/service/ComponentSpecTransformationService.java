@@ -24,6 +24,8 @@ import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.JsonPathException;
 import com.jayway.jsonpath.Predicate;
 import com.jayway.jsonpath.TypeRef;
+import eu.clarin.cmdi.componentregistry.openapi.client.model.Attribute;
+import eu.clarin.cmdi.componentregistry.openapi.client.model.AttributeListType;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentType;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ElementType;
@@ -74,6 +76,19 @@ public class ComponentSpecTransformationService {
         );
     }
 
+    public ComponentSpec addChildAttributeToComponent(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
+        return addChildItemToComponent(spec, path,
+                component -> {
+                    if (component.getAttributeList() == null) {
+                        component.setAttributeList(new AttributeListType());
+                    }
+                    final AttributeListType attributeList = component.getAttributeList();
+                    assert attributeList != null;
+                    attributeList.addAttributeItem(new Attribute());
+                }
+        );
+    }
+
     private ComponentSpec addChildItemToComponent(ComponentSpec spec, String path, Consumer<ComponentType> addLogic) throws JsonProcessingException, ComponentSpecTransformationException {
         final DocumentContext doc = readSpecAsJson(spec);
         try {
@@ -88,7 +103,12 @@ public class ComponentSpecTransformationService {
         } catch (JsonProcessingException | JsonPathException ex) {
             log.warn("Failed to add item at path: " + path, ex);
         }
-        throw new ComponentSpecTransformationException(String.format("Could not add item to to spec at [%s]", path));
+        throw new ComponentSpecTransformationException(String.format("Could not add item to spec at [%s]", path));
+    }
+
+    public ComponentSpec addChildAttributeToElement(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
+        //TODO
+        throw new ComponentSpecTransformationException(String.format("Could not add attribute to spec at [%s]", path));
     }
 
     public ComponentSpec insertComponentBefore(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
