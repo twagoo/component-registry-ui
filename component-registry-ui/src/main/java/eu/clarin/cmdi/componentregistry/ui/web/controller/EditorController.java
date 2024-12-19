@@ -120,6 +120,10 @@ public class EditorController {
                 specTransformationService.moveElementUp(spec, path);
             case MOVE_ELEMENT_DOWN ->
                 specTransformationService.moveElementDown(spec, path);
+            case MOVE_ATTRIBUTE_UP ->
+                specTransformationService.moveAttributeUp(spec, path);
+            case MOVE_ATTRIBUTE_DOWN ->
+                specTransformationService.moveAttributeDown(spec, path);
             case ADD_CHILD_COMPONENT ->
                 specTransformationService.addChildComponent(spec, path);
             case ADD_CHILD_ELEMENT ->

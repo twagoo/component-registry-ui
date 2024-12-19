@@ -23,6 +23,8 @@ package eu.clarin.cmdi.componentregistry.ui.service;
 public class TransformationActions {
 
     public static final String DELETE = "delete";
+    public static final String MOVE_ATTRIBUTE_DOWN = "moveAttributeDown";
+    public static final String MOVE_ATTRIBUTE_UP = "moveAttributeUp";
     public static final String MOVE_ELEMENT_DOWN = "moveElementDown";
     public static final String MOVE_ELEMENT_UP = "moveElementUp";
     public static final String MOVE_COMPONENT_DOWN = "moveComponentDown";
@@ -34,8 +36,9 @@ public class TransformationActions {
     public static final String INSERT_COMPONENT = "insertComponent";
     public static final String INSERT_ELEMENT = "insertElement";
 
-    public static final String TYPE_COMPONENT = "component";
+    public static final String TYPE_ATTRIBUTE = "attribute";
     public static final String TYPE_ELEMENT = "element";
+    public static final String TYPE_COMPONENT = "component";
 
     public static String addAttributeActionFor(String type) {
         return switch (type.toLowerCase()) {
@@ -55,6 +58,8 @@ public class TransformationActions {
                 MOVE_COMPONENT_UP;
             case TYPE_ELEMENT ->
                 MOVE_ELEMENT_UP;
+            case TYPE_ATTRIBUTE ->
+                MOVE_ATTRIBUTE_UP;
             default -> {
                 throw new IllegalArgumentException("Unsupported type: " + type);
             }
@@ -67,6 +72,8 @@ public class TransformationActions {
                 MOVE_COMPONENT_DOWN;
             case TYPE_ELEMENT ->
                 MOVE_ELEMENT_DOWN;
+            case TYPE_ATTRIBUTE ->
+                MOVE_ATTRIBUTE_DOWN;
             default -> {
                 throw new IllegalArgumentException("Unsupported type: " + type);
             }

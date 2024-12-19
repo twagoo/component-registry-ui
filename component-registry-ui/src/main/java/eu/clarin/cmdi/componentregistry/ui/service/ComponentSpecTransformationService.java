@@ -171,6 +171,16 @@ public class ComponentSpecTransformationService {
         });
     }
 
+    public ComponentSpec moveAttributeUp(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
+        return moveItem(spec, path, -1, new TypeRef<List<Attribute>>() {
+        });
+    }
+
+    public ComponentSpec moveAttributeDown(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
+        return moveItem(spec, path, +1, new TypeRef<List<Attribute>>() {
+        });
+    }
+
     private <T> ComponentSpec moveItem(ComponentSpec spec, String path, int shift, TypeRef<List<T>> typeRef) throws JsonProcessingException, ComponentSpecTransformationException {
         final DocumentContext doc = readSpecAsJson(spec);
 
