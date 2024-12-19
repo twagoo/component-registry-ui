@@ -1,0 +1,65 @@
+@use 'common.scss';
+
+/***
+*
+* BROWSER
+*
+*/
+
+/* HTMX updating */
+
+#items-table tbody {
+    .htmx-request  & {
+        opacity: .2;
+    }
+    .htmx-swapping & {
+        opacity: .4;
+    }
+}
+
+
+
+/* Item table column specific styling */
+
+.items-table {
+
+    .column-field {
+        &_name, &_description, &_groupName, &_domainName,
+        &_creator, &_registrationDate {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        &_name, &_groupName, &_domainName,
+        &_creator, &_registrationDate {
+            max-width: 10em;
+        }
+
+        &_description {
+            max-width: 15em;
+        }
+    }
+
+    tr {
+        a.item-info {
+            opacity: .1;
+        }
+
+        &:hover {
+            cursor: pointer;
+
+            a.item-info {
+                opacity: 1;
+            }
+        }
+
+        &.table-active {
+            &, & td {
+                font-weight: bold;
+                background-color: var(--bs-info);
+                color: var(--bs-info-text-emphasis);
+            }
+        }
+    }
+}

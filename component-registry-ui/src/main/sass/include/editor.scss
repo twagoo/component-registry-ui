@@ -1,0 +1,56 @@
+@use 'common.scss';
+
+/***
+*
+* EDITOR
+*
+*/
+
+#spec-form {
+
+    div.cmd-element, div.cmd-component, div.cmd-attribute {
+        border: 2px solid transparent;
+        border-left: 2px solid var(--bs-gray-200);
+
+        &:hover {
+            background: var(--bs-gray-100);
+            border: 2px dotted var(--bs-gray-800);
+            padding-left: 0px;
+
+            > .editor-section-header {
+                background: var(--bs-gray-300);
+            }
+        }
+
+        > .editor-section-header {
+            padding: .2em;
+
+            .h4 {
+                cursor: pointer;
+                text-decoration: underline;
+            }
+        }
+    }
+
+    div.cmd-attribute > .editor-section-header .h4 {
+        color: peru;
+    }
+
+    div.cmd-element > .editor-section-header .h4 {
+        color: olive;
+    }
+
+    div.cmd-component > .editor-section-header .h4 {
+        color: salmon;
+    }
+
+    // Transitions
+    div.cmd-element, div.cmd-component {
+
+        &:has(.btn.htmx-request) {
+            opacity: .2;
+            transition: opacity 300ms ease-in-out;
+        }
+    }
+
+}
