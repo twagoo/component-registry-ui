@@ -102,4 +102,14 @@
     div.cmd-component > .editor-section-header .h4 {
         color: salmon;
     }
+
+    // Transitions
+    div.cmd-element, div.cmd-component {
+
+        &:has(.btn.htmx-request) {
+            opacity: .2;
+            transition: opacity 300ms ease-in-out;
+        }
+    }
+
 }

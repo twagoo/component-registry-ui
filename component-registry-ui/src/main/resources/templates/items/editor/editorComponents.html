@@ -24,45 +24,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <main>
             <!--/* Common action buttons (delete, move) for components, elements, attributes */-->
             <div th:fragment="blockEditControls(path, parentId, itemName, type, canMoveUp, canMoveDown)"
-                 th:with="TransformationActions=${T(eu.clarin.cmdi.componentregistry.ui.service.TransformationActions)}">
+                 th:with="TransformationActions=${T(eu.clarin.cmdi.componentregistry.ui.service.TransformationActions)}"
+                 th:hx-target="|#${parentId}|"
+                 th:hx-select="|#${parentId}|"
+                 hx-swap="innerHTML"
+                 th:hx-push-url="true">
 
                 <!--/* Delete button */-->
-                <a href="#" class="btn btn-outline-danger" title="Delete"
+                <a href="#" class="btn btn-outline-danger action-delete" title="Delete"
                    th:hx-post="@{/editor/transform(
                    operation=${TransformationActions.DELETE},
                    path=${path},
-                   itemId=${rootComponentId}, uniqId=${#strings.randomAlphanumeric(6)})}"
-                   th:hx-target="|#${parentId}|"
-                   th:hx-select="|#${parentId}|"
-                   th:hx-push-url="true">
+                   itemId=${rootComponentId}, uniqId=${#strings.randomAlphanumeric(6)})}">
                     <i class="fa-solid fa-trash"></i>
                     <span class="visually-hidden">Delete</span>
                 </a>
 
                 <!--/* "Move up" button */-->
-                <a href="#" class="btn btn-outline-primary" title="Move up"
+                <a href="#" class="btn btn-outline-primary action-move" title="Move up"
                    th:classAppend="${canMoveUp ? '' : 'disabled opacity-25'  }"
                    th:hx-post="@{/editor/transform(
                    operation=${TransformationActions.moveUpActionFor(type)},
                    path=${path},
-                   itemId=${rootComponentId}, uniqId=${#strings.randomAlphanumeric(6)})}"
-                   th:hx-target="|#${parentId}|"
-                   th:hx-select="|#${parentId}|"
-                   hx-push-url="true">
+                   itemId=${rootComponentId}, uniqId=${#strings.randomAlphanumeric(6)})}">
                     <i class="fa-solid fa-arrow-up"></i>
                     <span class="visually-hidden">Move up</span>
                 </a>
 
                 <!--/* "Move down" button */-->
-                <a href="#" class="btn btn-outline-primary" title="Move down"
+                <a href="#" class="btn btn-outline-primary action-move" title="Move down"
                    th:classAppend="${canMoveDown ? '' : 'disabled opacity-25'  }"
                    th:hx-post="@{/editor/transform(
                    operation=${TransformationActions.moveDownActionFor(type)},
                    path=${path},
-                   itemId=${rootComponentId}, uniqId=${#strings.randomAlphanumeric(6)})}"
-                   th:hx-target="|#${parentId}|"
-                   th:hx-select="|#${parentId}|"
-                   hx-push-url="true">
+                   itemId=${rootComponentId}, uniqId=${#strings.randomAlphanumeric(6)})}">
                     <i class="fa-solid fa-arrow-down"></i>
                     <span class="visually-hidden">Move down</span>
                 </a>
@@ -70,7 +65,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             <!--/* Add component button */-->
             <div th:fragment="addChildComponentButton(path, parentId)">
-                <a href="#" class="btn btn-primary" title="Add a component"
+                <a href="#" class="btn btn-link btn-sm" title="Add a component"
                    th:hx-post="@{/editor/transform(
                    operation=${TransformationActions.ADD_CHILD_COMPONENT},
                    path=${basePath},
@@ -85,7 +80,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             <!--/* Add element button */-->
             <div th:fragment="addChildElementButton(path, parentId)">
-                <a href="#" class="btn btn-primary" title="Add an element"
+                <a href="#" class="btn btn-link btn-sm" title="Add an element"
                    th:hx-post="@{/editor/transform(
                    operation=${TransformationActions.ADD_CHILD_ELEMENT},
                    path=${basePath},

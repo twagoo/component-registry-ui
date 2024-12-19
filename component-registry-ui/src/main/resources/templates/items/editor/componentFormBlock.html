@@ -55,7 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <div class="collapse" th:id="|${fieldsDivId}_outer|">
                         <th:block th:fragment="componentBlockContent(component, basePath, fieldsDivId)"
                                   th:with="TransformationActions=${T(eu.clarin.cmdi.componentregistry.ui.service.TransformationActions)}">
-                            <div th:id="${fieldsDivId}">
+                            <div class="component-content" th:id="${fieldsDivId}">
                                 <!--/* The form part */-->
                                 <div class="card card-body m-2">
                                     <!--/* Component property fields */-->
@@ -73,9 +73,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                 </div>
 
                                 <!--/* The children part: Elements */-->
-                                <div class="p-2 m-2 border rounded">
-                                    <span class="h3">Elements</span>
-                                    <div class="p-2" th:if="${#lists.size(component.element) == 0}">
+                                <div class="p-2">
+                                    <span class="h3 visually-hidden">Elements</span>
+                                    <div class="p-2 visually-hidden" th:if="${#lists.size(component.element) == 0}">
                                         No elements
                                     </div>
 
@@ -89,7 +89,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                         </div>
                                     </div>
 
-                                    <div class="p-2">
+                                    <div class="px-2">
                                         <div th:replace="~{/items/editor/editorComponents 
                                              :: addChildElementButton(path = ${path}, parentId=${fieldsDivId})}">
                                             <!--/* Add element button */-->
@@ -98,9 +98,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                 </div>
 
                                 <!--/* The children part: Components */-->
-                                <div class="p-2 m-2 border rounded">
-                                    <span class="h3">Components</span>
-                                    <div class="p-2" th:if="${#lists.size(component.component) == 0}">
+                                <div class="p-2">
+                                    <span class="h3 visually-hidden">Components</span>
+                                    <div class="p-2 visually-hidden" th:if="${#lists.size(component.component) == 0}">
                                         No components
                                     </div>
 
@@ -129,7 +129,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                         </th:block>
                                     </div>
 
-                                    <div class="p-2">
+                                    <div class="px-2">
                                         <div th:replace="~{/items/editor/editorComponents 
                                              :: addChildComponentButton(path = ${path}, parentId=${fieldsDivId})}">
                                             <!--/* Add component button */-->
