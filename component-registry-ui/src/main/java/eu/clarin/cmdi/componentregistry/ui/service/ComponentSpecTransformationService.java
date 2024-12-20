@@ -89,10 +89,33 @@ public class ComponentSpecTransformationService {
         );
     }
 
+    public ComponentSpec addChildAttributeToElement(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
+        return addChildItemToElement(spec, path,
+                element -> {
+                    if (element.getAttributeList() == null) {
+                        element.setAttributeList(new AttributeListType());
+                    }
+                    final AttributeListType attributeList = element.getAttributeList();
+                    assert attributeList != null;
+                    attributeList.addAttributeItem(new Attribute());
+                }
+        );
+    }
+
     private ComponentSpec addChildItemToComponent(ComponentSpec spec, String path, Consumer<ComponentType> addLogic) throws JsonProcessingException, ComponentSpecTransformationException {
+        return addChildItem(spec, path, addLogic, new TypeRef<ComponentType>() {
+        });
+    }
+
+    public ComponentSpec addChildItemToElement(ComponentSpec spec, String path, Consumer<ElementType> addLogic) throws JsonProcessingException, ComponentSpecTransformationException {
+        return addChildItem(spec, path, addLogic, new TypeRef<ElementType>() {
+        });
+    }
+
+    private <T> ComponentSpec addChildItem(ComponentSpec spec, String path, Consumer<T> addLogic, TypeRef<T> typeRef) throws JsonProcessingException, ComponentSpecTransformationException {
         final DocumentContext doc = readSpecAsJson(spec);
         try {
-            final ComponentType parent = doc.read("$." + path, ComponentType.class);
+            final T parent = doc.read("$." + path, typeRef);
 
             if (parent != null) {
                 addLogic.accept(parent);
@@ -104,11 +127,6 @@ public class ComponentSpecTransformationService {
             log.warn("Failed to add item at path: " + path, ex);
         }
         throw new ComponentSpecTransformationException(String.format("Could not add item to spec at [%s]", path));
-    }
-
-    public ComponentSpec addChildAttributeToElement(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
-        //TODO
-        throw new ComponentSpecTransformationException(String.format("Could not add attribute to spec at [%s]", path));
     }
 
     public ComponentSpec insertComponentBefore(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
