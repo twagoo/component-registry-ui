@@ -48,6 +48,11 @@ public class ComponentSpecTransformationService {
     private final ObjectMapper objectMapper;
     private final Configuration configuration;
 
+    private static final TypeRef<List<ComponentType>> COMPONENT_TYPE = new TypeRef<List<ComponentType>>() {
+    };
+    private static final TypeRef<List<ElementType>> ELEMENT_TYPE = new TypeRef<List<ElementType>>() {
+    };
+
     public ComponentSpecTransformationService(ObjectMapper objectMapper, com.jayway.jsonpath.Configuration jsonPathConfiguration) {
         this.objectMapper = objectMapper;
         this.configuration = jsonPathConfiguration;
@@ -107,7 +112,7 @@ public class ComponentSpecTransformationService {
         });
     }
 
-    public ComponentSpec addChildItemToElement(ComponentSpec spec, String path, Consumer<ElementType> addLogic) throws JsonProcessingException, ComponentSpecTransformationException {
+    private ComponentSpec addChildItemToElement(ComponentSpec spec, String path, Consumer<ElementType> addLogic) throws JsonProcessingException, ComponentSpecTransformationException {
         return addChildItem(spec, path, addLogic, new TypeRef<ElementType>() {
         });
     }
@@ -130,13 +135,11 @@ public class ComponentSpecTransformationService {
     }
 
     public ComponentSpec insertComponentBefore(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
-        return insertItemBefore(spec, path, () -> new ComponentType(), new TypeRef<List<ComponentType>>() {
-        });
+        return insertItemBefore(spec, path, () -> new ComponentType(), COMPONENT_TYPE);
     }
 
     public ComponentSpec insertElementBefore(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
-        return insertItemBefore(spec, path, () -> new ElementType(), new TypeRef<List<ElementType>>() {
-        });
+        return insertItemBefore(spec, path, () -> new ElementType(), ELEMENT_TYPE);
     }
 
     private <T> ComponentSpec insertItemBefore(ComponentSpec spec, String path, Supplier<T> constructor, TypeRef<List<T>> typeRef) throws JsonProcessingException, ComponentSpecTransformationException {
@@ -170,23 +173,19 @@ public class ComponentSpecTransformationService {
     }
 
     public ComponentSpec moveComponentUp(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
-        return moveItem(spec, path, -1, new TypeRef<List<ComponentType>>() {
-        });
+        return moveItem(spec, path, -1, COMPONENT_TYPE);
     }
 
     public ComponentSpec moveComponentDown(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
-        return moveItem(spec, path, +1, new TypeRef<List<ComponentType>>() {
-        });
+        return moveItem(spec, path, +1, COMPONENT_TYPE);
     }
 
     public ComponentSpec moveElementUp(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
-        return moveItem(spec, path, -1, new TypeRef<List<ElementType>>() {
-        });
+        return moveItem(spec, path, -1, ELEMENT_TYPE);
     }
 
     public ComponentSpec moveElementDown(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
-        return moveItem(spec, path, +1, new TypeRef<List<ElementType>>() {
-        });
+        return moveItem(spec, path, +1, ELEMENT_TYPE);
     }
 
     public ComponentSpec moveAttributeUp(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
