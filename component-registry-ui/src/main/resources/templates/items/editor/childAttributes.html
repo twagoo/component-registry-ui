@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--
+Copyright (C) 2024 CLARIN ERIC
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Child attributes</title>
+    </head>
+
+    <body>
+        <main>
+            <!-- Child attributes section for elements and components -->
+            <div th:fragment="childAttributes(attributeList, basePath, parentId, parentType)"
+                 th:with="hasAttributes=${attributeList != null 
+                 &amp;&amp; attributeList.attribute !=null
+                 &amp;&amp; !#lists.isEmpty(attributeList.attribute)}">
+                <span class="h3 visually-hidden">Attributes</span>
+                <div class="p-2 visually-hidden" th:if="${!hasAttributes}">
+                    No attributes
+                </div>
+
+                <th:block th:if="${hasAttributes}">
+                    <div class="ms-2"
+                         th:each="attribute, iterStat : ${attributeList.attribute}">
+                        <!--/* Attribute form block */-->
+                        <div th:replace="~{items/editor/attributeFormBlock :: attributeBlock(
+                             attribute = ${attribute}, 
+                             basePath = |${basePath}.attributeList.attribute[${iterStat.index}]|,
+                             parentId = ${fieldsDivId},
+                             iterStat = ${iterStat})}">
+                        </div>
+                    </div>
+                </th:block>
+
+                <div class="px-2">
+                    <!--/* Add attribute button */-->
+                    <div th:replace="~{/items/editor/transformationControls 
+                         :: addChildAttributeButton(
+                         type = ${parentType},
+                         path = ${basePath}, 
+                         parentId=${fieldsDivId})}">
+                    </div>
+                </div>
+            </div>  <!-- end fragment: childAttributes -->
+        </main>
+    </body>
+</html>

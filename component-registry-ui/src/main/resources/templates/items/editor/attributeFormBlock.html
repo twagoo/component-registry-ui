@@ -31,12 +31,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             <div class="col-xl-9 h4"
                                  data-bs-toggle="collapse" 
                                  th:href="|#${fieldsDivId}_outer|">
-                                Attribute [[*{name}]]
+                                Attribute: [[*{name}]]
                             </div>
 
                             <div class="col-xl-3 text-xl-end">
                                 <!--/* Delete - Move up - Move down */-->
-                                <div th:replace="~{items/editor/editorComponents 
+                                <div th:replace="~{items/editor/transformationControls 
                                      :: blockEditControls(
                                         type = 'Attribute',
                                         path = ${basePath}, 
@@ -55,13 +55,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             <div class="card card-body m-2">
                                 <!--/* Attribute property fields */-->
                                 <fieldset class="p-1" th:each="field : ${ {'name', 'conceptLink'} }">
-                                    <div th:with="path=|${basePath}.${field}|">
-                                        <label th:for="${path}" class="form-label">
+                                    <div th:with="fieldPath=|${basePath}.${field}|">
+                                        <label th:for="${fieldPath}" class="form-label">
                                             [[${field}]]
                                         </label>
                                         <input class="form-control"
-                                               th:id="${path}"
-                                               th:name="${path}"
+                                               th:id="${fieldPath}"
+                                               th:name="${fieldPath}"
                                                th:value="${attribute[field]}" />
                                     </div>
                                 </fieldset>

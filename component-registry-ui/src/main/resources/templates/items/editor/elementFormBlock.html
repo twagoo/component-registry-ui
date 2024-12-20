@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                             <div class="col-xl-3 text-xl-end">
                                 <!--/* Delete - Move up - Move down */-->
-                                <div th:replace="~{items/editor/editorComponents 
+                                <div th:replace="~{items/editor/transformationControls 
                                      :: blockEditControls(
                                         type = 'Element',
                                         path = ${basePath}, 
@@ -69,7 +69,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             
                                 <!--/* Child attributes */-->
                                 <div class="p-2">
-                                    <div th:replace="~{items/editor/editorComponents :: childAttributes(
+                                    <div th:replace="~{items/editor/childAttributes :: childAttributes(
                                          attributeList = ${element.attributeList},
                                          basePath = ${basePath}, 
                                          parentId = ${fieldsDivId}, 

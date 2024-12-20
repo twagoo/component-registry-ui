@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title>Shared components</title>
+        <title>Reusable controls for component spec transformation</title>
     </head>
 
     <body>
@@ -61,10 +61,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <i class="fa-solid fa-arrow-down"></i>
                     <span class="visually-hidden">Move down</span>
                 </a>
-            </div>
+            </div> <!-- end fragment: blockEditControls -->
 
             <!--/* Add component button */-->
-            <div th:fragment="addChildComponentButton(path, parentId)">
+            <div th:fragment="addChildComponentButton(path, parentId)"
+                 th:with="TransformationActions=${T(eu.clarin.cmdi.componentregistry.ui.service.TransformationActions)}">
                 <a href="#" class="btn btn-link btn-sm" title="Add a component"
                    th:hx-post="@{/editor/transform(
                    operation=${TransformationActions.ADD_CHILD_COMPONENT},
@@ -76,10 +77,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <i class="fa-solid fa-plus"></i>
                     <span>Add a component</span>
                 </a>
-            </div>
+            </div> <!-- end fragment: addChildComponentButton -->
 
             <!--/* Add element button */-->
-            <div th:fragment="addChildElementButton(path, parentId)">
+            <div th:fragment="addChildElementButton(path, parentId)"
+                 th:with="TransformationActions=${T(eu.clarin.cmdi.componentregistry.ui.service.TransformationActions)}">
                 <a href="#" class="btn btn-link btn-sm" title="Add an element"
                    th:hx-post="@{/editor/transform(
                    operation=${TransformationActions.ADD_CHILD_ELEMENT},
@@ -91,10 +93,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <i class="fa-solid fa-plus"></i>
                     <span>Add an element</span>
                 </a>    
-            </div>
+            </div> <!-- end fragment: addChildElementButton -->
 
             <!--/* Add element button */-->
-            <div th:fragment="addChildAttributeButton(path, parentId, type)">
+            <div th:fragment="addChildAttributeButton(path, parentId, type)"
+                 th:with="TransformationActions=${T(eu.clarin.cmdi.componentregistry.ui.service.TransformationActions)}">
                 <a href="#" class="btn btn-link btn-sm" title="Add an attribute"
                    th:hx-post="@{/editor/transform(
                    operation=${TransformationActions.addAttributeActionFor(type)},
@@ -107,42 +110,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <span>Add an attribute</span>
                 </a>    
             </div>
-
-            <!-- Child attribute section for elements and components -->
-            
-            <div th:fragment="childAttributes(attributeList, basePath, parentId, parentType)"
-                      th:with="hasAttributes=${attributeList != null 
-                      &amp;&amp; attributeList.attribute !=null
-                      &amp;&amp; !#lists.isEmpty(attributeList.attribute)}">
-                <span class="h3 visually-hidden">Attributes</span>
-                <div class="p-2 visually-hidden" th:if="${!hasAttributes}">
-                    No attributes
-                </div>
-
-                <th:block th:if="${hasAttributes}">
-                    <div class="ms-2"
-                         th:each="attribute, iterStat : ${attributeList.attribute}">
-                        <!--/* Attribute form block */-->
-                        <div th:replace="~{items/editor/attributeFormBlock :: attributeBlock(
-                             attribute = ${attribute}, 
-                             basePath = |${basePath}.attributeList.attribute[${iterStat.index}]|,
-                             parentId = ${fieldsDivId},
-                             iterStat = ${iterStat})}">
-                        </div>
-                    </div>
-                </th:block>
-
-                <div class="px-2">
-                    <!--/* Add attribute button */-->
-                    <div th:replace="~{/items/editor/editorComponents 
-                         :: addChildAttributeButton(
-                         type = ${parentType},
-                         path = ${basePath}, 
-                         parentId=${fieldsDivId})}">
-                    </div>
-                </div>
-            </div>
-
         </main>
     </body>
 </html>

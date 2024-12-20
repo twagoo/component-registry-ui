@@ -38,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                             <div class="col-xl-3 text-xl-end">
                                 <!--/* Delete - Move up - Move down */-->
-                                <div th:replace="~{items/editor/editorComponents 
+                                <div th:replace="~{items/editor/transformationControls 
                                      :: blockEditControls(
                                      type = 'Component',
                                      path = ${basePath}, 
@@ -54,8 +54,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                     <!--/* The "component content block" */-->
                     <div class="collapse" th:id="|${fieldsDivId}_outer|">
-                        <th:block th:fragment="componentBlockContent(component, basePath, fieldsDivId)"
-                                  th:with="TransformationActions=${T(eu.clarin.cmdi.componentregistry.ui.service.TransformationActions)}">
+                        <th:block th:fragment="componentBlockContent(component, basePath, fieldsDivId)">
                             <div class="component-content" th:id="${fieldsDivId}">
                                 <!--/* The form part */-->
                                 <div class="card card-body m-2">
@@ -74,79 +73,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                 </div>
 
                                 <!--/* Children: Attributes */-->
-                                <div class="p-2">
-                                    <div th:replace="~{items/editor/editorComponents :: childAttributes(
-                                         attributeList = ${component.attributeList},
-                                         basePath = ${basePath}, 
-                                         parentId = ${fieldsDivId}, 
-                                         parentType = 'Component')}"></div>
+                                <div class="p-2"
+                                     th:insert="~{items/editor/childAttributes :: childAttributes(
+                                     attributeList = ${component.attributeList},
+                                     basePath = ${basePath}, 
+                                     parentId = ${fieldsDivId}, 
+                                     parentType = 'Component')}">
                                 </div>
 
                                 <!--/* Children: Elements */-->
-                                <div class="p-2">
-                                    <span class="h3 visually-hidden">Elements</span>
-                                    <div class="p-2 visually-hidden" th:if="${#lists.size(component.element) == 0}">
-                                        No elements
-                                    </div>
-
-                                    <div class="ms-2" 
-                                         th:each="element, iterStat : ${component.element}">
-                                        <!--/* Element form block */-->
-                                        <div th:replace="~{items/editor/elementFormBlock :: elementBlock(
-                                             element = ${element}, 
-                                             basePath = |${basePath}.element[${iterStat.index}]|,
-                                             parentId = ${fieldsDivId},
-                                             iterStat = ${iterStat})}">
-                                        </div>
-                                    </div>
-
-                                    <div class="px-2">
-                                        <!--/* Add element button */-->
-                                        <div th:replace="~{/items/editor/editorComponents 
-                                             :: addChildElementButton(path = ${path}, parentId=${fieldsDivId})}">
-                                        </div>
-                                    </div>
+                                <div class="p-2"
+                                     th:insert="~{items/editor/childElements :: childElements(
+                                     elements = ${component.element},
+                                     basePath = ${basePath}, 
+                                     parentId = ${fieldsDivId})}">
                                 </div>
 
                                 <!--/* Children: Components */-->
-                                <div class="p-2">
-                                    <span class="h3 visually-hidden">Components</span>
-                                    <div class="p-2 visually-hidden" th:if="${#lists.size(component.component) == 0}">
-                                        No components
-                                    </div>
-
-                                    <div class="ms-2" 
-                                         th:each="childComponent, iterStat : ${component.component}"
-                                         th:with="isInline= ${#strings.isEmpty(childComponent.componentRef)}">
-
-                                        <!--/* Inline components */-->
-                                        <th:block th:if="${isInline}">
-                                            <!--/* Component form block */-->
-                                            <div th:replace="~{items/editor/componentFormBlock :: componentBlock(
-                                                 component = ${childComponent}, 
-                                                 basePath = |${basePath}.component[${iterStat.index}]|,
-                                                 parentId = ${fieldsDivId},
-                                                 iterStat = ${iterStat})}">
-                                            </div>
-                                        </th:block>
-
-                                        <!--/* Referenced components */-->
-                                        <th:block th:if="${!isInline}">
-                                            <div  th:replace="~{items/editor/componentRef :: componentRef(
-                                                  component = ${childComponent}, 
-                                                  basePath = |${basePath}.component[${iterStat.index}]|,
-                                                  parentId = ${fieldsDivId},
-                                                  iterStat = ${iterStat})}">
-                                            </div>
-                                        </th:block>
-                                    </div>
-
-                                    <div class="px-2">
-                                        <!--/* Add component button */-->
-                                        <div th:replace="~{/items/editor/editorComponents 
-                                             :: addChildComponentButton(path = ${basePath}, parentId=${fieldsDivId})}"></div>
-                                    </div>
-
+                                <div class="p-2"
+                                     th:insert="~{items/editor/childComponents :: childComponents(
+                                     components = ${component.component},
+                                     basePath = ${basePath}, 
+                                     parentId = ${fieldsDivId})}">
                                 </div>
                             </div>
                         </th:block>

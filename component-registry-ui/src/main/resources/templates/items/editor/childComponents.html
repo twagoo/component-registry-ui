@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!--
+Copyright (C) 2024 CLARIN ERIC
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Child components</title>
+    </head>
+
+    <body>
+        <main>
+            <!-- Child components section for components -->
+            <div th:fragment="childComponents(components, basePath, parentId)">
+
+                <span class="h3 visually-hidden">Components</span>
+                <div class="p-2 visually-hidden" th:if="${#lists.size(components) == 0}">
+                    No components
+                </div>
+
+                <div class="ms-2" 
+                     th:each="childComponent, iterStat : ${components}"
+                     th:with="isInline= ${#strings.isEmpty(childComponent.componentRef)}">
+
+                    <!--/* Inline components */-->
+                    <th:block th:if="${isInline}">
+                        <!--/* Component form block */-->
+                        <div th:replace="~{items/editor/componentFormBlock :: componentBlock(
+                             component = ${childComponent}, 
+                             basePath = |${basePath}.component[${iterStat.index}]|,
+                             parentId = ${fieldsDivId},
+                             iterStat = ${iterStat})}">
+                        </div>
+                    </th:block>
+
+                    <!--/* Referenced components */-->
+                    <th:block th:if="${!isInline}">
+                        <div  th:replace="~{items/editor/componentRef :: componentRef(
+                              component = ${childComponent}, 
+                              basePath = |${basePath}.component[${iterStat.index}]|,
+                              parentId = ${fieldsDivId},
+                              iterStat = ${iterStat})}">
+                        </div>
+                    </th:block>
+                </div>
+
+                <div class="px-2">
+                    <!--/* Add component button */-->
+                    <div th:replace="~{/items/editor/transformationControls 
+                         :: addChildComponentButton(path = ${basePath}, parentId=${fieldsDivId})}"></div>
+                </div>
+            </div> <!-- end fragment: childComponents -->
+        </main>
+    </body>
+</html>
