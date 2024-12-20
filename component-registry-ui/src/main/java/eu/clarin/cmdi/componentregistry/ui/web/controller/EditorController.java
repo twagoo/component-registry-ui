@@ -95,9 +95,11 @@ public class EditorController {
     }
 
     /**
-     * GET is supported for /transform for the cases in which the /transform URL is pushed into history
+     * GET is supported for /transform for the cases in which the /transform URL
+     * is pushed into history
+     *
      * @param itemId
-     * @return 
+     * @return
      */
     @GetMapping(path = "/transform")
     public ModelAndView getOperationResult(@RequestParam(required = false) String itemId) {
@@ -106,6 +108,13 @@ public class EditorController {
         } else {
             return new ModelAndView("redirect:/editor/{itemId}", ImmutableMap.of("itemId", itemId));
         }
+    }
+
+    @GetMapping("/referencedComponent/{componentId}")
+    public String getReferencedComponent(@PathVariable String componentId, Model model) {
+        final ComponentSpec spec = api.getItemSpec(componentId, null);
+        model.addAttribute("spec", spec);
+        return "/editor/fragments/componentRef :: expandedComponent";
     }
 
     private ComponentSpec transform(String operation, ComponentSpec spec, String path) throws ComponentSpecTransformationException, JsonProcessingException {
