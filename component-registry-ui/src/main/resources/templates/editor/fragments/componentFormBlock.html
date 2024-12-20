@@ -38,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                             <div class="col-xl-3 text-xl-end">
                                 <!--/* Delete - Move up - Move down */-->
-                                <div th:replace="~{items/editor/transformationControls 
+                                <div th:replace="~{/editor/fragments/transformationControls 
                                      :: blockEditControls(
                                      type = 'Component',
                                      path = ${basePath}, 
@@ -74,7 +74,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                                 <!--/* Children: Attributes */-->
                                 <div class="p-2"
-                                     th:insert="~{items/editor/childAttributes :: childAttributes(
+                                     th:insert="~{/editor/fragments/childAttributes :: childAttributes(
                                      attributeList = ${component.attributeList},
                                      basePath = ${basePath}, 
                                      parentId = ${fieldsDivId}, 
@@ -83,7 +83,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                                 <!--/* Children: Elements */-->
                                 <div class="p-2"
-                                     th:insert="~{items/editor/childElements :: childElements(
+                                     th:insert="~{/editor/fragments/childElements :: childElements(
                                      elements = ${component.element},
                                      basePath = ${basePath}, 
                                      parentId = ${fieldsDivId})}">
@@ -91,7 +91,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                                 <!--/* Children: Components */-->
                                 <div class="p-2"
-                                     th:insert="~{items/editor/childComponents :: childComponents(
+                                     th:insert="~{/editor/fragments/childComponents :: childComponents(
                                      components = ${component.component},
                                      basePath = ${basePath}, 
                                      parentId = ${fieldsDivId})}">

@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 <div class="ms-2" 
                      th:each="element, iterStat : ${elements}">
                     <!--/* Element form block */-->
-                    <div th:replace="~{items/editor/elementFormBlock :: elementBlock(
+                    <div th:replace="~{/editor/fragments/elementFormBlock :: elementBlock(
                          element = ${element}, 
                          basePath = |${basePath}.element[${iterStat.index}]|,
                          parentId = ${fieldsDivId},
@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                 <div class="px-2">
                     <!--/* Add element button */-->
-                    <div th:replace="~{/items/editor/transformationControls 
+                    <div th:replace="~{/editor/fragments/transformationControls 
                          :: addChildElementButton(path = ${basePath}, parentId=${parentId})}">
                     </div>
                 </div>

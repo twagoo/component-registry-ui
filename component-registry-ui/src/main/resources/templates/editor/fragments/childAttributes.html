@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <div class="ms-2"
                          th:each="attribute, iterStat : ${attributeList.attribute}">
                         <!--/* Attribute form block */-->
-                        <div th:replace="~{items/editor/attributeFormBlock :: attributeBlock(
+                        <div th:replace="~{/editor/fragments/attributeFormBlock :: attributeBlock(
                              attribute = ${attribute}, 
                              basePath = |${basePath}.attributeList.attribute[${iterStat.index}]|,
                              parentId = ${fieldsDivId},
@@ -47,7 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                 <div class="px-2">
                     <!--/* Add attribute button */-->
-                    <div th:replace="~{/items/editor/transformationControls 
+                    <div th:replace="~{/editor/fragments/transformationControls 
                          :: addChildAttributeButton(
                          type = ${parentType},
                          path = ${basePath}, 

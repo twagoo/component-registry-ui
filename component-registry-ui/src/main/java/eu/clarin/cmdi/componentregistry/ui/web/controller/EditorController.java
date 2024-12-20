@@ -69,7 +69,7 @@ public class EditorController {
             model.addAttribute("description", description);
             model.addAttribute("spec", spec);
 
-            return "items/editor/editor";
+            return "editor/editor";
         }
     }
 
@@ -91,7 +91,7 @@ public class EditorController {
         model.addAttribute("componentId", spec.getHeader().getId());
         model.addAttribute("spec", transformedSpec);
 
-        return "items/editor/specForm";
+        return "editor/fragments/specForm :: specForm";
     }
 
     /**

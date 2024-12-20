@@ -37,7 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <!--/* Inline components */-->
                     <th:block th:if="${isInline}">
                         <!--/* Component form block */-->
-                        <div th:replace="~{items/editor/componentFormBlock :: componentBlock(
+                        <div th:replace="~{/editor/fragments/componentFormBlock :: componentBlock(
                              component = ${childComponent}, 
                              basePath = |${basePath}.component[${iterStat.index}]|,
                              parentId = ${fieldsDivId},
@@ -47,7 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                     <!--/* Referenced components */-->
                     <th:block th:if="${!isInline}">
-                        <div  th:replace="~{items/editor/componentRef :: componentRef(
+                        <div  th:replace="~{/editor/fragments/componentRef :: componentRef(
                               component = ${childComponent}, 
                               basePath = |${basePath}.component[${iterStat.index}]|,
                               parentId = ${fieldsDivId},
@@ -58,7 +58,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                 <div class="px-2">
                     <!--/* Add component button */-->
-                    <div th:replace="~{/items/editor/transformationControls 
+                    <div th:replace="~{/editor/fragments/transformationControls 
                          :: addChildComponentButton(path = ${basePath}, parentId=${fieldsDivId})}"></div>
                 </div>
             </div> <!-- end fragment: childComponents -->

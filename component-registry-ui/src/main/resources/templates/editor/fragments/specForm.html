@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             <div class="container">
 
-                <div th:fragment="spec-form(componentId)" id="spec-form">
+                <div th:fragment="specForm(componentId)" id="spec-form">
                     <form th:action="@{/editor/{componentId}/spec(componentId=${componentId})}"
                           th:with="rootComponentId=${componentId}"
                           method="post">
@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <input type="hidden" name="header.id" th:value="${componentId}" />
 
                         <div id="root-component-fields">
-                            <div th:replace="~{items/editor/componentFormBlock :: componentBlockContent(
+                            <div th:replace="~{/editor/fragments/componentFormBlock :: componentBlockContent(
                                  component = ${spec.component},
                                  basePath = 'component',
                                  fieldsDivId = 'root-component-fields',
