@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <main>
             <div th:fragment="elementBlock(element, basePath, parentId, iterStat)">
                 <div th:object="${element}" class="cmd-element p-2"
-                    th:with="fieldsDivId=|${#strings.replace(#strings.replace(#strings.replace(basePath,'[','---'),']','---'),'.','---')}_fields|">
+                     th:with="fieldsDivId=|${#strings.replace(#strings.replace(#strings.replace(basePath,'[','---'),']','---'),'.','---')}_fields|">
 
                     <div class="editor-section-header container">
                         <div class="row">
@@ -38,12 +38,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                 <!--/* Delete - Move up - Move down */-->
                                 <div th:replace="~{/editor/fragments/transformationControls 
                                      :: blockEditControls(
-                                        type = 'Element',
-                                        path = ${basePath}, 
-                                        parentId = ${parentId},
-                                        itemName = |element '${element.name}'|,
-                                        canMoveUp = ${iterStat.index &gt; 0},
-                                        canMoveDown = ${iterStat.index &lt; iterStat.size - 1})}">
+                                     type = 'Element',
+                                     path = ${basePath}, 
+                                     parentId = ${parentId},
+                                     itemName = |element '${element.name}'|,
+                                     canMoveUp = ${iterStat.index &gt; 0},
+                                     canMoveDown = ${iterStat.index &lt; iterStat.size - 1})}">
                                     [delete, move]
                                 </div>
                             </div>
@@ -54,28 +54,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <div  th:id="${fieldsDivId}">
                             <div class="card card-body m-2">
                                 <!--/* Element property fields */-->
-                                <fieldset class="p-1" th:each="field : ${ {'name', 'conceptLink'} }">
-                                    <div th:with="fieldPath=|${basePath}.${field}|">
-                                        <label th:for="${fieldPath}" class="form-label">
-                                            [[${field}]]
-                                        </label>
-                                        <input class="form-control"
-                                               th:id="${fieldPath}"
-                                               th:name="${fieldPath}"
-                                               th:value="${element[field]}" />
-                                    </div>
+                                <fieldset class="p-1" th:each="field : ${ {'name', 'conceptLink', 'documentation'} }">
+                                    <label th:for="${fieldPath}" class="form-label" th:text="#{|editor.form.field.${field}|}">
+                                        [Field label]
+                                    </label>
+                                    <th:block th:switch="${field}" th:with="fieldPath=|${basePath}.${field}|">
+
+                                        <div th:case="documentation">
+                                            <div th:replace="~{/editor/fragments/documentation :: documentation(fieldPath = ${fieldPath}, value=${element[field]})}"></div>
+                                        </div>
+
+                                        <div th:case="*" >
+
+                                            <input class="form-control"
+                                                   th:id="${fieldPath}"
+                                                   th:name="${fieldPath}"
+                                                   th:value="${element[field]}" />
+                                        </div>
+                                    </th:block>
                                 </fieldset>
                             </div>
-                            
-                                <!--/* Child attributes */-->
-                                <div class="p-2">
-                                    <div th:replace="~{/editor/fragments/childAttributes :: childAttributes(
-                                         attributeList = ${element.attributeList},
-                                         basePath = ${basePath}, 
-                                         parentId = ${fieldsDivId}, 
-                                         parentType = 'Element')}"></div>
-                                </div>
-                            
+
+                            <!--/* Child attributes */-->
+                            <div class="p-2">
+                                <div th:replace="~{/editor/fragments/childAttributes :: childAttributes(
+                                     attributeList = ${element.attributeList},
+                                     basePath = ${basePath}, 
+                                     parentId = ${fieldsDivId}, 
+                                     parentType = 'Element')}"></div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
