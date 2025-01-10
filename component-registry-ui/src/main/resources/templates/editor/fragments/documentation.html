@@ -22,19 +22,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <body>
         <main>
-            <div th:fragment="documentation(fieldPath, value)">
-                <div th:each="doc, iterStat : ${value}"
-                     th:with="path = |${fieldPath}[${iterStat.index}]|">
-                    <input class="form-control"
-                           th:id="|${path}.lang|"
-                           th:name="|${path}.lang|"
-                           th:value="${doc.lang}" />
-                    <input class="form-control"
-                           th:id="|${path}.value|"
-                           th:name="|${path}.value|"
-                           th:value="${doc.value}" />
+            <div th:fragment="documentation(path, value)"
+                 th:with="TemplateUtils=${T(eu.clarin.cmdi.componentregistry.ui.TemplateUtils)},
+                 containerId = |${TemplateUtils.makeIdSafe(path)}_container|">
+                <div class="documentation-elements-container" th:id="${containerId}">
+                    <div th:each="doc, iterStat : ${value}"
+                         th:with="path = |${fieldPath}[${iterStat.index}]|">
+                        <div th:replace="~{/editor/fragments/documentation :: documentationElement(path=${path}, doc=${doc})}"></div>
+                    </div>
                 </div>
+                <button class="btn btn-primary" type="button"
+                        th:hx-get="@{/editor/newDocumentationElement}"
+                        th:hx-vals='|js:{"path": "${fieldPath}[" + document.getElementById("${containerId}").childElementCount + "]"}|' 
+                        hx-target="previous .documentation-elements-container"
+                        hx-swap="beforeend">
+                    Add documentation
+                </button>
                 <!-- TODO: control to add more documentation -->
+            </div>
+
+            <div th:fragment="documentationElement(path, doc)"
+                 class="input-group mb-3">
+                <input class="form-control"
+                       th:id="|${path}.value|"
+                       th:name="|${path}.value|"
+                       th:value="${doc.value}" />
+                <span class="input-group-text">Language</span>
+                <input class="form-control"
+                       th:id="|${path}.lang|"
+                       th:name="|${path}.lang|"
+                       th:value="${doc.lang}" />
             </div>
         </main>
     </body>

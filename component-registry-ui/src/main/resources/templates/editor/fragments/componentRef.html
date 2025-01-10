@@ -23,8 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <body>
         <main>
             <div th:fragment="componentRef(component, basePath, parentId, iterStat)"
-                 th:with="componentDivId=|${#strings.replace(#strings.replace(#strings.replace(basePath,'[','---'),']','---'),'.','---')}_ref|,
-                 titleId=|title_${#strings.replace(#strings.replace(component.componentRef,':','_'),'.','_')}|">
+                 th:with="TemplateUtils=${T(eu.clarin.cmdi.componentregistry.ui.TemplateUtils)},
+                 componentDivId=|${TemplateUtils.makeIdSafe(basePath)}_ref|,
+                 titleId=|title_${TemplateUtils.makeIdSafe(component.componentRef)}|">
                 <div th:object="${component}" th:id="${componentDivId}" class="cmd-component border-start p-2">
 
                     <div class="editor-section-header container">
@@ -71,7 +72,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
         <th:block th:remove="all">
             <div th:fragment="expandedComponent"
-                 th:with="titleId=|title_${#strings.replace(#strings.replace(spec.header.id,':','_'),'.','_')}|">
+                 th:with="TemplateUtils=${T(eu.clarin.cmdi.componentregistry.ui.TemplateUtils)},
+                 titleId=|title_${TemplateUtils.makeIdSafe(spec.header.id)}|">
                 <div th:id="${titleId}" class="col-xl-9 h4">
                     Component reference: [[${spec.header.name}]]
                 </div>

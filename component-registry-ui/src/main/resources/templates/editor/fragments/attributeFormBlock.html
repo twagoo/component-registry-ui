@@ -22,9 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <body>
         <main>
-            <div th:fragment="attributeBlock(attribute, basePath, parentId, iterStat)">
+            <div th:fragment="attributeBlock(attribute, basePath, parentId, iterStat)"
+                 th:with="TemplateUtils=${T(eu.clarin.cmdi.componentregistry.ui.TemplateUtils)}">
                 <div th:object="${attribute}" class="cmd-attribute p-2"
-                    th:with="fieldsDivId=|${#strings.replace(#strings.replace(#strings.replace(basePath,'[','---'),']','---'),'.','---')}_fields|">
+                     th:with="fieldsDivId=|${TemplateUtils.makeIdSafe(basePath)}_fields|">
 
                     <div class="editor-section-header container">
                         <div class="row">

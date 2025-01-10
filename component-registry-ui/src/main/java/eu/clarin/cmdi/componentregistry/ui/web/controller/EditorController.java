@@ -21,6 +21,7 @@ import com.google.common.collect.ImmutableMap;
 import eu.clarin.cmdi.componentregistry.openapi.client.api.ItemsControllerApi;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.BaseDescription;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
+import eu.clarin.cmdi.componentregistry.openapi.client.model.DocumentationType;
 import eu.clarin.cmdi.componentregistry.ui.service.ComponentSpecTransformationException;
 import eu.clarin.cmdi.componentregistry.ui.service.ComponentSpecTransformationService;
 import static eu.clarin.cmdi.componentregistry.ui.service.TransformationActions.*;
@@ -151,4 +152,12 @@ public class EditorController {
             }
         };
     }
+
+    @GetMapping("/newDocumentationElement")
+    public String newDocumentationElement(@RequestParam String path, Model model) {
+        model.addAttribute("path", path);
+        model.addAttribute("doc", new DocumentationType());
+        return "/editor/fragments/documentation :: documentationElement";
+    }
+
 }
