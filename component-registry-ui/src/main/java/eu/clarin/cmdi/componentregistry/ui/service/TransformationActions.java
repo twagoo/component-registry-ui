@@ -16,9 +16,6 @@
  */
 package eu.clarin.cmdi.componentregistry.ui.service;
 
-import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
-import java.util.function.BiFunction;
-
 /**
  *
  * @author twagoo

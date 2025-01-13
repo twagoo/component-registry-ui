@@ -25,16 +25,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <div th:fragment="documentation(path, value)"
                  th:with="TemplateUtils=${T(eu.clarin.cmdi.componentregistry.ui.TemplateUtils)},
                  containerId = |${TemplateUtils.makeIdSafe(path)}_container|">
-                <div class="documentation-elements-container" th:id="${containerId}">
+                <div class="documentation-elements-container" th:id="${containerId}"
+                     th:hx-target="|#${containerId}|"
+                     th:hx-select="|#${containerId}|">
                     <div th:each="doc, iterStat : ${value}"
                          th:with="path = |${fieldPath}[${iterStat.index}]|">
                         <div th:replace="~{/editor/fragments/documentation :: documentationElement(path=${path}, doc=${doc})}"></div>
                     </div>
                 </div>
                 <button class="btn btn-primary" type="button"
-                        th:hx-get="@{/editor/newDocumentationElement}"
+                        th:hx-get="@{/editor/newDocumentationElement(
+                        itemId=${rootComponentId}, uniqId=${#strings.randomAlphanumeric(6)})}"
                         th:hx-vals='|js:{"path": "${fieldPath}[" + document.getElementById("${containerId}").childElementCount + "]"}|' 
                         hx-target="previous .documentation-elements-container"
+                        hx-push-url="true"
                         hx-swap="beforeend">
                     Add documentation
                 </button>
@@ -42,7 +46,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </div>
 
             <div th:fragment="documentationElement(path, doc)"
-                 class="input-group mb-3">
+                 class="input-group mb-3"
+                 th:with="TransformationActions=${T(eu.clarin.cmdi.componentregistry.ui.service.TransformationActions)}">
                 <input class="form-control"
                        th:id="|${path}.value|"
                        th:name="|${path}.value|"
@@ -52,6 +57,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                        th:id="|${path}.lang|"
                        th:name="|${path}.lang|"
                        th:value="${doc.lang}" />
+                <a href="#" class="btn btn-outline-danger action-delete" 
+                   title="Delete" 
+                   th:hx-post="@{/editor/transform(
+                   operation=${TransformationActions.DELETE},
+                   path=${path},
+                   itemId=${rootComponentId}, uniqId=${#strings.randomAlphanumeric(6)})}"
+                   hx-push-url="true"
+                   hx-swap="outerHTML">
+                    <i class="fa-solid fa-trash"></i>
+                    <span class="visually-hidden">Delete</span>
+                </a>
             </div>
         </main>
     </body>
