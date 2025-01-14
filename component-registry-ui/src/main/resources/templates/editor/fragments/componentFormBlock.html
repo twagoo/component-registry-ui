@@ -27,9 +27,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <div th:fragment="componentBlock(component, basePath, parentId, iterStat)"
                  th:with="TemplateUtils=${T(eu.clarin.cmdi.componentregistry.ui.TemplateUtils)}">
                 <div th:object="${component}" class="cmd-component p-2"
-                     th:with="fieldsDivId=|${TemplateUtils.makeIdSafe(basePath)}_fields|">
+                     th:with="headerId=|${TemplateUtils.makeIdSafe(basePath)}_header|,
+                     fieldsDivId=|${TemplateUtils.makeIdSafe(basePath)}_fields|">
 
-                    <div class="editor-section-header container">
+                    <div class="editor-section-header container" th:id="${headerId}">
                         <div class="row">
                             <div class="col-xl-9 h4"
                                  data-bs-toggle="collapse"
@@ -55,7 +56,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                     <!--/* The "component content block" */-->
                     <div class="collapse" th:id="|${fieldsDivId}_outer|">
-                        <th:block th:fragment="componentBlockContent(component, basePath, fieldsDivId)">
+                        <th:block th:fragment="componentBlockContent(component, basePath, fieldsDivId, headerId)">
                             <div class="component-content" th:id="${fieldsDivId}">
                                 <!--/* The form part */-->
                                 <div class="card card-body m-2">
@@ -67,6 +68,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                         <th:block th:switch="${field}"
                                                   th:with="fieldPath=|${basePath}.${field}|,
                                                   fieldValue=${component[field]}">
+
+                                            <div th:case="name" >
+                                                <input class="form-control"
+                                                       th:id="${fieldPath}"
+                                                       th:name="${fieldPath}"
+                                                       th:value="${fieldValue}"
+                                                       th:hx-post="@{/editor/transform(
+                                                       operation='noop',
+                                                       path=${path},
+                                                       itemId=${rootComponentId}, uniqId=${#strings.randomAlphanumeric(6)})}"
+                                                       th:hx-target="|#${headerId}|"
+                                                       th:hx-select="|#${headerId}|"
+                                                       hx-swap="outerHTML"/>
+                                            </div>
 
                                             <div th:case="documentation">
                                                 <div th:replace="~{/editor/fragments/documentation :: documentation(path = ${fieldPath}, value=${fieldValue})}"></div>

@@ -25,9 +25,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <div th:fragment="attributeBlock(attribute, basePath, parentId, iterStat)"
                  th:with="TemplateUtils=${T(eu.clarin.cmdi.componentregistry.ui.TemplateUtils)}">
                 <div th:object="${attribute}" class="cmd-attribute p-2"
-                     th:with="fieldsDivId=|${TemplateUtils.makeIdSafe(basePath)}_fields|">
+                     th:with="headerId=|${TemplateUtils.makeIdSafe(basePath)}_header|,
+                     fieldsDivId=|${TemplateUtils.makeIdSafe(basePath)}_fields|">
 
-                    <div class="editor-section-header container">
+                    <div class="editor-section-header container" th:id="${headerId}">
                         <div class="row">
                             <div class="col-xl-9 h4"
                                  data-bs-toggle="collapse" 
@@ -62,6 +63,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     <th:block th:switch="${field}" 
                                               th:with="fieldPath=|${basePath}.${field}|,
                                               fieldValue=${attribute[field]}">
+
+                                        <div th:case="name" >
+                                            <input class="form-control"
+                                                   th:id="${fieldPath}"
+                                                   th:name="${fieldPath}"
+                                                   th:value="${fieldValue}"
+                                                   th:hx-post="@{/editor/transform(
+                                                   operation='noop',
+                                                   path=${path},
+                                                   itemId=${rootComponentId}, uniqId=${#strings.randomAlphanumeric(6)})}"
+                                                   th:hx-target="|#${headerId}|"
+                                                   th:hx-select="|#${headerId}|"
+                                                   hx-swap="outerHTML"/>
+                                        </div>
 
                                         <div th:case="documentation">
                                             <div th:replace="~{/editor/fragments/documentation :: documentation(path = ${fieldPath}, value=${fieldValue})}"></div>

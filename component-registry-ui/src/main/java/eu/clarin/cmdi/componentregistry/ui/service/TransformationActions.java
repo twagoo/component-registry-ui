@@ -22,6 +22,7 @@ package eu.clarin.cmdi.componentregistry.ui.service;
  */
 public class TransformationActions {
 
+    public static final String NOOP = "noop";
     public static final String DELETE = "delete";
     public static final String MOVE_ATTRIBUTE_DOWN = "moveAttributeDown";
     public static final String MOVE_ATTRIBUTE_UP = "moveAttributeUp";

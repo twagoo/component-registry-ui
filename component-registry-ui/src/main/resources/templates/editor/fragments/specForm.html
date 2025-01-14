@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                           method="post">
 
                         <!-- No form for header (?) -->
+                        <div id="specNoopHeader" class="hidden"></div>
 
                         <!-- Root component is rendered as a regular component 
                         (recursively, with child components and elements), but
@@ -43,6 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                  component = ${spec.component},
                                  basePath = 'component',
                                  fieldsDivId = 'root-component-fields',
+                                 headerId = 'specNoopHeader',
                                  iterStat = null)}">
                                 [root component]
                             </div>

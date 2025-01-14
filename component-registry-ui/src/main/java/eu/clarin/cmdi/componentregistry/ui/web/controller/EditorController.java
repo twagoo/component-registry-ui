@@ -120,6 +120,8 @@ public class EditorController {
 
     private ComponentSpec transform(String operation, ComponentSpec spec, String path) throws ComponentSpecTransformationException, JsonProcessingException {
         return switch (operation) {
+            case NOOP ->
+                spec;
             case DELETE ->
                 specTransformationService.deletePath(spec, path);
             case MOVE_COMPONENT_UP ->
