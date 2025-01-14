@@ -39,12 +39,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                 <!--/* Delete - Move up - Move down */-->
                                 <div th:replace="~{/editor/fragments/transformationControls 
                                      :: blockEditControls(
-                                        type = 'Attribute',
-                                        path = ${basePath}, 
-                                        parentId = ${parentId},
-                                        itemName = |attribute '${attribute.name}'|,
-                                        canMoveUp = ${iterStat.index &gt; 0},
-                                        canMoveDown = ${iterStat.index &lt; iterStat.size - 1})}">
+                                     type = 'Attribute',
+                                     path = ${basePath}, 
+                                     parentId = ${parentId},
+                                     itemName = |attribute '${attribute.name}'|,
+                                     canMoveUp = ${iterStat.index &gt; 0},
+                                     canMoveDown = ${iterStat.index &lt; iterStat.size - 1})}">
                                     [delete, move]
                                 </div>
                             </div>
@@ -55,16 +55,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <div  th:id="${fieldsDivId}">
                             <div class="card card-body m-2">
                                 <!--/* Attribute property fields */-->
-                                <fieldset class="p-1" th:each="field : ${ {'name', 'conceptLink'} }">
-                                    <div th:with="fieldPath=|${basePath}.${field}|">
-                                        <label th:for="${fieldPath}" class="form-label">
-                                            [[${field}]]
-                                        </label>
-                                        <input class="form-control"
-                                               th:id="${fieldPath}"
-                                               th:name="${fieldPath}"
-                                               th:value="${attribute[field]}" />
-                                    </div>
+                                <fieldset class="p-1" th:each="field : ${ {'name', 'conceptLink', 'documentation'} }">
+                                    <label th:for="${fieldPath}" class="form-label" th:text="#{|editor.form.field.${field}|}">
+                                        [Field label]
+                                    </label>
+                                    <th:block th:switch="${field}" 
+                                              th:with="fieldPath=|${basePath}.${field}|,
+                                              fieldValue=${attribute[field]}">
+
+                                        <div th:case="documentation">
+                                            <div th:replace="~{/editor/fragments/documentation :: documentation(path = ${fieldPath}, value=${fieldValue})}"></div>
+                                        </div>
+
+                                        <div th:case="*" >
+                                            <input class="form-control"
+                                                   th:id="${fieldPath}"
+                                                   th:name="${fieldPath}"
+                                                   th:value="${fieldValue}" />
+                                        </div>
+                                    </th:block>
                                 </fieldset>
                             </div>
                         </div>

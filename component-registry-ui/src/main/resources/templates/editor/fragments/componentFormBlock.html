@@ -60,16 +60,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                 <!--/* The form part */-->
                                 <div class="card card-body m-2">
                                     <!--/* Component property fields */-->
-                                    <fieldset class="p-1" th:each="field : ${ {'name', 'conceptLink'} }">
-                                        <div th:with="fieldPath=|${basePath}.${field}|">
-                                            <label th:for="${fieldPath}" class="form-label">
-                                                [[${field}]]
-                                            </label>
-                                            <input class="form-control"
-                                                   th:id="${fieldPath}"
-                                                   th:name="${fieldPath}"
-                                                   th:value="${component[field]}" />
-                                        </div>
+                                    <fieldset class="p-1" th:each="field : ${ {'name', 'conceptLink', 'documentation'} }">
+                                        <label th:for="${fieldPath}" class="form-label" th:text="#{|editor.form.field.${field}|}">
+                                            [Field label]
+                                        </label>
+                                        <th:block th:switch="${field}"
+                                                  th:with="fieldPath=|${basePath}.${field}|,
+                                                  fieldValue=${component[field]}">
+
+                                            <div th:case="documentation">
+                                                <div th:replace="~{/editor/fragments/documentation :: documentation(path = ${fieldPath}, value=${fieldValue})}"></div>
+                                            </div>
+
+                                            <div th:case="*" >
+                                                <input class="form-control"
+                                                       th:id="${fieldPath}"
+                                                       th:name="${fieldPath}"
+                                                       th:value="${fieldValue}" />
+                                            </div>
+                                        </th:block>
                                     </fieldset>
                                 </div>
 
