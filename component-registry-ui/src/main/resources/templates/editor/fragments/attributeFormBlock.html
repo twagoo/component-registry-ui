@@ -56,40 +56,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <div  th:id="${fieldsDivId}">
                             <div class="card card-body m-2">
                                 <!--/* Attribute property fields */-->
-                                <fieldset class="p-1" th:each="field : ${ {'name', 'conceptLink', 'documentation'} }">
-                                    <label th:for="${fieldPath}" class="form-label" th:text="#{|editor.form.field.${field}|}">
-                                        [Field label]
-                                    </label>
-                                    <th:block th:switch="${field}" 
-                                              th:with="fieldPath=|${basePath}.${field}|,
-                                              fieldValue=${attribute[field]}">
 
-                                        <div th:case="name" >
-                                            <input class="form-control"
-                                                   th:id="${fieldPath}"
-                                                   th:name="${fieldPath}"
-                                                   th:value="${fieldValue}"
-                                                   th:hx-post="@{/editor/transform(
-                                                   operation=${T(eu.clarin.cmdi.componentregistry.ui.service.TransformationActions).NOOP},
-                                                   path=${path},
-                                                   itemId=${rootComponentId}, uniqId=${#strings.randomAlphanumeric(6)})}"
-                                                   th:hx-target="|#${headerId}|"
-                                                   th:hx-select="|#${headerId}|"
-                                                   hx-swap="outerHTML"/>
-                                        </div>
-
-                                        <div th:case="documentation">
-                                            <div th:replace="~{/editor/fragments/documentation :: documentation(path = ${fieldPath}, value=${fieldValue})}"></div>
-                                        </div>
-
-                                        <div th:case="*" >
-                                            <input class="form-control"
-                                                   th:id="${fieldPath}"
-                                                   th:name="${fieldPath}"
-                                                   th:value="${fieldValue}" />
-                                        </div>
-                                    </th:block>
-                                </fieldset>
+                                <th:block th:each="field : ${
+                                          {
+                                          'name', 
+                                          'conceptLink', 
+                                          'documentation'
+                                          }}">
+                                    <fieldset th:replace="~{/editor/fragments/formProperties :: fieldSet(
+                                              field=${field},
+                                              fieldPath=|${basePath}.${field}|,
+                                              fieldValue=${attribute[field]},
+                                              headerId=${headerId})}">
+                                        <!--/* Label + form control for each field */-->
+                                    </fieldset>
+                                </th:block>
                             </div>
                         </div>
 

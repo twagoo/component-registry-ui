@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--
+Copyright (C) 2024 CLARIN ERIC
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Form properties</title>
+    </head>
+
+    <body>
+        <main>
+
+            <fieldset th:fragment="fieldSet(field, fieldPath, fieldValue, headerId)" 
+                      class="p-1" >
+                <label th:for="${fieldPath}" 
+                       class="form-label" 
+                       th:text="#{|editor.form.field.${field}|}">
+                    [Field label]
+                </label>
+                <th:block th:switch="${field}">
+                    <div th:case="name" >
+                        <input class="form-control"
+                               th:id="${fieldPath}"
+                               th:name="${fieldPath}"
+                               th:value="${fieldValue}"
+                               th:hx-post="@{/editor/transform(
+                               operation=${T(eu.clarin.cmdi.componentregistry.ui.service.TransformationActions).NOOP},
+                               path=${path},
+                               itemId=${rootComponentId}, uniqId=${#strings.randomAlphanumeric(6)})}"
+                               th:hx-target="|#${headerId}|"
+                               th:hx-select="|#${headerId}|"
+                               hx-swap="outerHTML"/>
+                    </div>
+
+                    <div th:case="documentation">
+                        <div th:replace="~{/editor/fragments/documentation :: documentation(path = ${fieldPath}, value=${fieldValue})}"></div>
+                    </div>
+
+                    <div th:case="*" >
+                        <input class="form-control"
+                               th:id="${fieldPath}"
+                               th:name="${fieldPath}"
+                               th:value="${fieldValue}" />
+                    </div>
+                </th:block>
+            </fieldset>
+        </main>
+    </body>
+</html>
