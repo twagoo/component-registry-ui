@@ -71,7 +71,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                                    th:name="${fieldPath}"
                                                    th:value="${fieldValue}"
                                                    th:hx-post="@{/editor/transform(
-                                                   operation='noop',
+                                                   operation=${T(eu.clarin.cmdi.componentregistry.ui.service.TransformationActions).NOOP},
                                                    path=${path},
                                                    itemId=${rootComponentId}, uniqId=${#strings.randomAlphanumeric(6)})}"
                                                    th:hx-target="|#${headerId}|"
