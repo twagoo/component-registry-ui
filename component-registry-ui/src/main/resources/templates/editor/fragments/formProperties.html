@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <main>
 
             <fieldset th:fragment="fieldSet(field, fieldPath, fieldValue, headerId)" 
+                      th:with="TransformationActions=${T(eu.clarin.cmdi.componentregistry.ui.service.TransformationActions)}"
                       class="p-1" >
                 <label th:for="${fieldPath}" 
                        class="form-label" 
@@ -37,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                th:name="${fieldPath}"
                                th:value="${fieldValue}"
                                th:hx-post="@{/editor/transform(
-                               operation=${T(eu.clarin.cmdi.componentregistry.ui.service.TransformationActions).NOOP},
+                               operation=${TransformationActions.NOOP},
                                path=${path},
                                itemId=${rootComponentId}, uniqId=${#strings.randomAlphanumeric(6)})}"
                                th:hx-target="|#${headerId}|"
