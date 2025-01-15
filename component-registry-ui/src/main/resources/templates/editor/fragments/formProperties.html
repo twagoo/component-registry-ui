@@ -49,6 +49,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <div th:case="documentation">
                         <div th:replace="~{/editor/fragments/documentation :: documentation(path = ${fieldPath}, value=${fieldValue})}"></div>
                     </div>
+                    
+                    <div th:case="cardinalityMin">
+                        <th:block th:replace="~{/editor/fragments/formProperties :: cardinality(field=${field}, fieldPath=${fieldPath}, fieldValue=${fieldValue})}"></th:block>
+                    </div>
+                    
+                    <div th:case="cardinalityMax">
+                        <th:block th:replace="~{/editor/fragments/formProperties :: cardinality(field=${field}, fieldPath=${fieldPath}, fieldValue=${fieldValue})}"></th:block>
+                    </div>
 
                     <div th:case="*" >
                         <input class="form-control"
@@ -59,5 +67,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 </th:block>
             </fieldset>
         </main>
+        
+        <section th:remove="all">
+            <th:block th:fragment="cardinality(field, fieldPath, fieldValue)">
+                <input class="form-control"
+                               th:id="${fieldPath}"
+                               th:name="|${fieldPath}[0]|"
+                               th:value="${fieldValue[0]}" />
+            </th:block>
+        </section>
     </body>
 </html>
