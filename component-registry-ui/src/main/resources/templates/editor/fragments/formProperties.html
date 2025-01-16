@@ -24,7 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <main>
 
             <fieldset th:fragment="fieldSet(field, fieldPath, fieldValue, headerId)" 
-                      th:with="TransformationActions=${T(eu.clarin.cmdi.componentregistry.ui.service.TransformationActions)}"
+                      th:with="TransformationActions=${T(eu.clarin.cmdi.componentregistry.ui.service.TransformationActions)},
+                      TemplateUtils=${T(eu.clarin.cmdi.componentregistry.ui.TemplateUtils)}"
                       class="p-1" >
                 <label th:for="${fieldPath}" 
                        class="form-label" 
@@ -34,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 <th:block th:switch="${field}">
                     <div th:case="name" >
                         <input class="form-control"
-                               th:id="${fieldPath}"
+                               th:id="${TemplateUtils.makeIdSafe(fieldPath)}"
                                th:name="${fieldPath}"
                                th:value="${fieldValue}"
                                th:hx-post="@{/editor/transform(
@@ -60,7 +61,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                     <div th:case="*" >
                         <input class="form-control"
-                               th:id="${fieldPath}"
+                               th:id="${TemplateUtils.makeIdSafe(fieldPath)}"
                                th:name="${fieldPath}"
                                th:value="${fieldValue}" />
                     </div>
@@ -69,11 +70,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         </main>
         
         <section th:remove="all">
-            <th:block th:fragment="cardinality(field, fieldPath, fieldValue)">
+            <th:block th:fragment="cardinality(field, fieldPath, fieldValue)"
+                      th:with="TemplateUtils=${T(eu.clarin.cmdi.componentregistry.ui.TemplateUtils)},
+                      value = ${(fieldValue != null &amp;&amp; #lists.size(fieldValue) > 0) ? fieldValue[0] : '1'},
+                      path = |${fieldPath}[0]|">
                 <input class="form-control"
-                               th:id="${fieldPath}"
-                               th:name="|${fieldPath}[0]|"
-                               th:value="${fieldValue[0]}" />
+                               th:id="${TemplateUtils.makeIdSafe(path)}"
+                               th:name="${path}"
+                               th:value="${value}" />
             </th:block>
         </section>
     </body>
