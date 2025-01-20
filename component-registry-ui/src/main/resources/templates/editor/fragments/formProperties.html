@@ -87,6 +87,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             th:text="${optionValue}" />
                 </select>
             </th:block>
+            
+            <input th:fragment="hiddenField(field, fieldPath, fieldValue)"
+                   th:with="TemplateUtils=${T(eu.clarin.cmdi.componentregistry.ui.TemplateUtils)}"
+                   th:id="${TemplateUtils.makeIdSafe(path)}"
+                   th:name="${fieldPath}"
+                   th:value="${value}" 
+                   type="hidden" />
         </section>
     </body>
 </html>
