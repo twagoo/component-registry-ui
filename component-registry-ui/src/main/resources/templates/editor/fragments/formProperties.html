@@ -50,11 +50,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <div th:case="documentation">
                         <div th:replace="~{/editor/fragments/documentation :: documentation(path = ${fieldPath}, value=${fieldValue})}"></div>
                     </div>
-                    
+
                     <div th:case="cardinalityMin">
                         <th:block th:replace="~{/editor/fragments/formProperties :: cardinality(field=${field}, fieldPath=${fieldPath}, fieldValue=${fieldValue})}"></th:block>
                     </div>
-                    
+
                     <div th:case="cardinalityMax">
                         <th:block th:replace="~{/editor/fragments/formProperties :: cardinality(field=${field}, fieldPath=${fieldPath}, fieldValue=${fieldValue})}"></th:block>
                     </div>
@@ -68,16 +68,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 </th:block>
             </fieldset>
         </main>
-        
+
         <section th:remove="all">
             <th:block th:fragment="cardinality(field, fieldPath, fieldValue)"
                       th:with="TemplateUtils=${T(eu.clarin.cmdi.componentregistry.ui.TemplateUtils)},
                       value = ${(fieldValue != null &amp;&amp; #lists.size(fieldValue) > 0) ? fieldValue[0] : '1'},
                       path = |${fieldPath}[0]|">
-                <input class="form-control"
-                               th:id="${TemplateUtils.makeIdSafe(path)}"
-                               th:name="${path}"
-                               th:value="${value}" />
+
+                <select class="form-select" aria-label="Cardinality"
+                        th:id="${TemplateUtils.makeIdSafe(path)}"
+                        th:name="${path}">
+                    <option th:each="optionValue : ${ { 
+                                '0', '1', '2', '3', 
+                                '4', '5', '6',
+                                '7', '8', '9', 'unbounded' } }"
+                            th:selected="${optionValue == #strings.toString(value)}"
+                            th:value="${optionValue}"
+                            th:text="${optionValue}" />
+                </select>
             </th:block>
         </section>
     </body>
