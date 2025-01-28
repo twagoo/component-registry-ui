@@ -59,12 +59,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <th:block th:replace="~{/editor/fragments/formProperties :: cardinality(field=${field}, fieldPath=${fieldPath}, fieldValue=${fieldValue})}"></th:block>
                     </div>
 
+                    <div th:case="otherAttributes">
+                        <th:block th:each="key : ${fieldValue.keySet()}">
+                            <input class="form-control"
+                                   th:name="|${fieldPath}.key|"
+                                   th:value="${key}" />
+                            <input class="form-control"
+                                   th:id="${TemplateUtils.makeIdSafe(fieldPath)}"
+                                   th:name="|${fieldPath}.${key}|"
+                                   th:value="${fieldValue.get(key)}" />
+                        </th:block>
+                    </div>
+
                     <div th:case="*" >
                         <input class="form-control"
                                th:id="${TemplateUtils.makeIdSafe(fieldPath)}"
                                th:name="${fieldPath}"
                                th:value="${fieldValue}" />
                     </div>
+
                 </th:block>
             </fieldset>
         </main>
@@ -79,15 +92,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         th:id="${TemplateUtils.makeIdSafe(path)}"
                         th:name="${path}">
                     <option th:each="optionValue : ${ { 
-                                '0', '1', '2', '3', 
-                                '4', '5', '6',
-                                '7', '8', '9', 'unbounded' } }"
+                            '0', '1', '2', '3', 
+                            '4', '5', '6',
+                            '7', '8', '9', 'unbounded' } }"
                             th:selected="${optionValue == #strings.toString(value)}"
                             th:value="${optionValue}"
                             th:text="${optionValue}" />
                 </select>
             </th:block>
-            
+
             <input th:fragment="hiddenField(field, fieldPath, fieldValue)"
                    th:with="TemplateUtils=${T(eu.clarin.cmdi.componentregistry.ui.TemplateUtils)}"
                    th:id="${TemplateUtils.makeIdSafe(path)}"
