@@ -32,11 +32,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                        th:text="#{|editor.form.field.${field}|}">
                     [Field label]
                 </label>
-                <th:block th:switch="${field}">
+                <th:block th:switch="${field}"
+                          th:with="inputName=${fieldPath}, inputId=${TemplateUtils.makeIdSafe(fieldPath)}">
                     <div th:case="name" >
                         <input class="form-control"
-                               th:id="${TemplateUtils.makeIdSafe(fieldPath)}"
-                               th:name="${fieldPath}"
+                               type="text"
+                               th:id="${inputId}"
+                               th:name="${inputName}"
                                th:value="${fieldValue}"
                                th:hx-post="@{/editor/transform(
                                operation=${TransformationActions.NOOP},
@@ -45,6 +47,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                th:hx-target="|#${headerId}|"
                                th:hx-select="|#${headerId}|"
                                hx-swap="outerHTML"/>
+                    </div>
+
+
+                    <div th:case="multilingual" class="form-check">
+
+                        <input class="form-check-input"
+                               type="checkbox"
+                               th:id="${inputId}"
+                               th:name="${inputName}"
+                               th:checked="${fieldValue}" />
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Element is multilingual
+                        </label>
+
                     </div>
 
                     <div th:case="documentation">
@@ -61,10 +77,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                     <div th:case="otherAttributes">
                         <th:block th:each="key : ${fieldValue.keySet()}">
-                            <input class="form-control"
+                            <input type="text" class="form-control"
                                    th:name="|${fieldPath}.key|"
                                    th:value="${key}" disabled="disabled" />
-                            <input class="form-control"
+                            <input type="text" class="form-control"
                                    th:id="${TemplateUtils.makeIdSafe(fieldPath)}"
                                    th:name="|${fieldPath}[${key}]|"
                                    th:value="${fieldValue.get(key)}" />
@@ -73,8 +89,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                     <div th:case="*" >
                         <input class="form-control"
-                               th:id="${TemplateUtils.makeIdSafe(fieldPath)}"
-                               th:name="${fieldPath}"
+                               th:id="${inputId}"
+                               th:name="${inputName}"
                                th:value="${fieldValue}" />
                     </div>
 
