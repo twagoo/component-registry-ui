@@ -25,7 +25,6 @@ import com.jayway.jsonpath.JsonPathException;
 import com.jayway.jsonpath.Predicate;
 import com.jayway.jsonpath.TypeRef;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.Attribute;
-import eu.clarin.cmdi.componentregistry.openapi.client.model.AttributeListType;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentType;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ElementType;
@@ -47,15 +46,17 @@ public class ComponentSpecTransformationService {
 
     private final ObjectMapper objectMapper;
     private final Configuration configuration;
+    private final SpecPartsFactory specPartsFactory;
 
     private static final TypeRef<List<ComponentType>> COMPONENT_TYPE = new TypeRef<List<ComponentType>>() {
     };
     private static final TypeRef<List<ElementType>> ELEMENT_TYPE = new TypeRef<List<ElementType>>() {
     };
 
-    public ComponentSpecTransformationService(ObjectMapper objectMapper, com.jayway.jsonpath.Configuration jsonPathConfiguration) {
+    public ComponentSpecTransformationService(ObjectMapper objectMapper, com.jayway.jsonpath.Configuration jsonPathConfiguration, SpecPartsFactory specPartsFactory) {
         this.objectMapper = objectMapper;
         this.configuration = jsonPathConfiguration;
+        this.specPartsFactory = specPartsFactory;
     }
 
     public ComponentSpec deletePath(ComponentSpec spec, String path) throws JsonProcessingException {
@@ -71,25 +72,20 @@ public class ComponentSpecTransformationService {
 
     public ComponentSpec addChildComponent(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
         return addChildItemToComponent(spec, path,
-                parent -> parent.addComponentItem(new ComponentType())
+                parent -> parent.addComponentItem(specPartsFactory.newComponent())
         );
     }
 
     public ComponentSpec addChildElement(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
         return addChildItemToComponent(spec, path,
-                parent -> parent.addElementItem(new ElementType())
+                parent -> parent.addElementItem(specPartsFactory.newElement())
         );
     }
 
     public ComponentSpec addChildAttributeToComponent(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
         return addChildItemToComponent(spec, path,
                 component -> {
-                    if (component.getAttributeList() == null) {
-                        component.setAttributeList(new AttributeListType());
-                    }
-                    final AttributeListType attributeList = component.getAttributeList();
-                    assert attributeList != null;
-                    attributeList.addAttributeItem(new Attribute());
+                    specPartsFactory.addToAttributeList(component::getAttributeList, component::setAttributeList);
                 }
         );
     }
@@ -97,14 +93,8 @@ public class ComponentSpecTransformationService {
     public ComponentSpec addChildAttributeToElement(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
         return addChildItemToElement(spec, path,
                 element -> {
-                    if (element.getAttributeList() == null) {
-                        element.setAttributeList(new AttributeListType());
-                    }
-                    final AttributeListType attributeList = element.getAttributeList();
-                    assert attributeList != null;
-                    attributeList.addAttributeItem(new Attribute());
-                }
-        );
+                    specPartsFactory.addToAttributeList(element::getAttributeList, element::setAttributeList);
+                });
     }
 
     private ComponentSpec addChildItemToComponent(ComponentSpec spec, String path, Consumer<ComponentType> addLogic) throws JsonProcessingException, ComponentSpecTransformationException {
@@ -135,11 +125,11 @@ public class ComponentSpecTransformationService {
     }
 
     public ComponentSpec insertComponentBefore(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
-        return insertItemBefore(spec, path, () -> new ComponentType(), COMPONENT_TYPE);
+        return insertItemBefore(spec, path, specPartsFactory::newComponent, COMPONENT_TYPE);
     }
 
     public ComponentSpec insertElementBefore(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
-        return insertItemBefore(spec, path, () -> new ElementType(), ELEMENT_TYPE);
+        return insertItemBefore(spec, path, specPartsFactory::newElement, ELEMENT_TYPE);
     }
 
     private <T> ComponentSpec insertItemBefore(ComponentSpec spec, String path, Supplier<T> constructor, TypeRef<List<T>> typeRef) throws JsonProcessingException, ComponentSpecTransformationException {

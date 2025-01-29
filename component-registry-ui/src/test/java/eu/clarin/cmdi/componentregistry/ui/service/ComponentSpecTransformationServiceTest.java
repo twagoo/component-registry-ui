@@ -45,10 +45,12 @@ public class ComponentSpecTransformationServiceTest {
     private ObjectMapper objectMapper;
     @Autowired
     private com.jayway.jsonpath.Configuration jsonPathConfiguration;
+    @Autowired
+    private SpecPartsFactory specPartsFactory;
 
     @BeforeEach
     public void setUp() {
-        instance = new ComponentSpecTransformationService(objectMapper, jsonPathConfiguration);
+        instance = new ComponentSpecTransformationService(objectMapper, jsonPathConfiguration, specPartsFactory);
 
         spec = new ComponentSpec();
         spec.setComponent(new ComponentType());
@@ -471,7 +473,9 @@ public class ComponentSpecTransformationServiceTest {
                     .as("Component 'two' should be moved to first position")
                     .containsExactly("one", "three", "two");
         }
-    }    @Test
+    }
+
+    @Test
     public void testMoveComponentIllegally() throws Exception {
         //Move before element
         {
@@ -498,7 +502,7 @@ public class ComponentSpecTransformationServiceTest {
                     .as("message should explain issue")
                     .hasMessageContaining("Target index out of bound");
         }
-        
+
         //Move down out of bounds
         {
             ComponentSpecTransformationException exception = assertThrows(
@@ -511,7 +515,7 @@ public class ComponentSpecTransformationServiceTest {
                     .as("message should explain issue")
                     .hasMessageContaining("Target index out of bound");
         }
-        
+
         //Move up out of bounds
         {
             ComponentSpecTransformationException exception = assertThrows(
@@ -605,7 +609,7 @@ public class ComponentSpecTransformationServiceTest {
                     .as("message should explain issue")
                     .hasMessageContaining("Target index out of bound");
         }
-        
+
         //Move down out of bounds
         {
             ComponentSpecTransformationException exception = assertThrows(
@@ -618,7 +622,7 @@ public class ComponentSpecTransformationServiceTest {
                     .as("message should explain issue")
                     .hasMessageContaining("Target index out of bound");
         }
-        
+
         //Move up out of bounds
         {
             ComponentSpecTransformationException exception = assertThrows(
