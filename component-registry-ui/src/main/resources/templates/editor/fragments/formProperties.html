@@ -63,10 +63,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <th:block th:each="key : ${fieldValue.keySet()}">
                             <input class="form-control"
                                    th:name="|${fieldPath}.key|"
-                                   th:value="${key}" />
+                                   th:value="${key}" disabled="disabled" />
                             <input class="form-control"
                                    th:id="${TemplateUtils.makeIdSafe(fieldPath)}"
-                                   th:name="|${fieldPath}.${key}|"
+                                   th:name="|${fieldPath}[${key}]|"
                                    th:value="${fieldValue.get(key)}" />
                         </th:block>
                     </div>
