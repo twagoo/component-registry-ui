@@ -60,12 +60,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                 <th:block th:each="field : ${
                                           {
                                           'name', 
-                                          'conceptLink', 
-                                          'otherAttributes',
+                                          'conceptLink',
                                           'documentation',
                                           'cardinalityMin',
-                                          'cardinalityMax',
-                                          'multilingual'
+                                          'cardinalityMax'
                                           }}">
                                     <fieldset th:replace="~{/editor/fragments/formProperties :: fieldSet(
                                               field=${field},
@@ -75,6 +73,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                         <!--/* Label + form control for each field */-->
                                     </fieldset>
                                 </th:block>
+
+                                <!-- Value scheme -->
+
+                                <div th:replace="~{/editor/fragments/valueScheme :: valueScheme(
+                                     parentPath=${basePath},
+                                     valueSchemeType=${element.valueSchemeType},
+                                     valueScheme=${element.valueScheme})}">
+                                    [Value scheme]
+                                </div>
+
+                                <!--/* More element property fields */-->
+                                <th:block th:each="field : ${
+                                          {
+                                          'multilingual',
+                                          'otherAttributes'
+                                          }}">
+                                    <fieldset th:replace="~{/editor/fragments/formProperties :: fieldSet(
+                                              field=${field},
+                                              fieldPath=|${basePath}.${field}|,
+                                              fieldValue=${element[field]},
+                                              headerId=${headerId})}">
+                                        <!--/* Label + form control for each field */-->
+                                    </fieldset>
+                                </th:block>
+
                             </div>
 
                             <!--/* Child attributes */-->
