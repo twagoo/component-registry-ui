@@ -22,11 +22,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <body>
         <main>
-            <div th:fragment="valueScheme(parentPath, valueSchemeType, valueScheme)"
+            <div th:fragment="valueScheme(parentPath, valueSchemeAttribute, valueScheme)"
                  th:with="TemplateUtils=${T(eu.clarin.cmdi.componentregistry.ui.TemplateUtils)},
                  containerId = |${TemplateUtils.makeIdSafe(path)}_valueScheme|">
                 <div class="valuescheme-container" th:id="${containerId}">
-                    <p>Value scheme type: <pre>[[${valueSchemeType}]]</pre></p>
+                    <p>Value scheme type: <pre>[[${valueSchemeAttribute}]]</pre></p>
                     <p>Value scheme: <pre>[[${valueScheme}]]</pre></p>
                 </div>
                 
