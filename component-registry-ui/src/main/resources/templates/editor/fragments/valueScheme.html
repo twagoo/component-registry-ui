@@ -22,14 +22,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <body>
         <main>
-            <div th:fragment="valueScheme(parentPath, valueSchemeAttribute, valueScheme)"
+            <div th:fragment="valueScheme(
+                 parentPath, 
+                 valueSchemeAttributePath, valueSchemeAttributeValue, 
+                 valueSchemePath, valueSchemeValue)"
                  th:with="TemplateUtils=${T(eu.clarin.cmdi.componentregistry.ui.TemplateUtils)},
                  containerId = |${TemplateUtils.makeIdSafe(path)}_valueScheme|">
                 <div class="valuescheme-container" th:id="${containerId}">
-                    <p>Value scheme type: <pre>[[${valueSchemeAttribute}]]</pre></p>
-                    <p>Value scheme: <pre>[[${valueScheme}]]</pre></p>
+
+                    <fieldset class="p-1" th:with="previewId=|${TemplateUtils.makeIdSafe(basePath)}_valueSchemePreview|">
+                        <label th:for="${previewId}" class="form-label">Type</label>
+                        <div class="input-group">
+                            <input type="hidden" th:name="${valueSchemeAttributePath}" th:value="${valueSchemeAttributeValue}" />
+                            <input type="hidden" th:name="${valueSchemePath}" th:value="${valueSchemeValue}" />
+
+                            <!-- TODO: render representation of selected value scheme -->
+                            <input class="form-control" th:id="${previewId}" type="text" th:value="${valueSchemeAttributeValue}" disabled="disabled" />
+
+                            <button class="btn btn-primary" th:hx-post="@{/editor(path=${basePath})}">Edit</button>
+                        </div>
+                    </fieldset>
                 </div>
-                
+
             </div>
         </main>
     </body>

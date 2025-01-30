@@ -78,8 +78,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                                 <div th:replace="~{/editor/fragments/valueScheme :: valueScheme(
                                      parentPath=${basePath},
-                                     valueSchemeAttribute=${element.valueSchemeAttribute},
-                                     valueScheme=${element.valueScheme})}">
+                                     valueSchemeAttributePath=|${basePath}.valueSchemeAttribute|, 
+                                     valueSchemeAttributeValue=${element.valueSchemeAttribute},
+                                     valueSchemePath=|${basePath}.valueScheme|,
+                                     valueSchemeValue=${element.valueScheme})}">
                                     [Value scheme]
                                 </div>
 
