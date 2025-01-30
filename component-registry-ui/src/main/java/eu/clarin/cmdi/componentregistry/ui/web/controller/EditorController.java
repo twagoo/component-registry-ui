@@ -117,6 +117,14 @@ public class EditorController {
         model.addAttribute("spec", spec);
         return "/editor/fragments/componentRef :: expandedComponent";
     }
+    
+    @PostMapping("/valueSchemeEditor")
+    public String valueSchemeEditor(ComponentSpec spec, @RequestParam String path, Model model) {
+        //TODO: get element or attribute
+        //TODO: set model
+        
+        return "/editor/fragments/valueScheme :: valueSchemeEditor";
+    }
 
     private ComponentSpec transform(String operation, ComponentSpec spec, String path) throws ComponentSpecTransformationException, JsonProcessingException {
         return switch (operation) {
