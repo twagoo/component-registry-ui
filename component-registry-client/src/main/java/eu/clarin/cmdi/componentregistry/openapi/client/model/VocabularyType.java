@@ -37,31 +37,35 @@ import io.github.threetenjaxb.core.*;
   VocabularyType.JSON_PROPERTY_VALUE_PROPERTY,
   VocabularyType.JSON_PROPERTY_VALUE_LANGUAGE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-12T14:24:29.119439+01:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-30T12:42:47.061619+02:00[Europe/Riga]", comments = "Generator version: 7.11.0")
 @XmlRootElement(name = "VocabularyType")
 @XmlAccessorType(XmlAccessType.FIELD)
 @JacksonXmlRootElement(localName = "VocabularyType")
 public class VocabularyType {
   public static final String JSON_PROPERTY_ENUMERATION = "enumeration";
   @XmlElement(name = "enumeration")
+  @jakarta.annotation.Nullable
   private EnumerationType enumeration;
 
   public static final String JSON_PROPERTY_URI = "uri";
   @XmlAttribute(name = "URI")
+  @jakarta.annotation.Nullable
   private String uri;
 
   public static final String JSON_PROPERTY_VALUE_PROPERTY = "valueProperty";
   @XmlAttribute(name = "ValueProperty")
+  @jakarta.annotation.Nullable
   private String valueProperty;
 
   public static final String JSON_PROPERTY_VALUE_LANGUAGE = "valueLanguage";
   @XmlAttribute(name = "ValueLanguage")
+  @jakarta.annotation.Nullable
   private String valueLanguage;
 
   public VocabularyType() {
   }
 
-  public VocabularyType enumeration(EnumerationType enumeration) {
+  public VocabularyType enumeration(@jakarta.annotation.Nullable EnumerationType enumeration) {
     
     this.enumeration = enumeration;
     return this;
@@ -84,11 +88,11 @@ public class VocabularyType {
   @JsonProperty(JSON_PROPERTY_ENUMERATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "enumeration")
-  public void setEnumeration(EnumerationType enumeration) {
+  public void setEnumeration(@jakarta.annotation.Nullable EnumerationType enumeration) {
     this.enumeration = enumeration;
   }
 
-  public VocabularyType uri(String uri) {
+  public VocabularyType uri(@jakarta.annotation.Nullable String uri) {
     
     this.uri = uri;
     return this;
@@ -111,11 +115,11 @@ public class VocabularyType {
   @JsonProperty(JSON_PROPERTY_URI)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "URI", isAttribute = true)
-  public void setUri(String uri) {
+  public void setUri(@jakarta.annotation.Nullable String uri) {
     this.uri = uri;
   }
 
-  public VocabularyType valueProperty(String valueProperty) {
+  public VocabularyType valueProperty(@jakarta.annotation.Nullable String valueProperty) {
     
     this.valueProperty = valueProperty;
     return this;
@@ -138,11 +142,11 @@ public class VocabularyType {
   @JsonProperty(JSON_PROPERTY_VALUE_PROPERTY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "ValueProperty", isAttribute = true)
-  public void setValueProperty(String valueProperty) {
+  public void setValueProperty(@jakarta.annotation.Nullable String valueProperty) {
     this.valueProperty = valueProperty;
   }
 
-  public VocabularyType valueLanguage(String valueLanguage) {
+  public VocabularyType valueLanguage(@jakarta.annotation.Nullable String valueLanguage) {
     
     this.valueLanguage = valueLanguage;
     return this;
@@ -165,7 +169,7 @@ public class VocabularyType {
   @JsonProperty(JSON_PROPERTY_VALUE_LANGUAGE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "ValueLanguage", isAttribute = true)
-  public void setValueLanguage(String valueLanguage) {
+  public void setValueLanguage(@jakarta.annotation.Nullable String valueLanguage) {
     this.valueLanguage = valueLanguage;
   }
 

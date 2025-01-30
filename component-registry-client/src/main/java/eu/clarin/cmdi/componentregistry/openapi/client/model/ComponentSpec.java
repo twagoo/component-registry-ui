@@ -39,35 +39,40 @@ import io.github.threetenjaxb.core.*;
   ComponentSpec.JSON_PROPERTY_CMDORIGINAL_VERSION,
   ComponentSpec.JSON_PROPERTY_CMDVERSION
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-12T14:24:29.119439+01:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-30T12:42:47.061619+02:00[Europe/Riga]", comments = "Generator version: 7.11.0")
 @XmlRootElement(name = "ComponentSpec")
 @XmlAccessorType(XmlAccessType.FIELD)
 @JacksonXmlRootElement(localName = "ComponentSpec")
 public class ComponentSpec {
   public static final String JSON_PROPERTY_HEADER = "header";
-  @XmlElement(name = "header")
+  @XmlElement(name = "Header")
+  @jakarta.annotation.Nonnull
   private Header header;
 
   public static final String JSON_PROPERTY_COMPONENT = "component";
-  @XmlElement(name = "component")
+  @XmlElement(name = "Component")
+  @jakarta.annotation.Nonnull
   private ComponentType component;
 
   public static final String JSON_PROPERTY_IS_PROFILE = "isProfile";
   @XmlAttribute(name = "isProfile")
+  @jakarta.annotation.Nullable
   private Boolean isProfile;
 
   public static final String JSON_PROPERTY_CMDORIGINAL_VERSION = "cmdoriginalVersion";
   @XmlElement(name = "cmdoriginalVersion")
+  @jakarta.annotation.Nullable
   private String cmdoriginalVersion;
 
   public static final String JSON_PROPERTY_CMDVERSION = "cmdversion";
   @XmlElement(name = "cmdversion")
+  @jakarta.annotation.Nullable
   private String cmdversion;
 
   public ComponentSpec() {
   }
 
-  public ComponentSpec header(Header header) {
+  public ComponentSpec header(@jakarta.annotation.Nonnull Header header) {
     
     this.header = header;
     return this;
@@ -80,7 +85,7 @@ public class ComponentSpec {
   @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_HEADER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  @JacksonXmlProperty(localName = "header")
+  @JacksonXmlProperty(localName = "Header")
 
   public Header getHeader() {
     return header;
@@ -89,12 +94,12 @@ public class ComponentSpec {
 
   @JsonProperty(JSON_PROPERTY_HEADER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  @JacksonXmlProperty(localName = "header")
-  public void setHeader(Header header) {
+  @JacksonXmlProperty(localName = "Header")
+  public void setHeader(@jakarta.annotation.Nonnull Header header) {
     this.header = header;
   }
 
-  public ComponentSpec component(ComponentType component) {
+  public ComponentSpec component(@jakarta.annotation.Nonnull ComponentType component) {
     
     this.component = component;
     return this;
@@ -107,7 +112,7 @@ public class ComponentSpec {
   @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_COMPONENT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  @JacksonXmlProperty(localName = "component")
+  @JacksonXmlProperty(localName = "Component")
 
   public ComponentType getComponent() {
     return component;
@@ -116,12 +121,12 @@ public class ComponentSpec {
 
   @JsonProperty(JSON_PROPERTY_COMPONENT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  @JacksonXmlProperty(localName = "component")
-  public void setComponent(ComponentType component) {
+  @JacksonXmlProperty(localName = "Component")
+  public void setComponent(@jakarta.annotation.Nonnull ComponentType component) {
     this.component = component;
   }
 
-  public ComponentSpec isProfile(Boolean isProfile) {
+  public ComponentSpec isProfile(@jakarta.annotation.Nullable Boolean isProfile) {
     
     this.isProfile = isProfile;
     return this;
@@ -144,11 +149,11 @@ public class ComponentSpec {
   @JsonProperty(JSON_PROPERTY_IS_PROFILE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "isProfile", isAttribute = true)
-  public void setIsProfile(Boolean isProfile) {
+  public void setIsProfile(@jakarta.annotation.Nullable Boolean isProfile) {
     this.isProfile = isProfile;
   }
 
-  public ComponentSpec cmdoriginalVersion(String cmdoriginalVersion) {
+  public ComponentSpec cmdoriginalVersion(@jakarta.annotation.Nullable String cmdoriginalVersion) {
     
     this.cmdoriginalVersion = cmdoriginalVersion;
     return this;
@@ -171,11 +176,11 @@ public class ComponentSpec {
   @JsonProperty(JSON_PROPERTY_CMDORIGINAL_VERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "cmdoriginalVersion")
-  public void setCmdoriginalVersion(String cmdoriginalVersion) {
+  public void setCmdoriginalVersion(@jakarta.annotation.Nullable String cmdoriginalVersion) {
     this.cmdoriginalVersion = cmdoriginalVersion;
   }
 
-  public ComponentSpec cmdversion(String cmdversion) {
+  public ComponentSpec cmdversion(@jakarta.annotation.Nullable String cmdversion) {
     
     this.cmdversion = cmdversion;
     return this;
@@ -198,7 +203,7 @@ public class ComponentSpec {
   @JsonProperty(JSON_PROPERTY_CMDVERSION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "cmdversion")
-  public void setCmdversion(String cmdversion) {
+  public void setCmdversion(@jakarta.annotation.Nullable String cmdversion) {
     this.cmdversion = cmdversion;
   }
 

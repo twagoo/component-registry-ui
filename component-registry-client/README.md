@@ -4,9 +4,9 @@ Component Registry API
 
 - API version: 1.0
 
-- Build date: 2024-11-12T14:24:29.119439+01:00[Europe/Amsterdam]
+- Build date: 2025-01-30T12:42:47.061619+02:00[Europe/Riga]
 
-- Generator version: 7.8.0
+- Generator version: 7.11.0
 
 Components and profiles registry for the Component Metadata Infrastructure
 
@@ -87,21 +87,21 @@ Please follow the [installation](#installation) instruction and execute the foll
 import eu.clarin.cmdi.componentregistry.openapi.client.*;
 import eu.clarin.cmdi.componentregistry.openapi.client.auth.*;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.*;
-import eu.clarin.cmdi.componentregistry.openapi.client.api.ItemsControllerApi;
+import eu.clarin.cmdi.componentregistry.openapi.client.api.ComponentsAndProfilesApi;
 
-public class ItemsControllerApiExample {
+public class ComponentsAndProfilesApiExample {
 
     public static void main(String[] args) {
         ApiClient defaultClient = new ApiClient();
         defaultClient.setBasePath("http://localhost:8080/rest");
         
-        ItemsControllerApi apiInstance = new ItemsControllerApi(defaultClient);
+        ComponentsAndProfilesApi apiInstance = new ComponentsAndProfilesApi(defaultClient);
         String componentId = "componentId_example"; // String | 
         try {
-            BaseDescription result = apiInstance.getItem(componentId);
+            ComponentDescription result = apiInstance.getComponentItem(componentId);
             System.out.println(result);
         } catch (HttpStatusCodeException e) {
-            System.err.println("Exception when calling ItemsControllerApi#getItem");
+            System.err.println("Exception when calling ComponentsAndProfilesApi#getComponentItem");
             System.err.println("Status code: " + e.getStatusCode().value());
             System.err.println("Reason: " + e.getResponseBodyAsString());
             System.err.println("Response headers: " + e.getResponseHeaders());
@@ -118,13 +118,13 @@ All URIs are relative to *http://localhost:8080/rest*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ItemsControllerApi* | [**getItem**](docs/ItemsControllerApi.md#getItem) | **GET** /registry/items/{componentId} | 
-*ItemsControllerApi* | [**getItemSpec**](docs/ItemsControllerApi.md#getItemSpec) | **GET** /registry/items/{componentId}/spec | Get the specification for the profile or component
-*ItemsControllerApi* | [**getItems**](docs/ItemsControllerApi.md#getItems) | **GET** /registry/items | 
-*RegistryControllerApi* | [**getComponentItem**](docs/RegistryControllerApi.md#getComponentItem) | **GET** /registry/components/{componentId}/description | 
-*RegistryControllerApi* | [**getComponents**](docs/RegistryControllerApi.md#getComponents) | **GET** /registry/components | 
-*RegistryControllerApi* | [**getProfileItem**](docs/RegistryControllerApi.md#getProfileItem) | **GET** /registry/profiles/{componentId}/description | 
-*RegistryControllerApi* | [**getProfiles**](docs/RegistryControllerApi.md#getProfiles) | **GET** /registry/profiles | 
+*ComponentsAndProfilesApi* | [**getComponentItem**](docs/ComponentsAndProfilesApi.md#getComponentItem) | **GET** /registry/components/{componentId}/description | 
+*ComponentsAndProfilesApi* | [**getComponents**](docs/ComponentsAndProfilesApi.md#getComponents) | **GET** /registry/components | 
+*ComponentsAndProfilesApi* | [**getProfileItem**](docs/ComponentsAndProfilesApi.md#getProfileItem) | **GET** /registry/profiles/{componentId}/description | 
+*ComponentsAndProfilesApi* | [**getProfiles**](docs/ComponentsAndProfilesApi.md#getProfiles) | **GET** /registry/profiles | 
+*ItemsApi* | [**getItem**](docs/ItemsApi.md#getItem) | **GET** /registry/items/{componentId} | Get the description of a profile or component
+*ItemsApi* | [**getItemSpec**](docs/ItemsApi.md#getItemSpec) | **GET** /registry/items/{componentId}/spec | Get the specification for the profile or component
+*ItemsApi* | [**getItems**](docs/ItemsApi.md#getItems) | **GET** /registry/items | Get a filtered list of descriptions of profiles and/or components
 
 
 ## Documentation for Models

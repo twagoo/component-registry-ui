@@ -51,59 +51,70 @@ import io.github.threetenjaxb.core.*;
   ComponentType.JSON_PROPERTY_BASE,
   ComponentType.JSON_PROPERTY_OTHER_ATTRIBUTES
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-12T14:24:29.119439+01:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-30T12:42:47.061619+02:00[Europe/Riga]", comments = "Generator version: 7.11.0")
 @XmlRootElement(name = "ComponentType")
 @XmlAccessorType(XmlAccessType.FIELD)
 @JacksonXmlRootElement(localName = "ComponentType")
 public class ComponentType {
   public static final String JSON_PROPERTY_DOCUMENTATION = "documentation";
   @XmlElement(name = "Documentation")
+  @jakarta.annotation.Nullable
   private List<DocumentationType> documentation = new ArrayList<>();
 
   public static final String JSON_PROPERTY_ATTRIBUTE_LIST = "attributeList";
-  @XmlElement(name = "attributeList")
+  @XmlElement(name = "AttributeList")
+  @jakarta.annotation.Nullable
   private AttributeListType attributeList;
 
   public static final String JSON_PROPERTY_ELEMENT = "element";
   @XmlElement(name = "Element")
+  @jakarta.annotation.Nullable
   private List<ElementType> element = new ArrayList<>();
 
   public static final String JSON_PROPERTY_COMPONENT = "component";
   @XmlElement(name = "Component")
+  @jakarta.annotation.Nullable
   private List<ComponentType> component = new ArrayList<>();
 
   public static final String JSON_PROPERTY_NAME = "name";
   @XmlAttribute(name = "name")
+  @jakarta.annotation.Nullable
   private String name;
 
   public static final String JSON_PROPERTY_COMPONENT_REF = "componentRef";
   @XmlAttribute(name = "ComponentRef")
+  @jakarta.annotation.Nullable
   private String componentRef;
 
   public static final String JSON_PROPERTY_CONCEPT_LINK = "conceptLink";
   @XmlAttribute(name = "ConceptLink")
+  @jakarta.annotation.Nullable
   private String conceptLink;
 
   public static final String JSON_PROPERTY_CARDINALITY_MIN = "cardinalityMin";
-  @XmlElement(name = "cardinalityMin")
+  @XmlAttribute(name = "CardinalityMin")
+  @jakarta.annotation.Nullable
   private List<String> cardinalityMin = new ArrayList<>();
 
   public static final String JSON_PROPERTY_CARDINALITY_MAX = "cardinalityMax";
-  @XmlElement(name = "cardinalityMax")
+  @XmlAttribute(name = "CardinalityMax")
+  @jakarta.annotation.Nullable
   private List<String> cardinalityMax = new ArrayList<>();
 
   public static final String JSON_PROPERTY_BASE = "base";
   @XmlAttribute(name = "base", namespace = "http://www.w3.org/XML/1998/namespace")
+  @jakarta.annotation.Nullable
   private String base;
 
   public static final String JSON_PROPERTY_OTHER_ATTRIBUTES = "otherAttributes";
   @XmlElement(name = "otherAttributes")
+  @jakarta.annotation.Nullable
   private Map<String, String> otherAttributes = new HashMap<>();
 
   public ComponentType() {
   }
 
-  public ComponentType documentation(List<DocumentationType> documentation) {
+  public ComponentType documentation(@jakarta.annotation.Nullable List<DocumentationType> documentation) {
     
     this.documentation = documentation;
     return this;
@@ -136,11 +147,11 @@ public class ComponentType {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "Documentation")
   @JacksonXmlElementWrapper(useWrapping = false)
-  public void setDocumentation(List<DocumentationType> documentation) {
+  public void setDocumentation(@jakarta.annotation.Nullable List<DocumentationType> documentation) {
     this.documentation = documentation;
   }
 
-  public ComponentType attributeList(AttributeListType attributeList) {
+  public ComponentType attributeList(@jakarta.annotation.Nullable AttributeListType attributeList) {
     
     this.attributeList = attributeList;
     return this;
@@ -153,7 +164,7 @@ public class ComponentType {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ATTRIBUTE_LIST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  @JacksonXmlProperty(localName = "attributeList")
+  @JacksonXmlProperty(localName = "AttributeList")
 
   public AttributeListType getAttributeList() {
     return attributeList;
@@ -162,12 +173,12 @@ public class ComponentType {
 
   @JsonProperty(JSON_PROPERTY_ATTRIBUTE_LIST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  @JacksonXmlProperty(localName = "attributeList")
-  public void setAttributeList(AttributeListType attributeList) {
+  @JacksonXmlProperty(localName = "AttributeList")
+  public void setAttributeList(@jakarta.annotation.Nullable AttributeListType attributeList) {
     this.attributeList = attributeList;
   }
 
-  public ComponentType element(List<ElementType> element) {
+  public ComponentType element(@jakarta.annotation.Nullable List<ElementType> element) {
     
     this.element = element;
     return this;
@@ -200,11 +211,11 @@ public class ComponentType {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "Element")
   @JacksonXmlElementWrapper(useWrapping = false)
-  public void setElement(List<ElementType> element) {
+  public void setElement(@jakarta.annotation.Nullable List<ElementType> element) {
     this.element = element;
   }
 
-  public ComponentType component(List<ComponentType> component) {
+  public ComponentType component(@jakarta.annotation.Nullable List<ComponentType> component) {
     
     this.component = component;
     return this;
@@ -237,11 +248,11 @@ public class ComponentType {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "Component")
   @JacksonXmlElementWrapper(useWrapping = false)
-  public void setComponent(List<ComponentType> component) {
+  public void setComponent(@jakarta.annotation.Nullable List<ComponentType> component) {
     this.component = component;
   }
 
-  public ComponentType name(String name) {
+  public ComponentType name(@jakarta.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -264,11 +275,11 @@ public class ComponentType {
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "name", isAttribute = true)
-  public void setName(String name) {
+  public void setName(@jakarta.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public ComponentType componentRef(String componentRef) {
+  public ComponentType componentRef(@jakarta.annotation.Nullable String componentRef) {
     
     this.componentRef = componentRef;
     return this;
@@ -291,11 +302,11 @@ public class ComponentType {
   @JsonProperty(JSON_PROPERTY_COMPONENT_REF)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "ComponentRef", isAttribute = true)
-  public void setComponentRef(String componentRef) {
+  public void setComponentRef(@jakarta.annotation.Nullable String componentRef) {
     this.componentRef = componentRef;
   }
 
-  public ComponentType conceptLink(String conceptLink) {
+  public ComponentType conceptLink(@jakarta.annotation.Nullable String conceptLink) {
     
     this.conceptLink = conceptLink;
     return this;
@@ -318,11 +329,11 @@ public class ComponentType {
   @JsonProperty(JSON_PROPERTY_CONCEPT_LINK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "ConceptLink", isAttribute = true)
-  public void setConceptLink(String conceptLink) {
+  public void setConceptLink(@jakarta.annotation.Nullable String conceptLink) {
     this.conceptLink = conceptLink;
   }
 
-  public ComponentType cardinalityMin(List<String> cardinalityMin) {
+  public ComponentType cardinalityMin(@jakarta.annotation.Nullable List<String> cardinalityMin) {
     
     this.cardinalityMin = cardinalityMin;
     return this;
@@ -343,7 +354,7 @@ public class ComponentType {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_CARDINALITY_MIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  @JacksonXmlProperty(localName = "cardinalityMin")
+  @JacksonXmlProperty(localName = "CardinalityMin", isAttribute = true)
   @JacksonXmlElementWrapper(useWrapping = false)
 
   public List<String> getCardinalityMin() {
@@ -353,13 +364,13 @@ public class ComponentType {
 
   @JsonProperty(JSON_PROPERTY_CARDINALITY_MIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  @JacksonXmlProperty(localName = "cardinalityMin")
+  @JacksonXmlProperty(localName = "CardinalityMin", isAttribute = true)
   @JacksonXmlElementWrapper(useWrapping = false)
-  public void setCardinalityMin(List<String> cardinalityMin) {
+  public void setCardinalityMin(@jakarta.annotation.Nullable List<String> cardinalityMin) {
     this.cardinalityMin = cardinalityMin;
   }
 
-  public ComponentType cardinalityMax(List<String> cardinalityMax) {
+  public ComponentType cardinalityMax(@jakarta.annotation.Nullable List<String> cardinalityMax) {
     
     this.cardinalityMax = cardinalityMax;
     return this;
@@ -380,7 +391,7 @@ public class ComponentType {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_CARDINALITY_MAX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  @JacksonXmlProperty(localName = "cardinalityMax")
+  @JacksonXmlProperty(localName = "CardinalityMax", isAttribute = true)
   @JacksonXmlElementWrapper(useWrapping = false)
 
   public List<String> getCardinalityMax() {
@@ -390,13 +401,13 @@ public class ComponentType {
 
   @JsonProperty(JSON_PROPERTY_CARDINALITY_MAX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  @JacksonXmlProperty(localName = "cardinalityMax")
+  @JacksonXmlProperty(localName = "CardinalityMax", isAttribute = true)
   @JacksonXmlElementWrapper(useWrapping = false)
-  public void setCardinalityMax(List<String> cardinalityMax) {
+  public void setCardinalityMax(@jakarta.annotation.Nullable List<String> cardinalityMax) {
     this.cardinalityMax = cardinalityMax;
   }
 
-  public ComponentType base(String base) {
+  public ComponentType base(@jakarta.annotation.Nullable String base) {
     
     this.base = base;
     return this;
@@ -419,11 +430,11 @@ public class ComponentType {
   @JsonProperty(JSON_PROPERTY_BASE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "base", isAttribute = true, namespace = "http://www.w3.org/XML/1998/namespace")
-  public void setBase(String base) {
+  public void setBase(@jakarta.annotation.Nullable String base) {
     this.base = base;
   }
 
-  public ComponentType otherAttributes(Map<String, String> otherAttributes) {
+  public ComponentType otherAttributes(@jakarta.annotation.Nullable Map<String, String> otherAttributes) {
     
     this.otherAttributes = otherAttributes;
     return this;
@@ -456,7 +467,7 @@ public class ComponentType {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "otherAttributes")
   @JacksonXmlElementWrapper(useWrapping = false)
-  public void setOtherAttributes(Map<String, String> otherAttributes) {
+  public void setOtherAttributes(@jakarta.annotation.Nullable Map<String, String> otherAttributes) {
     this.otherAttributes = otherAttributes;
   }
 

@@ -47,29 +47,34 @@ import io.github.threetenjaxb.core.*;
   Attribute.JSON_PROPERTY_REQUIRED,
   Attribute.JSON_PROPERTY_OTHER_ATTRIBUTES
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-12T14:24:29.119439+01:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-30T12:42:47.061619+02:00[Europe/Riga]", comments = "Generator version: 7.11.0")
 @XmlRootElement(name = "Attribute")
 @XmlAccessorType(XmlAccessType.FIELD)
 @JacksonXmlRootElement(localName = "Attribute")
 public class Attribute {
   public static final String JSON_PROPERTY_DOCUMENTATION = "documentation";
   @XmlElement(name = "Documentation")
+  @jakarta.annotation.Nullable
   private List<DocumentationType> documentation = new ArrayList<>();
 
   public static final String JSON_PROPERTY_ATTRIBUTE_VALUE_SCHEME = "attributeValueScheme";
-  @XmlElement(name = "attributeValueScheme")
+  @XmlElement(name = "ValueScheme")
+  @jakarta.annotation.Nullable
   private ValueSchemeType attributeValueScheme;
 
   public static final String JSON_PROPERTY_AUTO_VALUE = "autoValue";
   @XmlElement(name = "AutoValue")
+  @jakarta.annotation.Nullable
   private List<String> autoValue = new ArrayList<>();
 
   public static final String JSON_PROPERTY_NAME = "name";
   @XmlAttribute(name = "name")
+  @jakarta.annotation.Nullable
   private String name;
 
   public static final String JSON_PROPERTY_CONCEPT_LINK = "conceptLink";
   @XmlAttribute(name = "ConceptLink")
+  @jakarta.annotation.Nullable
   private String conceptLink;
 
   /**
@@ -79,40 +84,40 @@ public class Attribute {
   @XmlEnum(String.class)
   public enum ValueSchemeEnum {
     @XmlEnumValue("BOOLEAN")
-    BOOLEAN("BOOLEAN"),
+    BOOLEAN(String.valueOf("BOOLEAN")),
     
     @XmlEnumValue("DECIMAL")
-    DECIMAL("DECIMAL"),
+    DECIMAL(String.valueOf("DECIMAL")),
     
     @XmlEnumValue("FLOAT")
-    FLOAT("FLOAT"),
+    FLOAT(String.valueOf("FLOAT")),
     
     @XmlEnumValue("INT")
-    INT("INT"),
+    INT(String.valueOf("INT")),
     
     @XmlEnumValue("STRING")
-    STRING("STRING"),
+    STRING(String.valueOf("STRING")),
     
     @XmlEnumValue("ANY_URI")
-    ANY_URI("ANY_URI"),
+    ANY_URI(String.valueOf("ANY_URI")),
     
     @XmlEnumValue("DATE")
-    DATE("DATE"),
+    DATE(String.valueOf("DATE")),
     
     @XmlEnumValue("G_DAY")
-    G_DAY("G_DAY"),
+    G_DAY(String.valueOf("G_DAY")),
     
     @XmlEnumValue("G_MONTH")
-    G_MONTH("G_MONTH"),
+    G_MONTH(String.valueOf("G_MONTH")),
     
     @XmlEnumValue("G_YEAR")
-    G_YEAR("G_YEAR"),
+    G_YEAR(String.valueOf("G_YEAR")),
     
     @XmlEnumValue("TIME")
-    TIME("TIME"),
+    TIME(String.valueOf("TIME")),
     
     @XmlEnumValue("DATE_TIME")
-    DATE_TIME("DATE_TIME");
+    DATE_TIME(String.valueOf("DATE_TIME"));
 
     private String value;
 
@@ -143,20 +148,23 @@ public class Attribute {
 
   public static final String JSON_PROPERTY_VALUE_SCHEME = "valueScheme";
   @XmlAttribute(name = "ValueScheme")
+  @jakarta.annotation.Nullable
   private ValueSchemeEnum valueScheme;
 
   public static final String JSON_PROPERTY_REQUIRED = "required";
   @XmlAttribute(name = "Required")
+  @jakarta.annotation.Nullable
   private Boolean required;
 
   public static final String JSON_PROPERTY_OTHER_ATTRIBUTES = "otherAttributes";
   @XmlElement(name = "otherAttributes")
+  @jakarta.annotation.Nullable
   private Map<String, String> otherAttributes = new HashMap<>();
 
   public Attribute() {
   }
 
-  public Attribute documentation(List<DocumentationType> documentation) {
+  public Attribute documentation(@jakarta.annotation.Nullable List<DocumentationType> documentation) {
     
     this.documentation = documentation;
     return this;
@@ -189,11 +197,11 @@ public class Attribute {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "Documentation")
   @JacksonXmlElementWrapper(useWrapping = false)
-  public void setDocumentation(List<DocumentationType> documentation) {
+  public void setDocumentation(@jakarta.annotation.Nullable List<DocumentationType> documentation) {
     this.documentation = documentation;
   }
 
-  public Attribute attributeValueScheme(ValueSchemeType attributeValueScheme) {
+  public Attribute attributeValueScheme(@jakarta.annotation.Nullable ValueSchemeType attributeValueScheme) {
     
     this.attributeValueScheme = attributeValueScheme;
     return this;
@@ -206,7 +214,7 @@ public class Attribute {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ATTRIBUTE_VALUE_SCHEME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  @JacksonXmlProperty(localName = "attributeValueScheme")
+  @JacksonXmlProperty(localName = "ValueScheme")
 
   public ValueSchemeType getAttributeValueScheme() {
     return attributeValueScheme;
@@ -215,12 +223,12 @@ public class Attribute {
 
   @JsonProperty(JSON_PROPERTY_ATTRIBUTE_VALUE_SCHEME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  @JacksonXmlProperty(localName = "attributeValueScheme")
-  public void setAttributeValueScheme(ValueSchemeType attributeValueScheme) {
+  @JacksonXmlProperty(localName = "ValueScheme")
+  public void setAttributeValueScheme(@jakarta.annotation.Nullable ValueSchemeType attributeValueScheme) {
     this.attributeValueScheme = attributeValueScheme;
   }
 
-  public Attribute autoValue(List<String> autoValue) {
+  public Attribute autoValue(@jakarta.annotation.Nullable List<String> autoValue) {
     
     this.autoValue = autoValue;
     return this;
@@ -253,11 +261,11 @@ public class Attribute {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "AutoValue")
   @JacksonXmlElementWrapper(useWrapping = false)
-  public void setAutoValue(List<String> autoValue) {
+  public void setAutoValue(@jakarta.annotation.Nullable List<String> autoValue) {
     this.autoValue = autoValue;
   }
 
-  public Attribute name(String name) {
+  public Attribute name(@jakarta.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -280,11 +288,11 @@ public class Attribute {
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "name", isAttribute = true)
-  public void setName(String name) {
+  public void setName(@jakarta.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public Attribute conceptLink(String conceptLink) {
+  public Attribute conceptLink(@jakarta.annotation.Nullable String conceptLink) {
     
     this.conceptLink = conceptLink;
     return this;
@@ -307,11 +315,11 @@ public class Attribute {
   @JsonProperty(JSON_PROPERTY_CONCEPT_LINK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "ConceptLink", isAttribute = true)
-  public void setConceptLink(String conceptLink) {
+  public void setConceptLink(@jakarta.annotation.Nullable String conceptLink) {
     this.conceptLink = conceptLink;
   }
 
-  public Attribute valueScheme(ValueSchemeEnum valueScheme) {
+  public Attribute valueScheme(@jakarta.annotation.Nullable ValueSchemeEnum valueScheme) {
     
     this.valueScheme = valueScheme;
     return this;
@@ -334,11 +342,11 @@ public class Attribute {
   @JsonProperty(JSON_PROPERTY_VALUE_SCHEME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "ValueScheme", isAttribute = true)
-  public void setValueScheme(ValueSchemeEnum valueScheme) {
+  public void setValueScheme(@jakarta.annotation.Nullable ValueSchemeEnum valueScheme) {
     this.valueScheme = valueScheme;
   }
 
-  public Attribute required(Boolean required) {
+  public Attribute required(@jakarta.annotation.Nullable Boolean required) {
     
     this.required = required;
     return this;
@@ -361,11 +369,11 @@ public class Attribute {
   @JsonProperty(JSON_PROPERTY_REQUIRED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "Required", isAttribute = true)
-  public void setRequired(Boolean required) {
+  public void setRequired(@jakarta.annotation.Nullable Boolean required) {
     this.required = required;
   }
 
-  public Attribute otherAttributes(Map<String, String> otherAttributes) {
+  public Attribute otherAttributes(@jakarta.annotation.Nullable Map<String, String> otherAttributes) {
     
     this.otherAttributes = otherAttributes;
     return this;
@@ -398,7 +406,7 @@ public class Attribute {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "otherAttributes")
   @JacksonXmlElementWrapper(useWrapping = false)
-  public void setOtherAttributes(Map<String, String> otherAttributes) {
+  public void setOtherAttributes(@jakarta.annotation.Nullable Map<String, String> otherAttributes) {
     this.otherAttributes = otherAttributes;
   }
 

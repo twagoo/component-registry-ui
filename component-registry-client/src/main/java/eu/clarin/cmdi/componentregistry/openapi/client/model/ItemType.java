@@ -38,31 +38,35 @@ import io.github.threetenjaxb.core.*;
   ItemType.JSON_PROPERTY_APP_INFO,
   ItemType.JSON_PROPERTY_OTHER_ATTRIBUTES
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-12T14:24:29.119439+01:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-30T12:42:47.061619+02:00[Europe/Riga]", comments = "Generator version: 7.11.0")
 @XmlRootElement(name = "ItemType")
 @XmlAccessorType(XmlAccessType.FIELD)
 @JacksonXmlRootElement(localName = "ItemType")
 public class ItemType {
   public static final String JSON_PROPERTY_VALUE = "value";
   @XmlElement(name = "value")
+  @jakarta.annotation.Nullable
   private String value;
 
   public static final String JSON_PROPERTY_CONCEPT_LINK = "conceptLink";
   @XmlAttribute(name = "ConceptLink")
+  @jakarta.annotation.Nullable
   private String conceptLink;
 
   public static final String JSON_PROPERTY_APP_INFO = "appInfo";
   @XmlAttribute(name = "AppInfo")
+  @jakarta.annotation.Nullable
   private String appInfo;
 
   public static final String JSON_PROPERTY_OTHER_ATTRIBUTES = "otherAttributes";
   @XmlElement(name = "otherAttributes")
+  @jakarta.annotation.Nullable
   private Map<String, String> otherAttributes = new HashMap<>();
 
   public ItemType() {
   }
 
-  public ItemType value(String value) {
+  public ItemType value(@jakarta.annotation.Nullable String value) {
     
     this.value = value;
     return this;
@@ -85,11 +89,11 @@ public class ItemType {
   @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "value")
-  public void setValue(String value) {
+  public void setValue(@jakarta.annotation.Nullable String value) {
     this.value = value;
   }
 
-  public ItemType conceptLink(String conceptLink) {
+  public ItemType conceptLink(@jakarta.annotation.Nullable String conceptLink) {
     
     this.conceptLink = conceptLink;
     return this;
@@ -112,11 +116,11 @@ public class ItemType {
   @JsonProperty(JSON_PROPERTY_CONCEPT_LINK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "ConceptLink", isAttribute = true)
-  public void setConceptLink(String conceptLink) {
+  public void setConceptLink(@jakarta.annotation.Nullable String conceptLink) {
     this.conceptLink = conceptLink;
   }
 
-  public ItemType appInfo(String appInfo) {
+  public ItemType appInfo(@jakarta.annotation.Nullable String appInfo) {
     
     this.appInfo = appInfo;
     return this;
@@ -139,11 +143,11 @@ public class ItemType {
   @JsonProperty(JSON_PROPERTY_APP_INFO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "AppInfo", isAttribute = true)
-  public void setAppInfo(String appInfo) {
+  public void setAppInfo(@jakarta.annotation.Nullable String appInfo) {
     this.appInfo = appInfo;
   }
 
-  public ItemType otherAttributes(Map<String, String> otherAttributes) {
+  public ItemType otherAttributes(@jakarta.annotation.Nullable Map<String, String> otherAttributes) {
     
     this.otherAttributes = otherAttributes;
     return this;
@@ -176,7 +180,7 @@ public class ItemType {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "otherAttributes")
   @JacksonXmlElementWrapper(useWrapping = false)
-  public void setOtherAttributes(Map<String, String> otherAttributes) {
+  public void setOtherAttributes(@jakarta.annotation.Nullable Map<String, String> otherAttributes) {
     this.otherAttributes = otherAttributes;
   }
 

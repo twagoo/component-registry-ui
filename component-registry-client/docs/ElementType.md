@@ -17,11 +17,11 @@
 |**cardinalityMax** | **List&lt;String&gt;** |  |  [optional] |
 |**multilingual** | **Boolean** |  |  [optional] |
 |**otherAttributes** | **Map&lt;String, String&gt;** |  |  [optional] |
-|**valueSchemeType** | [**ValueSchemeTypeEnum**](#ValueSchemeTypeEnum) |  |  [optional] |
+|**valueSchemeAttribute** | [**ValueSchemeAttributeEnum**](#ValueSchemeAttributeEnum) |  |  [optional] |
 
 
 
-## Enum: ValueSchemeTypeEnum
+## Enum: ValueSchemeAttributeEnum
 
 | Name | Value |
 |---- | -----|

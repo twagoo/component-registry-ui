@@ -37,19 +37,20 @@ import io.github.threetenjaxb.core.*;
 @JsonPropertyOrder({
   ProfilesList.JSON_PROPERTY_COMPONENTS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-12T14:24:29.119439+01:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-30T12:42:47.061619+02:00[Europe/Riga]", comments = "Generator version: 7.11.0")
 @XmlRootElement(name = "ProfilesList")
 @XmlAccessorType(XmlAccessType.FIELD)
 @JacksonXmlRootElement(localName = "ProfilesList")
 public class ProfilesList {
   public static final String JSON_PROPERTY_COMPONENTS = "components";
   @XmlElement(name = "profileDescription")
+  @jakarta.annotation.Nullable
   private List<ProfileDescription> components = new ArrayList<>();
 
   public ProfilesList() {
   }
 
-  public ProfilesList components(List<ProfileDescription> components) {
+  public ProfilesList components(@jakarta.annotation.Nullable List<ProfileDescription> components) {
     
     this.components = components;
     return this;
@@ -82,7 +83,7 @@ public class ProfilesList {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "profileDescription")
   @JacksonXmlElementWrapper(useWrapping = false)
-  public void setComponents(List<ProfileDescription> components) {
+  public void setComponents(@jakarta.annotation.Nullable List<ProfileDescription> components) {
     this.components = components;
   }
 

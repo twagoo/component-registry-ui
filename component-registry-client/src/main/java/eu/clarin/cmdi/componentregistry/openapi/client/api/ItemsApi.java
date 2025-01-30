@@ -24,16 +24,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-30T12:30:21.669683+02:00[Europe/Riga]", comments = "Generator version: 7.10.0")
-public class ItemsControllerApi {
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-30T12:42:47.061619+02:00[Europe/Riga]", comments = "Generator version: 7.11.0")
+public class ItemsApi {
     private ApiClient apiClient;
 
-    public ItemsControllerApi() {
+    public ItemsApi() {
         this(new ApiClient());
     }
 
     @Autowired
-    public ItemsControllerApi(ApiClient apiClient) {
+    public ItemsApi(ApiClient apiClient) {
         this.apiClient = apiClient;
     }
 
@@ -46,9 +46,10 @@ public class ItemsControllerApi {
     }
 
     /**
+     * Get the description of a profile or component
      * 
-     * 
-     * <p><b>200</b> - OK
+     * <p><b>200</b> - A description of the identified item
+     * <p><b>404</b> - Item not found
      * @param componentId The componentId parameter
      * @return BaseDescription
      * @throws RestClientResponseException if an error occurs while attempting to invoke the API
@@ -83,9 +84,10 @@ public class ItemsControllerApi {
     }
 
     /**
+     * Get the description of a profile or component
      * 
-     * 
-     * <p><b>200</b> - OK
+     * <p><b>200</b> - A description of the identified item
+     * <p><b>404</b> - Item not found
      * @param componentId The componentId parameter
      * @return BaseDescription
      * @throws RestClientResponseException if an error occurs while attempting to invoke the API
@@ -96,9 +98,10 @@ public class ItemsControllerApi {
     }
 
     /**
+     * Get the description of a profile or component
      * 
-     * 
-     * <p><b>200</b> - OK
+     * <p><b>200</b> - A description of the identified item
+     * <p><b>404</b> - Item not found
      * @param componentId The componentId parameter
      * @return ResponseEntity&lt;BaseDescription&gt;
      * @throws RestClientResponseException if an error occurs while attempting to invoke the API
@@ -109,9 +112,10 @@ public class ItemsControllerApi {
     }
 
     /**
+     * Get the description of a profile or component
      * 
-     * 
-     * <p><b>200</b> - OK
+     * <p><b>200</b> - A description of the identified item
+     * <p><b>404</b> - Item not found
      * @param componentId The componentId parameter
      * @return ResponseSpec
      * @throws RestClientResponseException if an error occurs while attempting to invoke the API
@@ -122,8 +126,8 @@ public class ItemsControllerApi {
     /**
      * Get the specification for the profile or component
      * 
+     * <p><b>200</b> - The component specification of the identified item. The JSON representation is derived from the primary specification which is stored as XML. 
      * <p><b>404</b> - Item not found
-     * <p><b>200</b> - OK
      * @param componentId The componentId parameter
      * @param accept The accept parameter
      * @return ComponentSpec
@@ -164,8 +168,8 @@ public class ItemsControllerApi {
     /**
      * Get the specification for the profile or component
      * 
+     * <p><b>200</b> - The component specification of the identified item. The JSON representation is derived from the primary specification which is stored as XML. 
      * <p><b>404</b> - Item not found
-     * <p><b>200</b> - OK
      * @param componentId The componentId parameter
      * @param accept The accept parameter
      * @return ComponentSpec
@@ -179,8 +183,8 @@ public class ItemsControllerApi {
     /**
      * Get the specification for the profile or component
      * 
+     * <p><b>200</b> - The component specification of the identified item. The JSON representation is derived from the primary specification which is stored as XML. 
      * <p><b>404</b> - Item not found
-     * <p><b>200</b> - OK
      * @param componentId The componentId parameter
      * @param accept The accept parameter
      * @return ResponseEntity&lt;ComponentSpec&gt;
@@ -194,8 +198,8 @@ public class ItemsControllerApi {
     /**
      * Get the specification for the profile or component
      * 
+     * <p><b>200</b> - The component specification of the identified item. The JSON representation is derived from the primary specification which is stored as XML. 
      * <p><b>404</b> - Item not found
-     * <p><b>200</b> - OK
      * @param componentId The componentId parameter
      * @param accept The accept parameter
      * @return ResponseSpec
@@ -205,9 +209,9 @@ public class ItemsControllerApi {
         return getItemSpecRequestCreation(componentId, accept);
     }
     /**
+     * Get a filtered list of descriptions of profiles and/or components
      * 
-     * 
-     * <p><b>200</b> - OK
+     * <p><b>200</b> - A list of items that meet the filter criteria (if applicable)
      * @param type The type parameter
      * @param status The status parameter
      * @param sortBy The sortBy parameter
@@ -244,9 +248,9 @@ public class ItemsControllerApi {
     }
 
     /**
+     * Get a filtered list of descriptions of profiles and/or components
      * 
-     * 
-     * <p><b>200</b> - OK
+     * <p><b>200</b> - A list of items that meet the filter criteria (if applicable)
      * @param type The type parameter
      * @param status The status parameter
      * @param sortBy The sortBy parameter
@@ -260,9 +264,9 @@ public class ItemsControllerApi {
     }
 
     /**
+     * Get a filtered list of descriptions of profiles and/or components
      * 
-     * 
-     * <p><b>200</b> - OK
+     * <p><b>200</b> - A list of items that meet the filter criteria (if applicable)
      * @param type The type parameter
      * @param status The status parameter
      * @param sortBy The sortBy parameter
@@ -276,9 +280,9 @@ public class ItemsControllerApi {
     }
 
     /**
+     * Get a filtered list of descriptions of profiles and/or components
      * 
-     * 
-     * <p><b>200</b> - OK
+     * <p><b>200</b> - A list of items that meet the filter criteria (if applicable)
      * @param type The type parameter
      * @param status The status parameter
      * @param sortBy The sortBy parameter

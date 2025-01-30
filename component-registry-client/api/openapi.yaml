@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.1.0
 info:
   contact:
     email: cmdi@clarin.eu
@@ -10,6 +10,11 @@ info:
 servers:
 - description: Generated server url
   url: http://localhost:8080/rest
+tags:
+- description: Components and profiles as items (common data model)
+  name: Items
+- description: Registry of components and profiles
+  name: Components and profiles
 paths:
   /registry/profiles:
     get:
@@ -50,15 +55,15 @@ paths:
       responses:
         "200":
           content:
-            application/xml:
+            application/json:
               schema:
                 $ref: '#/components/schemas/ProfilesList'
-            application/json:
+            application/xml:
               schema:
                 $ref: '#/components/schemas/ProfilesList'
           description: OK
       tags:
-      - registry-controller
+      - Components and profiles
       x-accepts:
       - application/json
       - application/xml
@@ -76,15 +81,15 @@ paths:
       responses:
         "200":
           content:
-            application/xml:
+            application/json:
               schema:
                 $ref: '#/components/schemas/ProfileDescription'
-            application/json:
+            application/xml:
               schema:
                 $ref: '#/components/schemas/ProfileDescription'
           description: OK
       tags:
-      - registry-controller
+      - Components and profiles
       x-accepts:
       - application/json
       - application/xml
@@ -147,9 +152,10 @@ paths:
                 items:
                   $ref: '#/components/schemas/BaseDescription'
                 type: array
-          description: OK
+          description: A list of items that meet the filter criteria (if applicable)
+      summary: Get a filtered list of descriptions of profiles and/or components
       tags:
-      - items-controller
+      - Items
       x-accepts:
       - application/json
       - application/xml
@@ -173,9 +179,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BaseDescription'
-          description: OK
+          description: A description of the identified item
+        "404":
+          description: Item not found
+      summary: Get the description of a profile or component
       tags:
-      - items-controller
+      - Items
       x-accepts:
       - application/json
       - application/xml
@@ -198,15 +207,6 @@ paths:
           type: string
         style: simple
       responses:
-        "404":
-          content:
-            application/xml:
-              schema:
-                type: string
-            application/json:
-              schema:
-                type: string
-          description: Item not found
         "200":
           content:
             application/xml:
@@ -215,10 +215,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ComponentSpec'
-          description: OK
+          description: |
+            The component specification of the identified item.
+            The JSON representation is derived from the primary
+            specification which is stored as XML.
+        "404":
+          description: Item not found
       summary: Get the specification for the profile or component
       tags:
-      - items-controller
+      - Items
       x-accepts:
       - application/json
       - application/xml
@@ -261,15 +266,15 @@ paths:
       responses:
         "200":
           content:
-            application/xml:
+            application/json:
               schema:
                 $ref: '#/components/schemas/ComponentsList'
-            application/json:
+            application/xml:
               schema:
                 $ref: '#/components/schemas/ComponentsList'
           description: OK
       tags:
-      - registry-controller
+      - Components and profiles
       x-accepts:
       - application/json
       - application/xml
@@ -287,15 +292,15 @@ paths:
       responses:
         "200":
           content:
-            application/xml:
+            application/json:
               schema:
                 $ref: '#/components/schemas/ComponentDescription'
-            application/json:
+            application/xml:
               schema:
                 $ref: '#/components/schemas/ComponentDescription'
           description: OK
       tags:
-      - registry-controller
+      - Components and profiles
       x-accepts:
       - application/json
       - application/xml
@@ -363,7 +368,6 @@ components:
           type: string
         isPublic:
           type: boolean
-      type: object
       xml:
         name: profileDescription
     ProfilesList:
@@ -408,7 +412,6 @@ components:
           items:
             $ref: '#/components/schemas/ProfileDescription'
           type: array
-      type: object
     BaseDescription:
       example:
         successor: successor
@@ -471,7 +474,6 @@ components:
           type: boolean
         isPublic:
           type: boolean
-      type: object
       xml:
         name: description
     Attribute:
@@ -561,8 +563,6 @@ components:
         otherAttributes:
           additionalProperties:
             type: string
-          type: object
-      type: object
     AttributeListType:
       example:
         attribute:
@@ -641,7 +641,6 @@ components:
             name: Attribute
       required:
       - attribute
-      type: object
     ComponentSpec:
       example:
         isProfile: true
@@ -832,13 +831,13 @@ components:
             cardinalityMin:
             - cardinalityMin
             - cardinalityMin
+            valueSchemeAttribute: BOOLEAN
             cardinalityMax:
             - cardinalityMax
             - cardinalityMax
             otherAttributes:
               key: otherAttributes
             multilingual: true
-            ValueSchemeType: BOOLEAN
             autoValue:
             - autoValue
             - autoValue
@@ -939,13 +938,13 @@ components:
             cardinalityMin:
             - cardinalityMin
             - cardinalityMin
+            valueSchemeAttribute: BOOLEAN
             cardinalityMax:
             - cardinalityMax
             - cardinalityMax
             otherAttributes:
               key: otherAttributes
             multilingual: true
-            ValueSchemeType: BOOLEAN
             autoValue:
             - autoValue
             - autoValue
@@ -975,7 +974,6 @@ components:
       required:
       - component
       - header
-      type: object
       xml:
         name: ComponentSpec
     ComponentType:
@@ -1165,13 +1163,13 @@ components:
           cardinalityMin:
           - cardinalityMin
           - cardinalityMin
+          valueSchemeAttribute: BOOLEAN
           cardinalityMax:
           - cardinalityMax
           - cardinalityMax
           otherAttributes:
             key: otherAttributes
           multilingual: true
-          ValueSchemeType: BOOLEAN
           autoValue:
           - autoValue
           - autoValue
@@ -1272,13 +1270,13 @@ components:
           cardinalityMin:
           - cardinalityMin
           - cardinalityMin
+          valueSchemeAttribute: BOOLEAN
           cardinalityMax:
           - cardinalityMax
           - cardinalityMax
           otherAttributes:
             key: otherAttributes
           multilingual: true
-          ValueSchemeType: BOOLEAN
           autoValue:
           - autoValue
           - autoValue
@@ -1322,10 +1320,16 @@ components:
           items:
             type: string
           type: array
+          xml:
+            attribute: true
+            name: CardinalityMin
         cardinalityMax:
           items:
             type: string
           type: array
+          xml:
+            attribute: true
+            name: CardinalityMax
         base:
           type: string
           xml:
@@ -1334,8 +1338,6 @@ components:
         otherAttributes:
           additionalProperties:
             type: string
-          type: object
-      type: object
     DocumentationType:
       example:
         lang: lang
@@ -1348,7 +1350,6 @@ components:
           xml:
             attribute: true
             namespace: http://www.w3.org/XML/1998/namespace
-      type: object
     ElementType:
       example:
         conceptLink: conceptLink
@@ -1448,13 +1449,13 @@ components:
         cardinalityMin:
         - cardinalityMin
         - cardinalityMin
+        valueSchemeAttribute: BOOLEAN
         cardinalityMax:
         - cardinalityMax
         - cardinalityMax
         otherAttributes:
           key: otherAttributes
         multilingual: true
-        ValueSchemeType: BOOLEAN
         autoValue:
         - autoValue
         - autoValue
@@ -1490,10 +1491,16 @@ components:
           items:
             type: string
           type: array
+          xml:
+            attribute: true
+            name: CardinalityMin
         cardinalityMax:
           items:
             type: string
           type: array
+          xml:
+            attribute: true
+            name: CardinalityMax
         multilingual:
           type: boolean
           xml:
@@ -1502,8 +1509,7 @@ components:
         otherAttributes:
           additionalProperties:
             type: string
-          type: object
-        ValueSchemeType:
+        valueSchemeAttribute:
           enum:
           - BOOLEAN
           - DECIMAL
@@ -1521,7 +1527,6 @@ components:
           xml:
             attribute: true
             name: ValueScheme
-      type: object
     EnumerationType:
       example:
         item:
@@ -1545,7 +1550,6 @@ components:
           type: array
       required:
       - item
-      type: object
     Header:
       example:
         successor: successor
@@ -1588,7 +1592,6 @@ components:
       - id
       - name
       - status
-      type: object
     ItemType:
       example:
         conceptLink: conceptLink
@@ -1612,8 +1615,6 @@ components:
         otherAttributes:
           additionalProperties:
             type: string
-          type: object
-      type: object
     ValueSchemeType:
       example:
         vocabulary:
@@ -1639,7 +1640,6 @@ components:
           type: string
         vocabulary:
           $ref: '#/components/schemas/VocabularyType'
-      type: object
     VocabularyType:
       example:
         valueLanguage: valueLanguage
@@ -1676,7 +1676,6 @@ components:
           xml:
             attribute: true
             name: ValueLanguage
-      type: object
     ComponentDescription:
       example:
         successor: successor
@@ -1739,7 +1738,6 @@ components:
           type: boolean
         isPublic:
           type: boolean
-      type: object
       xml:
         name: componentDescription
     ComponentsList:
@@ -1784,5 +1782,4 @@ components:
           items:
             $ref: '#/components/schemas/ComponentDescription'
           type: array
-      type: object
 

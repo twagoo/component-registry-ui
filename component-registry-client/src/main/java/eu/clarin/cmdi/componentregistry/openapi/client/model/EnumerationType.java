@@ -38,23 +38,25 @@ import io.github.threetenjaxb.core.*;
   EnumerationType.JSON_PROPERTY_APPINFO,
   EnumerationType.JSON_PROPERTY_ITEM
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-12T14:24:29.119439+01:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-30T12:42:47.061619+02:00[Europe/Riga]", comments = "Generator version: 7.11.0")
 @XmlRootElement(name = "EnumerationType")
 @XmlAccessorType(XmlAccessType.FIELD)
 @JacksonXmlRootElement(localName = "EnumerationType")
 public class EnumerationType {
   public static final String JSON_PROPERTY_APPINFO = "appinfo";
   @XmlElement(name = "appinfo")
+  @jakarta.annotation.Nullable
   private String appinfo;
 
   public static final String JSON_PROPERTY_ITEM = "item";
   @XmlElement(name = "item")
+  @jakarta.annotation.Nonnull
   private List<ItemType> item = new ArrayList<>();
 
   public EnumerationType() {
   }
 
-  public EnumerationType appinfo(String appinfo) {
+  public EnumerationType appinfo(@jakarta.annotation.Nullable String appinfo) {
     
     this.appinfo = appinfo;
     return this;
@@ -77,11 +79,11 @@ public class EnumerationType {
   @JsonProperty(JSON_PROPERTY_APPINFO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "appinfo")
-  public void setAppinfo(String appinfo) {
+  public void setAppinfo(@jakarta.annotation.Nullable String appinfo) {
     this.appinfo = appinfo;
   }
 
-  public EnumerationType item(List<ItemType> item) {
+  public EnumerationType item(@jakarta.annotation.Nonnull List<ItemType> item) {
     
     this.item = item;
     return this;
@@ -114,7 +116,7 @@ public class EnumerationType {
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   @JacksonXmlProperty(localName = "item")
   @JacksonXmlElementWrapper(useWrapping = false)
-  public void setItem(List<ItemType> item) {
+  public void setItem(@jakarta.annotation.Nonnull List<ItemType> item) {
     this.item = item;
   }
 

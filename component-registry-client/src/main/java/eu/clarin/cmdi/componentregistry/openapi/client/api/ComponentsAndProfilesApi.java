@@ -26,16 +26,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-30T12:30:21.669683+02:00[Europe/Riga]", comments = "Generator version: 7.10.0")
-public class RegistryControllerApi {
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-30T12:42:47.061619+02:00[Europe/Riga]", comments = "Generator version: 7.11.0")
+public class ComponentsAndProfilesApi {
     private ApiClient apiClient;
 
-    public RegistryControllerApi() {
+    public ComponentsAndProfilesApi() {
         this(new ApiClient());
     }
 
     @Autowired
-    public RegistryControllerApi(ApiClient apiClient) {
+    public ComponentsAndProfilesApi(ApiClient apiClient) {
         this.apiClient = apiClient;
     }
 
@@ -72,7 +72,7 @@ public class RegistryControllerApi {
         final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<>();
 
         final String[] localVarAccepts = { 
-            "application/xml", "application/json"
+            "application/json", "application/xml"
         };
         final List<MediaType> localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         final String[] localVarContentTypes = { };
@@ -150,7 +150,7 @@ public class RegistryControllerApi {
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "sortDirection", sortDirection));
         
         final String[] localVarAccepts = { 
-            "application/xml", "application/json"
+            "application/json", "application/xml"
         };
         final List<MediaType> localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         final String[] localVarContentTypes = { };
@@ -230,7 +230,7 @@ public class RegistryControllerApi {
         final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<>();
 
         final String[] localVarAccepts = { 
-            "application/xml", "application/json"
+            "application/json", "application/xml"
         };
         final List<MediaType> localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         final String[] localVarContentTypes = { };
@@ -308,7 +308,7 @@ public class RegistryControllerApi {
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "sortDirection", sortDirection));
         
         final String[] localVarAccepts = { 
-            "application/xml", "application/json"
+            "application/json", "application/xml"
         };
         final List<MediaType> localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
         final String[] localVarContentTypes = { };

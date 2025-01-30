@@ -59,7 +59,7 @@ import eu.clarin.cmdi.componentregistry.openapi.client.auth.HttpBasicAuth;
 import eu.clarin.cmdi.componentregistry.openapi.client.auth.HttpBearerAuth;
 import eu.clarin.cmdi.componentregistry.openapi.client.auth.ApiKeyAuth;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-12T14:24:29.119439+01:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-30T12:42:47.061619+02:00[Europe/Riga]", comments = "Generator version: 7.11.0")
 public class ApiClient extends JavaTimeFormatter {
     public enum CollectionFormat {
         CSV(","), TSV("\t"), SSV(" "), PIPES("|"), MULTI(null);
@@ -87,29 +87,26 @@ public class ApiClient extends JavaTimeFormatter {
 
 
     public ApiClient() {
-        this.dateFormat = createDefaultDateFormat();
-        this.objectMapper = createDefaultObjectMapper(this.dateFormat);
-        this.restClient = buildRestClient(this.objectMapper);
-        this.init();
+        this(null);
     }
 
     public ApiClient(RestClient restClient) {
-        this(Optional.ofNullable(restClient).orElseGet(ApiClient::buildRestClient), createDefaultDateFormat());
+        this(restClient, createDefaultDateFormat());
     }
 
     public ApiClient(ObjectMapper mapper, DateFormat format) {
-        this(buildRestClient(mapper.copy()), format);
+        this(null, mapper, format);
     }
 
     public ApiClient(RestClient restClient, ObjectMapper mapper, DateFormat format) {
-        this(Optional.ofNullable(restClient).orElseGet(() -> buildRestClient(mapper.copy())), format);
+        this.objectMapper = mapper.copy();
+        this.restClient = Optional.ofNullable(restClient).orElseGet(() -> buildRestClient(this.objectMapper));
+        this.dateFormat = format;
+        this.init();
     }
 
     private ApiClient(RestClient restClient, DateFormat format) {
-        this.restClient = restClient;
-        this.dateFormat = format;
-        this.objectMapper = createDefaultObjectMapper(format);
-        this.init();
+        this(restClient, createDefaultObjectMapper(format), format);
     }
 
     public static DateFormat createDefaultDateFormat() {
@@ -149,8 +146,8 @@ public class ApiClient extends JavaTimeFormatter {
           xmlMapper.registerModule(new JsonNullableModule());
 
         Consumer<List<HttpMessageConverter<?>>> messageConverters = converters -> {
-            converters.add(new MappingJackson2HttpMessageConverter(mapper));
-            converters.add(new MappingJackson2XmlHttpMessageConverter(xmlMapper));
+            converters.add(0, new MappingJackson2HttpMessageConverter(mapper));
+            converters.add(0, new MappingJackson2XmlHttpMessageConverter(xmlMapper));
         };
 
         return RestClient.builder().messageConverters(messageConverters);

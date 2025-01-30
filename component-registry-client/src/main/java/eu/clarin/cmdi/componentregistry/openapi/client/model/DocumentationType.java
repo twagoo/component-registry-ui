@@ -34,23 +34,25 @@ import io.github.threetenjaxb.core.*;
   DocumentationType.JSON_PROPERTY_VALUE,
   DocumentationType.JSON_PROPERTY_LANG
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-12T14:24:29.119439+01:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-30T12:42:47.061619+02:00[Europe/Riga]", comments = "Generator version: 7.11.0")
 @XmlRootElement(name = "DocumentationType")
 @XmlAccessorType(XmlAccessType.FIELD)
 @JacksonXmlRootElement(localName = "DocumentationType")
 public class DocumentationType {
   public static final String JSON_PROPERTY_VALUE = "value";
   @XmlElement(name = "value")
+  @jakarta.annotation.Nullable
   private String value;
 
   public static final String JSON_PROPERTY_LANG = "lang";
   @XmlAttribute(name = "lang", namespace = "http://www.w3.org/XML/1998/namespace")
+  @jakarta.annotation.Nullable
   private String lang;
 
   public DocumentationType() {
   }
 
-  public DocumentationType value(String value) {
+  public DocumentationType value(@jakarta.annotation.Nullable String value) {
     
     this.value = value;
     return this;
@@ -73,11 +75,11 @@ public class DocumentationType {
   @JsonProperty(JSON_PROPERTY_VALUE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "value")
-  public void setValue(String value) {
+  public void setValue(@jakarta.annotation.Nullable String value) {
     this.value = value;
   }
 
-  public DocumentationType lang(String lang) {
+  public DocumentationType lang(@jakarta.annotation.Nullable String lang) {
     
     this.lang = lang;
     return this;
@@ -100,7 +102,7 @@ public class DocumentationType {
   @JsonProperty(JSON_PROPERTY_LANG)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "lang", isAttribute = true, namespace = "http://www.w3.org/XML/1998/namespace")
-  public void setLang(String lang) {
+  public void setLang(@jakarta.annotation.Nullable String lang) {
     this.lang = lang;
   }
 

@@ -49,98 +49,108 @@ import io.github.threetenjaxb.core.*;
   ElementType.JSON_PROPERTY_CARDINALITY_MAX,
   ElementType.JSON_PROPERTY_MULTILINGUAL,
   ElementType.JSON_PROPERTY_OTHER_ATTRIBUTES,
-  ElementType.JSON_PROPERTY_VALUE_SCHEME_TYPE
+  ElementType.JSON_PROPERTY_VALUE_SCHEME_ATTRIBUTE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-12T14:24:29.119439+01:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-30T12:42:47.061619+02:00[Europe/Riga]", comments = "Generator version: 7.11.0")
 @XmlRootElement(name = "ElementType")
 @XmlAccessorType(XmlAccessType.FIELD)
 @JacksonXmlRootElement(localName = "ElementType")
 public class ElementType {
   public static final String JSON_PROPERTY_DOCUMENTATION = "documentation";
   @XmlElement(name = "Documentation")
+  @jakarta.annotation.Nullable
   private List<DocumentationType> documentation = new ArrayList<>();
 
   public static final String JSON_PROPERTY_ATTRIBUTE_LIST = "attributeList";
-  @XmlElement(name = "attributeList")
+  @XmlElement(name = "AttributeList")
+  @jakarta.annotation.Nullable
   private AttributeListType attributeList;
 
   public static final String JSON_PROPERTY_VALUE_SCHEME = "valueScheme";
-  @XmlElement(name = "valueScheme")
+  @XmlElement(name = "ValueScheme")
+  @jakarta.annotation.Nullable
   private ValueSchemeType valueScheme;
 
   public static final String JSON_PROPERTY_AUTO_VALUE = "autoValue";
   @XmlElement(name = "AutoValue")
+  @jakarta.annotation.Nullable
   private List<String> autoValue = new ArrayList<>();
 
   public static final String JSON_PROPERTY_NAME = "name";
   @XmlAttribute(name = "name")
+  @jakarta.annotation.Nullable
   private String name;
 
   public static final String JSON_PROPERTY_CONCEPT_LINK = "conceptLink";
   @XmlAttribute(name = "ConceptLink")
+  @jakarta.annotation.Nullable
   private String conceptLink;
 
   public static final String JSON_PROPERTY_CARDINALITY_MIN = "cardinalityMin";
-  @XmlElement(name = "cardinalityMin")
+  @XmlAttribute(name = "CardinalityMin")
+  @jakarta.annotation.Nullable
   private List<String> cardinalityMin = new ArrayList<>();
 
   public static final String JSON_PROPERTY_CARDINALITY_MAX = "cardinalityMax";
-  @XmlElement(name = "cardinalityMax")
+  @XmlAttribute(name = "CardinalityMax")
+  @jakarta.annotation.Nullable
   private List<String> cardinalityMax = new ArrayList<>();
 
   public static final String JSON_PROPERTY_MULTILINGUAL = "multilingual";
   @XmlAttribute(name = "Multilingual")
+  @jakarta.annotation.Nullable
   private Boolean multilingual;
 
   public static final String JSON_PROPERTY_OTHER_ATTRIBUTES = "otherAttributes";
   @XmlElement(name = "otherAttributes")
+  @jakarta.annotation.Nullable
   private Map<String, String> otherAttributes = new HashMap<>();
 
   /**
-   * Gets or Sets valueSchemeType
+   * Gets or Sets valueSchemeAttribute
    */
-  @XmlType(name="ValueSchemeTypeEnum")
+  @XmlType(name="ValueSchemeAttributeEnum")
   @XmlEnum(String.class)
-  public enum ValueSchemeTypeEnum {
+  public enum ValueSchemeAttributeEnum {
     @XmlEnumValue("BOOLEAN")
-    BOOLEAN("BOOLEAN"),
+    BOOLEAN(String.valueOf("BOOLEAN")),
     
     @XmlEnumValue("DECIMAL")
-    DECIMAL("DECIMAL"),
+    DECIMAL(String.valueOf("DECIMAL")),
     
     @XmlEnumValue("FLOAT")
-    FLOAT("FLOAT"),
+    FLOAT(String.valueOf("FLOAT")),
     
     @XmlEnumValue("INT")
-    INT("INT"),
+    INT(String.valueOf("INT")),
     
     @XmlEnumValue("STRING")
-    STRING("STRING"),
+    STRING(String.valueOf("STRING")),
     
     @XmlEnumValue("ANY_URI")
-    ANY_URI("ANY_URI"),
+    ANY_URI(String.valueOf("ANY_URI")),
     
     @XmlEnumValue("DATE")
-    DATE("DATE"),
+    DATE(String.valueOf("DATE")),
     
     @XmlEnumValue("G_DAY")
-    G_DAY("G_DAY"),
+    G_DAY(String.valueOf("G_DAY")),
     
     @XmlEnumValue("G_MONTH")
-    G_MONTH("G_MONTH"),
+    G_MONTH(String.valueOf("G_MONTH")),
     
     @XmlEnumValue("G_YEAR")
-    G_YEAR("G_YEAR"),
+    G_YEAR(String.valueOf("G_YEAR")),
     
     @XmlEnumValue("TIME")
-    TIME("TIME"),
+    TIME(String.valueOf("TIME")),
     
     @XmlEnumValue("DATE_TIME")
-    DATE_TIME("DATE_TIME");
+    DATE_TIME(String.valueOf("DATE_TIME"));
 
     private String value;
 
-    ValueSchemeTypeEnum(String value) {
+    ValueSchemeAttributeEnum(String value) {
       this.value = value;
     }
 
@@ -155,8 +165,8 @@ public class ElementType {
     }
 
     @JsonCreator
-    public static ValueSchemeTypeEnum fromValue(String value) {
-      for (ValueSchemeTypeEnum b : ValueSchemeTypeEnum.values()) {
+    public static ValueSchemeAttributeEnum fromValue(String value) {
+      for (ValueSchemeAttributeEnum b : ValueSchemeAttributeEnum.values()) {
         if (b.value.equals(value)) {
           return b;
         }
@@ -165,14 +175,15 @@ public class ElementType {
     }
   }
 
-  public static final String JSON_PROPERTY_VALUE_SCHEME_TYPE = "ValueSchemeType";
+  public static final String JSON_PROPERTY_VALUE_SCHEME_ATTRIBUTE = "valueSchemeAttribute";
   @XmlAttribute(name = "ValueScheme")
-  private ValueSchemeTypeEnum valueSchemeType;
+  @jakarta.annotation.Nullable
+  private ValueSchemeAttributeEnum valueSchemeAttribute;
 
   public ElementType() {
   }
 
-  public ElementType documentation(List<DocumentationType> documentation) {
+  public ElementType documentation(@jakarta.annotation.Nullable List<DocumentationType> documentation) {
     
     this.documentation = documentation;
     return this;
@@ -205,11 +216,11 @@ public class ElementType {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "Documentation")
   @JacksonXmlElementWrapper(useWrapping = false)
-  public void setDocumentation(List<DocumentationType> documentation) {
+  public void setDocumentation(@jakarta.annotation.Nullable List<DocumentationType> documentation) {
     this.documentation = documentation;
   }
 
-  public ElementType attributeList(AttributeListType attributeList) {
+  public ElementType attributeList(@jakarta.annotation.Nullable AttributeListType attributeList) {
     
     this.attributeList = attributeList;
     return this;
@@ -222,7 +233,7 @@ public class ElementType {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ATTRIBUTE_LIST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  @JacksonXmlProperty(localName = "attributeList")
+  @JacksonXmlProperty(localName = "AttributeList")
 
   public AttributeListType getAttributeList() {
     return attributeList;
@@ -231,12 +242,12 @@ public class ElementType {
 
   @JsonProperty(JSON_PROPERTY_ATTRIBUTE_LIST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  @JacksonXmlProperty(localName = "attributeList")
-  public void setAttributeList(AttributeListType attributeList) {
+  @JacksonXmlProperty(localName = "AttributeList")
+  public void setAttributeList(@jakarta.annotation.Nullable AttributeListType attributeList) {
     this.attributeList = attributeList;
   }
 
-  public ElementType valueScheme(ValueSchemeType valueScheme) {
+  public ElementType valueScheme(@jakarta.annotation.Nullable ValueSchemeType valueScheme) {
     
     this.valueScheme = valueScheme;
     return this;
@@ -249,7 +260,7 @@ public class ElementType {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_VALUE_SCHEME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  @JacksonXmlProperty(localName = "valueScheme")
+  @JacksonXmlProperty(localName = "ValueScheme")
 
   public ValueSchemeType getValueScheme() {
     return valueScheme;
@@ -258,12 +269,12 @@ public class ElementType {
 
   @JsonProperty(JSON_PROPERTY_VALUE_SCHEME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  @JacksonXmlProperty(localName = "valueScheme")
-  public void setValueScheme(ValueSchemeType valueScheme) {
+  @JacksonXmlProperty(localName = "ValueScheme")
+  public void setValueScheme(@jakarta.annotation.Nullable ValueSchemeType valueScheme) {
     this.valueScheme = valueScheme;
   }
 
-  public ElementType autoValue(List<String> autoValue) {
+  public ElementType autoValue(@jakarta.annotation.Nullable List<String> autoValue) {
     
     this.autoValue = autoValue;
     return this;
@@ -296,11 +307,11 @@ public class ElementType {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "AutoValue")
   @JacksonXmlElementWrapper(useWrapping = false)
-  public void setAutoValue(List<String> autoValue) {
+  public void setAutoValue(@jakarta.annotation.Nullable List<String> autoValue) {
     this.autoValue = autoValue;
   }
 
-  public ElementType name(String name) {
+  public ElementType name(@jakarta.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -323,11 +334,11 @@ public class ElementType {
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "name", isAttribute = true)
-  public void setName(String name) {
+  public void setName(@jakarta.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public ElementType conceptLink(String conceptLink) {
+  public ElementType conceptLink(@jakarta.annotation.Nullable String conceptLink) {
     
     this.conceptLink = conceptLink;
     return this;
@@ -350,11 +361,11 @@ public class ElementType {
   @JsonProperty(JSON_PROPERTY_CONCEPT_LINK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "ConceptLink", isAttribute = true)
-  public void setConceptLink(String conceptLink) {
+  public void setConceptLink(@jakarta.annotation.Nullable String conceptLink) {
     this.conceptLink = conceptLink;
   }
 
-  public ElementType cardinalityMin(List<String> cardinalityMin) {
+  public ElementType cardinalityMin(@jakarta.annotation.Nullable List<String> cardinalityMin) {
     
     this.cardinalityMin = cardinalityMin;
     return this;
@@ -375,7 +386,7 @@ public class ElementType {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_CARDINALITY_MIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  @JacksonXmlProperty(localName = "cardinalityMin")
+  @JacksonXmlProperty(localName = "CardinalityMin", isAttribute = true)
   @JacksonXmlElementWrapper(useWrapping = false)
 
   public List<String> getCardinalityMin() {
@@ -385,13 +396,13 @@ public class ElementType {
 
   @JsonProperty(JSON_PROPERTY_CARDINALITY_MIN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  @JacksonXmlProperty(localName = "cardinalityMin")
+  @JacksonXmlProperty(localName = "CardinalityMin", isAttribute = true)
   @JacksonXmlElementWrapper(useWrapping = false)
-  public void setCardinalityMin(List<String> cardinalityMin) {
+  public void setCardinalityMin(@jakarta.annotation.Nullable List<String> cardinalityMin) {
     this.cardinalityMin = cardinalityMin;
   }
 
-  public ElementType cardinalityMax(List<String> cardinalityMax) {
+  public ElementType cardinalityMax(@jakarta.annotation.Nullable List<String> cardinalityMax) {
     
     this.cardinalityMax = cardinalityMax;
     return this;
@@ -412,7 +423,7 @@ public class ElementType {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_CARDINALITY_MAX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  @JacksonXmlProperty(localName = "cardinalityMax")
+  @JacksonXmlProperty(localName = "CardinalityMax", isAttribute = true)
   @JacksonXmlElementWrapper(useWrapping = false)
 
   public List<String> getCardinalityMax() {
@@ -422,13 +433,13 @@ public class ElementType {
 
   @JsonProperty(JSON_PROPERTY_CARDINALITY_MAX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  @JacksonXmlProperty(localName = "cardinalityMax")
+  @JacksonXmlProperty(localName = "CardinalityMax", isAttribute = true)
   @JacksonXmlElementWrapper(useWrapping = false)
-  public void setCardinalityMax(List<String> cardinalityMax) {
+  public void setCardinalityMax(@jakarta.annotation.Nullable List<String> cardinalityMax) {
     this.cardinalityMax = cardinalityMax;
   }
 
-  public ElementType multilingual(Boolean multilingual) {
+  public ElementType multilingual(@jakarta.annotation.Nullable Boolean multilingual) {
     
     this.multilingual = multilingual;
     return this;
@@ -451,11 +462,11 @@ public class ElementType {
   @JsonProperty(JSON_PROPERTY_MULTILINGUAL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "Multilingual", isAttribute = true)
-  public void setMultilingual(Boolean multilingual) {
+  public void setMultilingual(@jakarta.annotation.Nullable Boolean multilingual) {
     this.multilingual = multilingual;
   }
 
-  public ElementType otherAttributes(Map<String, String> otherAttributes) {
+  public ElementType otherAttributes(@jakarta.annotation.Nullable Map<String, String> otherAttributes) {
     
     this.otherAttributes = otherAttributes;
     return this;
@@ -488,35 +499,35 @@ public class ElementType {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "otherAttributes")
   @JacksonXmlElementWrapper(useWrapping = false)
-  public void setOtherAttributes(Map<String, String> otherAttributes) {
+  public void setOtherAttributes(@jakarta.annotation.Nullable Map<String, String> otherAttributes) {
     this.otherAttributes = otherAttributes;
   }
 
-  public ElementType valueSchemeType(ValueSchemeTypeEnum valueSchemeType) {
+  public ElementType valueSchemeAttribute(@jakarta.annotation.Nullable ValueSchemeAttributeEnum valueSchemeAttribute) {
     
-    this.valueSchemeType = valueSchemeType;
+    this.valueSchemeAttribute = valueSchemeAttribute;
     return this;
   }
 
   /**
-   * Get valueSchemeType
-   * @return valueSchemeType
+   * Get valueSchemeAttribute
+   * @return valueSchemeAttribute
    */
   @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VALUE_SCHEME_TYPE)
+  @JsonProperty(JSON_PROPERTY_VALUE_SCHEME_ATTRIBUTE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "ValueScheme", isAttribute = true)
 
-  public ValueSchemeTypeEnum getValueSchemeType() {
-    return valueSchemeType;
+  public ValueSchemeAttributeEnum getValueSchemeAttribute() {
+    return valueSchemeAttribute;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_VALUE_SCHEME_TYPE)
+  @JsonProperty(JSON_PROPERTY_VALUE_SCHEME_ATTRIBUTE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "ValueScheme", isAttribute = true)
-  public void setValueSchemeType(ValueSchemeTypeEnum valueSchemeType) {
-    this.valueSchemeType = valueSchemeType;
+  public void setValueSchemeAttribute(@jakarta.annotation.Nullable ValueSchemeAttributeEnum valueSchemeAttribute) {
+    this.valueSchemeAttribute = valueSchemeAttribute;
   }
 
   @Override
@@ -538,12 +549,12 @@ public class ElementType {
         Objects.equals(this.cardinalityMax, elementType.cardinalityMax) &&
         Objects.equals(this.multilingual, elementType.multilingual) &&
         Objects.equals(this.otherAttributes, elementType.otherAttributes) &&
-        Objects.equals(this.valueSchemeType, elementType.valueSchemeType);
+        Objects.equals(this.valueSchemeAttribute, elementType.valueSchemeAttribute);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(documentation, attributeList, valueScheme, autoValue, name, conceptLink, cardinalityMin, cardinalityMax, multilingual, otherAttributes, valueSchemeType);
+    return Objects.hash(documentation, attributeList, valueScheme, autoValue, name, conceptLink, cardinalityMin, cardinalityMax, multilingual, otherAttributes, valueSchemeAttribute);
   }
 
   @Override
@@ -560,7 +571,7 @@ public class ElementType {
     sb.append("    cardinalityMax: ").append(toIndentedString(cardinalityMax)).append("\n");
     sb.append("    multilingual: ").append(toIndentedString(multilingual)).append("\n");
     sb.append("    otherAttributes: ").append(toIndentedString(otherAttributes)).append("\n");
-    sb.append("    valueSchemeType: ").append(toIndentedString(valueSchemeType)).append("\n");
+    sb.append("    valueSchemeAttribute: ").append(toIndentedString(valueSchemeAttribute)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -35,23 +35,25 @@ import io.github.threetenjaxb.core.*;
   ValueSchemeType.JSON_PROPERTY_PATTERN,
   ValueSchemeType.JSON_PROPERTY_VOCABULARY
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-12T14:24:29.119439+01:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-30T12:42:47.061619+02:00[Europe/Riga]", comments = "Generator version: 7.11.0")
 @XmlRootElement(name = "ValueSchemeType")
 @XmlAccessorType(XmlAccessType.FIELD)
 @JacksonXmlRootElement(localName = "ValueSchemeType")
 public class ValueSchemeType {
   public static final String JSON_PROPERTY_PATTERN = "pattern";
   @XmlElement(name = "pattern")
+  @jakarta.annotation.Nullable
   private String pattern;
 
   public static final String JSON_PROPERTY_VOCABULARY = "vocabulary";
-  @XmlElement(name = "vocabulary")
+  @XmlElement(name = "Vocabulary")
+  @jakarta.annotation.Nullable
   private VocabularyType vocabulary;
 
   public ValueSchemeType() {
   }
 
-  public ValueSchemeType pattern(String pattern) {
+  public ValueSchemeType pattern(@jakarta.annotation.Nullable String pattern) {
     
     this.pattern = pattern;
     return this;
@@ -74,11 +76,11 @@ public class ValueSchemeType {
   @JsonProperty(JSON_PROPERTY_PATTERN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "pattern")
-  public void setPattern(String pattern) {
+  public void setPattern(@jakarta.annotation.Nullable String pattern) {
     this.pattern = pattern;
   }
 
-  public ValueSchemeType vocabulary(VocabularyType vocabulary) {
+  public ValueSchemeType vocabulary(@jakarta.annotation.Nullable VocabularyType vocabulary) {
     
     this.vocabulary = vocabulary;
     return this;
@@ -91,7 +93,7 @@ public class ValueSchemeType {
   @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_VOCABULARY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  @JacksonXmlProperty(localName = "vocabulary")
+  @JacksonXmlProperty(localName = "Vocabulary")
 
   public VocabularyType getVocabulary() {
     return vocabulary;
@@ -100,8 +102,8 @@ public class ValueSchemeType {
 
   @JsonProperty(JSON_PROPERTY_VOCABULARY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  @JacksonXmlProperty(localName = "vocabulary")
-  public void setVocabulary(VocabularyType vocabulary) {
+  @JacksonXmlProperty(localName = "Vocabulary")
+  public void setVocabulary(@jakarta.annotation.Nullable VocabularyType vocabulary) {
     this.vocabulary = vocabulary;
   }
 

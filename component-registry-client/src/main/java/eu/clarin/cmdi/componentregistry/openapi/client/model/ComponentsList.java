@@ -37,19 +37,20 @@ import io.github.threetenjaxb.core.*;
 @JsonPropertyOrder({
   ComponentsList.JSON_PROPERTY_COMPONENTS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-12T14:24:29.119439+01:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-30T12:42:47.061619+02:00[Europe/Riga]", comments = "Generator version: 7.11.0")
 @XmlRootElement(name = "ComponentsList")
 @XmlAccessorType(XmlAccessType.FIELD)
 @JacksonXmlRootElement(localName = "ComponentsList")
 public class ComponentsList {
   public static final String JSON_PROPERTY_COMPONENTS = "components";
   @XmlElement(name = "componentDescription")
+  @jakarta.annotation.Nullable
   private List<ComponentDescription> components = new ArrayList<>();
 
   public ComponentsList() {
   }
 
-  public ComponentsList components(List<ComponentDescription> components) {
+  public ComponentsList components(@jakarta.annotation.Nullable List<ComponentDescription> components) {
     
     this.components = components;
     return this;
@@ -82,7 +83,7 @@ public class ComponentsList {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "componentDescription")
   @JacksonXmlElementWrapper(useWrapping = false)
-  public void setComponents(List<ComponentDescription> components) {
+  public void setComponents(@jakarta.annotation.Nullable List<ComponentDescription> components) {
     this.components = components;
   }
 

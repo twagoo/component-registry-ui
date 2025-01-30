@@ -39,43 +39,50 @@ import io.github.threetenjaxb.core.*;
   Header.JSON_PROPERTY_SUCCESSOR,
   Header.JSON_PROPERTY_DERIVED_FROM
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-12T14:24:29.119439+01:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-30T12:42:47.061619+02:00[Europe/Riga]", comments = "Generator version: 7.11.0")
 @XmlRootElement(name = "Header")
 @XmlAccessorType(XmlAccessType.FIELD)
 @JacksonXmlRootElement(localName = "Header")
 public class Header {
   public static final String JSON_PROPERTY_ID = "id";
   @XmlElement(name = "ID")
+  @jakarta.annotation.Nonnull
   private String id;
 
   public static final String JSON_PROPERTY_NAME = "name";
   @XmlElement(name = "Name")
+  @jakarta.annotation.Nonnull
   private String name;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
   @XmlElement(name = "Description")
+  @jakarta.annotation.Nullable
   private String description;
 
   public static final String JSON_PROPERTY_STATUS = "status";
   @XmlElement(name = "Status")
+  @jakarta.annotation.Nonnull
   private String status;
 
   public static final String JSON_PROPERTY_STATUS_COMMENT = "statusComment";
   @XmlElement(name = "StatusComment")
+  @jakarta.annotation.Nullable
   private String statusComment;
 
   public static final String JSON_PROPERTY_SUCCESSOR = "successor";
   @XmlElement(name = "Successor")
+  @jakarta.annotation.Nullable
   private String successor;
 
   public static final String JSON_PROPERTY_DERIVED_FROM = "derivedFrom";
   @XmlElement(name = "DerivedFrom")
+  @jakarta.annotation.Nullable
   private String derivedFrom;
 
   public Header() {
   }
 
-  public Header id(String id) {
+  public Header id(@jakarta.annotation.Nonnull String id) {
     
     this.id = id;
     return this;
@@ -98,11 +105,11 @@ public class Header {
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   @JacksonXmlProperty(localName = "ID")
-  public void setId(String id) {
+  public void setId(@jakarta.annotation.Nonnull String id) {
     this.id = id;
   }
 
-  public Header name(String name) {
+  public Header name(@jakarta.annotation.Nonnull String name) {
     
     this.name = name;
     return this;
@@ -125,11 +132,11 @@ public class Header {
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   @JacksonXmlProperty(localName = "Name")
-  public void setName(String name) {
+  public void setName(@jakarta.annotation.Nonnull String name) {
     this.name = name;
   }
 
-  public Header description(String description) {
+  public Header description(@jakarta.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -152,11 +159,11 @@ public class Header {
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "Description")
-  public void setDescription(String description) {
+  public void setDescription(@jakarta.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public Header status(String status) {
+  public Header status(@jakarta.annotation.Nonnull String status) {
     
     this.status = status;
     return this;
@@ -179,11 +186,11 @@ public class Header {
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   @JacksonXmlProperty(localName = "Status")
-  public void setStatus(String status) {
+  public void setStatus(@jakarta.annotation.Nonnull String status) {
     this.status = status;
   }
 
-  public Header statusComment(String statusComment) {
+  public Header statusComment(@jakarta.annotation.Nullable String statusComment) {
     
     this.statusComment = statusComment;
     return this;
@@ -206,11 +213,11 @@ public class Header {
   @JsonProperty(JSON_PROPERTY_STATUS_COMMENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "StatusComment")
-  public void setStatusComment(String statusComment) {
+  public void setStatusComment(@jakarta.annotation.Nullable String statusComment) {
     this.statusComment = statusComment;
   }
 
-  public Header successor(String successor) {
+  public Header successor(@jakarta.annotation.Nullable String successor) {
     
     this.successor = successor;
     return this;
@@ -233,11 +240,11 @@ public class Header {
   @JsonProperty(JSON_PROPERTY_SUCCESSOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "Successor")
-  public void setSuccessor(String successor) {
+  public void setSuccessor(@jakarta.annotation.Nullable String successor) {
     this.successor = successor;
   }
 
-  public Header derivedFrom(String derivedFrom) {
+  public Header derivedFrom(@jakarta.annotation.Nullable String derivedFrom) {
     
     this.derivedFrom = derivedFrom;
     return this;
@@ -260,7 +267,7 @@ public class Header {
   @JsonProperty(JSON_PROPERTY_DERIVED_FROM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "DerivedFrom")
-  public void setDerivedFrom(String derivedFrom) {
+  public void setDerivedFrom(@jakarta.annotation.Nullable String derivedFrom) {
     this.derivedFrom = derivedFrom;
   }
 

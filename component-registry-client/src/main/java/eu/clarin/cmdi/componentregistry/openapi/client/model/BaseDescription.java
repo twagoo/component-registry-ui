@@ -50,42 +50,50 @@ import io.github.threetenjaxb.core.*;
   BaseDescription.JSON_PROPERTY_SHOW_IN_EDITOR,
   BaseDescription.JSON_PROPERTY_IS_PUBLIC
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-12T14:24:29.119439+01:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-30T12:42:47.061619+02:00[Europe/Riga]", comments = "Generator version: 7.11.0")
 @XmlRootElement(name = "description")
 @XmlAccessorType(XmlAccessType.FIELD)
 @JacksonXmlRootElement(localName = "description")
 public class BaseDescription {
   public static final String JSON_PROPERTY_NAME = "name";
   @XmlElement(name = "name")
+  @jakarta.annotation.Nullable
   private String name;
 
   public static final String JSON_PROPERTY_DESCRIPTION = "description";
   @XmlElement(name = "description")
+  @jakarta.annotation.Nullable
   private String description;
 
   public static final String JSON_PROPERTY_REGISTRATION_DATE = "registrationDate";
   @XmlElement(name = "registrationDate")
   @XmlJavaTypeAdapter(OffsetDateTimeXmlAdapter.class)
+  @jakarta.annotation.Nullable
   private OffsetDateTime registrationDate;
 
   public static final String JSON_PROPERTY_CREATOR_NAME = "creatorName";
   @XmlElement(name = "creatorName")
+  @jakarta.annotation.Nullable
   private String creatorName;
 
   public static final String JSON_PROPERTY_USER_ID = "userId";
   @XmlElement(name = "userId")
+  @jakarta.annotation.Nullable
   private String userId;
 
   public static final String JSON_PROPERTY_DOMAIN_NAME = "domainName";
   @XmlElement(name = "domainName")
+  @jakarta.annotation.Nullable
   private String domainName;
 
   public static final String JSON_PROPERTY_HREF = "href";
   @XmlElement(name = "href", namespace = "http://www.w3.org/1999/xlink")
+  @jakarta.annotation.Nullable
   private String href;
 
   public static final String JSON_PROPERTY_GROUP_NAME = "groupName";
   @XmlElement(name = "groupName")
+  @jakarta.annotation.Nullable
   private String groupName;
 
   /**
@@ -95,13 +103,13 @@ public class BaseDescription {
   @XmlEnum(String.class)
   public enum StatusEnum {
     @XmlEnumValue("development")
-    DEVELOPMENT("development"),
+    DEVELOPMENT(String.valueOf("development")),
     
     @XmlEnumValue("production")
-    PRODUCTION("production"),
+    PRODUCTION(String.valueOf("production")),
     
     @XmlEnumValue("deprecated")
-    DEPRECATED("deprecated");
+    DEPRECATED(String.valueOf("deprecated"));
 
     private String value;
 
@@ -132,44 +140,53 @@ public class BaseDescription {
 
   public static final String JSON_PROPERTY_STATUS = "status";
   @XmlElement(name = "status")
+  @jakarta.annotation.Nullable
   private StatusEnum status;
 
   public static final String JSON_PROPERTY_DERIVEDFROM = "derivedfrom";
   @XmlElement(name = "derivedfrom")
+  @jakarta.annotation.Nullable
   private String derivedfrom;
 
   public static final String JSON_PROPERTY_SUCCESSOR = "successor";
   @XmlElement(name = "successor")
+  @jakarta.annotation.Nullable
   private String successor;
 
   public static final String JSON_PROPERTY_COMMENTS_COUNT = "commentsCount";
   @XmlElement(name = "commentsCount")
+  @jakarta.annotation.Nullable
   private Integer commentsCount;
 
   public static final String JSON_PROPERTY_RECOMMENDED = "recommended";
   @XmlElement(name = "recommended")
+  @jakarta.annotation.Nullable
   private Boolean recommended;
 
   public static final String JSON_PROPERTY_PUBLIC = "public";
   @XmlElement(name = "public")
+  @jakarta.annotation.Nullable
   private Boolean _public;
 
   public static final String JSON_PROPERTY_ID = "id";
   @XmlElement(name = "id")
+  @jakarta.annotation.Nullable
   private String id;
 
   public static final String JSON_PROPERTY_SHOW_IN_EDITOR = "showInEditor";
   @XmlElement(name = "showInEditor")
+  @jakarta.annotation.Nullable
   private Boolean showInEditor;
 
   public static final String JSON_PROPERTY_IS_PUBLIC = "isPublic";
   @XmlElement(name = "isPublic")
+  @jakarta.annotation.Nullable
   private Boolean isPublic;
 
   public BaseDescription() {
   }
 
-  public BaseDescription name(String name) {
+  public BaseDescription name(@jakarta.annotation.Nullable String name) {
     
     this.name = name;
     return this;
@@ -192,11 +209,11 @@ public class BaseDescription {
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "name")
-  public void setName(String name) {
+  public void setName(@jakarta.annotation.Nullable String name) {
     this.name = name;
   }
 
-  public BaseDescription description(String description) {
+  public BaseDescription description(@jakarta.annotation.Nullable String description) {
     
     this.description = description;
     return this;
@@ -219,11 +236,11 @@ public class BaseDescription {
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "description")
-  public void setDescription(String description) {
+  public void setDescription(@jakarta.annotation.Nullable String description) {
     this.description = description;
   }
 
-  public BaseDescription registrationDate(OffsetDateTime registrationDate) {
+  public BaseDescription registrationDate(@jakarta.annotation.Nullable OffsetDateTime registrationDate) {
     
     this.registrationDate = registrationDate;
     return this;
@@ -246,11 +263,11 @@ public class BaseDescription {
   @JsonProperty(JSON_PROPERTY_REGISTRATION_DATE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "registrationDate")
-  public void setRegistrationDate(OffsetDateTime registrationDate) {
+  public void setRegistrationDate(@jakarta.annotation.Nullable OffsetDateTime registrationDate) {
     this.registrationDate = registrationDate;
   }
 
-  public BaseDescription creatorName(String creatorName) {
+  public BaseDescription creatorName(@jakarta.annotation.Nullable String creatorName) {
     
     this.creatorName = creatorName;
     return this;
@@ -273,11 +290,11 @@ public class BaseDescription {
   @JsonProperty(JSON_PROPERTY_CREATOR_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "creatorName")
-  public void setCreatorName(String creatorName) {
+  public void setCreatorName(@jakarta.annotation.Nullable String creatorName) {
     this.creatorName = creatorName;
   }
 
-  public BaseDescription userId(String userId) {
+  public BaseDescription userId(@jakarta.annotation.Nullable String userId) {
     
     this.userId = userId;
     return this;
@@ -300,11 +317,11 @@ public class BaseDescription {
   @JsonProperty(JSON_PROPERTY_USER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "userId")
-  public void setUserId(String userId) {
+  public void setUserId(@jakarta.annotation.Nullable String userId) {
     this.userId = userId;
   }
 
-  public BaseDescription domainName(String domainName) {
+  public BaseDescription domainName(@jakarta.annotation.Nullable String domainName) {
     
     this.domainName = domainName;
     return this;
@@ -327,11 +344,11 @@ public class BaseDescription {
   @JsonProperty(JSON_PROPERTY_DOMAIN_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "domainName")
-  public void setDomainName(String domainName) {
+  public void setDomainName(@jakarta.annotation.Nullable String domainName) {
     this.domainName = domainName;
   }
 
-  public BaseDescription href(String href) {
+  public BaseDescription href(@jakarta.annotation.Nullable String href) {
     
     this.href = href;
     return this;
@@ -354,11 +371,11 @@ public class BaseDescription {
   @JsonProperty(JSON_PROPERTY_HREF)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "href", namespace = "http://www.w3.org/1999/xlink")
-  public void setHref(String href) {
+  public void setHref(@jakarta.annotation.Nullable String href) {
     this.href = href;
   }
 
-  public BaseDescription groupName(String groupName) {
+  public BaseDescription groupName(@jakarta.annotation.Nullable String groupName) {
     
     this.groupName = groupName;
     return this;
@@ -381,11 +398,11 @@ public class BaseDescription {
   @JsonProperty(JSON_PROPERTY_GROUP_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "groupName")
-  public void setGroupName(String groupName) {
+  public void setGroupName(@jakarta.annotation.Nullable String groupName) {
     this.groupName = groupName;
   }
 
-  public BaseDescription status(StatusEnum status) {
+  public BaseDescription status(@jakarta.annotation.Nullable StatusEnum status) {
     
     this.status = status;
     return this;
@@ -408,11 +425,11 @@ public class BaseDescription {
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "status")
-  public void setStatus(StatusEnum status) {
+  public void setStatus(@jakarta.annotation.Nullable StatusEnum status) {
     this.status = status;
   }
 
-  public BaseDescription derivedfrom(String derivedfrom) {
+  public BaseDescription derivedfrom(@jakarta.annotation.Nullable String derivedfrom) {
     
     this.derivedfrom = derivedfrom;
     return this;
@@ -435,11 +452,11 @@ public class BaseDescription {
   @JsonProperty(JSON_PROPERTY_DERIVEDFROM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "derivedfrom")
-  public void setDerivedfrom(String derivedfrom) {
+  public void setDerivedfrom(@jakarta.annotation.Nullable String derivedfrom) {
     this.derivedfrom = derivedfrom;
   }
 
-  public BaseDescription successor(String successor) {
+  public BaseDescription successor(@jakarta.annotation.Nullable String successor) {
     
     this.successor = successor;
     return this;
@@ -462,11 +479,11 @@ public class BaseDescription {
   @JsonProperty(JSON_PROPERTY_SUCCESSOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "successor")
-  public void setSuccessor(String successor) {
+  public void setSuccessor(@jakarta.annotation.Nullable String successor) {
     this.successor = successor;
   }
 
-  public BaseDescription commentsCount(Integer commentsCount) {
+  public BaseDescription commentsCount(@jakarta.annotation.Nullable Integer commentsCount) {
     
     this.commentsCount = commentsCount;
     return this;
@@ -489,11 +506,11 @@ public class BaseDescription {
   @JsonProperty(JSON_PROPERTY_COMMENTS_COUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "commentsCount")
-  public void setCommentsCount(Integer commentsCount) {
+  public void setCommentsCount(@jakarta.annotation.Nullable Integer commentsCount) {
     this.commentsCount = commentsCount;
   }
 
-  public BaseDescription recommended(Boolean recommended) {
+  public BaseDescription recommended(@jakarta.annotation.Nullable Boolean recommended) {
     
     this.recommended = recommended;
     return this;
@@ -516,11 +533,11 @@ public class BaseDescription {
   @JsonProperty(JSON_PROPERTY_RECOMMENDED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "recommended")
-  public void setRecommended(Boolean recommended) {
+  public void setRecommended(@jakarta.annotation.Nullable Boolean recommended) {
     this.recommended = recommended;
   }
 
-  public BaseDescription _public(Boolean _public) {
+  public BaseDescription _public(@jakarta.annotation.Nullable Boolean _public) {
     
     this._public = _public;
     return this;
@@ -543,11 +560,11 @@ public class BaseDescription {
   @JsonProperty(JSON_PROPERTY_PUBLIC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "public")
-  public void setPublic(Boolean _public) {
+  public void setPublic(@jakarta.annotation.Nullable Boolean _public) {
     this._public = _public;
   }
 
-  public BaseDescription id(String id) {
+  public BaseDescription id(@jakarta.annotation.Nullable String id) {
     
     this.id = id;
     return this;
@@ -570,11 +587,11 @@ public class BaseDescription {
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "id")
-  public void setId(String id) {
+  public void setId(@jakarta.annotation.Nullable String id) {
     this.id = id;
   }
 
-  public BaseDescription showInEditor(Boolean showInEditor) {
+  public BaseDescription showInEditor(@jakarta.annotation.Nullable Boolean showInEditor) {
     
     this.showInEditor = showInEditor;
     return this;
@@ -597,11 +614,11 @@ public class BaseDescription {
   @JsonProperty(JSON_PROPERTY_SHOW_IN_EDITOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "showInEditor")
-  public void setShowInEditor(Boolean showInEditor) {
+  public void setShowInEditor(@jakarta.annotation.Nullable Boolean showInEditor) {
     this.showInEditor = showInEditor;
   }
 
-  public BaseDescription isPublic(Boolean isPublic) {
+  public BaseDescription isPublic(@jakarta.annotation.Nullable Boolean isPublic) {
     
     this.isPublic = isPublic;
     return this;
@@ -624,7 +641,7 @@ public class BaseDescription {
   @JsonProperty(JSON_PROPERTY_IS_PUBLIC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   @JacksonXmlProperty(localName = "isPublic")
-  public void setIsPublic(Boolean isPublic) {
+  public void setIsPublic(@jakarta.annotation.Nullable Boolean isPublic) {
     this.isPublic = isPublic;
   }
 

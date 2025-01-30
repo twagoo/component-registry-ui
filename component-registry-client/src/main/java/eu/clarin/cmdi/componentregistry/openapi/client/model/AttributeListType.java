@@ -37,19 +37,20 @@ import io.github.threetenjaxb.core.*;
 @JsonPropertyOrder({
   AttributeListType.JSON_PROPERTY_ATTRIBUTE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2024-11-12T14:24:29.119439+01:00[Europe/Amsterdam]", comments = "Generator version: 7.8.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2025-01-30T12:42:47.061619+02:00[Europe/Riga]", comments = "Generator version: 7.11.0")
 @XmlRootElement(name = "AttributeListType")
 @XmlAccessorType(XmlAccessType.FIELD)
 @JacksonXmlRootElement(localName = "AttributeListType")
 public class AttributeListType {
   public static final String JSON_PROPERTY_ATTRIBUTE = "attribute";
   @XmlElement(name = "Attribute")
+  @jakarta.annotation.Nonnull
   private List<Attribute> attribute = new ArrayList<>();
 
   public AttributeListType() {
   }
 
-  public AttributeListType attribute(List<Attribute> attribute) {
+  public AttributeListType attribute(@jakarta.annotation.Nonnull List<Attribute> attribute) {
     
     this.attribute = attribute;
     return this;
@@ -82,7 +83,7 @@ public class AttributeListType {
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
   @JacksonXmlProperty(localName = "Attribute")
   @JacksonXmlElementWrapper(useWrapping = false)
-  public void setAttribute(List<Attribute> attribute) {
+  public void setAttribute(@jakarta.annotation.Nonnull List<Attribute> attribute) {
     this.attribute = attribute;
   }
 
