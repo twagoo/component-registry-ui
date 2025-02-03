@@ -19,6 +19,8 @@ package eu.clarin.cmdi.componentregistry.ui.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.jayway.jsonpath.JsonPathException;
+import com.jayway.jsonpath.PathNotFoundException;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentType;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ElementType;
@@ -69,6 +71,30 @@ public class ComponentSpecTransformationServiceTest {
         spec.getComponent().getComponent().get(1).getElement().get(0).setName("one");
         spec.getComponent().getComponent().get(1).getElement().get(1).setName("two");
         spec.getComponent().getComponent().get(1).getElement().get(2).setName("three");
+    }
+
+    @Test
+    public void testExtractElement() throws Exception {
+        final ElementType element = instance.extractElement(spec, "component.component[1].element[0]");
+        assertThat(element).isNotNull()
+                .extracting(ElementType::getName)
+                .isEqualTo("one");
+    }
+
+    @Test
+    public void testExtractElementNonexistent() throws Exception {
+        {
+            JsonPathException exception = assertThrows(JsonPathException.class, () -> {
+                instance.extractElement(spec, "component.component[0].element[1]");
+            });
+            assertThat(exception).isNotNull();
+        }
+        {
+            JsonPathException exception = assertThrows(JsonPathException.class, () -> {
+                instance.extractElement(spec, "component.component[1].element[4]");
+            });
+            assertThat(exception).isNotNull();
+        }
     }
 
     /**

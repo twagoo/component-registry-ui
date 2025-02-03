@@ -22,6 +22,7 @@ import eu.clarin.cmdi.componentregistry.openapi.client.api.ItemsControllerApi;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.BaseDescription;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.DocumentationType;
+import eu.clarin.cmdi.componentregistry.openapi.client.model.ElementType;
 import eu.clarin.cmdi.componentregistry.ui.service.ComponentSpecTransformationException;
 import eu.clarin.cmdi.componentregistry.ui.service.ComponentSpecTransformationService;
 import static eu.clarin.cmdi.componentregistry.ui.service.TransformationActions.*;
@@ -48,17 +49,17 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = "/editor")
 @Slf4j
 public class EditorController {
-
+    
     private final ItemsControllerApi api;
-
+    
     private final ComponentSpecTransformationService specTransformationService;
-
+    
     @Autowired
     public EditorController(ItemsControllerApi api, ComponentSpecTransformationService specTransformationService) {
         this.api = api;
         this.specTransformationService = specTransformationService;
     }
-
+    
     @GetMapping(path = "/{itemId}")
     public String editor(@PathVariable String itemId, Model model) throws ErrorResponseException {
         final BaseDescription description = api.getItem(itemId);
@@ -66,14 +67,14 @@ public class EditorController {
             throw new ErrorResponseException(HttpStatus.NOT_FOUND);
         } else {
             final ComponentSpec spec = api.getItemSpec(itemId, MediaType.APPLICATION_JSON_VALUE);
-
+            
             model.addAttribute("description", description);
             model.addAttribute("spec", spec);
-
+            
             return "editor/editor";
         }
     }
-
+    
     @PostMapping(path = "/{itemId}/spec")
     public String submitSpec(@PathVariable String itemId, ComponentSpec formData, BindingResult bindingResult, Model model) {
         log.info("Item: {}, Incoming data: {}", itemId, formData);
@@ -81,17 +82,17 @@ public class EditorController {
         // https://stackoverflow.com/questions/30280131/thymeleaf-spring-nested-backing-object-is-not-binding-the-values-on-form-submit
         return editor(itemId, model);
     }
-
+    
     @PostMapping(path = "/transform")
     public String performOperation(ComponentSpec spec,
             @RequestParam String operation,
             @RequestParam String path,
             Model model) throws JsonProcessingException, ComponentSpecTransformationException {
         final ComponentSpec transformedSpec = transform(operation, spec, path);
-
+        
         model.addAttribute("componentId", spec.getHeader().getId());
         model.addAttribute("spec", transformedSpec);
-
+        
         return "editor/fragments/specForm :: specForm";
     }
 
@@ -110,7 +111,7 @@ public class EditorController {
             return new ModelAndView("redirect:/editor/{itemId}", ImmutableMap.of("itemId", itemId));
         }
     }
-
+    
     @GetMapping("/referencedComponent/{componentId}")
     public String getReferencedComponent(@PathVariable String componentId, Model model) {
         final ComponentSpec spec = api.getItemSpec(componentId, null);
@@ -118,14 +119,22 @@ public class EditorController {
         return "/editor/fragments/componentRef :: expandedComponent";
     }
     
-    @PostMapping("/valueSchemeEditor")
+    @PostMapping("/elementValueSchemeEditor")
     public String valueSchemeEditor(ComponentSpec spec, @RequestParam String path, Model model) {
         //TODO: get element or attribute
-        //TODO: set model
-        
-        return "/editor/fragments/valueScheme :: valueSchemeEditor";
+        try {
+            final ElementType element = specTransformationService.extractElement(spec, path);
+            model.addAttribute("parentType", "element");
+            model.addAttribute("valueSchemeAttribute", element.getValueSchemeAttribute());
+            model.addAttribute("valueScheme", element.getValueScheme());
+            
+            return "/editor/fragments/valueScheme :: valueSchemeEditor";
+        } catch (ComponentSpecTransformationException | JsonProcessingException ex) {
+            log.error("Error while extracting element from spec at path " + path);
+            throw new RuntimeException(ex);
+        }
     }
-
+    
     private ComponentSpec transform(String operation, ComponentSpec spec, String path) throws ComponentSpecTransformationException, JsonProcessingException {
         return switch (operation) {
             case NOOP ->
@@ -162,12 +171,12 @@ public class EditorController {
             }
         };
     }
-
+    
     @GetMapping("/newDocumentationElement")
     public String newDocumentationElement(@RequestParam String path, Model model) {
         model.addAttribute("path", path);
         model.addAttribute("doc", new DocumentationType());
         return "/editor/fragments/documentation :: documentationElement";
     }
-
+    
 }

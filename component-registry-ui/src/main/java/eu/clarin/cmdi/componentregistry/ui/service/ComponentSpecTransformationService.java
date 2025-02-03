@@ -48,6 +48,8 @@ public class ComponentSpecTransformationService {
     private final Configuration configuration;
     private final SpecPartsFactory specPartsFactory;
 
+    private final static Pattern ARRAY_PATTERN = Pattern.compile("(.*)\\[(\\d)\\]$");
+
     private static final TypeRef<List<ComponentType>> COMPONENT_TYPE = new TypeRef<List<ComponentType>>() {
     };
     private static final TypeRef<List<ElementType>> ELEMENT_TYPE = new TypeRef<List<ElementType>>() {
@@ -136,8 +138,7 @@ public class ComponentSpecTransformationService {
         final DocumentContext doc = readSpecAsJson(spec);
 
         //extract index
-        final Pattern arrayPattern = Pattern.compile("(.*)\\[(\\d)\\]$");
-        final Matcher matcher = arrayPattern.matcher(path);
+        final Matcher matcher = ARRAY_PATTERN.matcher(path);
         if (matcher.matches()) {
             try {
                 final String arrayPath = matcher.group(1);
@@ -188,12 +189,21 @@ public class ComponentSpecTransformationService {
         });
     }
 
+    public ElementType extractElement(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
+        final DocumentContext doc = readSpecAsJson(spec);
+        return doc.read(path, ElementType.class);
+    }
+
+    public Attribute extractAttribute(ComponentSpec spec, String path) throws JsonProcessingException, ComponentSpecTransformationException {
+        final DocumentContext doc = readSpecAsJson(spec);
+        return doc.read(path, Attribute.class);
+    }
+
     private <T> ComponentSpec moveItem(ComponentSpec spec, String path, int shift, TypeRef<List<T>> typeRef) throws JsonProcessingException, ComponentSpecTransformationException {
         final DocumentContext doc = readSpecAsJson(spec);
 
         //extract index
-        final Pattern arrayPattern = Pattern.compile("(.*)\\[(\\d)\\]$");
-        final Matcher matcher = arrayPattern.matcher(path);
+        final Matcher matcher = ARRAY_PATTERN.matcher(path);
         if (matcher.matches()) {
             try {
                 final String arrayPath = matcher.group(1);

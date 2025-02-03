@@ -45,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             <input class="form-control" th:id="${previewId}" type="text" th:value="${valueSchemeAttributeValue}" disabled="disabled" />
 
                             <button
-                                class="btn btn-primary" th:hx-post="@{/editor/valueSchemeEditor(path=${basePath})}"
+                                class="btn btn-primary" th:hx-post="@{/editor/elementValueSchemeEditor(path=${basePath})}"
                                 data-bs-toggle="modal"
                                 hx-trigger="click"
                                 th:hx-target="|#${modalId}"
@@ -70,13 +70,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Modal title</h5>
+                            <h5 class="modal-title">Value scheme for [[${parentType}]]</h5>
                         </div>
                         <div class="modal-body">
-                            <p>Modal body text goes here.</p>
+                            <p>Value scheme: [[${valueSchemeAttribute}]]</p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
                         </div>
                     </div>
                 </div>
