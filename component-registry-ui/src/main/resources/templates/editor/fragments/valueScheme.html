@@ -35,13 +35,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                               baseId=${TemplateUtils.makeIdSafe(basePath)},
                               previewId=|${baseId}_valueSchemePreview|">
                         <label th:for="${previewId}" class="form-label">Type</label>
+                        <!--/* Hidden inputs to represent the value scheme definition /*-->
                         <div class="input-group">
-                            <input type="hidden" th:name="${valueSchemeAttributePath}" th:value="${valueSchemeAttributeValue}" 
-                                   th:if="${valueSchemeAttributeValue} != null" />
-                            <input type="hidden" th:name="${valueSchemePath}" th:value="${valueSchemeValue}" 
-                                   th:if="${valueSchemeValue} != null" />
 
-                            <!-- TODO: render representation of selected value scheme -->
+                            <!--/* Hidden inputs to represent value scheme definition */-->
+                            <div th:replace="~{/editor/fragments/valueScheme :: valueSchemeHiddenInputs(
+                                 ${valueSchemeAttributePath}, 
+                                 ${valueSchemeAttributeValue}, 
+                                 ${valueSchemePath}, 
+                                 ${valueSchemeValue})}" />
+
+                            <!--/* TODO: render representation of selected value scheme */-->
                             <input class="form-control" th:id="${previewId}" type="text" th:value="${valueSchemeAttributeValue}" disabled="disabled" />
 
                             <button
@@ -52,6 +56,42 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         </div>
                     </fieldset>
                 </div>
+            </div>
+
+            <!-- Hidden inputs representing value scheme definition -->
+            <div th:fragment="valueSchemeHiddenInputs(
+                 valueSchemeAttributePath, valueSchemeAttributeValue, 
+                 valueSchemePath, valueSchemeValue)"
+                 class="hidden">
+                <input th:if="${valueSchemeAttributeValue} != null" type="hidden"
+                       th:name="${valueSchemeAttributePath}" th:value="${valueSchemeAttributeValue}"  />
+                <th:block th:if="${valueSchemeValue} != null">
+                    <!--/* pattern */-->
+                    <input th:if="${valueSchemeValue.pattern} != null" type="hidden"
+                           th:name="|${valueSchemePath}.pattern|" th:value="${valueSchemeValue.pattern}" />
+                    <!--/* vocabulary */-->
+                    <th:block th:if="${valueSchemeValue.vocabulary} != null" th:with="vp = |${valueSchemePath}.vocabulary|, v = ${valueSchemeValue.vocabulary}">
+                        <input th:if="${v.uri} != null"  type="hidden"
+                               th:name="|${vp}.uri|" th:value="${v.uri}" />
+                        <input th:if="${v.valueProperty} != null"  type="hidden"
+                               th:name="|${vp}.valueProperty|" th:value="${v.valueProperty}" />
+                        <input th:if="${v.valueLanguage} != null"  type="hidden"
+                               th:name="|${vp}.valueLanguage|" th:value="${v.valueLanguage}" />
+                        <!--/* enumeration */-->
+                        <th:block th:if="${v.enumeration} != null" th:with="ep = |${vp}.enumeration|, e = ${v.enumeration}">
+                            <input th:if="${e.appinfo} != null"  type="hidden"
+                                   th:name="|${ep}.appinfo|" th:value="${e.appinfo}" />
+                            <!--/* items */-->
+                            <th:block th:each="item, iterStat: ${e.item}" th:with="ip = |${ep}.item[${iterStat.index}]|">
+                                <input type="hidden"
+                                       th:name="|${ip}.value|" th:value="${item.value}" />
+                                <input type="hidden"
+                                       th:name="|${ip}.conceptLink|" th:value="${item.conceptLink}" />
+                                <!--/* TODO: cues (${item}.otherAttributes) */-->
+                            </th:block>
+                        </th:block>
+                    </th:block>
+                </th:block>
             </div>
 
             <!-- Value scheme editor (dialog content) -->
