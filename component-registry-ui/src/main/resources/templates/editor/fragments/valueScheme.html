@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <body>
         <main>
+            <!-- Form component for value scheme (value scheme editor dialog trigger) -->
             <div th:fragment="valueScheme(
                  parentPath, 
                  valueSchemeAttributePath, valueSchemeAttributeValue, 
@@ -32,8 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                     <fieldset class="p-1" th:with="
                               baseId=${TemplateUtils.makeIdSafe(basePath)},
-                              previewId=|${baseId}_valueSchemePreview|,
-                              modalId=|${baseId}_valueSchemeModel|">
+                              previewId=|${baseId}_valueSchemePreview|">
                         <label th:for="${previewId}" class="form-label">Type</label>
                         <div class="input-group">
                             <input type="hidden" th:name="${valueSchemeAttributePath}" th:value="${valueSchemeAttributeValue}" 
@@ -45,41 +45,86 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             <input class="form-control" th:id="${previewId}" type="text" th:value="${valueSchemeAttributeValue}" disabled="disabled" />
 
                             <button
-                                class="btn btn-primary" th:hx-post="@{/editor/elementValueSchemeEditor(path=${basePath})}"
-                                data-bs-toggle="modal"
-                                hx-trigger="click"
-                                th:hx-target="|#${modalId}"
-                                th:data-bs-target="|#${modalId}">Edit</button>
-
-                            <div th:id="${modalId}"
-                                 class="modal modal-blur fade"
-                                 style="display: none"
-                                 aria-hidden="false"
-                                 tabindex="-1">
-                                <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                                    <div class="modal-content"></div>
-                                </div>
-                            </div>
-
+                                class="btn btn-primary"
+                                data-bs-toggle="modal" data-bs-target="#valueSchemeModal"
+                                th:hx-post="@{/editor/elementValueSchemeEditor(path=${basePath})}"
+                                hx-trigger="click" hx-target="#valueSchemeModal">Edit</button>
                         </div>
                     </fieldset>
                 </div>
             </div>
 
+            <!-- Value scheme editor (dialog content) -->
             <div th:fragment="valueSchemeEditor">
-                <div class="modal-dialog modal-dialog-centered">
+                <div id="value-scheme-editor-dialog" class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Value scheme for [[${parentType}]]</h5>
                         </div>
-                        <div class="modal-body">
-                            <p>Value scheme: [[${valueSchemeAttribute}]]</p>
+                        <div class="modal-body"
+                             th:x-data="|{valueSchemeForm: '${selectedTab ?: 'simple'}'}|">
+
+                            <!-- /* Tabs for pane (form) selection */ -->
+                            <ul class="nav nav-tabs">
+                                <li th:replace="~{/editor/fragments/valueScheme :: valueSchemeFormTab('simple', 'Type')}"></li>
+                                <li th:replace="~{/editor/fragments/valueScheme :: valueSchemeFormTab('pattern', 'Pattern')}"></li>
+                                <li th:replace="~{/editor/fragments/valueScheme :: valueSchemeFormTab('vocabulary', 'Vocabulary')}"></li>
+                            </ul>
+
+                            <!-- /* Content for the tab panes (forms for the different value scheme types) */ -->
+                            <div class="p-2 border-start border-bottom">
+                                <div x-show="valueSchemeForm == 'simple'">
+                                    <div th:replace="~{/editor/fragments/valueScheme :: simpleValueScheme(${valueSchemeAttribute})}"></div>
+                                </div>
+
+                                <div x-show="valueSchemeForm == 'pattern'">
+                                    <div th:replace="~{/editor/fragments/valueScheme :: patternValueScheme(${valueSchemeAttribute})}"></div>
+                                </div>
+
+                                <div x-show="valueSchemeForm == 'vocabulary'">
+                                    <div th:replace="~{/editor/fragments/valueScheme :: vocabularyValueScheme(${valueSchemeAttribute})}"></div>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- Tab items -->
+            <ul>
+                <li th:fragment="valueSchemeFormTab(tabId, label)" class="nav-item" th:x-data="|{tabId: '${tabId}'}|">
+                    <a @click="valueSchemeForm = tabId" href="#value-scheme-editor-dialog"
+                        class="nav-link" :class="{active: valueSchemeForm == tabId}" 
+                        :aria-current="valueSchemeForm == tabId" 
+                        th:text="${label}">
+                        label
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Form: simple -->
+
+            <div th:fragment="simpleValueScheme(valueSchemeAttribute)">
+                <div class="visually-hidden h4">Simple value scheme</div>
+                <p>Value scheme: [[${valueSchemeAttribute}]]</p>
+                [TODO: dropdown]
+            </div>
+
+            <!-- Form: pattern -->
+
+            <div th:fragment="patternValueScheme(valueSchemeAttribute)">
+                <div class="visually-hidden h4">Pattern value scheme</div>
+                [TODO: pattern]
+            </div>
+
+            <!-- Form: vocabulary -->
+
+            <div th:fragment="vocabularyValueScheme(valueSchemeAttribute)">
+                <div class="visually-hidden h4">Vocabulary value scheme</div>
+                [TODO: vocabulary]
             </div>
         </main>
     </body>
