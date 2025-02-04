@@ -146,22 +146,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </ul>
 
             <!-- Form: simple -->
-
             <div th:fragment="simpleValueScheme(valueSchemeAttribute)">
                 <div class="visually-hidden h4">Simple value scheme</div>
-                <p>Value scheme: [[${valueSchemeAttribute}]]</p>
-                [TODO: dropdown]
+
+                <form>
+                    <div class="mb-3">
+                        <label for="simpleValueSchemeSelect" class="form-label">Simple type</label>
+
+                        <select id="simpleValueSchemeSelect" class="form-select" aria-label="Default select example">
+                            <option 
+                                th:each="val : ${
+                                {'BOOLEAN','DECIMAL','FLOAT',
+                                'INT','STRING','ANY_URI',
+                                'DATE','G_DAY','G_MONTH','G_YEAR','TIME','DATE_TIME'
+                                }}"
+                                th:value="${val.toString()}" th:selected="${#strings.toString(valueSchemeAttribute) == val}">[[${val}]]</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Ok</button>
+                </form>
+
             </div>
 
             <!-- Form: pattern -->
-
             <div th:fragment="patternValueScheme(valueSchemeAttribute)">
                 <div class="visually-hidden h4">Pattern value scheme</div>
                 [TODO: pattern]
             </div>
 
             <!-- Form: vocabulary -->
-
             <div th:fragment="vocabularyValueScheme(valueSchemeAttribute)">
                 <div class="visually-hidden h4">Vocabulary value scheme</div>
                 [TODO: vocabulary]
