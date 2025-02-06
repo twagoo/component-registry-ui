@@ -128,10 +128,21 @@ public class EditorController {
     public String valueSchemeEditor(ComponentSpec spec, @RequestParam String path, Model model) {
         try {
             final ElementType element = specTransformationService.extractElement(spec, path);
+            final ValueSchemeType valueScheme = element.getValueScheme();
+            final ElementType.ValueSchemeAttributeEnum valueSchemeAttribute = element.getValueSchemeAttribute();
+
             model.addAttribute("parentType", "element");
             model.addAttribute("parentPath", path);
-            model.addAttribute("valueSchemeAttribute", element.getValueSchemeAttribute());
-            model.addAttribute("valueScheme", element.getValueScheme());
+            model.addAttribute("valueSchemeAttribute", valueSchemeAttribute);
+            model.addAttribute("valueScheme", valueScheme);
+
+            if (valueScheme != null && valueScheme.getVocabulary() != null) {
+                model.addAttribute("selectedTab", "vocabulary");
+            } else if (valueScheme != null && valueScheme.getPattern() != null) {
+                model.addAttribute("selectedTab", "pattern");
+            } else {
+                model.addAttribute("selectedTab", "simple");
+            }
 
             return "/editor/fragments/valueScheme :: valueSchemeEditor";
         } catch (ComponentSpecTransformationException | JsonProcessingException ex) {
