@@ -25,6 +25,7 @@ import eu.clarin.cmdi.componentregistry.openapi.client.model.BaseDescription;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.DocumentationType;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ElementType;
+import eu.clarin.cmdi.componentregistry.openapi.client.model.ValueSchemeType;
 import eu.clarin.cmdi.componentregistry.ui.service.ComponentSpecTransformationException;
 import eu.clarin.cmdi.componentregistry.ui.service.ComponentSpecTransformationService;
 import static eu.clarin.cmdi.componentregistry.ui.service.TransformationActions.*;
@@ -141,9 +142,23 @@ public class EditorController {
 
     @PostMapping("/elementValueSchemeEditor/simple")
     public String simpleValueScheme(@RequestParam String path, @RequestParam Attribute.ValueSchemeEnum type, Model model) {
+        return valueScheme(model, path, type, null);
+    }
+
+    @PostMapping("/elementValueSchemeEditor/pattern")
+    public String patternValueScheme(@RequestParam String path, @RequestParam String pattern, Model model) {
+        final ValueSchemeType valueScheme = new ValueSchemeType();
+        valueScheme.setPattern(pattern);
+
+        return valueScheme(model, path, null, valueScheme);
+    }
+
+    private String valueScheme(Model model, String path, final Attribute.ValueSchemeEnum valueSchemeAttribute, final ValueSchemeType valueScheme) {
         model.addAttribute("parentPath", path);
         model.addAttribute("valueSchemeAttributePath", path + ".valueSchemeAttribute");
-        model.addAttribute("valueSchemeAttributeValue", type);
+        model.addAttribute("valueSchemeAttributeValue", valueSchemeAttribute);
+        model.addAttribute("valueSchemePath", path + ".valueScheme");
+        model.addAttribute("valueSchemeValue", valueScheme);
 
         return "/editor/fragments/valueScheme :: valueScheme";
     }

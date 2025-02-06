@@ -95,7 +95,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </div>
 
             <!-- Value scheme editor (dialog content) -->
-            <div th:fragment="valueSchemeEditor(parentType, parentPath, valueSchemeAttribute, valueScheme)">
+            <div th:fragment="valueSchemeEditor(parentType, parentPath, valueSchemeAttribute, valueScheme)"
+                 th:with="TemplateUtils=${T(eu.clarin.cmdi.componentregistry.ui.TemplateUtils)}">
                 <div id="value-scheme-editor-dialog" class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -112,17 +113,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             </ul>
 
                             <!-- /* Content for the tab panes (forms for the different value scheme types) */ -->
-                            <div class="p-2 border-start border-bottom">
+                            <div class="p-2 border-start border-bottom"
+                                 th:with="targetId=|${TemplateUtils.makeIdSafe(parentPath)}_valueScheme|">
                                 <div x-show="valueSchemeForm == 'simple'">
-                                    <div th:replace="~{/editor/fragments/valueScheme :: simpleValueScheme(${parentPath}, ${valueSchemeAttribute})}"></div>
+                                    <div th:replace="~{/editor/fragments/valueScheme :: simpleValueScheme(${parentPath}, ${targetId}, ${valueSchemeAttribute})}"></div>
                                 </div>
 
                                 <div x-show="valueSchemeForm == 'pattern'">
-                                    <div th:replace="~{/editor/fragments/valueScheme :: patternValueScheme(${parentPath}, ${valueScheme})}"></div>
+                                    <div th:replace="~{/editor/fragments/valueScheme :: patternValueScheme(${parentPath}, ${targetId}, ${valueScheme})}"></div>
                                 </div>
 
                                 <div x-show="valueSchemeForm == 'vocabulary'">
-                                    <div th:replace="~{/editor/fragments/valueScheme :: vocabularyValueScheme(${parentPath}, ${valueScheme})}"></div>
+                                    <div th:replace="~{/editor/fragments/valueScheme :: vocabularyValueScheme(${parentPath}, ${targetId}, ${valueScheme})}"></div>
                                 </div>
                             </div>
                         </div>
@@ -146,42 +148,55 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </ul>
 
             <!-- Form: simple -->
-            <div th:fragment="simpleValueScheme(parentPath, valueSchemeAttribute)"
-                 th:with="TemplateUtils=${T(eu.clarin.cmdi.componentregistry.ui.TemplateUtils)},
-                 targetId=|${TemplateUtils.makeIdSafe(parentPath)}_valueScheme|">
+            <div th:fragment="simpleValueScheme(parentPath, targetId, valueSchemeAttribute)">
                 <div class="visually-hidden h4">Simple value scheme</div>
 
                 <form>
                     <div class="mb-3">
-                        <label for="simpleValueSchemeSelect" class="form-label">Simple type</label>
-
-                        <select id="simpleValueSchemeSelect" name="type" class="form-select" aria-label="Default select example">
-                            <option 
-                                th:each="val : ${
-                                {'BOOLEAN','DECIMAL','FLOAT',
-                                'INT','STRING','ANY_URI',
-                                'DATE','G_DAY','G_MONTH','G_YEAR','TIME','DATE_TIME'
-                                }}"
-                                th:value="${val.toString()}" th:selected="${#strings.toString(valueSchemeAttribute) == val}">[[${val}]]</option>
-                        </select>
+                        <label for="simpleValueSchemeSelect" class="form-label">Select type:</label>
+                        <div class="input-group">
+                            <select id="simpleValueSchemeSelect" name="type" class="form-select" aria-label="Default select example">
+                                <option 
+                                    th:each="val : ${
+                                    {'BOOLEAN','DECIMAL','FLOAT',
+                                    'INT','STRING','ANY_URI',
+                                    'DATE','G_DAY','G_MONTH','G_YEAR','TIME','DATE_TIME'
+                                    }}"
+                                    th:value="${val.toString()}" th:selected="${#strings.toString(valueSchemeAttribute) == val}">[[${val}]]</option>
+                            </select>
+                            <button class="btn btn-primary" type="submit"
+                                    data-bs-dismiss="modal"
+                                    th:hx-post="@{/editor/elementValueSchemeEditor/simple(path=${parentPath})}"
+                                    th:hx-target="|#${targetId}|" hx-swap="outerHTML" hx-trigger="click" >
+                                Use type
+                            </button>
+                        </div>
                     </div>
-                    <button class="btn btn-primary" type="submit"
-                            data-bs-dismiss="modal"
-                            th:hx-post="@{/editor/elementValueSchemeEditor/simple(path=${parentPath})}"
-                            th:hx-target="|#${targetId}|" hx-swap="outerHTML" hx-trigger="click" 
-                            >Ok</button>
-                </form>
 
+                </form>
             </div>
 
             <!-- Form: pattern -->
-            <div th:fragment="patternValueScheme(parentPath, valueScheme)">
+            <div th:fragment="patternValueScheme(parentPath, targetId, valueScheme)">
                 <div class="visually-hidden h4">Pattern value scheme</div>
-                [TODO: pattern]
+                <form>
+                    <div class="mb-3">
+                        <label for="pattern" class="form-label">Enter pattern:</label>
+                        <div class="input-group">
+                            <input id="pattern" name="pattern" class="form-control" th:value="${valueScheme.pattern}" />
+                            <button class="btn btn-primary" type="submit"
+                                    data-bs-dismiss="modal"
+                                    th:hx-post="@{/editor/elementValueSchemeEditor/pattern(path=${parentPath})}"
+                                    th:hx-target="|#${targetId}|" hx-swap="outerHTML" hx-trigger="click">
+                                Use pattern
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
 
             <!-- Form: vocabulary -->
-            <div th:fragment="vocabularyValueScheme(parentPath, valueScheme)">
+            <div th:fragment="vocabularyValueScheme(parentPath, targetId, valueScheme)">
                 <div class="visually-hidden h4">Vocabulary value scheme</div>
                 [TODO: vocabulary]
             </div>
