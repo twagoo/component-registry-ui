@@ -50,11 +50,15 @@
         &:has(.btn.htmx-request) {
             opacity: .2;
             transition: opacity 300ms ease-in-out;
-            
+
             .btn {
                 color: var(--bs-gray-300);
                 cursor: default;
             }
         }
+    }
+
+    input.value-scheme-pattern {
+        font-style: italic;
     }
 }

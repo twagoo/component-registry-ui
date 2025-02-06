@@ -44,9 +44,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                              ${valueSchemePath}, 
                              ${valueSchemeValue})}" />
 
-                        <div class="input-group">
+                        <div class="input-group"
+                             th:with="vocabIsSet = ${valueSchemeValue != null && valueSchemeValue.getVocabulary() != null}">
                             <!--/* TODO: render representation of selected value scheme */-->
-                            <input class="form-control" th:id="${previewId}" type="text" th:value="${valueSchemeAttributeValue}" disabled="disabled" />
+                            
+                            <select th:id="${previewId}" th:if="${vocabIsSet}">
+                                <!--/* TODO: render some values */-->
+                                <option>vocabulary...</option>
+                            </select>
+                            <th:block th:unless="${vocabIsSet}"
+                                      th:with="patternIsSet = ${valueSchemeValue != null && valueSchemeValue.getPattern() != null}">
+                                <input th:if="${patternIsSet}" class="form-control value-scheme-pattern" th:id="${previewId}" type="text" th:value="${valueSchemeValue.getPattern()}" disabled="disabled" />                                
+                                <input th:unless="${patternIsSet}" class="form-control" th:id="${previewId}" type="text" th:value="${valueSchemeAttributeValue}" disabled="disabled" />
+                            </th:block>
 
                             <button
                                 class="btn btn-primary"
