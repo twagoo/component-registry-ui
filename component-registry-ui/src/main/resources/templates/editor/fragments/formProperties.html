@@ -77,13 +77,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                     <div th:case="otherAttributes">
                         <th:block th:each="key : ${fieldValue.keySet()}">
-                            <input type="text" class="form-control"
-                                   th:name="|${fieldPath}.key|"
-                                   th:value="${key}" disabled="disabled" />
-                            <input type="text" class="form-control"
-                                   th:id="${TemplateUtils.makeIdSafe(fieldPath)}"
-                                   th:name="|${fieldPath}[${key}]|"
-                                   th:value="${fieldValue.get(key)}" />
+                            <div class="input-group">
+                                <input type="text" class="form-control"
+                                       th:name="|${fieldPath}.key|"
+                                       th:value="${key}" disabled="disabled" />
+                                <input type="text" class="form-control"
+                                       th:id="${TemplateUtils.makeIdSafe(fieldPath)}"
+                                       th:name="|${fieldPath}[${key}]|"
+                                       th:value="${fieldValue.get(key)}" />
+                            </div>
                         </th:block>
                     </div>
 
