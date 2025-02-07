@@ -44,20 +44,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                              ${valueSchemePath}, 
                              ${valueSchemeValue})}" />
 
-                        <div class="input-group"
-                             th:with="vocabIsSet = ${valueSchemeValue != null && valueSchemeValue.getVocabulary() != null}">
-                            <!--/* TODO: render representation of selected value scheme */-->
-                            
-                            <select th:id="${previewId}" th:if="${vocabIsSet}">
-                                <!--/* TODO: render some values */-->
-                                <option>vocabulary...</option>
-                            </select>
-                            <th:block th:unless="${vocabIsSet}"
-                                      th:with="patternIsSet = ${valueSchemeValue != null && valueSchemeValue.getPattern() != null}">
-                                <input th:if="${patternIsSet}" class="form-control value-scheme-pattern" th:id="${previewId}" type="text" th:value="${valueSchemeValue.getPattern()}" disabled="disabled" />                                
-                                <input th:unless="${patternIsSet}" class="form-control" th:id="${previewId}" type="text" th:value="${valueSchemeAttributeValue}" disabled="disabled" />
+                        <div class="input-group">
+                            <th:block th:replace="~{/editor/fragments/valueScheme :: valueSchemePreview(
+                                      previewId = ${previewId}, valueSchemeValue = ${valueSchemeValue},
+                                      valueSchemeAttributeValue = ${valueSchemeAttributeValue},
+                                      maxVocabPreviewSize = 15)}">
+                                [preview]
                             </th:block>
-
                             <button
                                 class="btn btn-primary"
                                 data-bs-toggle="modal" data-bs-target="#valueSchemeModal"
@@ -67,6 +60,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </div>
                 </fieldset>
             </div>
+
+            <!-- Preview for the value scheme definition -->
+            <th:block th:fragment="valueSchemePreview(previewId, valueSchemeAttributeValue, valueSchemeValue, maxVocabPreviewSize)" 
+                      th:with="type = (${valueSchemeValue != null &amp;&amp; valueSchemeValue.vocabulary != null}) ? 
+                      'vocabulary' : (${valueSchemeValue != null &amp;&amp; valueSchemeValue.getPattern() != null} ? 
+                      'pattern' : 'simple')">
+                <th:block th:switch="${type}">
+                    <!-- vocabulary type -->
+                    <select th:case="'vocabulary'" th:id="${previewId}" class="form-select" th:object="${valueSchemeValue.vocabulary}">
+                        <option th:unless="*{enumeration}">empty vocabulary!</option>
+                        <th:block th:if="*{enumeration}" th:with="items = *{enumeration.item}">
+                            <!-- limit to a set number of items in the preview -->
+                            <option th:each="it: ${#lists.size(items) &lt;= maxVocabPreviewSize ? items : items.subList(0, maxVocabPreviewSize)}" th:text="${it.value}">item</option>
+                            <option th:unless="${#lists.size(items) &lt;= maxVocabPreviewSize}">([[${#lists.size(items) - maxVocabPreviewSize}]] more items)</option>
+                        </th:block>
+                    </select>
+                    <!-- pattern type -->
+                    <input th:case="'pattern'" class="form-control value-scheme-pattern" th:id="${previewId}" type="text" th:value="${valueSchemeValue.getPattern()}" disabled="disabled" />                                
+                    <!-- simple type -->
+                    <input th:case="*"  class="form-control" th:id="${previewId}" type="text" th:value="${valueSchemeAttributeValue}" disabled="disabled" />
+                </th:block>
+            </th:block>        
 
             <!-- Hidden inputs representing value scheme definition -->
             <div th:fragment="valueSchemeHiddenInputs(
