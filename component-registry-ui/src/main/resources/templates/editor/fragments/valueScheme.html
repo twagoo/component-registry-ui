@@ -121,41 +121,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             <!-- Value scheme editor (dialog content) -->
             <div th:fragment="valueSchemeEditor(parentType, parentPath, valueSchemeAttribute, valueScheme, selectedTab)"
-                 th:with="TemplateUtils=${T(eu.clarin.cmdi.componentregistry.ui.TemplateUtils)}">
-                <div id="value-scheme-editor-dialog" class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Value scheme for [[${parentType}]]</h5>
-                        </div>
-                        <div class="modal-body"
-                             th:x-data="|{valueSchemeForm: '${selectedTab ?: 'simple'}'}|">
+                 th:with="TemplateUtils=${T(eu.clarin.cmdi.componentregistry.ui.TemplateUtils)}"
+                 id="value-scheme-editor-dialog"  class="modal-dialog modal-lg modal-dialog-centered" 
+                 role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Value scheme for [[${parentType}]]</h5>
+                    </div>
+                    <div class="modal-body"
+                         th:x-data="|{valueSchemeForm: '${selectedTab ?: 'simple'}'}|">
 
-                            <!-- /* Tabs for pane (form) selection */ -->
-                            <ul class="nav nav-tabs">
-                                <li th:replace="~{/editor/fragments/valueScheme :: valueSchemeFormTab('simple', 'Type')}"></li>
-                                <li th:replace="~{/editor/fragments/valueScheme :: valueSchemeFormTab('pattern', 'Pattern')}"></li>
-                                <li th:replace="~{/editor/fragments/valueScheme :: valueSchemeFormTab('vocabulary', 'Vocabulary')}"></li>
-                            </ul>
+                        <!-- /* Tabs for pane (form) selection */ -->
+                        <ul class="nav nav-tabs">
+                            <li th:replace="~{/editor/fragments/valueScheme :: valueSchemeFormTab('simple', 'Type')}"></li>
+                            <li th:replace="~{/editor/fragments/valueScheme :: valueSchemeFormTab('pattern', 'Pattern')}"></li>
+                            <li th:replace="~{/editor/fragments/valueScheme :: valueSchemeFormTab('vocabulary', 'Vocabulary')}"></li>
+                        </ul>
 
-                            <!-- /* Content for the tab panes (forms for the different value scheme types) */ -->
-                            <div class="p-2 border-start border-bottom"
-                                 th:with="targetId=|${TemplateUtils.makeIdSafe(parentPath)}_valueScheme|">
-                                <div x-show="valueSchemeForm == 'simple'">
-                                    <div th:replace="~{/editor/fragments/valueScheme :: simpleValueScheme(${parentPath}, ${targetId}, ${valueSchemeAttribute})}"></div>
-                                </div>
+                        <!-- /* Content for the tab panes (forms for the different value scheme types) */ -->
+                        <div class="p-2 border-start border-bottom"
+                             th:with="targetId=|${TemplateUtils.makeIdSafe(parentPath)}_valueScheme|">
+                            <div x-show="valueSchemeForm == 'simple'">
+                                <div th:replace="~{/editor/fragments/valueScheme :: simpleValueScheme(${parentPath}, ${targetId}, ${valueSchemeAttribute})}"></div>
+                            </div>
 
-                                <div x-show="valueSchemeForm == 'pattern'">
-                                    <div th:replace="~{/editor/fragments/valueScheme :: patternValueScheme(${parentPath}, ${targetId}, ${valueScheme})}"></div>
-                                </div>
+                            <div x-show="valueSchemeForm == 'pattern'">
+                                <div th:replace="~{/editor/fragments/valueScheme :: patternValueScheme(${parentPath}, ${targetId}, ${valueScheme})}"></div>
+                            </div>
 
-                                <div x-show="valueSchemeForm == 'vocabulary'">
-                                    <div th:replace="~{/editor/fragments/valueScheme :: vocabularyValueScheme(${parentPath}, ${targetId}, ${valueScheme})}"></div>
-                                </div>
+                            <div x-show="valueSchemeForm == 'vocabulary'">
+                                <div th:replace="~{/editor/fragments/valueScheme :: vocabularyValueScheme(${parentPath}, ${targetId}, ${valueScheme})}"></div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -175,9 +175,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <!-- Form: simple -->
             <div th:fragment="simpleValueScheme(parentPath, targetId, valueSchemeAttribute)">
                 <div class="visually-hidden h4">Simple value scheme</div>
-
                 <form>
-                    <div class="mb-3">
+                    <div class="m-3">
                         <label for="simpleValueSchemeSelect" class="form-label">Select type:</label>
                         <div class="input-group">
                             <select id="simpleValueSchemeSelect" name="type" class="form-select" aria-label="Selection of simple type to set"
@@ -205,7 +204,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <div th:fragment="patternValueScheme(parentPath, targetId, valueScheme)">
                 <div class="visually-hidden h4">Pattern value scheme</div>
                 <form>
-                    <div class="mb-3">
+                    <div class="m-3">
                         <label for="pattern" class="form-label">Enter pattern:</label>
                         <div class="input-group">
                             <input id="pattern" name="pattern" class="form-control" th:value="${valueScheme == null ? '' : valueScheme.pattern}" />
@@ -223,7 +222,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <!-- Form: vocabulary -->
             <div th:fragment="vocabularyValueScheme(parentPath, targetId, valueScheme)">
                 <div class="visually-hidden h4">Vocabulary value scheme</div>
-                <form x-data="{vocabType: 'open'}">
+                <form x-data="{vocabType: 'open'}" class="m-1">
                     <div class="mb-3">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="vocabularyType" id="vocabularyTypeOpen" value="open" x-model="vocabType">
@@ -238,7 +237,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <div x-show="vocabType == 'open'"  class="mb-3">
                         ℹ️ An open vocabulary is linked to an external vocabulary and cannot contain custom items. Metadata creators will be allowed to select a value from the external vocabulary OR enter their own (arbitrary) value. To define your own (restrictive) set of vocabulary items, select the closed vocabulary type. You can also import an external vocabulary into a closed vocabulary.
                     </div>
-                    <div x-show="vocabType == 'closed'"  class="mb-3 border">
+                    <div x-show="vocabType == 'closed'"  class="mb-3 p-2 border">
                         Closed vocabulary items:
                         [table]
                         | Value | Description| Concept link |
@@ -246,7 +245,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         [Add an item]  [Batch editing mode]
                     </div>
 
-                    <div  class="mb-3 border">
+                    <div  class="mb-3 p-2 border">
                         Optionally select or define an external vocabulary for this closed vocabulary. You can choose to import the items of the selected external vocabulary into the current vocabulary.
                         External vocabulary: none  [search]
                         {Show/edit details}
