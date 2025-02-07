@@ -180,14 +180,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     <div class="mb-3">
                         <label for="simpleValueSchemeSelect" class="form-label">Select type:</label>
                         <div class="input-group">
-                            <select id="simpleValueSchemeSelect" name="type" class="form-select" aria-label="Default select example">
+                            <select id="simpleValueSchemeSelect" name="type" class="form-select" aria-label="Selection of simple type to set"
+                                    th:with="selectedVal = ${#strings.toString(valueSchemeAttribute) ?: 'STRING'}">
                                 <option 
                                     th:each="val : ${
                                     {'BOOLEAN','DECIMAL','FLOAT',
                                     'INT','STRING','ANY_URI',
                                     'DATE','G_DAY','G_MONTH','G_YEAR','TIME','DATE_TIME'
                                     }}"
-                                    th:value="${val.toString()}" th:selected="${#strings.toString(valueSchemeAttribute) == val}">[[${val}]]</option>
+                                    th:value="${val.toString()}" th:selected="${selectedVal == val}">[[${val}]]</option>
                             </select>
                             <button class="btn btn-primary" type="submit"
                                     data-bs-dismiss="modal"
