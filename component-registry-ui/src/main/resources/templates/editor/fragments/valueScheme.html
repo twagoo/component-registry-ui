@@ -67,7 +67,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                       'vocabulary' : (${valueSchemeValue != null &amp;&amp; valueSchemeValue.getPattern() != null} ? 
                       'pattern' : 'simple')">
                 <th:block th:switch="${type}">
-                    <!-- vocabulary type -->
+                    <!--/* vocabulary type */-->
                     <select th:case="'vocabulary'" th:id="${previewId}" class="form-select" th:object="${valueSchemeValue.vocabulary}">
                         <option th:unless="*{enumeration}">empty vocabulary!</option>
                         <th:block th:if="*{enumeration}" th:with="items = *{enumeration.item}">
@@ -76,10 +76,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             <option th:unless="${#lists.size(items) &lt;= maxVocabPreviewSize}">([[${#lists.size(items) - maxVocabPreviewSize}]] more items)</option>
                         </th:block>
                     </select>
-                    <!-- pattern type -->
+                    <!--/* pattern type */-->
                     <input th:case="'pattern'" class="form-control value-scheme-pattern" th:id="${previewId}" type="text" th:value="${valueSchemeValue.getPattern()}" disabled="disabled" />                                
-                    <!-- simple type -->
-                    <input th:case="*"  class="form-control" th:id="${previewId}" type="text" th:value="${valueSchemeAttributeValue}" disabled="disabled" />
+                    <!--/* simple type */-->
+                    <input th:case="*"  class="form-control" th:id="${previewId}" type="text" th:value="#{|editor.form.valueScheme.type.${valueSchemeAttributeValue}|}" disabled="disabled" />
                 </th:block>
             </th:block>        
 
@@ -184,11 +184,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     th:with="selectedVal = ${#strings.toString(valueSchemeAttribute) ?: 'STRING'}">
                                 <option 
                                     th:each="val : ${
-                                    {'BOOLEAN','DECIMAL','FLOAT',
-                                    'INT','STRING','ANY_URI',
-                                    'DATE','G_DAY','G_MONTH','G_YEAR','TIME','DATE_TIME'
-                                    }}"
-                                    th:value="${val.toString()}" th:selected="${selectedVal == val}">[[${val}]]</option>
+                                    {'ANY_URI', 'BOOLEAN','DECIMAL','FLOAT',
+                                    'INT','STRING', 'DATE','TIME','DATE_TIME',
+                                    'G_DAY','G_MONTH','G_YEAR'}}"
+                                    th:value="${val.toString()}" th:selected="${selectedVal == val}" th:text="#{|editor.form.valueScheme.type.${val}|}">type</option>
                             </select>
                             <button class="btn btn-primary" type="submit"
                                     data-bs-dismiss="modal"
