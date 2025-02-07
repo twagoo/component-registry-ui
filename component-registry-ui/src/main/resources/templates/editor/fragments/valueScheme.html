@@ -223,7 +223,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <!-- Form: vocabulary -->
             <div th:fragment="vocabularyValueScheme(parentPath, targetId, valueScheme)">
                 <div class="visually-hidden h4">Vocabulary value scheme</div>
-                [TODO: vocabulary]
+                <form x-data="{vocabType: 'open'}">
+                    <div class="mb-3">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="vocabularyType" id="vocabularyTypeOpen" value="open" x-model="vocabType">
+                                <label class="form-check-label" for="vocabularyTypeOpen">Open vocabulary</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="vocabularyType" id="vocabularyTypeClosed"  value="closed" x-model="vocabType">
+                                <label class="form-check-label" for="vocabularyTypeClosed">Closed vocabulary</label>
+                        </div>
+                    </div>
+
+                    <div x-show="vocabType == 'open'"  class="mb-3">
+                        ℹ️ An open vocabulary is linked to an external vocabulary and cannot contain custom items. Metadata creators will be allowed to select a value from the external vocabulary OR enter their own (arbitrary) value. To define your own (restrictive) set of vocabulary items, select the closed vocabulary type. You can also import an external vocabulary into a closed vocabulary.
+                    </div>
+                    <div x-show="vocabType == 'closed'"  class="mb-3 border">
+                        Closed vocabulary items:
+                        [table]
+                        | Value | Description| Concept link |
+                        [/table]
+                        [Add an item]  [Batch editing mode]
+                    </div>
+
+                    <div  class="mb-3 border">
+                        Optionally select or define an external vocabulary for this closed vocabulary. You can choose to import the items of the selected external vocabulary into the current vocabulary.
+                        External vocabulary: none  [search]
+                        {Show/edit details}
+                    </div>
+                </form>
             </div>
         </main>
     </body>
