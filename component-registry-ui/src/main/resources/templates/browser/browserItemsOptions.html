@@ -22,12 +22,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <body>
         <main>
-            <form th:fragment="browserItemsOptions">
+            <form th:fragment="browserItemsOptions(type, status, sortBy, sortDirection)"
+                  method="get" th:action="@{/items}"
+                  hx-target="#items-table" hx-select="#items-table" hx-swap="outerHTML" hx-indicator="#items-container">
+                <input type="hidden" name="type" th:value="${type}" />
+                <input type="hidden" name="sortBy" th:value="${sortBy}" />
+                <input type="hidden" name="sortDirection" th:value="${sortDirection}" />
+
+                <input th:each="st, iterStat : ${status}" type="hidden" th:name="|status[${iterStat.index}]|" th:value="${st}" />
+
                 <div class="d-flex flex-wrap">
                     <th:block th:fragment="browserItemsFilter">
                         <div class="px-2 pb-1">
                             <input type="search" class="form-control"
-                                   placeholder="Filter items" />
+                                   name="textFilter"
+                                   placeholder="Filter items" 
+                                   th:hx-get="@{/items}"
+                                   hx-trigger="keyup changed delay:1s"/>
                         </div>
                         <div class="px-2 pb-1">
                             <button class="btn btn-outline-secondary" title="Show only recommended"><i
@@ -60,8 +71,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     th:with="allStatuses=${ {'development', 'production', 'deprecated'} }"
                                     hx-boost="true"
                                     hx-target="#items-container"
-                                    hx-swap="outerHTML"
-                                    hx-indicator="#items-container">
+                                    hx-select="#items-container"
+                                    hx-swap="outerHTML">
                                     <li>
                                         <a class="dropdown-item"
                                            th:classappend="${#lists.size(status) == 3 ? 'active' : ''}"
@@ -85,8 +96,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </th:block>
                     <div id="selected-item-actions" class="pe-2 ms-auto"
                          th:with="
-                            selectedItemCount=${selectedItems == null ? 0 : #lists.size(selectedItems)},
-                            singleSelectedItem=${selectedItemCount == 1 ? selectedItems[0] : null}">
+                         selectedItemCount=${selectedItems == null ? 0 : #lists.size(selectedItems)},
+                         singleSelectedItem=${selectedItemCount == 1 ? selectedItems[0] : null}">
                         <a class="btn btn-primary"
                            th:classappend="${(singleSelectedItem == null) ? 'disabled' : ''}"
                            th:href="@{/editor/{componentId}(componentId=${singleSelectedItem})}">

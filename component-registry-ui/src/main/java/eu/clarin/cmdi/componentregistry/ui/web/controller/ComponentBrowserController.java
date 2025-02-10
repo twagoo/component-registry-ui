@@ -16,6 +16,7 @@
  */
 package eu.clarin.cmdi.componentregistry.ui.web.controller;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import eu.clarin.cmdi.componentregistry.openapi.client.api.ItemsControllerApi;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.BaseDescription;
@@ -25,7 +26,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.StringJoiner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -35,6 +41,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -55,6 +62,8 @@ public class ComponentBrowserController {
     public static final String ITEM_TYPE_PROFILE = "profile";
     public static final String ITEM_TYPE_QUERY_PARAM = "type";
     public static final String ITEM_TYPE_DEFAULT = ITEM_TYPE_PROFILE;
+
+    public static final String TEXT_FILTER_QUERY_PARAM = "textFilter";
 
     public static final String ITEM_STATUS_PRODUCTION = "production";
     public static final String ITEM_STATUS_QUERY_PARAM = "status";
@@ -86,6 +95,11 @@ public class ComponentBrowserController {
         List<BaseDescription> items = getItems(params);
 
         setCommonModelAttributes(params, model);
+
+        //filter results
+        final String textFilter = params.getFirst(TEXT_FILTER_QUERY_PARAM);
+        items = filterItems(textFilter, items);
+
         model.addAttribute("items", items);
 
         return "browser/items/table";
@@ -94,6 +108,7 @@ public class ComponentBrowserController {
     private void setCommonModelAttributes(MultiValueMap<String, String> params, Model model) {
         model.addAttribute("fields", ITEM_TABLE_FIELDS);
         model.addAttribute("selectedItems", params.get(SELECTED_ITEM_QUERY_PARAM));
+        model.addAttribute("textFilter", params.get(TEXT_FILTER_QUERY_PARAM));
         model.addAttribute("type", getFirstOrDefault(params, ITEM_TYPE_QUERY_PARAM, ITEM_TYPE_DEFAULT));
         model.addAttribute("status", params.getOrDefault(ITEM_STATUS_QUERY_PARAM, ITEM_STATUS_DEFAULT));
         model.addAttribute("sortedBy", getFirstOrDefault(params, SORT_BY_QUERY_PARAM, SORT_BY_DEFAULT));
@@ -102,14 +117,15 @@ public class ComponentBrowserController {
 
     private List<BaseDescription> getItems(MultiValueMap<String, String> params) {
         final String type = getFirstOrDefault(params, ITEM_TYPE_QUERY_PARAM, ITEM_TYPE_DEFAULT);
+        final String textFilter = params.getFirst(TEXT_FILTER_QUERY_PARAM);
         final List<String> status = params.getOrDefault(ITEM_STATUS_QUERY_PARAM, ITEM_STATUS_DEFAULT);
         final String sortBy = getFirstOrDefault(params, SORT_BY_QUERY_PARAM, SORT_BY_DEFAULT);
         final String sortDirection = getFirstOrDefault(params, SORT_DIRECTION_QUERY_PARAM, SORT_DIRECTION_DEFAULT);
         return switch (type) {
             case ITEM_TYPE_COMPONENT ->
-                api.getItems("component", status, sortBy, sortDirection);
+                api.getItems("component", status, sortBy, sortDirection); //TODO: pass text filter
             case ITEM_TYPE_PROFILE ->
-                api.getItems("profile", status, sortBy, sortDirection);
+                api.getItems("profile", status, sortBy, sortDirection); //TODO: pass text filter
             default ->
                 Collections.emptyList();
         };
@@ -197,6 +213,23 @@ public class ComponentBrowserController {
 
     private <T> T getFirstOrDefault(MultiValueMap<String, T> map, String key, T defaultValue) {
         return Optional.ofNullable(map.getFirst(key)).orElse(defaultValue);
+    }
+
+    private List<BaseDescription> filterItems(final String textFilter, List<BaseDescription> items) {
+        if (!Strings.isNullOrEmpty(textFilter) && !items.isEmpty()) {
+            final Pattern filterPattern = Pattern.compile(Pattern.quote(textFilter), Pattern.CASE_INSENSITIVE);
+            return items.stream().filter(desc -> {
+                return Stream.of(desc.getId(),
+                        desc.getName(),
+                        desc.getDescription(),
+                        desc.getGroupName(),
+                        desc.getDomainName())
+                        .filter(Objects::nonNull)
+                        .anyMatch(val -> filterPattern.matcher(val).find());
+            }).toList();
+        } else {
+            return items;
+        }
     }
 
 }
