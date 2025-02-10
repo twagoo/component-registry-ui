@@ -246,10 +246,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </div>
 
                     <div  class="mb-3 p-2 border">
-                        Optionally select or define an external vocabulary for this closed vocabulary. You can choose to import the items of the selected external vocabulary into the current vocabulary.
-                        External vocabulary: none  [search]
-                        {Show/edit details}
+                        <p class="mb-3" x-show="vocabType == 'closed'">
+                            Optionally select or define an external vocabulary for this closed vocabulary. You can choose to import the items of the selected external vocabulary into the current vocabulary.
+                        </p>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="externalVocabUri">External vocabulary:</label>
+                            <div class="input-group">
+                                <input class="form-control" id="externalVocabUri" name="externalVocabUri" type="text" />
+                                <button class="btn btn-primary">search</button>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#externalVocabDetails">Show/edit details</a>
+                            <div id="externalVocabDetails" class="collapse mb-3 p-2 border">
+                                <label class="form-label" for="externalVocabValueProperty">Value property:</label>
+                                <input class="form-control" type="text" id="externalVocabValueProperty" name="externalVocabUri" />
+                                <label class="form-label" for="externalVocabValueLanguage">Value language:</label>
+                                <input class="form-control" type="text" id="externalVocabValueLanguage" name="externalVocabUri" />
+                            </div>
+                        </div>
                     </div>
+
+                    <button class="btn btn-primary" type="submit"
+                            data-bs-dismiss="modal"
+                            th:hx-post="@{/editor/elementValueSchemeEditor/vocab(path=${parentPath})}"
+                            th:hx-target="|#${targetId}|" hx-swap="outerHTML" hx-trigger="click">
+                        Use vocabulary
+                    </button>
                 </form>
             </div>
         </main>
