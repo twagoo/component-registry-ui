@@ -108,7 +108,7 @@ public class ComponentBrowserController {
     private void setCommonModelAttributes(MultiValueMap<String, String> params, Model model) {
         model.addAttribute("fields", ITEM_TABLE_FIELDS);
         model.addAttribute("selectedItems", params.get(SELECTED_ITEM_QUERY_PARAM));
-        model.addAttribute("textFilter", params.get(TEXT_FILTER_QUERY_PARAM));
+        model.addAttribute("textFilter", params.getFirst(TEXT_FILTER_QUERY_PARAM));
         model.addAttribute("type", getFirstOrDefault(params, ITEM_TYPE_QUERY_PARAM, ITEM_TYPE_DEFAULT));
         model.addAttribute("status", params.getOrDefault(ITEM_STATUS_QUERY_PARAM, ITEM_STATUS_DEFAULT));
         model.addAttribute("sortedBy", getFirstOrDefault(params, SORT_BY_QUERY_PARAM, SORT_BY_DEFAULT));

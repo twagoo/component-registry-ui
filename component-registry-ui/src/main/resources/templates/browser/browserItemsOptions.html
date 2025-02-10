@@ -22,23 +22,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <body>
         <main>
-            <form th:fragment="browserItemsOptions(type, status, sortBy, sortDirection)"
-                  method="get" th:action="@{/items}"
-                  hx-target="#items-table" hx-select="#items-table" hx-swap="outerHTML" hx-indicator="#items-container">
+            <form th:fragment="browserItemsOptions(type, status, textFilter, sortBy, sortDirection)"
+                  hx-target="#items-container" hx-select="#items-container" hx-swap="outerHTML" hx-indicator="#items-container">
                 <input type="hidden" name="type" th:value="${type}" />
                 <input type="hidden" name="sortBy" th:value="${sortBy}" />
                 <input type="hidden" name="sortDirection" th:value="${sortDirection}" />
 
                 <input th:each="st, iterStat : ${status}" type="hidden" th:name="|status[${iterStat.index}]|" th:value="${st}" />
 
-                <div class="d-flex flex-wrap">
+                <div id="items-filter" class="d-flex flex-wrap">
                     <th:block th:fragment="browserItemsFilter">
                         <div class="px-2 pb-1">
                             <input type="search" class="form-control"
                                    name="textFilter"
                                    placeholder="Filter items" 
-                                   th:hx-get="@{/items}"
-                                   hx-trigger="keyup changed delay:1s"/>
+                                   th:value="${textFilter}"
+                                   th:hx-get="@{/itemsContainer(type=${type}, status=${status}, sortBy=${sortBy}, sortDirection=${sortDirection})}"
+                                   hx-trigger="keyup changed delay:1s"
+                                   />
                         </div>
                         <div class="px-2 pb-1">
                             <button class="btn btn-outline-secondary" title="Show only recommended"><i
@@ -77,7 +78,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                         <a class="dropdown-item"
                                            th:classappend="${#lists.size(status) == 3 ? 'active' : ''}"
                                            th:text="#{status.all}"
-                                           th:href="@{/itemsContainer(type=${type}, status=${allStatuses}, sortBy=${sortedBy}, sortDirection=${sortedDirection})}">
+                                           th:href="@{/itemsContainer(type=${type}, status=${allStatuses}, textFilter=${textFilter}, sortBy=${sortedBy}, sortDirection=${sortedDirection})}">
                                             (All)
                                         </a>
                                     </li>
@@ -86,7 +87,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                         <a class="dropdown-item"
                                            th:classappend="${(#lists.size(status) == 1 && status[0] == statusOption) ? 'active' : ''}"
                                            th:text="#{|status.${statusOption}|}"                                                           
-                                           th:href="@{/itemsContainer(type=${type}, status=${statusOption}, sortBy=${sortedBy}, sortDirection=${sortedDirection})}">
+                                           th:href="@{/itemsContainer(type=${type}, status=${statusOption}, textFilter=${textFilter}, sortBy=${sortedBy}, sortDirection=${sortedDirection})}">
                                             {status}
                                         </a>
                                     </li>
