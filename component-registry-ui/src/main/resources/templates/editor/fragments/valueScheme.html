@@ -68,14 +68,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                       'pattern' : 'simple')">
                 <th:block th:switch="${type}">
                     <!--/* vocabulary type */-->
-                    <select th:case="'vocabulary'" th:id="${previewId}" class="form-select" th:object="${valueSchemeValue.vocabulary}">
-                        <option th:unless="*{enumeration}">empty vocabulary!</option>
-                        <th:block th:if="*{enumeration}" th:with="items = *{enumeration.item}">
-                            <!-- limit to a set number of items in the preview -->
-                            <option th:each="it: ${#lists.size(items) &lt;= maxVocabPreviewSize ? items : items.subList(0, maxVocabPreviewSize)}" th:text="${it.value}">item</option>
-                            <option th:unless="${#lists.size(items) &lt;= maxVocabPreviewSize}">([[${#lists.size(items) - maxVocabPreviewSize}]] more items)</option>
+                    <th:block th:case="'vocabulary'" th:object="${valueSchemeValue.vocabulary}">
+                        <!--/* open or closed vocab? */-->
+                        <th:block th:switch="${#object.enumeration == null &amp;&amp; !#strings.isEmpty(#object.uri)}">
+                            <!--/* open vocab */-->
+                            <select th:case="true" th:id="${previewId}" class="form-select" disabled="disabled">
+                                <option>External vocabulary: [[*{uri}]]</option>
+                            </select>
+                            <!--/* closed vocab */-->
+                            <select th:case="false" th:id="${previewId}" class="form-select" >
+                                <option th:unless="*{enumeration}">empty vocabulary!</option>
+                                <th:block th:if="*{enumeration}" th:with="items = *{enumeration.item}">
+                                    <!-- limit to a set number of items in the preview -->
+                                    <option th:each="it: ${#lists.size(items) &lt;= maxVocabPreviewSize ? items : items.subList(0, maxVocabPreviewSize)}" th:text="${it.value}">item</option>
+                                    <option th:unless="${#lists.size(items) &lt;= maxVocabPreviewSize}">([[${#lists.size(items) - maxVocabPreviewSize}]] more items)</option>
+                                </th:block>
+                            </select>
                         </th:block>
-                    </select>
+                    </th:block>
                     <!--/* pattern type */-->
                     <input th:case="'pattern'" class="form-control value-scheme-pattern" th:id="${previewId}" type="text" th:value="${valueSchemeValue.getPattern()}" disabled="disabled" />                                
                     <!--/* simple type */-->
@@ -220,9 +230,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </div>
 
             <!-- Form: vocabulary -->
-            <div th:fragment="vocabularyValueScheme(parentPath, targetId, valueScheme)">
+            <div th:fragment="vocabularyValueScheme(parentPath, targetId, valueScheme)"
+                 th:with="vocabType = ${(valueScheme != null && valueScheme.vocabulary != null && valueScheme.vocabulary.enumeration == null) ? 'open' : 'closed'}">
                 <div class="visually-hidden h4">Vocabulary value scheme</div>
-                <form x-data="{vocabType: 'open'}" class="m-1">
+                <form th:x-data="|{vocabType: '${vocabType ?: 'closed'}'}|" class="m-1">
                     <div class="mb-3">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="vocabularyType" id="vocabularyTypeOpen" value="open" x-model="vocabType">
@@ -234,9 +245,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         </div>
                     </div>
 
-                    <div x-show="vocabType == 'open'"  class="mb-3">
-                        ℹ️ An open vocabulary is linked to an external vocabulary and cannot contain custom items. Metadata creators will be allowed to select a value from the external vocabulary OR enter their own (arbitrary) value. To define your own (restrictive) set of vocabulary items, select the closed vocabulary type. You can also import an external vocabulary into a closed vocabulary.
-                    </div>
                     <div x-show="vocabType == 'closed'"  class="mb-3 p-2 border">
                         Closed vocabulary items:
                         [table]
@@ -247,31 +255,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                     <div  class="mb-3 p-2 border">
                         <p class="mb-3" x-show="vocabType == 'closed'">
-                            Optionally select or define an external vocabulary for this closed vocabulary. You can choose to import the items of the selected external vocabulary into the current vocabulary.
+                            <strong>Optionally</strong> select or define an external vocabulary for this closed vocabulary. You can choose to import the items of the selected external vocabulary into the current vocabulary.
+                        </p>
+
+                        <p class="mb-3" x-show="vocabType == 'open'">
+                            ℹ️ An open vocabulary is linked to an external vocabulary and cannot contain custom items. Metadata creators will be allowed to select a value from the external vocabulary OR enter their own (arbitrary) value. To define your own (restrictive) set of vocabulary items, select the closed vocabulary type. You can also import an external vocabulary into a closed vocabulary.
                         </p>
 
                         <div class="mb-3">
                             <label class="form-label" for="externalVocabUri">External vocabulary:</label>
                             <div class="input-group">
-                                <input class="form-control" id="externalVocabUri" name="externalVocabUri" type="text" />
+                                <input class="form-control" id="externalVocabUri" name="externalVocabUri" type="text"  th:value="${valueScheme?.vocabulary?.uri}" />
                                 <button class="btn btn-primary">search</button>
                             </div>
                         </div>
 
                         <div class="mb-3">
-                            <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#externalVocabDetails">Show/edit details</a>
-                            <div id="externalVocabDetails" class="collapse mb-3 p-2 border">
+                            <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#externalVocabDetails">Show/hide details</a>
+                            <div id="externalVocabDetails" class="collapse mt-1 mb-3 p-2 border">
                                 <label class="form-label" for="externalVocabValueProperty">Value property:</label>
-                                <input class="form-control" type="text" id="externalVocabValueProperty" name="externalVocabUri" />
+                                <input class="form-control" type="text" id="externalVocabValueProperty" name="externalVocabValueProperty" th:value="${valueScheme?.vocabulary?.valueProperty}" />
                                 <label class="form-label" for="externalVocabValueLanguage">Value language:</label>
-                                <input class="form-control" type="text" id="externalVocabValueLanguage" name="externalVocabUri" />
+                                <input class="form-control" type="text" id="externalVocabValueLanguage" name="externalVocabValueLanguage" th:value="${valueScheme?.vocabulary?.valueLanguage}" />
                             </div>
                         </div>
                     </div>
 
                     <button class="btn btn-primary" type="submit"
                             data-bs-dismiss="modal"
-                            th:hx-post="@{/editor/elementValueSchemeEditor/vocab(path=${parentPath})}"
+                            th:hx-post="@{/editor/elementValueSchemeEditor/vocabulary(path=${parentPath})}"
                             th:hx-target="|#${targetId}|" hx-swap="outerHTML" hx-trigger="click">
                         Use vocabulary
                     </button>
