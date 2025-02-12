@@ -40,9 +40,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <th:block th:each="item, iterStat: ${e.item}" th:with="ip = |${ep}.item[${iterStat.index}]|">
                             <input type="hidden"
                                    th:name="|${ip}.value|" th:value="${item.value}" />
-                            <input type="hidden"
+                            <input type="hidden" th:if="${!#strings.isEmpty(item.appInfo)}"
+                                   th:name="|${ip}.appInfo|" th:value="${item.appInfo}" />
+                            <input type="hidden" th:if="${!#strings.isEmpty(item.conceptLink)}"
                                    th:name="|${ip}.conceptLink|" th:value="${item.conceptLink}" />
-                            <!--/* TODO: cues (${item}.otherAttributes) */-->
+                            <!--/* TODO??: cues (${item}.otherAttributes) */-->
                         </th:block>
                     </th:block>
                 </th:block>
@@ -71,7 +73,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             <!-- Vocabulary value scheme form -->
             <div th:fragment="vocabularyValueScheme(parentPath, targetId, valueScheme)"
-                 th:with="vocabType = ${(valueScheme != null && valueScheme.vocabulary != null && valueScheme.vocabulary.enumeration == null) ? 'open' : 'closed'}">
+                 th:with="vocabType = ${(valueScheme?.vocabulary != null && valueScheme.vocabulary.enumeration == null) ? 'open' : 'closed'}">
                 <div class="visually-hidden h4">Vocabulary value scheme</div>
                 <form th:x-data="|{vocabType: '${vocabType ?: 'closed'}'}|" class="m-1">
                     <div class="mb-3">
@@ -86,11 +88,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </div>
 
                     <div x-show="vocabType == 'closed'"  class="mb-3 p-2 border">
-                        Closed vocabulary items:
-                        [table]
-                        | Value | Description| Concept link |
-                        [/table]
-                        [Add an item]  [Batch editing mode]
+                        <table th:replace="~{/editor/fragments/vocabulary :: closedVocabTable(vocabulary = ${valueScheme?.vocabulary})}"></table>
                     </div>
 
                     <div  class="mb-3 p-2 border">
@@ -129,6 +127,56 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </button>
                 </form>
             </div>
+
+            <!-- Closed vocab table -->            
+            <table th:fragment="closedVocabTable(vocabulary)" 
+                   class="table table-sm table-borderless overflow-y-scroll d-block" 
+                   style="max-height: 10em;">
+                <!--/*
+                
+                        Closed vocabulary items:
+                        [table]
+                        | Value | Description| Concept link |
+                        [/table]
+                        [Add an item]  [Batch editing mode]
+                */-->
+                <thead>
+                    <tr>
+                        <th class="p-0"></th>
+                        <th class="p-0">Value</th>
+                        <th class="p-0">Description</th>
+                        <th class="p-0">Concept link</th>
+                    </tr>
+                </thead>
+                <tbody id="closedVocabularyTable" class="overflow-scroll">
+                    <th:block th:if="${vocabulary?.enumeration?.item}">
+                        <tr th:each="item, iterStat : ${vocabulary.enumeration.item}">
+                            <td class="p-0"><!-- actions --></td>
+                            <td class="p-0">
+                                <input type="text" class="form-control" 
+                                       th:name="|vocabulary.enumeration.item[${iterStat.index}].value|" 
+                                       th:value="${item.value}" />
+                            </td>
+                            <td class="p-0">
+                                <input type="text" class="form-control" 
+                                       th:name="|vocabulary.enumeration.item[${iterStat.index}].appInfo|" 
+                                       th:value="${item.appInfo}" />
+                            </td>
+                            <td class="p-0">
+                                <input type="text" class="form-control" 
+                                       th:name="|vocabulary.enumeration.item[${iterStat.index}].conceptLink|" 
+                                       th:value="${item.conceptLink}" />
+                            </td>
+                        </tr>
+                    </th:block>
+                </tbody>
+                <tfoot>
+                    <tr class="pt-1">
+                        <td class="p-0"></td>
+                        <td class="p-0" colspan="3"><button class="mt-2 btn btn-outline-primary">Add item</button></td>
+                    </tr>
+                </tfoot>
+            </table>
         </main>
     </body>
 </html>
