@@ -24,12 +24,13 @@ import eu.clarin.cmdi.componentregistry.openapi.client.model.BaseDescription;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.DocumentationType;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ElementType;
+import eu.clarin.cmdi.componentregistry.openapi.client.model.ItemType;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ValueSchemeType;
-import eu.clarin.cmdi.componentregistry.openapi.client.model.VocabularyType;
 import eu.clarin.cmdi.componentregistry.ui.service.ComponentSpecTransformationException;
 import eu.clarin.cmdi.componentregistry.ui.service.ComponentSpecTransformationService;
 import static eu.clarin.cmdi.componentregistry.ui.service.TransformationActions.*;
 import eu.clarin.cmdi.componentregistry.ui.web.controller.model.VocabularyDTO;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -174,7 +175,7 @@ public class EditorController {
         } else {
             //TODO: validate URI (mandatory), 
             //TODO: validate values of other properties
-            
+
             //open vocabulary: the enumeration must not be set!
             vocabData.getVocabulary().setEnumeration(null);
         }
@@ -182,6 +183,24 @@ public class EditorController {
         valueScheme.setVocabulary(vocabData.getVocabulary());
 
         return valueScheme(model, path, null, valueScheme);
+    }
+
+    @GetMapping("/elementValueSchemeEditor/vocabulary/emptyRow")
+    public String newVocabularyItem(@RequestParam Integer index, Model model) {
+        model.addAttribute("index", String.valueOf(index));
+        return "/editor/fragments/vocabulary :: itemRow";
+    }
+
+    @PostMapping("/elementValueSchemeEditor/vocabulary/removeItem")
+    public String removeItem(@RequestParam Integer index, VocabularyDTO vocabData, Model model) {
+        if (vocabData != null && vocabData.getVocabulary() != null && vocabData.getVocabulary().getEnumeration() != null) {
+            final List<ItemType> items = vocabData.getVocabulary().getEnumeration().getItem();
+            if (items != null && index < items.size()) {
+                items.remove(index.intValue());
+            }
+            model.addAttribute("vocabulary", vocabData.getVocabulary());
+        }
+        return "/editor/fragments/vocabulary :: closedVocabTable";
     }
 
     private String valueScheme(Model model, String path, final Attribute.ValueSchemeEnum valueSchemeAttribute, final ValueSchemeType valueScheme) {

@@ -148,35 +148,61 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <th class="p-0">Concept link</th>
                     </tr>
                 </thead>
-                <tbody id="closedVocabularyTable" class="overflow-scroll">
+                <tbody id="closedVocabularyTableBody" class="overflow-scroll"
+                       hx-select="#closedVocabularyTableBody"
+                       hx-target="#closedVocabularyTableBody"
+                       hx-swap="outerHTML">
                     <th:block th:if="${vocabulary?.enumeration?.item}">
-                        <tr th:each="item, iterStat : ${vocabulary.enumeration.item}">
-                            <td class="p-0"><!-- actions --></td>
-                            <td class="p-0">
-                                <input type="text" class="form-control" 
-                                       th:name="|vocabulary.enumeration.item[${iterStat.index}].value|" 
-                                       th:value="${item.value}" />
-                            </td>
-                            <td class="p-0">
-                                <input type="text" class="form-control" 
-                                       th:name="|vocabulary.enumeration.item[${iterStat.index}].appInfo|" 
-                                       th:value="${item.appInfo}" />
-                            </td>
-                            <td class="p-0">
-                                <input type="text" class="form-control" 
-                                       th:name="|vocabulary.enumeration.item[${iterStat.index}].conceptLink|" 
-                                       th:value="${item.conceptLink}" />
-                            </td>
-                        </tr>
+                        <th:block th:each="item, iterStat : ${vocabulary.enumeration.item}" >
+                            <tr th:replace="~{/editor/fragments/vocabulary :: itemRow(item = ${item}, index = ${iterStat.index})}">[item row]</tr>
+                        </th:block>
                     </th:block>
                 </tbody>
-                <tfoot>
-                    <tr class="pt-1">
-                        <td class="p-0"></td>
-                        <td class="p-0" colspan="3"><button class="mt-2 btn btn-outline-primary">Add item</button></td>
-                    </tr>
+                <!--/* Footer has a button to add a new item */-->
+                <tfoot th:replace="~{/editor/fragments/vocabulary :: itemsFooter}">
+                    [footer]
                 </tfoot>
             </table>
+
+            <tr th:fragment="itemRow(item, index)" th:with="rowId = |itemRow_${index}|">
+                <td th:id="${rowId}" class="vocab-item-actions">
+                    <!-- actions -->
+                    <a th:hx-post="@{/editor/elementValueSchemeEditor/vocabulary/removeItem(index=${index})}" 
+                       class="m-1 btn btn-sm btn-outline-danger" title="Delete">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+                </td>
+                <td>
+                    <input type="text" class="vocab-cell-input" 
+                           th:name="|vocabulary.enumeration.item[${index}].value|" 
+                           th:value="${item?.value ?: ''}" />
+                </td>
+                <td>
+                    <input type="text" class="vocab-cell-input" 
+                           th:name="|vocabulary.enumeration.item[${index}].appInfo|" 
+                           th:value="${item?.appInfo ?: ''}" />
+                </td>
+                <td>
+                    <input type="text" class="vocab-cell-input" 
+                           th:name="|vocabulary.enumeration.item[${index}].conceptLink|" 
+                           th:value="${item?.conceptLink ?: ''}" />
+                </td>
+            </tr>
+
+            <tfoot th:fragment="itemsFooter">
+                <tr class="pt-1">
+                    <td class="p-0"></td>
+                    <td class="p-0" colspan="3">
+                        <button class="mt-2 btn btn-outline-primary"
+                                th:hx-get="@{/editor/elementValueSchemeEditor/vocabulary/emptyRow}"
+                                hx-target="#closedVocabularyTableBody"
+                                hx-swap="beforeend"
+                                hx-vals='js:{"index": document.getElementById("closedVocabularyTableBody").children.length}'>
+                            Add item
+                        </button>
+                    </td>
+                </tr>
+            </tfoot>
         </main>
     </body>
 </html>

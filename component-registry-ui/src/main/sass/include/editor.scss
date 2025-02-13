@@ -61,4 +61,30 @@
     input.value-scheme-pattern {
         font-style: italic;
     }
+
+    #closedVocabularyTableBody {
+        tr {
+            border: 1px solid;
+            &:hover {
+                background: var(--bs-table-hover-bg);
+            }
+        }
+        td {
+            border: 1px solid;
+            padding: .2em 0em 0em .5em;
+            background: none;
+
+            &:hover, &:focus {
+                border: 0px;
+                background: var(--bs-table-active-bg);
+            }
+
+            input.vocab-cell-input {
+                &, &:hover, &:focus, &:focus-visible &:active {
+                    border: 0px;
+                    background: none;
+                }
+            }
+        }
+    }
 }
