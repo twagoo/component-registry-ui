@@ -28,5 +28,6 @@ public class VocabularyDTO {
 
     String vocabularyType;
     VocabularyType vocabulary;
+    String itemsCsv;
 
 }

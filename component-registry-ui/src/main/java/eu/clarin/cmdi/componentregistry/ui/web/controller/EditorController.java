@@ -24,8 +24,10 @@ import eu.clarin.cmdi.componentregistry.openapi.client.model.BaseDescription;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ComponentSpec;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.DocumentationType;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ElementType;
+import eu.clarin.cmdi.componentregistry.openapi.client.model.EnumerationType;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ItemType;
 import eu.clarin.cmdi.componentregistry.openapi.client.model.ValueSchemeType;
+import eu.clarin.cmdi.componentregistry.openapi.client.model.VocabularyType;
 import eu.clarin.cmdi.componentregistry.ui.service.ComponentSpecTransformationException;
 import eu.clarin.cmdi.componentregistry.ui.service.ComponentSpecTransformationService;
 import static eu.clarin.cmdi.componentregistry.ui.service.TransformationActions.*;
@@ -33,6 +35,7 @@ import eu.clarin.cmdi.componentregistry.ui.web.controller.model.VocabularyDTO;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -58,11 +61,15 @@ public class EditorController {
     private final ItemsControllerApi api;
 
     private final ComponentSpecTransformationService specTransformationService;
+    private final Converter<String, List<ItemType>> csvToItemsConverter;
+    private final Converter<List<ItemType>, String> itemsToCsvConverter;
 
     @Autowired
-    public EditorController(ItemsControllerApi api, ComponentSpecTransformationService specTransformationService) {
+    public EditorController(ItemsControllerApi api, ComponentSpecTransformationService specTransformationService, Converter<String, List<ItemType>> csvToItemsConverter, Converter<List<ItemType>, String> itemsToCsvConverter) {
         this.api = api;
         this.specTransformationService = specTransformationService;
+        this.csvToItemsConverter = csvToItemsConverter;
+        this.itemsToCsvConverter = itemsToCsvConverter;
     }
 
     @GetMapping(path = "/{itemId}")
@@ -191,14 +198,71 @@ public class EditorController {
         return "/editor/fragments/vocabulary :: itemRow";
     }
 
-    @PostMapping("/elementValueSchemeEditor/vocabulary/removeItem")
-    public String removeItem(@RequestParam Integer index, VocabularyDTO vocabData, Model model) {
-        if (vocabData != null && vocabData.getVocabulary() != null && vocabData.getVocabulary().getEnumeration() != null) {
-            final List<ItemType> items = vocabData.getVocabulary().getEnumeration().getItem();
-            if (items != null && index < items.size()) {
-                items.remove(index.intValue());
+    @PostMapping("/elementValueSchemeEditor/vocabulary/transformItemsList")
+    public String transformItemsList(@RequestParam String operation, @RequestParam Integer index, VocabularyDTO vocabData, Model model) {
+        if (vocabData != null) {
+            final VocabularyType vocabulary = vocabData.getVocabulary();
+            if (vocabulary != null && vocabulary.getEnumeration() != null && vocabulary.getEnumeration().getItem() != null) {
+                final List<ItemType> items = vocabulary.getEnumeration().getItem();
+                if (items != null) {
+                    switch (operation.toLowerCase()) {
+                        case "delete" -> {
+                            if (index < items.size()) {
+                                items.remove(index.intValue());
+                            }
+                        }
+                        case "moveUp" -> {
+                            if (index > 0 && index < items.size()) {
+                                //swap with item above
+                                ItemType toMove = items.get(index);
+                                items.set(index, items.get(index - 1));
+                                items.set(index - 1, toMove);
+                            }
+                        }
+                        case "moveDown" -> {
+                            if (index < items.size() - 1) {
+                                //swap with item above
+                                ItemType toMove = items.get(index);
+                                items.set(index, items.get(index + 1));
+                                items.set(index + 1, toMove);
+                            }
+                        }
+                    }
+                }
+                model.addAttribute("vocabulary", vocabulary);
             }
-            model.addAttribute("vocabulary", vocabData.getVocabulary());
+        }
+        return "/editor/fragments/vocabulary :: closedVocabTable";
+    }
+
+    @PostMapping("/elementValueSchemeEditor/vocabulary/bulkEditor")
+    public String bulkEditor(VocabularyDTO vocabData, Model model) {
+
+        String csv = itemsToCsvConverter.convert(vocabData.getVocabulary().getEnumeration().getItem());
+        model.addAttribute("csv", csv);
+
+        return "/editor/fragments/vocabulary :: itemsBulkEditor";
+    }
+
+    @PostMapping("/elementValueSchemeEditor/vocabulary/itemsTable")
+    public String csvToItemsTable(VocabularyDTO vocabData, Model model) {
+
+        VocabularyType vocabulary = vocabData.getVocabulary();
+        if (vocabulary == null) {
+            vocabulary = new VocabularyType();
+        }
+        EnumerationType enumeration = vocabulary.getEnumeration();
+
+        if (enumeration == null) {
+            enumeration = new EnumerationType();
+            vocabulary.enumeration(enumeration);
+        }
+
+        //convert and set items
+        if (vocabData.getItemsCsv() != null) {
+            List<ItemType> items = csvToItemsConverter.convert(vocabData.getItemsCsv());
+            enumeration.item(items);
+            model.addAttribute("vocabulary", vocabulary);
         }
         return "/editor/fragments/vocabulary :: closedVocabTable";
     }

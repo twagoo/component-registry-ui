@@ -87,8 +87,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         </div>
                     </div>
 
-                    <div x-show="vocabType == 'closed'"  class="mb-3 p-2 border">
-                        <table th:replace="~{/editor/fragments/vocabulary :: closedVocabTable(vocabulary = ${valueScheme?.vocabulary})}"></table>
+                    <div id="vocabularyItemsEditor" x-show="vocabType == 'closed'"  class="mb-3 p-2 border">
+                        <div th:replace="~{/editor/fragments/vocabulary :: closedVocabTable(vocabulary = ${valueScheme?.vocabulary})}"></div>
                     </div>
 
                     <div  class="mb-3 p-2 border">
@@ -129,40 +129,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </div>
 
             <!-- Closed vocab table -->            
-            <table th:fragment="closedVocabTable(vocabulary)" 
-                   class="table table-sm table-borderless overflow-y-scroll d-block" 
-                   style="max-height: 10em;">
-                <!--/*
-                
-                        Closed vocabulary items:
-                        [table]
-                        | Value | Description| Concept link |
-                        [/table]
-                        [Add an item]  [Batch editing mode]
-                */-->
-                <thead>
-                    <tr>
-                        <th class="p-0"></th>
-                        <th class="p-0">Value</th>
-                        <th class="p-0">Description</th>
-                        <th class="p-0">Concept link</th>
-                    </tr>
-                </thead>
-                <tbody id="closedVocabularyTableBody" class="overflow-scroll"
-                       hx-select="#closedVocabularyTableBody"
-                       hx-target="#closedVocabularyTableBody"
-                       hx-swap="outerHTML">
-                    <th:block th:if="${vocabulary?.enumeration?.item}">
-                        <th:block th:each="item, iterStat : ${vocabulary.enumeration.item}" >
-                            <tr th:replace="~{/editor/fragments/vocabulary :: itemRow(item = ${item}, index = ${iterStat.index})}">[item row]</tr>
+            <div th:fragment="closedVocabTable(vocabulary)" >
+                <table class="table table-sm table-borderless overflow-y-scroll d-block" 
+                       style="max-height: 10em;">
+                    <thead>
+                        <tr>
+                            <th class="p-0"></th>
+                            <th class="p-0">Value</th>
+                            <th class="p-0">Description</th>
+                            <th class="p-0">Concept link</th>
+                        </tr>
+                    </thead>
+                    <tbody id="closedVocabularyTableBody" class="overflow-scroll"
+                           hx-select="#closedVocabularyTableBody"
+                           hx-target="#closedVocabularyTableBody"
+                           hx-swap="outerHTML">
+                        <th:block th:if="${vocabulary?.enumeration?.item}">
+                            <th:block th:each="item, iterStat : ${vocabulary.enumeration.item}" >
+                                <tr th:replace="~{/editor/fragments/vocabulary :: itemRow(item = ${item}, index = ${iterStat.index})}">[item row]</tr>
+                            </th:block>
                         </th:block>
-                    </th:block>
-                </tbody>
-                <!--/* Footer has a button to add a new item */-->
-                <tfoot th:replace="~{/editor/fragments/vocabulary :: itemsFooter}">
-                    [footer]
-                </tfoot>
-            </table>
+                    </tbody>
+                    <!--/* Footer has a button to add a new item */-->
+                    <tfoot th:replace="~{/editor/fragments/vocabulary :: itemsFooter}">
+                        [footer]
+                    </tfoot>
+                </table>
+
+
+                <button class="btn btn-outline-primary"
+                        th:hx-post="@{/editor/elementValueSchemeEditor/vocabulary/bulkEditor}"
+                        hx-target="#vocabularyItemsEditor">Switch to bulk editor</button>
+            </div>
 
             <tr th:fragment="itemRow(item, index)" th:with="rowId = |itemRow_${index}|">
                 <td th:id="${rowId}" class="vocab-item-actions">
@@ -203,6 +201,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                     </td>
                 </tr>
             </tfoot>
+
+            <div th:fragment="itemsBulkEditor(csv)">
+
+                <div class="mb-3">
+                    <textArea class="form-control" name="itemsCsv">[[${csv}]]</textArea>
+                </div>
+                
+                <button class="btn btn-outline-primary"
+                        th:hx-post="@{/editor/elementValueSchemeEditor/vocabulary/itemsTable}"
+                        hx-target="#vocabularyItemsEditor">Switch to table editor</button>
+            </div>
         </main>
     </body>
 </html>
