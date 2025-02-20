@@ -42,7 +42,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.ErrorResponseException;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -70,6 +72,13 @@ public class EditorController {
         this.specTransformationService = specTransformationService;
         this.csvToItemsConverter = csvToItemsConverter;
         this.itemsToCsvConverter = itemsToCsvConverter;
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        // we need to support large collection size for large vocabularies
+        // TODO: make this configurable with a property
+        binder.setAutoGrowCollectionLimit(10_000);
     }
 
     @GetMapping(path = "/{itemId}")

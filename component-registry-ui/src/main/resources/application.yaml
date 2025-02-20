@@ -1,9 +1,16 @@
 spring:
     application:
         name: component-registry-ui
+    servlet:
+        multipart:
+            max-file-size: 200MB
+            max-request-size: 200MB
 
 server:
     port: 8081
+    tomcat:
+        max-http-form-post-size: 200MB
+        max-parameter-count: 100_000
 
 #api:
 #    client:
