@@ -102,10 +102,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <div th:fragment="valueSchemeEditor(parentType, parentPath, valueSchemeAttribute, valueScheme, selectedTab)"
                  th:with="TemplateUtils=${T(eu.clarin.cmdi.componentregistry.ui.TemplateUtils)}"
                  id="value-scheme-editor-dialog"  class="modal-dialog modal-lg modal-dialog-centered" 
-                 role="document">
+                 role="document"
+                 hx-indicator="#value-scheme-modal-title-spinner">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Value scheme for [[${parentType}]]</h5>
+                        <div class="row w-100">
+                            <div class="col-11">
+                                <span class="modal-title h5">Value scheme for [[${parentType}]]</span>
+                            </div>
+                            <div class="col-1">
+                                <div id="value-scheme-modal-title-spinner" class="spinner-border htmx-indicator" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-body"
                          th:x-data="|{valueSchemeForm: '${selectedTab ?: 'simple'}'}|">
