@@ -39,7 +39,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         th:hx-vals='|js:{"path": "${fieldPath}[" + document.getElementById("${containerId}").childElementCount + "]"}|' 
                         hx-target="previous .documentation-elements-container"
                         hx-push-url="true"
-                        hx-swap="beforeend">
+                        hx-swap="beforeend"
+                        hx-indicator="this">
+                    <span class="spinner-border spinner-border-sm htmx-indicator" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </span>
                     Add documentation
                 </button>
             </div>

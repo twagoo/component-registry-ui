@@ -159,7 +159,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                 <button class="btn btn-outline-primary"
                         th:hx-post="@{/editor/elementValueSchemeEditor/vocabulary/bulkEditor}"
-                        hx-target="#vocabularyItemsEditor">Switch to bulk editor</button>
+                        hx-target="#vocabularyItemsEditor"
+                        hx-indicator="this">
+                    <span id="switch-to-bulk" class="spinner-border spinner-border-sm htmx-indicator" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </span>
+                    Switch to bulk editor
+                </button>
             </div>
 
             <tr th:fragment="itemRow(item, index)" th:with="rowId = |itemRow_${index}|">
@@ -210,7 +216,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 
                 <button class="btn btn-outline-primary"
                         th:hx-post="@{/editor/elementValueSchemeEditor/vocabulary/itemsTable}"
-                        hx-target="#vocabularyItemsEditor">Switch to table editor</button>
+                        hx-target="#vocabularyItemsEditor"
+                        hx-indicator="this">
+                    <span class="spinner-border spinner-border-sm htmx-indicator" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </span>
+                    Switch to table editor
+                </button>
             </div>
         </main>
     </body>

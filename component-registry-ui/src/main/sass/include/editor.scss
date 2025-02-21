@@ -6,6 +6,19 @@
 *
 */
 
+.btn .spinner-border.htmx-indicator {
+    display: none;
+}
+
+.btn.htmx-request {
+    opacity: var(--bs-btn-disabled-opacity);
+    cursor: default;
+
+    .spinner-border.htmx-indicator {
+        display: inline-block;
+    }
+}
+
 #spec-form {
 
     div.cmd-element, div.cmd-component, div.cmd-attribute {
