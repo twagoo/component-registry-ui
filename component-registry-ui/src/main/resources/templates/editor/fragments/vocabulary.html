@@ -119,10 +119,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         </div>
                     </div>
 
+                    <!--/* 
+                        Button that submits the value scheme form and 
+                        after the request closes the modal IFF the request 
+                        was successful 
+                    */-->
                     <button class="btn btn-primary" type="submit"
-                            data-bs-dismiss="modal"
                             th:hx-post="@{/editor/elementValueSchemeEditor/vocabulary(path=${parentPath})}"
-                            th:hx-target="|#${targetId}|" hx-swap="outerHTML" hx-trigger="click">
+                            th:hx-target="|#${targetId}|" hx-swap="outerHTML" hx-trigger="click"
+                            hx-indicator="this"
+                            hx-on::after-request="if(event.detail.successful) {
+                            bootstrap.Modal.getInstance('#valueSchemeModal').hide();
+                            }">
+                        <div class="spinner-border spinner-border-sm htmx-indicator" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
                         Use vocabulary
                     </button>
                 </form>
