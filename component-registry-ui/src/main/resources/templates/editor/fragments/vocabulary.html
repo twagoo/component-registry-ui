@@ -125,8 +125,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         was successful 
                     */-->
                     <button class="btn btn-primary" type="submit"
-                            th:hx-post="@{/editor/elementValueSchemeEditor/vocabulary(path=${parentPath})}"
-                            th:hx-target="|#${targetId}|" hx-swap="outerHTML" hx-trigger="click"
+                            th:hx-post="@{/editor/elementValueSchemeEditor/vocabulary(
+                            path=${parentPath},
+                            uniqId=${#strings.randomAlphanumeric(6)})}"
+                            th:hx-target="|#${targetId}|" hx-swap="outerHTML" 
+                            hx-trigger="click" hx-push-url="true"
                             hx-indicator="this"
                             hx-on::after-request="if(event.detail.successful) {
                             bootstrap.Modal.getInstance('#valueSchemeModal').hide();
@@ -182,7 +185,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <tr th:fragment="itemRow(item, index)" th:with="rowId = |itemRow_${index}|">
                 <td th:id="${rowId}" class="vocab-item-actions">
                     <!-- actions -->
-                    <a th:hx-post="@{/editor/elementValueSchemeEditor/vocabulary/removeItem(index=${index})}" 
+                    <a th:hx-post="@{/editor/elementValueSchemeEditor/vocabulary/transformItemsList(operation='delete', index=${index})}" 
                        class="m-1 btn btn-sm btn-outline-danger" title="Delete">
                         <i class="fa-solid fa-trash"></i>
                     </a>

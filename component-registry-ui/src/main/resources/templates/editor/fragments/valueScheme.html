@@ -202,8 +202,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             <input id="pattern" name="pattern" class="form-control" th:value="${valueScheme == null ? '' : valueScheme.pattern}" />
                             <button class="btn btn-primary" type="submit"
                                     data-bs-dismiss="modal"
-                                    th:hx-post="@{/editor/elementValueSchemeEditor/pattern(path=${parentPath})}"
-                                    th:hx-target="|#${targetId}|" hx-swap="outerHTML" hx-trigger="click">
+                                    th:hx-post="@{/editor/elementValueSchemeEditor/pattern(
+                                        path=${parentPath},
+                                        uniqId=${#strings.randomAlphanumeric(6)})}"
+                                    th:hx-target="|#${targetId}|" hx-swap="outerHTML"
+                                    hx-trigger="click" hx-push-url="true">
                                 Use pattern
                             </button>
                         </div>
