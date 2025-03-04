@@ -177,18 +177,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                                     'G_DAY','G_MONTH','G_YEAR'}}"
                                     th:value="${val.toString()}" th:selected="${selectedVal == val}" th:text="#{|editor.form.valueScheme.type.${val}|}">type</option>
                             </select>
-                            <button class="btn btn-primary" type="submit"
-                                    data-bs-dismiss="modal"
-                                    th:hx-post="@{/editor/elementValueSchemeEditor/simple(
-                                        path=${parentPath},
-                                        uniqId=${#strings.randomAlphanumeric(6)})}"
-                                    th:hx-target="|#${targetId}|" hx-swap="outerHTML" 
-                                    hx-trigger="click" hx-push-url="true">
-                                Use type
-                            </button>
+                            <button th:replace="~{/editor/fragments/valueScheme :: valueSchemeSubmitButton(
+                                    'Use type', 
+                                    @{/editor/elementValueSchemeEditor/simple(
+                                    path=${parentPath},
+                                    uniqId=${#strings.randomAlphanumeric(6)})})}">[use]</button>
                         </div>
                     </div>
-
                 </form>
             </div>
 
@@ -200,19 +195,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         <label for="pattern" class="form-label">Enter pattern:</label>
                         <div class="input-group">
                             <input id="pattern" name="pattern" class="form-control" th:value="${valueScheme == null ? '' : valueScheme.pattern}" />
-                            <button class="btn btn-primary" type="submit"
-                                    data-bs-dismiss="modal"
-                                    th:hx-post="@{/editor/elementValueSchemeEditor/pattern(
-                                        path=${parentPath},
-                                        uniqId=${#strings.randomAlphanumeric(6)})}"
-                                    th:hx-target="|#${targetId}|" hx-swap="outerHTML"
-                                    hx-trigger="click" hx-push-url="true">
-                                Use pattern
-                            </button>
+                            <button th:replace="~{/editor/fragments/valueScheme :: valueSchemeSubmitButton(
+                                    'Use pattern', 
+                                    @{/editor/elementValueSchemeEditor/pattern(
+                                    path=${parentPath},
+                                    uniqId=${#strings.randomAlphanumeric(6)})})}">[use pattern]</button>
                         </div>
                     </div>
                 </form>
             </div>
+
+            <!-- Submit button for value scheme that submits the value scheme form and 
+                after the request closes the modal IFF the request was successful 
+            */-->
+            <button th:fragment="valueSchemeSubmitButton(label, postTarget)" class="btn btn-primary" type="submit"
+                    th:hx-post="${postTarget}"
+                    th:hx-target="|#${targetId}|" hx-swap="outerHTML" 
+                    hx-trigger="click" hx-push-url="true"
+                    hx-indicator="this"
+                    hx-on::after-request="if(event.detail.successful) {
+                    bootstrap.Modal.getInstance('#valueSchemeModal').hide();
+                    }">
+                <div class="spinner-border spinner-border-sm htmx-indicator" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                [[${label}]]
+            </button>
 
         </main>
     </body>
