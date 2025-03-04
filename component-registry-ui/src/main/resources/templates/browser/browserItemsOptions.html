@@ -110,7 +110,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                            th:classappend="${selectedItemCount <= 0 ? 'disabled' : ''}"
                            th:hx-delete="@{/items/{componentId}(componentId=${singleSelectedItem})}"
                            hx-confirm="Are you sure you wish to delete the selected item?">
-                            <i class="fa-solid fa-pen"></i>
+                            <i class="fa-solid fa-trash"></i>
                             Delete
                         </a>
                     </div>

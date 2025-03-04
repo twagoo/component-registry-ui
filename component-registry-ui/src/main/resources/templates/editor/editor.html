@@ -66,5 +66,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                 </main>
             </div>
         </div>
+
+        <!--/*
+            Value scheme modal does not play nice with history, therefore
+            we need to check and if necessary do a cleanup on load.
+        */-->
+        <script type="text/javascript" defer>
+            document.body.addEventListener('htmx:load', function () {
+                console.log('checking for orphaned backdrop');
+                var modal = bootstrap.Modal.getInstance('#valueSchemeModal');
+                if (!modal) {
+                    //remove modal backdrop
+                    const  backdropElements = document.getElementsByClassName('modal-backdrop');
+                    if (backdropElements) {
+                        console.log('removing orphaned modal backdrop');
+                        for (let i = 0; i < backdropElements.length; i++) {
+                            backdropElements.item(i).remove();
+                        }
+                    }
+                    const modalElement = document.getElementById('valueSchemeModal');
+                    if (modalElement) {
+                        console.log('hiding modal');
+                        modalElement.style.display = 'none';
+                    }
+                }
+            });
+        </script>
     </body>
 </html>
